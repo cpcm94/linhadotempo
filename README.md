@@ -24,11 +24,29 @@ To access the heroku dashboard head over to the [Heroku login](https://id.heroku
 
 Select the app you wish to enable the ClearDB MySQL, click on the `Resources` tab, `Find more add-ons` and select ClearDB MySQL.
 
+You can check if your app updated by running the command `heroku config` or checking your app environment variables on the Heroku dashboard.
+
+If the `CLEARDB_DATABASE_URL` is set then the ClearDB was successfully enabled in your app.
+
+To check your database open MYSQL Workbench and create a new instance. The host name for the connection is inside your `CLEARDB_DATABASE_URL` env variable, it starts with the string `us-` a couple of examples below:
+
+```
+us-cdbr-iron-east-05.cleardb.net
+```
+
+```
+us-cdbr-east-04.cleardb.com
+```
+
+The username and password to access are provided inside your ClearDB MYSQL addon. Go to your heroku dashboard, click on the resources tab, then click on the `ClearDB MYSQL` addon. It will redirect you to a new page where you will find a link which has your DB name. Click on said link, navigate to the `System Information` tab and there will be the username and password for your MySQL instance.
+
 ## Heroku environment vars
 
 You can set heroku env vars through the command: `heroku config:set ENV_VAR=<insert variable value>` or through the heroku dashboard.
 
 For the dashboard approach, after login choose the app you intend on changing the env variables, click on the settings tab, then click on `Reveal Config Vars`.
+
+Add the variable `APP_URL` with its value being the URL for your heroku app.
 
 ## About Laravel
 
