@@ -4,6 +4,8 @@ Create a Heroku account: https://signup.heroku.com/dc
 
 Install Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli
 
+Login to Heroku by running: `heroku login`
+
 To create a new Heroku application that you can push to, use the heroku create command: `heroku create`.
 
 The application’s encryption key is used by Laravel to encrypt user sessions and other information. Its value will be read from the APP_KEY environment variable.
@@ -47,6 +49,10 @@ You can set heroku env vars through the command: `heroku config:set ENV_VAR=<ins
 For the dashboard approach, after login choose the app you intend on changing the env variables, click on the settings tab, then click on `Reveal Config Vars`.
 
 Add the variable `APP_URL` with its value being the URL for your heroku app.
+
+## Git deploy with heroku
+
+To enable git automatic deploys on push, you need to connect your app to the GitRepo. Go to your heroku dashboard, click on the deploy tab, on Deployment method click on Github and choose the appropriate repository.
 
 ## About Laravel
 
