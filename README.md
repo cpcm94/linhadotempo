@@ -4,19 +4,43 @@ Create a Heroku account: https://signup.heroku.com/dc
 
 Install Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli
 
-Login to Heroku by running: `heroku login`
+Login to Heroku by running:
 
-To create a new Heroku application that you can push to, use the heroku create command: `heroku create`.
+```
+heroku login
+```
+
+To create a new Heroku application that you can push to, use the heroku create command:
+
+```
+heroku create
+```
 
 The application’s encryption key is used by Laravel to encrypt user sessions and other information. Its value will be read from the APP_KEY environment variable.
 
 As it must comply with the rules of the selected cipher in the configuration, the easiest way to generate a valid key is using the `php artisan key:generate --show` command, which will print a key that you can copy and then paste into the next step.
 
-You can simply set environment variables using the heroku config command, so run a heroku `config:set` as the last step before deploying your app for the first time:
+You can simply set environment variables using the heroku config command, so run a `heroku config:set` as the last step before deploying your app for the first time:
 
-Run `php artisan key:generate --show` and use its return value when you run this command: `heroku config:set APP_KEY=<insert return value>`.
+Run the following command to generate an APP_KEY for laravel:
 
-Now to deploy to Heroku: `git push heroku master`. If trying to deploy a specific branch use, instead of master, `<branch>:master`.
+```
+php artisan key:generate --show
+```
+
+and use its return value when you run this command to set the APP_KEY value on heroku:
+
+```
+heroku config:set APP_KEY=<insert return value>
+```
+
+Now to deploy to Heroku:
+
+```
+git push heroku master
+```
+
+If trying to deploy a specific branch use, instead of master, `<branch>:master`.
 
 ## Heroku ClearDB MySQL
 
