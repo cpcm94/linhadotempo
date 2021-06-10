@@ -34,6 +34,30 @@ and use its return value when you run this command to set the APP_KEY value on h
 heroku config:set APP_KEY=<insert return value>
 ```
 
+Next its going to be necessary to change the buildpack that heroku uses by running the following commands, first run:
+
+```
+heroku config
+```
+
+And get the name of your app, then run:
+
+```
+heroku buildpacks:add -a <your-app-name> https://github.com/lstoll/heroku-buildpack-monorepo -i 1
+```
+
+The next command is so the new buildpack knows the path to the laravel app root, which in case you didnt change its inside the folder `Backend`:
+
+```
+heroku config:set APP_BASE=Backend/
+```
+
+And finally if you have the regular heroku/php buildpack enabled on your app already, this command will remove it since its unnecessary:
+
+```
+heroku buildpacks:remove heroku/php
+```
+
 Now to deploy to Heroku:
 
 ```
