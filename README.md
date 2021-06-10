@@ -52,12 +52,6 @@ The next command is so the new buildpack knows the path to the laravel app root,
 heroku config:set APP_BASE=Backend/
 ```
 
-And finally if you have the regular heroku/php buildpack enabled on your app already, this command will remove it since its unnecessary:
-
-```
-heroku buildpacks:remove heroku/php
-```
-
 Now to deploy to Heroku:
 
 ```
@@ -94,7 +88,7 @@ If the `JAWSDB_URL` is set then the JawsDB was successfully enabled in your app.
 
 ### Connecting to MySQL Workbench
 
-To check your database on MySQL Workbench, create a new instance. The host name, username and password for the connection is found by running the command:
+To check your database on MySQL Workbench, create a new instance. The host name, username and password for the connection can be found by running the command:
 
 ```
 heroku addons:open jawsdb
@@ -105,7 +99,7 @@ Alternatively you can reach the browser page by going to your heroku dashboard, 
 After deploying the app with the above configs you can run the following command to execute migrations:
 
 ```
-heroku run php Backend/artisan migrate
+heroku run php artisan migrate
 ```
 
 ## Heroku environment vars
