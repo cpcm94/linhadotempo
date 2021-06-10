@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Str;
-$url = parse_url(getenv("JAWSDB_URL"));
+
+$url = parse_url(getenv("JAWSDB_CYAN_URL"));
 $host = $url["host"] ?? null;
 $username = $url["user"] ?? null;
 $password = $url["pass"] ?? null;
@@ -49,7 +50,7 @@ return [
         ],
 
         'mysql' => [
-           'driver' => 'mysql',
+            'driver' => 'mysql',
             'host' => $host,
             'port' => env('DB_PORT', '3306'),
             'database' => $database,
