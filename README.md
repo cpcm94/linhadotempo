@@ -42,29 +42,47 @@ git push heroku master
 
 If trying to deploy a specific branch use, instead of master, `<branch>:master`.
 
-## Heroku ClearDB MySQL
+## Heroku JawsDB MySQL
 
-Enabling ClearDB MySQL on your app requires you to enter your heroku dashboard.
+# CLI
 
-To access the heroku dashboard head over to the [Heroku login](https://id.heroku.com/login).
+Enabling JawsDB MySQL can be done either via the CLI or on your app heroku dashboard.
 
-Select the app you wish to enable the ClearDB MySQL, click on the `Resources` tab, `Find more add-ons` and select ClearDB MySQL.
+To enable via CLI run the command:
+
+```
+heroku addons:create jawsdb:kitefin --name=your-db-name --version=8.0
+```
+
+Once JawsDB has been added, a `JAWSDB_URL` setting will be available in the app configuration and will contain the MySQL connection string.
 
 You can check if your app updated by running the command `heroku config` or checking your app environment variables on the Heroku dashboard.
 
-If the `CLEARDB_DATABASE_URL` is set then the ClearDB was successfully enabled in your app.
+# Heroku Dashboard
 
-To check your database open MYSQL Workbench and create a new instance. The host name for the connection is inside your `CLEARDB_DATABASE_URL` env variable, it starts with the string `us-` a couple of examples below:
+To access the heroku dashboard head over to the [Heroku login](https://id.heroku.com/login).
+
+Select the app you wish to enable the JawsDB MySQL, click on the `Resources` tab, `Find more add-ons` and select JawsDB MySQL.
+
+You can check if your app updated by running the command `heroku config` or checking your app environment variables on the Heroku dashboard.
+
+If the `JAWSDB_URL` is set then the JawsDB was successfully enabled in your app.
+
+# Connecting to MySQL Workbench
+
+To check your database on MySQL Workbench, create a new instance. The host name, username and password for the connection is found by running the command:
 
 ```
-us-cdbr-iron-east-05.cleardb.net
+heroku addons:open jawsdb
 ```
 
-```
-us-cdbr-east-04.cleardb.com
-```
+Alternatively you can reach the browser page by going to your heroku dashboard, on the resources tab and then clicking on Jawsdb addon.
 
-The username and password to access are provided inside your ClearDB MYSQL addon. Go to your heroku dashboard, click on the resources tab, then click on the `ClearDB MYSQL` addon. It will redirect you to a new page where you will find a link which has your DB name. Click on said link, navigate to the `System Information` tab and there will be the username and password for your MySQL instance.
+After deploying the app with the above configs you can run the following command to execute migrations:
+
+```
+heroku run php Backend/artisan migrate
+```
 
 ## Heroku environment vars
 
@@ -128,7 +146,7 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within Laravel please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
