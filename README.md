@@ -1,4 +1,4 @@
-## Heroku setup
+## Heroku Setup
 
 Create a Heroku account: https://signup.heroku.com/dc
 
@@ -115,6 +115,14 @@ Add the variable `APP_URL` with its value being the URL for your heroku app.
 To enable git automatic deploys on push, you need to connect your app to the GitRepo. Go to your heroku dashboard, click on the deploy tab, on Deployment method click on Github and choose the appropriate repository.
 
 After that choose whatever branch you want to be deployed and whether you want to enable automatic deploys.
+
+## Netlify Setup
+
+Create your [Netlify Account](https://app.netlify.com/).
+
+On the Team overview tab, click on `New site from Git` and select your repository and which branch you want to deploy.
+
+Set the base directory to `frontend`.
 
 ## About Laravel
 
