@@ -68,7 +68,7 @@ If trying to deploy a specific branch use, instead of master, `<branch>:master`.
 
 ## Heroku JawsDB MySQL
 
-# CLI
+### CLI
 
 Enabling JawsDB MySQL can be done either via the CLI or on your app heroku dashboard.
 
@@ -82,7 +82,7 @@ Once JawsDB has been added, a `JAWSDB_URL` setting will be available in the app 
 
 You can check if your app updated by running the command `heroku config` or checking your app environment variables on the Heroku dashboard.
 
-# Heroku Dashboard
+### Heroku Dashboard
 
 To access the heroku dashboard head over to the [Heroku login](https://id.heroku.com/login).
 
@@ -92,7 +92,7 @@ You can check if your app updated by running the command `heroku config` or chec
 
 If the `JAWSDB_URL` is set then the JawsDB was successfully enabled in your app.
 
-# Connecting to MySQL Workbench
+### Connecting to MySQL Workbench
 
 To check your database on MySQL Workbench, create a new instance. The host name, username and password for the connection is found by running the command:
 
