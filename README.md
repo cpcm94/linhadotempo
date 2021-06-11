@@ -156,6 +156,18 @@ On the Team overview tab, click on `New site from Git` and select your repositor
 
 Set the base directory to `frontend`.
 
+### Netlify Environment Variables
+
+On the site overview, go to the `Deploys` tab, then into `Deploy Settings` and under `Environment variables`, click on edit variables.
+
+Add the following variable:
+
+```
+REACT_APP_GRAPHQL_ENDPOINT
+```
+
+with its value being the GraphQL endpoint of your server. The default is: `https://<your-heroku-app>.herokuapp.com/graphql`
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
