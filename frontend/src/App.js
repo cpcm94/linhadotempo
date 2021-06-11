@@ -37,7 +37,7 @@ const QueryAttempt = () => {
 }
 
 const client = new ApolloClient({
-  uri: 'https://glacial-mountain-39607.herokuapp.com/graphql',
+  uri: process.env.GRAPHQL_ENDPOINT,
   cache: new InMemoryCache(),
 })
 
