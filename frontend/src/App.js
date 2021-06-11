@@ -37,7 +37,7 @@ const QueryAttempt = () => {
 }
 
 const client = new ApolloClient({
-  uri: process.env.GRAPHQL_ENDPOINT,
+  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
   cache: new InMemoryCache(),
 })
 
