@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Str;
 $url = parse_url(getenv("JAWSDB_URL"));
-$host = $url["host"] ?? null;
-$username = $url["user"] ?? null;
-$password = $url["pass"] ?? null;
-$database = substr($url["path"], 1);
+$host = $url["host"] ?? env('DB_HOST');
+$username = $url["user"] ?? env('DB_USERNAME');
+$password = $url["pass"] ?? env('DB_PASSWORD');
+$database = $url["path"] ? substr($url["path"], 1) : env('DB_DATABASE');
 
 return [
 
