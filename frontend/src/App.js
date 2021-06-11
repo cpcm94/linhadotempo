@@ -25,7 +25,15 @@ const QueryAttempt = () => {
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error :(</p>
 
-  return <div>{data}</div>
+  const user = data.user
+
+  return (
+    <>
+      <div>Username:{user.name}</div>
+      <div>Email:{user.email}</div>
+      <div>ID:{user.id}</div>
+    </>
+  )
 }
 
 const client = new ApolloClient({
