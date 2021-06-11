@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import logo from './logo.svg'
 import './App.css'
 import {
@@ -50,4 +50,5 @@ const Wrapped = () => {
   )
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => ApolloApp(Wrapped)
