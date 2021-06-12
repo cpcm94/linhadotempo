@@ -1,4 +1,4 @@
-## Heroku setup
+## Heroku Setup
 
 Create a Heroku account: https://signup.heroku.com/dc
 
@@ -34,6 +34,24 @@ and use its return value when you run this command to set the APP_KEY value on h
 heroku config:set APP_KEY=<insert return value>
 ```
 
+Next its going to be necessary to change the buildpack that heroku uses by running the following commands, first run:
+
+```
+heroku config
+```
+
+And get the name of your app, then run:
+
+```
+heroku buildpacks:add -a <your-app-name> https://github.com/lstoll/heroku-buildpack-monorepo -i 1
+```
+
+The next command is so the new buildpack knows the path to the laravel app root, which in case you didnt change its inside the folder `Backend`:
+
+```
+heroku config:set APP_BASE=Backend/
+```
+
 Now to deploy to Heroku:
 
 ```
@@ -44,7 +62,7 @@ If trying to deploy a specific branch use, instead of master, `<branch>:master`.
 
 ## Heroku JawsDB MySQL
 
-# CLI
+### CLI
 
 Enabling JawsDB MySQL can be done either via the CLI or on your app heroku dashboard.
 
@@ -58,7 +76,7 @@ Once JawsDB has been added, a `JAWSDB_URL` setting will be available in the app 
 
 You can check if your app updated by running the command `heroku config` or checking your app environment variables on the Heroku dashboard.
 
-# Heroku Dashboard
+### Heroku Dashboard
 
 To access the heroku dashboard head over to the [Heroku login](https://id.heroku.com/login).
 
@@ -68,9 +86,9 @@ You can check if your app updated by running the command `heroku config` or chec
 
 If the `JAWSDB_URL` is set then the JawsDB was successfully enabled in your app.
 
-# Connecting to MySQL Workbench
+### Connecting to MySQL Workbench
 
-To check your database on MySQL Workbench, create a new instance. The host name, username and password for the connection is found by running the command:
+To check your database on MySQL Workbench, create a new instance. The host name, username and password for the connection can be found by running the command:
 
 ```
 heroku addons:open jawsdb
@@ -81,7 +99,7 @@ Alternatively you can reach the browser page by going to your heroku dashboard, 
 After deploying the app with the above configs you can run the following command to execute migrations:
 
 ```
-heroku run php Backend/artisan migrate
+heroku run php artisan migrate
 ```
 
 ## Heroku environment vars
@@ -97,6 +115,14 @@ Add the variable `APP_URL` with its value being the URL for your heroku app.
 To enable git automatic deploys on push, you need to connect your app to the GitRepo. Go to your heroku dashboard, click on the deploy tab, on Deployment method click on Github and choose the appropriate repository.
 
 After that choose whatever branch you want to be deployed and whether you want to enable automatic deploys.
+
+## Netlify Setup
+
+Create your [Netlify Account](https://app.netlify.com/).
+
+On the Team overview tab, click on `New site from Git` and select your repository and which branch you want to deploy.
+
+Set the base directory to `frontend`.
 
 ## About Laravel
 
