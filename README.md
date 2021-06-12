@@ -110,6 +110,38 @@ For the dashboard approach, after login choose the app you intend on changing th
 
 Add the variable `APP_URL` with its value being the URL for your heroku app.
 
+## Testing Lighthouse or Graphql changes with Graphql Playground
+
+You can access the Graphql Playground by going to your heroku app following address: your-heroku-app/graphql-playground.
+
+In case you want to locally run the app and use the production database you'll need to configure your `.env` file, filling the database environment variables with your JawsDB information.
+
+To access your app's JawsDB info, run the command:
+
+```
+heroku addons:open jawsdb
+```
+
+With the info provided on the page, change the following database information inside your `.env` file accordingly:
+
+DB_HOST
+
+DB_PORT
+
+DB_DATABASE
+
+DB_USERNAME
+
+DB_PASSWORD
+
+You can then run the command:
+
+```
+php artisan serve
+```
+
+And again go to `/graphql-playground`.
+
 ## Git deploy with heroku
 
 To enable git automatic deploys on push, you need to connect your app to the GitRepo. Go to your heroku dashboard, click on the deploy tab, on Deployment method click on Github and choose the appropriate repository.
