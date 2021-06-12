@@ -1,52 +1,62 @@
-import React, { Component } from 'react'
+import React from 'react'
 import logo from './logo.svg'
 import './App.css'
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql,
+} from '@apollo/client'
 
-class LambdaDemo extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { loading: false, msg: null }
+const USER_QUERY = gql`
+  query ($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      email
+    }
   }
+`
+const QueryAttempt = () => {
+  const { loading, error, data } = useQuery(USER_QUERY, {
+    variables: { id: '1' },
+  })
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Error :(</p>
 
-  handleClick = (api) => (e) => {
-    e.preventDefault()
+  const user = data.user
 
-    this.setState({ loading: true })
-    fetch('/.netlify/functions/' + api)
-      .then((response) => response.json())
-      .then((json) => this.setState({ loading: false, msg: json.msg }))
-  }
-
-  render() {
-    const { loading, msg } = this.state
-
-    return (
-      <p>
-        <button onClick={this.handleClick('hello')}>
-          {loading ? 'Loading...' : 'Call Lambda'}
-        </button>
-        <button onClick={this.handleClick('async-dadjoke')}>
-          {loading ? 'Loading...' : 'Call Async Lambda'}
-        </button>
-        <br />
-        <span>{msg}</span>
-      </p>
-    )
-  }
+  return (
+    <>
+      <div>Username:{user.name}</div>
+      <div>Email:{user.email}</div>
+      <div>ID:{user.id}</div>
+    </>
+  )
 }
 
-class App extends Component {
-  render() {
-    return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <p>Linha do Tempo</p>
-          <LambdaDemo />
-        </header>
-      </div>
-    )
-  }
+const client = new ApolloClient({
+  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
+  cache: new InMemoryCache(),
+})
+
+const ApolloApp = (Wrapped) => (
+  <ApolloProvider client={client}>
+    <Wrapped />
+  </ApolloProvider>
+)
+const Wrapped = () => {
+  return (
+    <div>
+      <header className='App-header'>
+        <img src={logo} className='App-logo' alt='logo' />
+        <p>Linha do Tempo</p>
+        <QueryAttempt />
+      </header>
+    </div>
+  )
 }
 
-export default App
+// eslint-disable-next-line import/no-anonymous-default-export
+export default () => ApolloApp(Wrapped)
