@@ -70,7 +70,7 @@ Next its going to be necessary to change the buildpack that heroku uses by runni
 heroku config
 ```
 
-And get the name of your app off of the, then run this command to add the monorepo buildpack([what is this buildpack](#monorepo-buildpack)) to your heroku app:
+And get the name of your app, then run this command to add the monorepo buildpack ([what is this buildpack](#monorepo-buildpack)) to your heroku app:
 
 ```
 heroku buildpacks:add -a <your-app-name> https://github.com/lstoll/heroku-buildpack-monorepo -i 1
@@ -98,7 +98,7 @@ This section shows 2 ways of enabling the heroku addon JawsDB ([what is JawsDB](
 
 ### CLI
 
-Enabling JawsDB MySQL can be done either via the CLI or on your app heroku dashboard.
+Enabling JawsDB MySQL can be done either via the CLI or on your app [heroku dashboard](https://dashboard.heroku.com/).
 
 To enable via CLI run the command:
 
@@ -114,15 +114,15 @@ You can check if your app updated by running the command
 heroku config
 ```
 
-or checking your app environment variables on the Heroku dashboard.
+or checking your app environment variables on the [heroku dashboard](https://dashboard.heroku.com/).
 
 ### Heroku Dashboard
 
-To access the heroku dashboard head over to the [Heroku login](https://id.heroku.com/login).
+To access the [heroku dashboard](https://dashboard.heroku.com/) head over to the [Heroku login](https://id.heroku.com/login).
 
 Select the app you wish to enable the JawsDB MySQL, click on the `Resources` tab, `Find more add-ons` and select JawsDB MySQL.
 
-You can check if your by checking your app environment variables on the Heroku dashboard or by running the command
+You can check if your by checking your app environment variables on the [heroku dashboard](https://dashboard.heroku.com/) or by running the command
 
 ```
 heroku config
@@ -138,7 +138,7 @@ To check your database on MySQL Workbench, create a new instance. The host name,
 heroku addons:open jawsdb
 ```
 
-Alternatively you can reach the browser page by going to your heroku dashboard, on the resources tab and then clicking on Jawsdb addon.
+Alternatively you can reach the browser page by going to your [heroku dashboard](https://dashboard.heroku.com/), on the resources tab and then clicking on Jawsdb addon.
 
 After deploying the app with the above configs you can run the following command to execute migrations:
 
@@ -154,15 +154,15 @@ You can set heroku environment variables through the command:
 heroku config:set ENV_VAR=<insert variable value>
 ```
 
-or through the heroku dashboard.
+or through the [heroku dashboard](https://dashboard.heroku.com/).
 
-For the dashboard approach, after login choose the app you intend on changing the env variables, click on the settings tab, then click on `Reveal Config Vars`.
+For the dashboard approach, after login choose the app you intend on changing the environment variables, click on the settings tab, then click on `Reveal Config Vars`.
 
 Add the variable `APP_URL` with its value being the URL for your heroku app.
 
-## Testing Lighthouse or Graphql changes with Graphql Playground
+## Testing Lighthouse or GraphQL changes with GraphQL Playground
 
-You can access the Graphql Playground ([what is the GraphQL Playground](#graphql-playground)) by going to your heroku app following address: your-heroku-app/graphql-playground
+You can access the GraphQL Playground ([what is the GraphQL Playground](#graphql-playground)) by going to your heroku app following address: your-heroku-app/graphql-playground
 
 In case you want to locally run the app and use the production database you'll need to configure your `.env` file, filling the database environment variables with your JawsDB information.
 
@@ -174,15 +174,15 @@ heroku addons:open jawsdb
 
 With the info provided on the page, change the following database information inside your `.env` file accordingly:
 
-DB_HOST
+- DB_HOST
 
-DB_PORT
+- DB_PORT
 
-DB_DATABASE
+- DB_DATABASE
 
-DB_USERNAME
+- DB_USERNAME
 
-DB_PASSWORD
+- DB_PASSWORD
 
 You can then run the command:
 
@@ -194,9 +194,9 @@ And again go to `/graphql-playground`.
 
 ## Git deploy with heroku
 
-To enable git automatic deploys on push, you need to connect your app to the GitRepo. Go to your heroku dashboard, click on the deploy tab, on Deployment method click on Github and choose the appropriate repository.
+To enable git automatic deploys on push, you need to connect your app to the GitRepo. Go to your [heroku dashboard](https://dashboard.heroku.com/), click on the deploy tab, on Deployment method click on Github and choose the appropriate repository.
 
-After that choose whatever branch you want to be deployed and whether you want to enable automatic deploys.
+After that, choose whatever branch you want to be deployed and whether you want to enable automatic deploys.
 
 ## Netlify Setup
 
@@ -226,7 +226,7 @@ As it must comply with the rules of the selected cipher in the configuration, th
 
 ## Monorepo Buildpack
 
-This project is a monorepo with both frontend and backend on the same repo, meaning that it's necessary to use an aditional heroku buildpack in order for the building of the heroku app to occur inside the correct folder instead of heroku trying to build off of the root folder. For more information on the monorepo buildpack, [checkout their buildpack page on heroku](https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo).
+This project is a monorepo with both frontend and backend on the same repo, meaning that it's necessary to use an additional heroku buildpack in order for the building of the heroku app to occur inside the correct folder instead of heroku trying to build off of the root folder. For more information on the monorepo buildpack, [check out their buildpack page on heroku](https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo).
 
 ## JawsDB
 
@@ -234,7 +234,7 @@ This project makes use of the heroku addon JawsDB, you can check out the [heroku
 
 ## GraphQL Playground
 
-GraphQL Playground is a graphical, interactive, in-browser GraphQL IDE, created by Prisma and based on GraphiQL. To know more, checkout their [github repository](https://github.com/graphql/graphql-playground).
+GraphQL Playground is a graphical, interactive, in-browser GraphQL IDE, created by Prisma and based on GraphiQL. To know more, check out their [github repository](https://github.com/graphql/graphql-playground).
 
 ## About Laravel
 
