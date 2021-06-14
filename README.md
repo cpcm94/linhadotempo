@@ -12,6 +12,10 @@ Make sure you have [php installed](https://www.php.net/downloads) of at least ve
 
 The package manager for the backend is composer, it is necessary to [install composer](https://getcomposer.org/download/).
 
+### Node Package Manager
+
+This installation guide was built taking into account that the package manager for the frontend is Node Package Manager, or NPM. To install NPM, visit [their website](https://www.npmjs.com/get-npm).
+
 ### Installing the frontend packages
 
 Run the following command inside the frontend folder:
