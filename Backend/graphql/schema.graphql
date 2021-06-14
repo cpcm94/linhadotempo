@@ -13,13 +13,23 @@ type User {
     updated_at: DateTime!
 }
 
+type Timeline {
+    id: ID!
+    name: String!
+}
+
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
+    timelines: [Timeline!]! @paginate(defaultCount: 10)
+    timeline(id: ID @eq): Timeline @find
     hello: String!
     greet(name: String!): String
 }
 
 type Mutation {
+    createTimeline(name: String!): Timeline! @create
+    updateTimeline(id: ID!, name: String!): Timeline @update
+    deleteTimeline(id: ID!): Timeline @delete
     createUser(name: String!, email: String!, password: String!): User! @create
 }
