@@ -98,9 +98,7 @@ This section shows 2 ways of enabling the heroku addon JawsDB ([what is JawsDB](
 
 ### CLI
 
-Enabling JawsDB MySQL can be done either via the CLI or on your app [heroku dashboard](https://dashboard.heroku.com/).
-
-To enable via CLI run the command:
+To enable via CLI, run the command:
 
 ```
 heroku addons:create jawsdb:kitefin --name=your-db-name --version=8.0
@@ -118,11 +116,11 @@ or checking your app environment variables on the [heroku dashboard](https://das
 
 ### Heroku Dashboard
 
-To access the [heroku dashboard](https://dashboard.heroku.com/) head over to the [Heroku login](https://id.heroku.com/login).
+Access your [heroku dashboard](https://dashboard.heroku.com/).
 
 Select the app you wish to enable the JawsDB MySQL, click on the `Resources` tab, `Find more add-ons` and select JawsDB MySQL.
 
-You can check if your by checking your app environment variables on the [heroku dashboard](https://dashboard.heroku.com/) or by running the command
+You can check if your by checking your app environment variables on the dashboard or by running the command
 
 ```
 heroku config
