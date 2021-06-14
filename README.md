@@ -52,7 +52,7 @@ heroku create
 
 ### Basic configuration for heroku app
 
-Run the following command to generate an APP_KEY ([what is a APP_KEY](##-laravel-app-key)) for laravel:
+Run the following command to generate an APP_KEY ([what is a APP_KEY](#laravel-app-key)) for laravel:
 
 ```
 php artisan key:generate --show
@@ -70,7 +70,7 @@ Next its going to be necessary to change the buildpack that heroku uses by runni
 heroku config
 ```
 
-And get the name of your app off of the, then run this command to add the monorepo buildpack([what is this buildpack](##-monorepo-buildpack)) to your heroku app:
+And get the name of your app off of the, then run this command to add the monorepo buildpack([what is this buildpack](#monorepo-buildpack)) to your heroku app:
 
 ```
 heroku buildpacks:add -a <your-app-name> https://github.com/lstoll/heroku-buildpack-monorepo -i 1
@@ -94,7 +94,7 @@ If trying to deploy a specific branch use, instead of master, `<branch>:master`.
 
 ## Heroku JawsDB MySQL
 
-This section shows 2 ways of enabling the heroku addon JawsDB ([what is JawsDB](##-jawsdb)) on your heroku application. Through the CLI or through the [heroku dashboard](https://dashboard.heroku.com/).
+This section shows 2 ways of enabling the heroku addon JawsDB ([what is JawsDB](#jawsdb)) on your heroku application. Through the CLI or through the [heroku dashboard](https://dashboard.heroku.com/).
 
 ### CLI
 
@@ -162,7 +162,7 @@ Add the variable `APP_URL` with its value being the URL for your heroku app.
 
 ## Testing Lighthouse or Graphql changes with Graphql Playground
 
-You can access the Graphql Playground ([what is the GraphQL Playground](##-graphql-playground)) by going to your heroku app following address: your-heroku-app/graphql-playground
+You can access the Graphql Playground ([what is the GraphQL Playground](#graphql-playground)) by going to your heroku app following address: your-heroku-app/graphql-playground
 
 In case you want to locally run the app and use the production database you'll need to configure your `.env` file, filling the database environment variables with your JawsDB information.
 
