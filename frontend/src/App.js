@@ -29,6 +29,16 @@ const Wrapped = () => {
   if (data) {
     console.log('data', data)
   }
+  const { data: dataQuery2, loading: loadingQuery2 } = useQuery(
+    TIMELINE_QUERY,
+    {
+      variables: { id: '3' },
+      notifyOnNetworkStatusChange: true,
+    }
+  )
+  if (dataQuery2) {
+    console.log('dataQuery2', dataQuery2)
+  }
   return (
     <Router>
       <div>
@@ -42,6 +52,7 @@ const Wrapped = () => {
                 <img src={logo} className='App-logo' alt='logo' />
                 <p>Linha do Tempo</p>
                 <div>{loading ? 'loading' : 'data'}</div>
+                <div>{loadingQuery2 ? 'loadingQuery2' : 'dataQuery2'}</div>
               </header>
             </div>
           </Route>
