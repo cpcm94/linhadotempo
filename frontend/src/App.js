@@ -15,7 +15,7 @@ import { TIMELINE_QUERY } from './TimelinePage/TIMELINE_QUERY'
 const httpLink = new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_ENDPOINT })
 
 const client = new ApolloClient({
-  uri: httpLink,
+  link: httpLink,
   cache: new InMemoryCache(),
 })
 
