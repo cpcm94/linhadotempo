@@ -1,40 +1,9 @@
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-} from '@apollo/client'
-
-const USER_QUERY = gql`
-  query ($id: ID!) {
-    user(id: $id) {
-      id
-      name
-      email
-    }
-  }
-`
-const QueryAttempt = () => {
-  const { loading, error, data } = useQuery(USER_QUERY, {
-    variables: { id: '1' },
-  })
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error :(</p>
-
-  const user = data.user
-
-  return (
-    <>
-      <div>Username:{user.name}</div>
-      <div>Email:{user.email}</div>
-      <div>ID:{user.id}</div>
-    </>
-  )
-}
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { TimelineLoader } from './TimelinePage/TimelineLoader'
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
@@ -48,13 +17,23 @@ const ApolloApp = (Wrapped) => (
 )
 const Wrapped = () => {
   return (
-    <div>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>Linha do Tempo</p>
-        <QueryAttempt />
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route path='/timeline'>
+            <TimelineLoader />
+          </Route>
+          <Route path='/'>
+            <div>
+              <header className='App-header'>
+                <img src={logo} className='App-logo' alt='logo' />
+                <p>Linha do Tempo</p>
+              </header>
+            </div>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
