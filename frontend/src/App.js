@@ -7,12 +7,15 @@ import {
   ApolloProvider,
   useQuery,
 } from '@apollo/client'
+import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { TimelinePage } from './TimelinePage/TimelinePage'
 import { TIMELINE_QUERY } from './TimelinePage/TIMELINE_QUERY'
 
+const httpLink = new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_ENDPOINT })
+
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
+  uri: httpLink,
   cache: new InMemoryCache(),
 })
 
