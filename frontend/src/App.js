@@ -47,7 +47,20 @@ const Wrapped = () => {
               <header className='App-header'>
                 <img src={logo} className='App-logo' alt='logo' />
                 <p>Linha do Tempo</p>
-                <div>{loading ? 'loading' : 'data'}</div>
+                <div>
+                  {loading
+                    ? '...'
+                    : data.timeline.historical_events.map(
+                        (name, event_date) => {
+                          return (
+                            <>
+                              <div>Nome do evento: {name}</div>
+                              <div>Data do evento: {event_date}</div>
+                            </>
+                          )
+                        }
+                      )}
+                </div>
               </header>
             </div>
           </Route>
