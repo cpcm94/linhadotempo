@@ -3,7 +3,7 @@ import logo from './logo.svg'
 import './App.css'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { TimelineLoader } from './TimelinePage/TimelineLoader'
+import { TimelinePage } from './TimelinePage/TimelinePage'
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
@@ -21,7 +21,7 @@ const Wrapped = () => {
       <div>
         <Switch>
           <Route path='/timeline'>
-            <TimelineLoader />
+            <TimelinePage />
           </Route>
           <Route path='/'>
             <div>
