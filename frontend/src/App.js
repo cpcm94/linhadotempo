@@ -1,9 +1,15 @@
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+} from '@apollo/client'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { TimelinePage } from './TimelinePage/TimelinePage'
+import { TIMELINE_QUERY } from './TimelinePage/TIMELINE_QUERY'
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
@@ -16,6 +22,13 @@ const ApolloApp = (Wrapped) => (
   </ApolloProvider>
 )
 const Wrapped = () => {
+  const { data, loading } = useQuery(TIMELINE_QUERY, {
+    variables: { id: '2' },
+    notifyOnNetworkStatusChange: true,
+  })
+  if (data) {
+    console.log('data', data)
+  }
   return (
     <Router>
       <div>
@@ -28,6 +41,7 @@ const Wrapped = () => {
               <header className='App-header'>
                 <img src={logo} className='App-logo' alt='logo' />
                 <p>Linha do Tempo</p>
+                <div>{loading ? 'loading' : 'data'}</div>
               </header>
             </div>
           </Route>
