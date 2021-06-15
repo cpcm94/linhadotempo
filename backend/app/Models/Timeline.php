@@ -9,7 +9,7 @@ class Timeline extends Model
 {
     use HasFactory;
 
-    public function historical_events(): HasMany {
+    public function historical_events() {
         return $this->hasMany(HistoricalEvent::class);
     }
 }

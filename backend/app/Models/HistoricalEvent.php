@@ -9,7 +9,7 @@ class HistoricalEvent extends Model
 {
     use HasFactory;
 
-    public function timeline(): BelongsTo {
+    public function timeline() {
         return $this->belongsTo(Timeline::class);
     }
 }
