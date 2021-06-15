@@ -62,7 +62,11 @@ const Wrapped = () => {
                 <img src={logo} className='App-logo' alt='logo' />
                 <p>Linha do Tempo</p>
                 <div>
-                  {loading ? '...' : mapData(data.timeline.historical_events)}
+                  {loading
+                    ? '...'
+                    : data && data.timeline
+                    ? mapData(data.timeline.historical_events)
+                    : null}
                 </div>
               </header>
             </div>
