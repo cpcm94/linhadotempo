@@ -22,10 +22,13 @@ const ApolloApp = (Wrapped) => (
   </ApolloProvider>
 )
 const Wrapped = () => {
-  const { data, loading } = useQuery(TIMELINE_QUERY, {
+  const { data, loading, error } = useQuery(TIMELINE_QUERY, {
     variables: { id: '3' },
     notifyOnNetworkStatusChange: true,
   })
+  if (error) {
+    console.log('error', error)
+  }
   if (data) {
     console.log('data', data)
   }
