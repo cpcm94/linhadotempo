@@ -33,7 +33,10 @@ const Wrapped = () => {
     console.log('error', error)
   }
   if (data) {
-    console.log('data', data)
+    console.log(
+      'data.timeline.historical_events',
+      data.timeline.historical_events
+    )
   }
   return (
     <Router>
@@ -47,20 +50,7 @@ const Wrapped = () => {
               <header className='App-header'>
                 <img src={logo} className='App-logo' alt='logo' />
                 <p>Linha do Tempo</p>
-                <div>
-                  {loading
-                    ? '...'
-                    : data.timeline.historical_events.map(
-                        (name, event_date) => {
-                          return (
-                            <>
-                              <div>Nome do evento: {name}</div>
-                              <div>Data do evento: {event_date}</div>
-                            </>
-                          )
-                        }
-                      )}
-                </div>
+                <div>{loading ? '...' : 'data'}</div>
               </header>
             </div>
           </Route>
