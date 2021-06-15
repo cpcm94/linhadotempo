@@ -14,17 +14,6 @@ import { TIMELINE_QUERY } from './TimelinePage/TIMELINE_QUERY'
 
 const httpLink = new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_ENDPOINT })
 
-const mapData = (data) => {
-  data.map((name, event_data) => {
-    return (
-      <>
-        <div>Nome do evento: {name}</div>
-        <div>Data do evento: {event_data}</div>
-      </>
-    )
-  })
-}
-
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
@@ -36,18 +25,16 @@ const ApolloApp = (Wrapped) => (
   </ApolloProvider>
 )
 const Wrapped = () => {
-  const { data, loading, error } = useQuery(TIMELINE_QUERY, {
+  const { data, error } = useQuery(TIMELINE_QUERY, {
     variables: { id: '3' },
     notifyOnNetworkStatusChange: true,
   })
   if (error) {
     console.log('error', error)
   }
+
   if (data) {
-    console.log(
-      'data.timeline.historical_events',
-      data.timeline.historical_events
-    )
+    console.log('data', data)
   }
   return (
     <Router>
@@ -61,13 +48,6 @@ const Wrapped = () => {
               <header className='App-header'>
                 <img src={logo} className='App-logo' alt='logo' />
                 <p>Linha do Tempo</p>
-                <div>
-                  {loading
-                    ? '...'
-                    : data && data.timeline
-                    ? mapData(data.timeline.historical_events)
-                    : null}
-                </div>
               </header>
             </div>
           </Route>
