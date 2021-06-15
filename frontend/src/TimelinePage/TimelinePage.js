@@ -2,7 +2,7 @@ import React from 'react'
 import { TimelineLoader } from './TimelineLoader'
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
 
-export const ViewUserPage = () => {
+export const TimelinePage = () => {
   let { path } = useRouteMatch()
 
   return (
