@@ -5,12 +5,6 @@ export const TIMELINE_QUERY = gql`
     timeline(id: $id) {
       id
       name
-      historical_events {
-        name
-        event_date
-        annual_importance
-        monthly_importance
-      }
     }
   }
 `
