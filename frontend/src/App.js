@@ -14,6 +14,17 @@ import { TIMELINE_QUERY } from './TimelinePage/TIMELINE_QUERY'
 
 const httpLink = new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_ENDPOINT })
 
+const mapData = (data) => {
+  data.map((name, event_data) => {
+    return (
+      <>
+        <div>Nome do evento: {name}</div>
+        <div>Data do evento: {event_data}</div>
+      </>
+    )
+  })
+}
+
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
@@ -50,7 +61,9 @@ const Wrapped = () => {
               <header className='App-header'>
                 <img src={logo} className='App-logo' alt='logo' />
                 <p>Linha do Tempo</p>
-                <div>{loading ? '...' : 'data'}</div>
+                <div>
+                  {loading ? '...' : mapData(data.timeline.historical_events)}
+                </div>
               </header>
             </div>
           </Route>
