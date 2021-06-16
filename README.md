@@ -24,7 +24,7 @@ This installation guide was built taking into account that the package manager f
 
 ### Step 6 - Install the frontend packages
 
-Run the following command inside the frontend folder:
+Run the following command **inside the frontend folder**:
 
 ```
 npm install
@@ -32,7 +32,7 @@ npm install
 
 ### Step 7 - Install the backend packages
 
-Run the following command inside the backend folder:
+Run the following command **inside the backend folder**:
 
 ```
 composer install
@@ -76,6 +76,18 @@ To seed the timelines table and historical_events table with some data, run the 
 php artisan db:seed
 ```
 
+Check your MySQL Workbench, the timlines and historical_events tables should have some data now!
+
+### Step 5 - Run backend locally
+
+Run the backend locally by running the following command **inside the backend folder**:
+
+```
+php artisan serve
+```
+
+You can now enter the given address `/graphql-playground` to query your database through graphql.
+
 # Remote Backend Setup
 
 ## Heroku Setup
@@ -88,13 +100,13 @@ Install Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli
 
 ### Step 2 - Creating a heroku application
 
-Login to Heroku by running:
+Login to Heroku by running **inside the backend folder**:
 
 ```
 heroku login
 ```
 
-To create a new Heroku application that you can push to, use the heroku create command:
+To create a new Heroku application that you can push to, use the heroku create command **inside the backend folder**:
 
 ```
 heroku create
@@ -102,31 +114,37 @@ heroku create
 
 ### Step 3 - Basic configuration for heroku app
 
-Run the following command to generate an APP_KEY ([what is a APP_KEY](#laravel-app-key)) for laravel:
+Run the following command **inside the backend folder** to generate an APP_KEY ([what is a APP_KEY](#laravel-app-key)) for laravel:
 
 ```
 php artisan key:generate --show
 ```
 
-and use its return value when you run this command to set the APP_KEY value on heroku:
+and use its return value when you run this command **inside the backend folder** to set the APP_KEY value on heroku:
 
 ```
 heroku config:set APP_KEY=<insert return value>
 ```
 
-Next its going to be necessary to change the buildpack that heroku uses by running the following commands, first run:
+Next its going to be necessary to change the buildpack that heroku uses by running the following commands, first run **inside the backend folder**:
 
 ```
 heroku config
 ```
 
-And get the name of your app, then run this command to add the monorepo buildpack ([what is this buildpack](#monorepo-buildpack)) to your heroku app:
+And get the name of your app, then run this command **inside the backend folder** to add the monorepo buildpack ([what is this buildpack](#monorepo-buildpack)) to your heroku app:
 
 ```
 heroku buildpacks:add -a <your-app-name> https://github.com/lstoll/heroku-buildpack-monorepo -i 1
 ```
 
-The next command is so the new buildpack knows the path to the laravel app root, which in case you didnt change its inside the folder `backend`:
+After that add the heroku/php build pack using the following command **inside the backend folder**:
+
+```
+heroku buildpacks:add -a <your-app-name> heroku/php -i 2
+```
+
+The next command is so the new buildpack knows the path to the laravel app root, which in case you didnt change its inside the folder `backend`, make sure to run it **inside the backend folder**:
 
 ```
 heroku config:set APP_BASE=backend/
@@ -142,13 +160,13 @@ git push heroku master
 
 If trying to deploy a specific branch use, instead of master, `<branch>:master`.
 
-## Heroku JawsDB MySQL Setup
+## Remote Database Setup - JawsDB MySQL
 
 This section shows 2 ways of enabling the heroku addon JawsDB ([what is JawsDB](#jawsdb)) on your heroku application. Through the CLI or through the [heroku dashboard](https://dashboard.heroku.com/).
 
-### Step 1a - CLI
+### Step 1 - JawsDB via CLI
 
-To enable via CLI, run the command:
+To enable via CLI, run the command **inside the backend folder**:
 
 ```
 heroku addons:create jawsdb:kitefin --name=your-db-name --version=8.0
@@ -156,7 +174,7 @@ heroku addons:create jawsdb:kitefin --name=your-db-name --version=8.0
 
 Once JawsDB has been added, a `JAWSDB_URL` setting will be available in the app configuration and will contain the MySQL connection string.
 
-You can check if your app updated by running the command
+You can check if your app updated by running the command **inside the backend folder**:
 
 ```
 heroku config
@@ -164,19 +182,11 @@ heroku config
 
 or checking your app environment variables on the [heroku dashboard](https://dashboard.heroku.com/).
 
-### Step 1b - Heroku Dashboard
+([How to do this through the heroku dashboard](#jawsdb-mysql-heroku-dashboard)).
 
-Access your [heroku dashboard](https://dashboard.heroku.com/).
+### Step 2 - Check your remote database
 
-Select the app you wish to enable the JawsDB MySQL, click on the `Resources` tab, `Find more add-ons` and select JawsDB MySQL.
-
-You can check if your by checking your app environment variables on the dashboard or by running the command
-
-```
-heroku config
-```
-
-If the environment variable `JAWSDB_URL` is set then the JawsDB was successfully enabled in your app.
+Go to your heroku application and access the Graphql Playground, through the address: `<your-app-name>.herokuapp.com/graphql-playground`
 
 ## Heroku Environment Variables
 
@@ -210,7 +220,7 @@ heroku run php artisan migrate
 
 In case you want to locally run the app and use the production database you'll need to configure your `.env` file, filling the database environment variables with your JawsDB information.
 
-To access your app's JawsDB info, run the command:
+To access your app's JawsDB info, run the command **inside the backend folder**:
 
 ```
 heroku addons:open jawsdb
@@ -232,7 +242,7 @@ With the info provided on the page, change the following database information in
 
 - DB_PASSWORD
 
-You can then run the command:
+You can then run the command **inside the backend folder**:
 
 ```
 php artisan serve
@@ -276,6 +286,10 @@ REACT_APP_GRAPHQL_ENDPOINT
 
 with its value being the GraphQL endpoint of your server. The default is: `https://<your-heroku-app>.herokuapp.com/graphql`
 
+### Step 4 - Check your deploy
+
+On your netlify `Team Overview` select your site, if its not deployed yet, click in the `Deploy` tab and trigger deploy!
+
 ## Running the Frontend Locally
 
 ### Running the Frontend Locally Pointing to remote backend
@@ -286,6 +300,8 @@ You can run the frontend locally pointing to remote backend by running the follo
 REACT_APP_GRAPHQL_ENDPOINT=https://<your-heroku-app>.herokuapp.com/graphql ntl dev
 ```
 
+Remember you can check if its correctly connected by running queries on the GraphQL Playground.
+
 ### Running the Frontend Locally Pointing to local backend
 
 You can run the frontend locally pointing to remote backend by running the following command **while inside the frontend folder**:
@@ -293,6 +309,8 @@ You can run the frontend locally pointing to remote backend by running the follo
 ```
 REACT_APP_GRAPHQL_ENDPOINT=https://<your-local-backend-address>/graphql ntl dev
 ```
+
+Remember you can check if its correctly connected by running queries on the GraphQL Playground.
 
 ## Laravel App Key
 
@@ -303,6 +321,20 @@ As it must comply with the rules of the selected cipher in the configuration, th
 ## Monorepo Buildpack
 
 This project is a monorepo with both frontend and backend on the same repo, meaning that it's necessary to use an additional heroku buildpack in order for the building of the heroku app to occur inside the correct folder instead of heroku trying to build off of the root folder. For more information on the monorepo buildpack, [check out their buildpack page on heroku](https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo).
+
+## JawsDB MySQL Heroku Dashboard
+
+Access your [heroku dashboard](https://dashboard.heroku.com/).
+
+Select the app you wish to enable the JawsDB MySQL, click on the `Resources` tab, `Find more add-ons` and select JawsDB MySQL.
+
+You can check if your by checking your app environment variables on the dashboard or by running the command
+
+```
+heroku config
+```
+
+If the environment variable `JAWSDB_URL` is set then the JawsDB was successfully enabled in your app.
 
 ## JawsDB
 
