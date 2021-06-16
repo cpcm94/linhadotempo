@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Timeline extends Model
 {
     use HasFactory;
+    protected $fillable = ['name'];
 
     public function historical_events() {
         return $this->hasMany(HistoricalEvent::class);
