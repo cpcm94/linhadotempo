@@ -16,13 +16,42 @@ type User {
 type Timeline {
     id: ID!
     name: String!
+    historical_events: [HistoricalEvent] @hasMany
+}
+
+type HistoricalEvent {
+    id: ID!
+    name: String!
+    event_date: Date!
+    annual_importance: Boolean!
+    monthly_importance: Boolean!
+    timeline_id: String
+    timeline: Timeline @belongsTo
+}
+
+input CreateHistoricalEventInput {
+    name: String!
+    event_date: Date!
+    annual_importance: Boolean!
+    monthly_importance: Boolean!
+    timeline_id: String
+}
+
+input UpdateHistoricalEventInput {
+    name: String
+    event_date: Date
+    annual_importance: Boolean
+    monthly_importance: Boolean
+    timeline_id: String
 }
 
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
+    user(id: ID! @eq): User @find
     timelines: [Timeline!]! @paginate(defaultCount: 10)
     timeline(id: ID @eq): Timeline @find
+    historical_events: [HistoricalEvent] @paginate(defaultCount: 10)
+    historical_event(id: ID! @eq): HistoricalEvent @find
     hello: String!
     greet(name: String!): String
 }
@@ -31,5 +60,13 @@ type Mutation {
     createTimeline(name: String!): Timeline! @create
     updateTimeline(id: ID!, name: String!): Timeline @update
     deleteTimeline(id: ID!): Timeline @delete
+    createHistoricalEvent(
+        input: CreateHistoricalEventInput! @spread
+    ): HistoricalEvent @create
+    deleteHistoricalEvent(id: ID!): HistoricalEvent @delete
+    updateHistoricalEvent(
+        id: ID!
+        input: UpdateHistoricalEventInput! @spread
+    ): HistoricalEvent @update
     createUser(name: String!, email: String!, password: String!): User! @create
 }

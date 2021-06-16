@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Timeline extends Model
+class HistoricalEvent extends Model
 {
     use HasFactory;
-
-    public function historical_events() {
-        return $this->hasMany(HistoricalEvent::class);
-    }
 }
