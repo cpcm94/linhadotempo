@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class HistoricalEvent extends Model
 {
     use HasFactory;
+
+    public function timeline() {
+        return $this->belongsTo(Timeline::class);
+    }
 }
