@@ -1,8 +1,46 @@
+# Installation
+
+### Clone the repository
+
+This project is a monorepo with both frontend and backend on the same repo, the first step needed to run the project is [cloning the repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository).
+
+### Php
+
+Make sure you have [php installed](https://www.php.net/downloads) of at least verson 8.0 or higher.
+
+### Composer
+
+The package manager for the backend is composer, it is necessary to [install composer](https://getcomposer.org/download/).
+
+### Node Package Manager
+
+This installation guide was built taking into account that the package manager for the frontend is Node Package Manager, or NPM. To install NPM, visit [their website](https://www.npmjs.com/get-npm).
+
+### Installing the frontend packages
+
+Run the following command inside the frontend folder:
+
+```
+npm install
+```
+
+### Installing the backend packages
+
+Run the following command inside the backend folder:
+
+```
+composer install
+```
+
 ## Heroku Setup
+
+### Heroku account and installation
 
 Create a Heroku account: https://signup.heroku.com/dc
 
 Install Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli
+
+### Creating a heroku application
 
 Login to Heroku by running:
 
@@ -16,13 +54,9 @@ To create a new Heroku application that you can push to, use the heroku create c
 heroku create
 ```
 
-The application’s encryption key is used by Laravel to encrypt user sessions and other information. Its value will be read from the APP_KEY environment variable.
+### Basic configuration for heroku app
 
-As it must comply with the rules of the selected cipher in the configuration, the easiest way to generate a valid key is using the `php artisan key:generate --show` command, which will print a key that you can copy and then paste into the next step.
-
-You can simply set environment variables using the heroku config command, so run a `heroku config:set` as the last step before deploying your app for the first time:
-
-Run the following command to generate an APP_KEY for laravel:
+Run the following command to generate an APP_KEY ([what is a APP_KEY](#laravel-app-key)) for laravel:
 
 ```
 php artisan key:generate --show
@@ -40,17 +74,19 @@ Next its going to be necessary to change the buildpack that heroku uses by runni
 heroku config
 ```
 
-And get the name of your app, then run:
+And get the name of your app, then run this command to add the monorepo buildpack ([what is this buildpack](#monorepo-buildpack)) to your heroku app:
 
 ```
 heroku buildpacks:add -a <your-app-name> https://github.com/lstoll/heroku-buildpack-monorepo -i 1
 ```
 
-The next command is so the new buildpack knows the path to the laravel app root, which in case you didnt change its inside the folder `Backend`:
+The next command is so the new buildpack knows the path to the laravel app root, which in case you didnt change its inside the folder `backend`:
 
 ```
-heroku config:set APP_BASE=Backend/
+heroku config:set APP_BASE=backend/
 ```
+
+### Deploying your heroku app
 
 Now to deploy to Heroku:
 
@@ -62,11 +98,11 @@ If trying to deploy a specific branch use, instead of master, `<branch>:master`.
 
 ## Heroku JawsDB MySQL
 
+This section shows 2 ways of enabling the heroku addon JawsDB ([what is JawsDB](#jawsdb)) on your heroku application. Through the CLI or through the [heroku dashboard](https://dashboard.heroku.com/).
+
 ### CLI
 
-Enabling JawsDB MySQL can be done either via the CLI or on your app heroku dashboard.
-
-To enable via CLI run the command:
+To enable via CLI, run the command:
 
 ```
 heroku addons:create jawsdb:kitefin --name=your-db-name --version=8.0
@@ -74,17 +110,27 @@ heroku addons:create jawsdb:kitefin --name=your-db-name --version=8.0
 
 Once JawsDB has been added, a `JAWSDB_URL` setting will be available in the app configuration and will contain the MySQL connection string.
 
-You can check if your app updated by running the command `heroku config` or checking your app environment variables on the Heroku dashboard.
+You can check if your app updated by running the command
+
+```
+heroku config
+```
+
+or checking your app environment variables on the [heroku dashboard](https://dashboard.heroku.com/).
 
 ### Heroku Dashboard
 
-To access the heroku dashboard head over to the [Heroku login](https://id.heroku.com/login).
+Access your [heroku dashboard](https://dashboard.heroku.com/).
 
 Select the app you wish to enable the JawsDB MySQL, click on the `Resources` tab, `Find more add-ons` and select JawsDB MySQL.
 
-You can check if your app updated by running the command `heroku config` or checking your app environment variables on the Heroku dashboard.
+You can check if your by checking your app environment variables on the dashboard or by running the command
 
-If the `JAWSDB_URL` is set then the JawsDB was successfully enabled in your app.
+```
+heroku config
+```
+
+If the environment variable `JAWSDB_URL` is set then the JawsDB was successfully enabled in your app.
 
 ### Connecting to MySQL Workbench
 
@@ -94,7 +140,7 @@ To check your database on MySQL Workbench, create a new instance. The host name,
 heroku addons:open jawsdb
 ```
 
-Alternatively you can reach the browser page by going to your heroku dashboard, on the resources tab and then clicking on Jawsdb addon.
+Alternatively you can reach the browser page by going to your [heroku dashboard](https://dashboard.heroku.com/), on the resources tab and then clicking on Jawsdb addon.
 
 After deploying the app with the above configs you can run the following command to execute migrations:
 
@@ -102,17 +148,23 @@ After deploying the app with the above configs you can run the following command
 heroku run php artisan migrate
 ```
 
-## Heroku environment vars
+## Heroku environment variables
 
-You can set heroku env vars through the command: `heroku config:set ENV_VAR=<insert variable value>` or through the heroku dashboard.
+You can set heroku environment variables through the command:
 
-For the dashboard approach, after login choose the app you intend on changing the env variables, click on the settings tab, then click on `Reveal Config Vars`.
+```
+heroku config:set ENV_VAR=<insert variable value>
+```
+
+or through the [heroku dashboard](https://dashboard.heroku.com/).
+
+For the dashboard approach, after login choose the app you intend on changing the environment variables, click on the settings tab, then click on `Reveal Config Vars`.
 
 Add the variable `APP_URL` with its value being the URL for your heroku app.
 
-## Testing Lighthouse or Graphql changes with Graphql Playground
+## Testing Lighthouse or GraphQL changes with GraphQL Playground
 
-You can access the Graphql Playground by going to your heroku app following address: your-heroku-app/graphql-playground.
+You can access the GraphQL Playground ([what is the GraphQL Playground](#graphql-playground)) by going to your heroku app following address: your-heroku-app/graphql-playground
 
 In case you want to locally run the app and use the production database you'll need to configure your `.env` file, filling the database environment variables with your JawsDB information.
 
@@ -124,15 +176,15 @@ heroku addons:open jawsdb
 
 With the info provided on the page, change the following database information inside your `.env` file accordingly:
 
-DB_HOST
+- DB_HOST
 
-DB_PORT
+- DB_PORT
 
-DB_DATABASE
+- DB_DATABASE
 
-DB_USERNAME
+- DB_USERNAME
 
-DB_PASSWORD
+- DB_PASSWORD
 
 You can then run the command:
 
@@ -144,9 +196,9 @@ And again go to `/graphql-playground`.
 
 ## Git deploy with heroku
 
-To enable git automatic deploys on push, you need to connect your app to the GitRepo. Go to your heroku dashboard, click on the deploy tab, on Deployment method click on Github and choose the appropriate repository.
+To enable git automatic deploys on push, you need to connect your app to the GitRepo. Go to your [heroku dashboard](https://dashboard.heroku.com/), click on the deploy tab, on Deployment method click on Github and choose the appropriate repository.
 
-After that choose whatever branch you want to be deployed and whether you want to enable automatic deploys.
+After that, choose whatever branch you want to be deployed and whether you want to enable automatic deploys.
 
 ## Netlify Setup
 
@@ -167,6 +219,24 @@ REACT_APP_GRAPHQL_ENDPOINT
 ```
 
 with its value being the GraphQL endpoint of your server. The default is: `https://<your-heroku-app>.herokuapp.com/graphql`
+
+## Laravel App Key
+
+The application’s encryption key is used by Laravel to encrypt user sessions and other information. Its value will be read from the APP_KEY environment variable.
+
+As it must comply with the rules of the selected cipher in the configuration, the easiest way to generate a valid key is using the `php artisan key:generate --show` command, which will print a key that you can copy and then paste into the next step. To know more, [read the laravel documentation](https://laravel.com/docs).
+
+## Monorepo Buildpack
+
+This project is a monorepo with both frontend and backend on the same repo, meaning that it's necessary to use an additional heroku buildpack in order for the building of the heroku app to occur inside the correct folder instead of heroku trying to build off of the root folder. For more information on the monorepo buildpack, [check out their buildpack page on heroku](https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo).
+
+## JawsDB
+
+This project makes use of the heroku addon JawsDB, you can check out the [heroku article about JawsDB](https://devcenter.heroku.com/articles/jawsdb) or [their website](https://www.jawsdb.com/) for more information.
+
+## GraphQL Playground
+
+GraphQL Playground is a graphical, interactive, in-browser GraphQL IDE, created by Prisma and based on GraphiQL. To know more, check out their [github repository](https://github.com/graphql/graphql-playground).
 
 ## About Laravel
 
