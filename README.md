@@ -1,22 +1,28 @@
-# Installation
+# Local Installation
 
-### Clone the repository
+## Installing necessary tools
+
+### Step 1 - Clone the repository
 
 This project is a monorepo with both frontend and backend on the same repo, the first step needed to run the project is [cloning the repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository).
 
-### Php
+### Step 2 - Install Php
 
 Make sure you have [php installed](https://www.php.net/downloads) of at least verson 8.0 or higher.
 
-### Composer
+### Step 3 - Install MySQL
+
+To install MySQL [click here](https://dev.mysql.com/downloads/installer/) to go to their website.
+
+### Step 4 - Install Composer
 
 The package manager for the backend is composer, it is necessary to [install composer](https://getcomposer.org/download/).
 
-### Node Package Manager
+### Step 5 - Install Node Package Manager
 
 This installation guide was built taking into account that the package manager for the frontend is Node Package Manager, or NPM. To install NPM, visit [their website](https://www.npmjs.com/get-npm).
 
-### Installing the frontend packages
+### Step 6 - Install the frontend packages
 
 Run the following command inside the frontend folder:
 
@@ -24,7 +30,7 @@ Run the following command inside the frontend folder:
 npm install
 ```
 
-### Installing the backend packages
+### Step 7 - Install the backend packages
 
 Run the following command inside the backend folder:
 
@@ -32,15 +38,55 @@ Run the following command inside the backend folder:
 composer install
 ```
 
+## Local Database setup
+
+### Step 1 - Create a Local MySQL database
+
+To create a local MySQL database, open your MySQL Workbench and add a new connection.
+
+Switch the hostname to `localhost`, choose your username and password.
+
+### Step 2 - Configuring the backend to connect to local database
+
+To connect to the local MySQL database you'll need to update your `.env` file inside the folder `backend`. In case you don't have a `.env` file just create one, and copy the contents of the `.env.example` file inside it.
+
+Inside the `.env` file change the following environment variables value to match your local MySQL database:
+
+- DB_HOST
+- DB_PORT
+- DB_DATABASE
+- DB_USERNAME
+- DB_PASSWORD
+
+### Step 3 - Testing connection by running migrations
+
+To test the connection to the local mysql database we are going to run the migrations by running the following command on the terminal while **inside the backend folder**:
+
+```
+php artisan migrate
+```
+
+If successful, check your local database through the MySQL Workbench to see the newly created tables.
+
+### Step 4 - Seeding tables
+
+To seed the timelines table and historical_events table with some data, run the following command while **inside the backend folder**:
+
+```
+php artisan db:seed
+```
+
+# Remote Backend Setup
+
 ## Heroku Setup
 
-### Heroku account and installation
+### Step 1 - Heroku account and installation
 
 Create a Heroku account: https://signup.heroku.com/dc
 
 Install Heroku CLI: https://devcenter.heroku.com/articles/heroku-cli
 
-### Creating a heroku application
+### Step 2 - Creating a heroku application
 
 Login to Heroku by running:
 
@@ -54,7 +100,7 @@ To create a new Heroku application that you can push to, use the heroku create c
 heroku create
 ```
 
-### Basic configuration for heroku app
+### Step 3 - Basic configuration for heroku app
 
 Run the following command to generate an APP_KEY ([what is a APP_KEY](#laravel-app-key)) for laravel:
 
@@ -86,7 +132,7 @@ The next command is so the new buildpack knows the path to the laravel app root,
 heroku config:set APP_BASE=backend/
 ```
 
-### Deploying your heroku app
+### Step 4 - Deploying your heroku app
 
 Now to deploy to Heroku:
 
@@ -96,11 +142,11 @@ git push heroku master
 
 If trying to deploy a specific branch use, instead of master, `<branch>:master`.
 
-## Heroku JawsDB MySQL
+## Heroku JawsDB MySQL Setup
 
 This section shows 2 ways of enabling the heroku addon JawsDB ([what is JawsDB](#jawsdb)) on your heroku application. Through the CLI or through the [heroku dashboard](https://dashboard.heroku.com/).
 
-### CLI
+### Step 1a - CLI
 
 To enable via CLI, run the command:
 
@@ -118,7 +164,7 @@ heroku config
 
 or checking your app environment variables on the [heroku dashboard](https://dashboard.heroku.com/).
 
-### Heroku Dashboard
+### Step 1b - Heroku Dashboard
 
 Access your [heroku dashboard](https://dashboard.heroku.com/).
 
@@ -132,23 +178,7 @@ heroku config
 
 If the environment variable `JAWSDB_URL` is set then the JawsDB was successfully enabled in your app.
 
-### Connecting to MySQL Workbench
-
-To check your database on MySQL Workbench, create a new instance. The host name, username and password for the connection can be found by running the command:
-
-```
-heroku addons:open jawsdb
-```
-
-Alternatively you can reach the browser page by going to your [heroku dashboard](https://dashboard.heroku.com/), on the resources tab and then clicking on Jawsdb addon.
-
-After deploying the app with the above configs you can run the following command to execute migrations:
-
-```
-heroku run php artisan migrate
-```
-
-## Heroku environment variables
+## Heroku Environment Variables
 
 You can set heroku environment variables through the command:
 
@@ -162,9 +192,21 @@ For the dashboard approach, after login choose the app you intend on changing th
 
 Add the variable `APP_URL` with its value being the URL for your heroku app.
 
-## Testing Lighthouse or GraphQL changes with GraphQL Playground
+## Connecting to remote Database through MySQL Workbench
 
-You can access the GraphQL Playground ([what is the GraphQL Playground](#graphql-playground)) by going to your heroku app following address: your-heroku-app/graphql-playground
+To check your database on MySQL Workbench, create a new instance. The host name, username and password for the connection can be found by running the command:
+
+```
+heroku addons:open jawsdb
+```
+
+Alternatively you can reach the browser page by going to your [heroku dashboard](https://dashboard.heroku.com/), on the resources tab and then clicking on Jawsdb addon.
+
+After deploying the app with the above configs you can run the following command while **inside backend folder** to execute migrations:
+
+```
+heroku run php artisan migrate
+```
 
 In case you want to locally run the app and use the production database you'll need to configure your `.env` file, filling the database environment variables with your JawsDB information.
 
@@ -174,7 +216,11 @@ To access your app's JawsDB info, run the command:
 heroku addons:open jawsdb
 ```
 
-With the info provided on the page, change the following database information inside your `.env` file accordingly:
+## Connecting to remote database whilst running backend locally
+
+If you dont have a `.env` file, create one inside the backend folder, and copy the contents of `.env.example`
+
+With the info provided on the page, change the following database information inside your `.env` file accordingly, :
 
 - DB_HOST
 
@@ -192,7 +238,11 @@ You can then run the command:
 php artisan serve
 ```
 
-And again go to `/graphql-playground`.
+## GraphQL Playground
+
+You can access the GraphQL Playground ([what is the GraphQL Playground](#graphql-playground)) by going to your heroku app following address: your-heroku-app/graphql-playground
+
+If you are running the backend locally the adress would be whatever local address you chose plus `/graphql-playground`. For example localhost/graphql-playground.
 
 ## Git deploy with heroku
 
@@ -200,15 +250,21 @@ To enable git automatic deploys on push, you need to connect your app to the Git
 
 After that, choose whatever branch you want to be deployed and whether you want to enable automatic deploys.
 
+# Remote Frontend Setup
+
 ## Netlify Setup
 
+### Step 1 - Create Netlify Account
+
 Create your [Netlify Account](https://app.netlify.com/).
+
+### Step 2 - Create new site and set base directory
 
 On the Team overview tab, click on `New site from Git` and select your repository and which branch you want to deploy.
 
 Set the base directory to `frontend`.
 
-### Netlify Environment Variables
+### Step 3 - Netlify Environment Variables Setup
 
 On the site overview, go to the `Deploys` tab, then into `Deploy Settings` and under `Environment variables`, click on edit variables.
 
@@ -219,6 +275,24 @@ REACT_APP_GRAPHQL_ENDPOINT
 ```
 
 with its value being the GraphQL endpoint of your server. The default is: `https://<your-heroku-app>.herokuapp.com/graphql`
+
+## Running the Frontend Locally
+
+### Running the Frontend Locally Pointing to remote backend
+
+You can run the frontend locally pointing to remote backend by running the following command **while inside the frontend folder**:
+
+```
+REACT_APP_GRAPHQL_ENDPOINT=https://<your-heroku-app>.herokuapp.com/graphql ntl dev
+```
+
+### Running the Frontend Locally Pointing to local backend
+
+You can run the frontend locally pointing to remote backend by running the following command **while inside the frontend folder**:
+
+```
+REACT_APP_GRAPHQL_ENDPOINT=https://<your-local-backend-address>/graphql ntl dev
+```
 
 ## Laravel App Key
 
