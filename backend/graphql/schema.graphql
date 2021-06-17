@@ -16,7 +16,7 @@ type User {
 type Timeline {
     id: ID!
     name: String!
-    time_entry: [TimeEntry] @hasMany
+    time_entries: [TimeEntry] @hasMany
 }
 
 type TimeEntry {
