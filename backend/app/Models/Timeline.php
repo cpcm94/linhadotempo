@@ -10,7 +10,7 @@ class Timeline extends Model
     use HasFactory;
     protected $fillable = ['name'];
 
-    public function time_entries() {
+    public function time_entrys() {
         return $this->hasMany(TimeEntry::class);
     }
 }
