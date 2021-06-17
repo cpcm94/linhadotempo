@@ -78,7 +78,25 @@ php artisan db:seed
 
 Check your MySQL Workbench, the timlines and historical_events tables should have some data now!
 
-### Step 5 - Run backend locally
+### Step 5 - Seed the user table with admin user
+
+To create your first admin user, run the following command while **inside the backend folder**:
+
+```
+php artisan db:seed --class=AdminUserSeeder
+```
+
+It will create a admin user with the following information:
+
+```
+{
+    name: admin
+    password: admin
+    email: adminExample@email.com
+}
+```
+
+### Step 6 - Run backend locally
 
 Run the backend locally by running the following command **inside the backend folder**:
 
