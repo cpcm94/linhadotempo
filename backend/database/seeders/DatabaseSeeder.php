@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(TimelineSeeder::class);
-        $this->call(HistoricalEventSeeder::class);
+        $this->call(TimeEntrySeeder::class);
 
     }
 }

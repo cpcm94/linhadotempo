@@ -11,6 +11,6 @@ class Timeline extends Model
     protected $fillable = ['name'];
 
     public function historical_events() {
-        return $this->hasMany(HistoricalEvent::class);
+        return $this->hasMany(TimeEntry::class);
     }
 }

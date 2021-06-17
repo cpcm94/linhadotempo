@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHistoricalEventsTable extends Migration
+class CreateTimeEntriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateHistoricalEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('historical_events', function (Blueprint $table) {
+        Schema::create('time_entries', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('name', 255);
-            $table->date('event_date');
+            $table->date('entry_date');
             $table->boolean('annual_importance');
             $table->boolean('monthly_importance');
             $table->foreignId('timeline_id');
@@ -31,6 +31,6 @@ class CreateHistoricalEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historical_events');
+        Schema::dropIfExists('time_entries');
     }
 }
