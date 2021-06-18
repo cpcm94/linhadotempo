@@ -9,6 +9,7 @@ type User {
     id: ID!
     name: String!
     email: String!
+    type: String!
     created_at: DateTime!
     updated_at: DateTime!
     timelines: [Timeline] @hasMany
@@ -48,6 +49,13 @@ input UpdateTimeEntryInput {
     timeline_id: String
 }
 
+input CreateUserInput {
+    name: String!
+    email: String!
+    password: String!
+    type: String!
+}
+
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
     user(id: ID! @eq): User @find
@@ -67,5 +75,5 @@ type Mutation {
     deleteTimeEntry(id: ID!): TimeEntry @delete
     updateTimeEntry(id: ID!, input: UpdateTimeEntryInput! @spread): TimeEntry
         @update
-    createUser(name: String!, email: String!, password: String!): User! @create
+    createUser(input: CreateUserInput! @spread): User! @create
 }
