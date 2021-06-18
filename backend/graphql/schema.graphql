@@ -26,7 +26,9 @@ type Timeline {
 type TimeEntry {
     id: ID!
     name: String!
-    entry_date: Date!
+    entry_year: Int!
+    entry_month: Int
+    entry_day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
     timeline_id: String
@@ -35,7 +37,9 @@ type TimeEntry {
 
 input CreateTimeEntryInput {
     name: String!
-    entry_date: Date!
+    entry_year: Int!
+    entry_month: Int
+    entry_day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
     timeline_id: String
@@ -43,7 +47,9 @@ input CreateTimeEntryInput {
 
 input UpdateTimeEntryInput {
     name: String
-    entry_date: Date
+    entry_year: Int!
+    entry_month: Int
+    entry_day: Int
     annual_importance: Boolean
     monthly_importance: Boolean
     timeline_id: String
