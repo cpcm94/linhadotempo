@@ -40,4 +40,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function timelines() {
+        return $this->hasMany(Timeline::class);
+    }
 }

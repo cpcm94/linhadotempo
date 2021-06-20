@@ -14,7 +14,7 @@ class TimelineSeeder extends Seeder
      */
     public function run()
     {
-        Timeline::create(['name' => 'Brasil']);
-        Timeline::create(['name' => 'Europa']);
+        Timeline::create(['name' => 'Brasil','user_id'=>'1']);
+        Timeline::create(['name' => 'Europa','user_id'=>'2']);
     }
 }
