@@ -1,13 +1,12 @@
 import React from 'react'
 import {
-  Wrapper,
   MonthEntriesWrapper,
-  EntryWithoutDayWrapper,
-  MonthWrapper,
   MonthAndEntryWrapper,
 } from './MonthEntries.styles'
 import { DayEntries } from './DayEntries/DayEntries'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
+import { EntryWithoutDayWrapper } from './EntryWithoutDayWrapper'
+import { MonthWrapper } from './MonthWrapper'
 
 export const MonthEntries = ({ timeEntriesByMonth }) => {
   const month = timeEntriesByMonth[0].entry_month
@@ -32,25 +31,21 @@ export const MonthEntries = ({ timeEntriesByMonth }) => {
   const filteredEntriesWithoutDay = entriesWithoutDay.length > 0
 
   return (
-    <Wrapper>
-      <MonthEntriesWrapper>
-        <MonthAndEntryWrapper>
-          <MonthWrapper>
-            {filteredEntriesWithoutDay ? month : null}
-          </MonthWrapper>
-          <EntryWithoutDayWrapper>
-            {filteredEntriesWithoutDay
-              ? entriesWithoutDay.map((entries, index) => (
-                  <EntriesWithoutDay
-                    key={index}
-                    timeEntriesWithoutDay={entries}
-                  />
-                ))
-              : null}
-          </EntryWithoutDayWrapper>
-        </MonthAndEntryWrapper>
-        <DayEntries timeEntriesByDay={arrayOfGroupedEntriesByDay} />
-      </MonthEntriesWrapper>
-    </Wrapper>
+    <MonthEntriesWrapper>
+      <MonthAndEntryWrapper>
+        <MonthWrapper>{filteredEntriesWithoutDay ? month : null}</MonthWrapper>
+        <EntryWithoutDayWrapper>
+          {filteredEntriesWithoutDay
+            ? entriesWithoutDay.map((entries, index) => (
+                <EntriesWithoutDay
+                  key={index}
+                  timeEntriesWithoutDay={entries}
+                />
+              ))
+            : null}
+        </EntryWithoutDayWrapper>
+      </MonthAndEntryWrapper>
+      <DayEntries timeEntriesByDay={arrayOfGroupedEntriesByDay} />
+    </MonthEntriesWrapper>
   )
 }

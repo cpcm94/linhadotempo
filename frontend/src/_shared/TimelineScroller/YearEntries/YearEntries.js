@@ -1,12 +1,10 @@
 import React from 'react'
-import {
-  Wrapper,
-  EntryNameWrapper,
-  EntryYearWrapper,
-  EntriesWithoutMonthsWrapper,
-  EntriesWrapper,
-} from './YearEntries.styles'
+import { EntryNameWrapper } from './YearEntries.styles'
+import { Wrapper } from './Wrapper'
+import { EntriesWrapper } from './EntriesWrapper'
+import { EntryYearWrapper } from './EntryYearWrapper'
 import { MonthEntries } from './MonthEntries/MonthEntries'
+import { EntriesWithoutMonthsWrapper } from './EntriesWithoutMonthsWrapper'
 
 export const YearEntries = ({ timeEntriesByYear }) => {
   const year = timeEntriesByYear[0].entry_year
