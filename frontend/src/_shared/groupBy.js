@@ -1,7 +1,7 @@
-export const groupBy = (array, groupByValue) => {
-  array.reduce((r, a) => {
-    r[a.groupByValue] = r[a.groupByValue] || []
-    r[a.groupByValue].push(a)
+export const groupBy = (entries, groupingValue) => {
+  entries.reduce((r, a) => {
+    r[a.groupingValue] = r[a.groupingValue] || []
+    r[a.groupingValue].push(a)
     return r
   }, {})
 }

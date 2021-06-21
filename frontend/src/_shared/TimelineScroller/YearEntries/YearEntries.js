@@ -38,7 +38,9 @@ export const YearEntries = ({ timeEntriesByYear }) => {
               ))
             : null}
         </EntriesWithoutMonthsWrapper>
-        <MonthEntries timeEntriesByMonth={arrayOfGroupedEntriesByMonth} />
+        {arrayOfGroupedEntriesByMonth.map((month, index) => (
+          <MonthEntries timeEntriesByMonth={month} key={index} />
+        ))}
       </EntriesWrapper>
     </Wrapper>
   )

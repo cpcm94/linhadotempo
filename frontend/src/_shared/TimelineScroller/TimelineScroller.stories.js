@@ -26,6 +26,15 @@ Primary.args = {
           timeline_id: '1',
         },
         {
+          name: 'Evento no começo do ano',
+          entry_year: 1914,
+          entry_month: 2,
+          entry_day: 28,
+          annual_importance: true,
+          monthly_importance: false,
+          timeline_id: '1',
+        },
+        {
           name: 'Evento no mesmo dia',
           entry_year: 1914,
           entry_month: 7,

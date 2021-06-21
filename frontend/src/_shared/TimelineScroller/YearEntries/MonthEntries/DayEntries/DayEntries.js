@@ -6,7 +6,7 @@ export const DayEntries = ({ timeEntriesByDay }) => {
   return (
     <Wrapper>
       <DayEntriesWrapper>
-        {timeEntriesByDay[0][0]
+        {timeEntriesByDay[0]
           ? timeEntriesByDay.map((entry, index) => (
               <Entries entries={entry} key={index} />
             ))

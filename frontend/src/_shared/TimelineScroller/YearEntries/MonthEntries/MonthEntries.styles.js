@@ -13,8 +13,19 @@ export const MonthEntriesWrapper = styled.div`
   flex-direction: column;
 `
 export const EntryWithoutDayWrapper = styled.div`
-  margin-left: 34px;
+  display: flex;
+  flex-direction: column;
 `
 export const MonthWrapper = styled.div`
-  float: right;
+  font-weight: bold;
+  font-size: 0.85em;
+`
+export const EntryWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const MonthAndEntryWrapper = styled.div`
+  display: flex;
+  margin-left: 20px;
 `
