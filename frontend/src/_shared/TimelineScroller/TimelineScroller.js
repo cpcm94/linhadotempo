@@ -2,6 +2,7 @@ import React from 'react'
 import { Wrapper, EntriesWrapper } from './TimelineScroller.styles'
 import { YearEntries } from './YearEntries/YearEntries'
 import { Footer } from '../Footer/Footer'
+import { Layout } from '../Layout'
 
 export const TimelineScroller = ({ timelines }) => {
   const timeEntries = timelines.map((timeline) => timeline.time_entries).flat()
@@ -17,13 +18,15 @@ export const TimelineScroller = ({ timelines }) => {
     .flat()
 
   return (
-    <Wrapper>
-      <EntriesWrapper>
-        {arrayOfGroupedEntries.map((timeEntriesByYear, index) => (
-          <YearEntries timeEntriesByYear={timeEntriesByYear} key={index} />
-        ))}
-      </EntriesWrapper>
-      <Footer />
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        <EntriesWrapper>
+          {arrayOfGroupedEntries.map((timeEntriesByYear, index) => (
+            <YearEntries timeEntriesByYear={timeEntriesByYear} key={index} />
+          ))}
+        </EntriesWrapper>
+        <Footer />
+      </Wrapper>
+    </Layout>
   )
 }

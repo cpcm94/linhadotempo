@@ -7,5 +7,4 @@ export const EntriesWrapper = styled(({ color, ...other }) => (
 ))`
   display: flex;
   flex-direction: column;
-  width: 100%;
 `
