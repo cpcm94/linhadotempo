@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import React, { useState } from 'react'
 import { LOGIN_MUTATION } from './LOGIN_MUTATION'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
+import { USER_QUERY } from './USER_QUERY.JS'
 
 const Form = styled.form`
   display: flex;
@@ -34,6 +35,8 @@ const ForgotPasswordText = styled.div`
 export const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [{ data: userData }] = useQuery(USER_QUERY)
+  console.log('userData', userData)
 
   const [login, { data }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },
