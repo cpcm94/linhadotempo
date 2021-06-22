@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { EntryNameWrapper } from './YearEntries.styles'
 import { Wrapper } from './Wrapper'
 import { EntriesWrapper } from './EntriesWrapper'
@@ -42,4 +43,8 @@ export const YearEntries = ({ timeEntriesByYear }) => {
       </EntriesWrapper>
     </Wrapper>
   )
+}
+
+YearEntries.propTypes = {
+  timeEntriesByYear: PropTypes.array,
 }

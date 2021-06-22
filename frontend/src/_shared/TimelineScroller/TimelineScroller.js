@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Wrapper, EntriesWrapper } from './TimelineScroller.styles'
 import { YearEntries } from './YearEntries/YearEntries'
 import { Footer } from '../Footer/Footer'
@@ -29,4 +30,8 @@ export const TimelineScroller = ({ timelines }) => {
       </Wrapper>
     </Layout>
   )
+}
+
+TimelineScroller.propTypes = {
+  timelines: PropTypes.array,
 }

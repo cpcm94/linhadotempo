@@ -7,6 +7,7 @@ import { DayEntries } from './DayEntries/DayEntries'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
 import { EntryWithoutDayWrapper } from './EntryWithoutDayWrapper'
 import { MonthWrapper } from './MonthWrapper'
+import PropTypes from 'prop-types'
 
 export const MonthEntries = ({ timeEntriesByMonth }) => {
   const month = timeEntriesByMonth[0].month
@@ -48,4 +49,8 @@ export const MonthEntries = ({ timeEntriesByMonth }) => {
       <DayEntries timeEntriesByDay={arrayOfGroupedEntriesByDay} />
     </MonthEntriesWrapper>
   )
+}
+
+MonthEntries.propTypes = {
+  timeEntriesByMonth: PropTypes.array,
 }
