@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import React, { useState } from 'react'
 import { LOGIN_MUTATION } from './LOGIN_MUTATION'
 import { useMutation, useQuery } from '@apollo/client'
-import { USER_QUERY } from './USER_QUERY.JS'
+import { SELF_QUERY } from './SELF_QUERY.js'
 
 const Form = styled.form`
   display: flex;
@@ -35,8 +35,8 @@ const ForgotPasswordText = styled.div`
 export const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [{ data: userData }] = useQuery(USER_QUERY)
-  console.log('userData', userData)
+  //   const [{ data: userData }] = useQuery(SELF_QUERY)
+  //   console.log('userData', userData)
 
   const [login, { data }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },
@@ -66,7 +66,7 @@ export const LoginForm = () => {
         <Label>Usuário:</Label>
         <input
           type='text'
-          id='login'
+          id='email'
           value={email}
           onChange={handleLoginChange}
         />
