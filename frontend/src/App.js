@@ -1,30 +1,38 @@
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-} from '@apollo/client'
-import { setContext } from '@apollo/client/link/context'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { TimelinePage } from './TimelinePage/TimelinePage'
-import { TIMELINE_QUERY } from './TimelinePage/TIMELINE_QUERY'
+import { ApolloLink } from 'apollo-link'
+
 import { LoginPageLoader } from './LoginPage/LoginPageLoader'
 
-const authLink = setContext((_, { headers }) => {
+// const authLink = setContext((_, { headers }) => {
+//   let token = RegExp('XSRF-TOKEN[^;]+').exec(document.cookie)
+//   token = decodeURIComponent(
+//     token ? token.toString().replace(/^[^=]+./, '') : ''
+//   )
+//   return {
+//     headers: {
+//       ...headers,
+//       'X-XSRF-TOKEN': token,
+//     },
+//   }
+// })
+const authLink = new ApolloLink((operation, forward) => {
   let token = RegExp('XSRF-TOKEN[^;]+').exec(document.cookie)
   token = decodeURIComponent(
     token ? token.toString().replace(/^[^=]+./, '') : ''
   )
-  return {
+  operation.setContext(({ headers }) => ({
     headers: {
       ...headers,
       'X-XSRF-TOKEN': token,
     },
-  }
+  }))
+  return forward(operation)
 })
 
 const httpLink = new HttpLink({
@@ -43,17 +51,6 @@ const ApolloApp = (Wrapped) => (
   </ApolloProvider>
 )
 const Wrapped = () => {
-  const { data, error } = useQuery(TIMELINE_QUERY, {
-    variables: { id: '3' },
-    notifyOnNetworkStatusChange: true,
-  })
-  if (error) {
-    console.log('error', error)
-  }
-
-  if (data) {
-    console.log('data', data)
-  }
   return (
     <Router>
       <div>
