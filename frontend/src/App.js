@@ -7,15 +7,33 @@ import {
   ApolloProvider,
   useQuery,
 } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
 import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { TimelinePage } from './TimelinePage/TimelinePage'
 import { TIMELINE_QUERY } from './TimelinePage/TIMELINE_QUERY'
+import { LoginPageLoader } from './LoginPage/LoginPageLoader'
 
-const httpLink = new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_ENDPOINT })
+const authLink = setContext((_, { headers }) => {
+  let token = RegExp('XSRF-TOKEN[^;]+').exec(document.cookie)
+  token = decodeURIComponent(
+    token ? token.toString().replace(/^[^=]+./, '') : ''
+  )
+  return {
+    headers: {
+      ...headers,
+      'X-XSRF-TOKEN': token,
+    },
+  }
+})
+
+const httpLink = new HttpLink({
+  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
+  credentials: 'include',
+})
 
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 })
 
@@ -42,6 +60,9 @@ const Wrapped = () => {
         <Switch>
           <Route path='/timeline'>
             <TimelinePage />
+          </Route>
+          <Route path='/login'>
+            <LoginPageLoader />
           </Route>
           <Route path='/'>
             <div>
