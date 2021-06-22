@@ -9,18 +9,18 @@ import { EntryWithoutDayWrapper } from './EntryWithoutDayWrapper'
 import { MonthWrapper } from './MonthWrapper'
 
 export const MonthEntries = ({ timeEntriesByMonth }) => {
-  const month = timeEntriesByMonth[0].entry_month
+  const month = timeEntriesByMonth[0].month
   const entriesWithoutDay = timeEntriesByMonth.filter(
-    (entry) => entry.entry_day === null
+    (entry) => entry.day === null
   )
 
   const entriesWithDay = timeEntriesByMonth.filter(
-    (entry) => entry.entry_day !== null
+    (entry) => entry.day !== null
   )
 
   const entriesGroupedByDay = entriesWithDay.reduce((r, a) => {
-    r[a.entry_day] = r[a.entry_day] || []
-    r[a.entry_day].push(a)
+    r[a.day] = r[a.day] || []
+    r[a.day].push(a)
     return r
   }, {})
 

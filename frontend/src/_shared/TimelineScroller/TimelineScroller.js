@@ -8,8 +8,8 @@ export const TimelineScroller = ({ timelines }) => {
   const timeEntries = timelines.map((timeline) => timeline.time_entries).flat()
 
   const entriesGroupedByYear = timeEntries.reduce((r, a) => {
-    r[a.entry_year] = r[a.entry_year] || []
-    r[a.entry_year].push(a)
+    r[a.year] = r[a.year] || []
+    r[a.year].push(a)
     return r
   }, {})
 

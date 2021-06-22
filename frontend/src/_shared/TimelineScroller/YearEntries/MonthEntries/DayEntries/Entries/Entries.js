@@ -5,7 +5,7 @@ import { EntryDateWrapper } from './EntryDateWrapper'
 import { EntryWrapper } from './EntryWrapper'
 
 export const Entries = ({ entries }) => {
-  const entryDate = `${entries[0].entry_day}/${entries[0].entry_month}`
+  const entryDate = `${entries[0].day}/${entries[0].month}`
   return (
     <Wrapper>
       <EntryDateWrapper>{entryDate}</EntryDateWrapper>
