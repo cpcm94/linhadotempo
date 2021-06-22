@@ -29,7 +29,6 @@ return [
          * make sure to return spec-compliant responses in case an error is thrown.
          */
         'middleware' => [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
 
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
@@ -38,6 +37,7 @@ return [
             // \Illuminate\Cookie\Middleware\EncryptCookies::class,
             // \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             // \Illuminate\Session\Middleware\StartSession::class,
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
 
 
             // Logs every incoming GraphQL query.
@@ -62,7 +62,7 @@ return [
     |
     */
 
-    'guard' => 'sanctum',
+    'guard' => 'api',
 
     /*
     |--------------------------------------------------------------------------
