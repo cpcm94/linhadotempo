@@ -9,7 +9,7 @@ export const EntriesWrapper = styled.div`
   position: relative;
   top: 0;
   width: 100%;
-  margin-bottom: 70px;
+  margin: 1rem;
 `
 export const Wrapper = styled.div`
   width: 100%;

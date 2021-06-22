@@ -4,4 +4,6 @@ export const colors = {
   wine: '#9C2D41',
   lightBrown: '#F6CBB7',
   brown: '#CB857C',
+  grey: '#A49393',
+  darkGrey: '#67595E',
 }
