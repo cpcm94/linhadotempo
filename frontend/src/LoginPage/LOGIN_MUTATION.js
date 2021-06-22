@@ -5,11 +5,6 @@ export const LOGIN_MUTATION = gql`
     login(email: $email, password: $password) {
       id
       name
-      timelines {
-        name
-        annual_importance
-        monthly_importance
-      }
     }
   }
 `

@@ -64,7 +64,7 @@ export const LoginForm = () => {
         <input
           type='text'
           id='login'
-          value={login}
+          value={email}
           onChange={handleLoginChange}
         />
         <Label>Senha:</Label>
