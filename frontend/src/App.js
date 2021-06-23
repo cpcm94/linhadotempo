@@ -36,7 +36,7 @@ const authLink = setContext((_, { headers }) => {
 // })
 
 const httpLink = new HttpLink({
-  uri: '/graphql',
+  uri: 'http://www.graphql.stage.alinhadotempo.com.br/graphql',
   credentials: 'same-origin',
 })
 
