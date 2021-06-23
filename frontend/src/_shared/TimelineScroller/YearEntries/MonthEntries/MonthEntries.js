@@ -7,20 +7,21 @@ import { DayEntries } from './DayEntries/DayEntries'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
 import { EntryWithoutDayWrapper } from './EntryWithoutDayWrapper'
 import { MonthWrapper } from './MonthWrapper'
+import PropTypes from 'prop-types'
 
 export const MonthEntries = ({ timeEntriesByMonth }) => {
-  const month = timeEntriesByMonth[0].entry_month
+  const month = timeEntriesByMonth[0].month
   const entriesWithoutDay = timeEntriesByMonth.filter(
-    (entry) => entry.entry_day === null
+    (entry) => entry.day === null
   )
 
   const entriesWithDay = timeEntriesByMonth.filter(
-    (entry) => entry.entry_day !== null
+    (entry) => entry.day !== null
   )
 
   const entriesGroupedByDay = entriesWithDay.reduce((r, a) => {
-    r[a.entry_day] = r[a.entry_day] || []
-    r[a.entry_day].push(a)
+    r[a.day] = r[a.day] || []
+    r[a.day].push(a)
     return r
   }, {})
 
@@ -48,4 +49,8 @@ export const MonthEntries = ({ timeEntriesByMonth }) => {
       <DayEntries timeEntriesByDay={arrayOfGroupedEntriesByDay} />
     </MonthEntriesWrapper>
   )
+}
+
+MonthEntries.propTypes = {
+  timeEntriesByMonth: PropTypes.array,
 }

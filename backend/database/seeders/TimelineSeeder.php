@@ -12,9 +12,15 @@ class TimelineSeeder extends Seeder
      *
      * @return void
      */
+    protected $timelines = [
+        ['name' => 'Brasil','user_id'=>'1'],
+        ['name' => 'Europa','user_id'=>'2'],
+    ];
     public function run()
     {
-        Timeline::create(['name' => 'Brasil','user_id'=>'1']);
-        Timeline::create(['name' => 'Europa','user_id'=>'2']);
+        foreach($this->timelines as $timeline) 
+        {
+            Timeline::create($timeline);
+        }
     }
 }

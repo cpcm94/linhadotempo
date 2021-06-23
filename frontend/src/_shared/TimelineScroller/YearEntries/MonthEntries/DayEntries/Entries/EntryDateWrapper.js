@@ -1,8 +1,9 @@
+import React from 'react'
 import styled from 'styled-components'
 import { colors } from '../../../../../colors'
 import Grid from '@material-ui/core/Grid'
 
-export const EntryDateWrapper = styled(({ color, ...other }) => (
+export const EntryDateWrapper = styled(({ ...other }) => (
   <Grid item={true} xs={2} {...other} />
 ))`
   padding: 0 5px 0 0px;
