@@ -36,8 +36,8 @@ const authLink = new ApolloLink((operation, forward) => {
 })
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
-  credentials: 'include',
+  uri: '/graphql',
+  credentials: 'same-origin',
 })
 
 const client = new ApolloClient({
