@@ -55,16 +55,16 @@ const Wrapped = () => {
     <Router>
       <div>
         <Switch>
-          <Route path='/timeline'>
+          <Route path="/timeline">
             <TimelinePage />
           </Route>
-          <Route path='/login'>
+          <Route path="/login">
             <LoginPageLoader />
           </Route>
-          <Route path='/'>
+          <Route path="/">
             <div>
-              <header className='App-header'>
-                <img src={logo} className='App-logo' alt='logo' />
+              <header className="App-header">
+                <img src={logo} className="App-logo" alt="logo" />
                 <p>Linha do Tempo</p>
               </header>
             </div>
@@ -75,5 +75,4 @@ const Wrapped = () => {
   )
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default () => ApolloApp(Wrapped)

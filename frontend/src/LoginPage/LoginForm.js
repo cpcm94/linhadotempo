@@ -62,15 +62,15 @@ export const LoginForm = () => {
       <Form>
         <Label>Usuário:</Label>
         <input
-          type='text'
-          id='email'
+          type="text"
+          id="email"
           value={email}
           onChange={handleLoginChange}
         />
         <Label>Senha:</Label>
         <input
-          type='password'
-          id='password'
+          type="password"
+          id="password"
           value={password}
           onChange={handlePasswordChange}
         />
