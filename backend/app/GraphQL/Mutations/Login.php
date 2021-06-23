@@ -6,11 +6,21 @@ class Login
 {
     public function __invoke($_, array $args): User
     {
-        if (Auth::attempt($args)) {
-            $user = User::find(Auth::id());
-            return $user;
+        // if (Auth::attempt($args)) {
+        //     $user = User::find(Auth::id());
+        //     return $user;
+        // }
+        // return null;
+        // // ‘message’ => ‘The username/password combination you entered is invalid.’,
+
+        $guard = Auth::guard(config('sanctum.guard', 'web'));
+
+        if ( ! $guard->attempt($args)) {
+            throw new Error('Invalid credentials.');
         }
-        return null;
-        // ‘message’ => ‘The username/password combination you entered is invalid.’,
+
+        $user = $guard->user();
+
+        return $user;
     }
 }
