@@ -65,6 +65,7 @@ input CreateUserInput {
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
     user(id: ID! @eq): User @find
+    me: User @auth
     timelines: [Timeline!]! @paginate(defaultCount: 10)
     timeline(id: ID @eq): Timeline @find
     time_entries: [TimeEntry] @paginate(defaultCount: 10)
@@ -74,6 +75,7 @@ type Query {
 }
 
 type Mutation {
+    login(email: String!, password: String!): User!
     createTimeline(name: String!): Timeline! @create
     updateTimeline(id: ID!, name: String!): Timeline @update
     deleteTimeline(id: ID!): Timeline @delete

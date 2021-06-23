@@ -1,21 +1,47 @@
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-} from '@apollo/client'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { TimelinePage } from './TimelinePage/TimelinePage'
-import { TIMELINE_QUERY } from './TimelinePage/TIMELINE_QUERY'
+import { ApolloLink } from 'apollo-link'
 
-const httpLink = new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_ENDPOINT })
+import { LoginPageLoader } from './LoginPage/LoginPageLoader'
+
+// const authLink = setContext((_, { headers }) => {
+//   let token = RegExp('XSRF-TOKEN[^;]+').exec(document.cookie)
+//   token = decodeURIComponent(
+//     token ? token.toString().replace(/^[^=]+./, '') : ''
+//   )
+//   return {
+//     headers: {
+//       ...headers,
+//       'X-XSRF-TOKEN': token,
+//     },
+//   }
+// })
+const authLink = new ApolloLink((operation, forward) => {
+  let token = RegExp('XSRF-TOKEN[^;]+').exec(document.cookie)
+  token = decodeURIComponent(
+    token ? token.toString().replace(/^[^=]+./, '') : ''
+  )
+  operation.setContext(({ headers }) => ({
+    headers: {
+      ...headers,
+      'X-XSRF-TOKEN': token,
+    },
+  }))
+  return forward(operation)
+})
+
+const httpLink = new HttpLink({
+  uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
+  credentials: 'include',
+})
 
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 })
 
@@ -25,23 +51,15 @@ const ApolloApp = (Wrapped) => (
   </ApolloProvider>
 )
 const Wrapped = () => {
-  const { data, error } = useQuery(TIMELINE_QUERY, {
-    variables: { id: '3' },
-    notifyOnNetworkStatusChange: true,
-  })
-  if (error) {
-    console.log('error', error)
-  }
-
-  if (data) {
-    console.log('data', data)
-  }
   return (
     <Router>
       <div>
         <Switch>
           <Route path='/timeline'>
             <TimelinePage />
+          </Route>
+          <Route path='/login'>
+            <LoginPageLoader />
           </Route>
           <Route path='/'>
             <div>
