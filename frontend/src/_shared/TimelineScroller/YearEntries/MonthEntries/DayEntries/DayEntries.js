@@ -1,6 +1,7 @@
 import React from 'react'
 import { DayEntriesWrapper } from './DayEntries.styles'
 import { Entries } from './Entries/Entries'
+import PropTypes from 'prop-types'
 
 export const DayEntries = ({ timeEntriesByDay }) => {
   return (
@@ -12,4 +13,8 @@ export const DayEntries = ({ timeEntriesByDay }) => {
         : null}
     </DayEntriesWrapper>
   )
+}
+
+DayEntries.propTypes = {
+  timeEntriesByDay: PropTypes.array,
 }

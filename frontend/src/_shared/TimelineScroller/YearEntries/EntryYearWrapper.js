@@ -1,9 +1,9 @@
+import React from 'react'
 import styled from 'styled-components'
-
 import Grid from '@material-ui/core/Grid'
 import { colors } from '../../colors'
 
-export const EntryYearWrapper = styled(({ color, ...other }) => (
+export const EntryYearWrapper = styled(({ ...other }) => (
   <Grid item={true} xs={2} {...other} />
 ))`
   font-weight: bold;
