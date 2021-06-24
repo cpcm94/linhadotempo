@@ -16,7 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('.well-known/acme-challenge/5bPkaLXJyVMWN836oLTB_iY3AQYcuOsp32Z7zIMxKnI', function () {
-    return '5bPkaLXJyVMWN836oLTB_iY3AQYcuOsp32Z7zIMxKnI.g13JtcJ4Icokvy7fKOM3Gg8XUDR4o86wJcErExT5Asg';
-});
