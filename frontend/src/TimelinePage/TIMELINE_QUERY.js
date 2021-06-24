@@ -7,7 +7,7 @@ export const TIMELINE_QUERY = gql`
       name
       time_entries {
         name
-        entry_year
+        year
         annual_importance
         monthly_importance
       }
