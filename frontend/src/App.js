@@ -5,22 +5,9 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { TimelinePage } from './TimelinePage/TimelinePage'
-import { setContext } from 'apollo-link-context'
 
 import { LoginPageLoader } from './LoginPage/LoginPageLoader'
 
-const authLink = setContext((_, { headers }) => {
-  let token = RegExp('XSRF-TOKEN[^;]+').exec(document.cookie)
-  token = decodeURIComponent(
-    token ? token.toString().replace(/^[^=]+./, '') : ''
-  )
-  return {
-    headers: {
-      ...headers,
-      'X-XSRF-TOKEN': token,
-    },
-  }
-})
 // const authLink = new ApolloLink((operation, forward) => {
 //   let token = RegExp('XSRF-TOKEN[^;]+').exec(document.cookie)
 //   token = decodeURIComponent(
@@ -37,11 +24,10 @@ const authLink = setContext((_, { headers }) => {
 
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
-  credentials: 'same-origin',
 })
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: httpLink,
   cache: new InMemoryCache(),
 })
 
