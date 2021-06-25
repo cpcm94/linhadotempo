@@ -12,7 +12,6 @@ class Login
      */
     public function __invoke($_, array $args)
     {
-        
         if (Auth::attempt($args)) {
             $user = User::find(Auth::id());
             return $user;

@@ -13,16 +13,16 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-
      protected $users = [
-        ['name'=> 'user1', 'email' => 'example1@email.com', 'password' => '123', 'type' => 'basic'],
-        ['name'=> 'user2', 'email' => 'example2@email.com', 'password' => '123', 'type' => 'basic'],
-        ['name'=> 'user3', 'email' => 'example3@email.com', 'password' => '123', 'type' => 'basic'],
+        ['name'=> 'user1', 'email' => 'example1@email.com', 'type' => 'basic'],
+        ['name'=> 'user2', 'email' => 'example2@email.com', 'type' => 'basic'],
+        ['name'=> 'user3', 'email' => 'example3@email.com', 'type' => 'basic'],
      ];
     public function run()
     {
         foreach($this->users as $user)
         {
+            $user->password = bcrypt('123');
             User::create($user);
         }
     }
