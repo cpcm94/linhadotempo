@@ -1,6 +1,8 @@
 <?php
 
 namespace App\GraphQL\Mutations;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class Logout
 {
