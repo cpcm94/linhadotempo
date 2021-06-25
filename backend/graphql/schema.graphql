@@ -58,7 +58,7 @@ input UpdateTimeEntryInput {
 input CreateUserInput {
     name: String!
     email: String!
-    password: String!
+    password: String! @hash
     type: String!
 }
 
