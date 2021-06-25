@@ -16,7 +16,7 @@ class Logout
 
         /** @var \App\Models\User|null $user */
         $user = $guard->user();
-        $user->tokens()->delete();
+        if (isset($user->tokens)){$user->tokens()->delete();}
         $guard->logout();
         return $user;
 
