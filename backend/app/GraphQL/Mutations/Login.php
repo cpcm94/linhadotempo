@@ -1,26 +1,34 @@
-<?
+<?php
+
 namespace App\GraphQL\Mutations;
+use App\Exceptions\CredentialsError;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+
 class Login
 {
-    public function __invoke($_, array $args): User
+    /**
+     * @param  null  $_
+     * @param  array<string, mixed>  $args
+     */
+    public function __invoke($_, array $args)
     {
         // if (Auth::attempt($args)) {
         //     $user = User::find(Auth::id());
         //     return $user;
         // }
         // return null;
-        // // ‘message’ => ‘The username/password combination you entered is invalid.’,
+        // ‘message’ => ‘The username/password combination you entered is invalid.’,
 
         $guard = Auth::guard(config('sanctum.guard', 'web'));
 
         if ( ! $guard->attempt($args)) {
-            throw new Error('Invalid credentials.');
+            throw new CredentialsError('Invalid credentials.');
         }
 
         $user = $guard->user();
 
-        return $user;
+        return $user->createToken('API Token')->plainTextToken;
     }
+
 }

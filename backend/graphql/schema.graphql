@@ -58,7 +58,7 @@ input UpdateTimeEntryInput {
 input CreateUserInput {
     name: String!
     email: String!
-    password: String!
+    password: String! @hash
     type: String!
 }
 
@@ -75,7 +75,8 @@ type Query {
 }
 
 type Mutation {
-    login(email: String!, password: String!): User!
+    login(email: String!, password: String!): String!
+    logout: User @guard
     createTimeline(name: String!): Timeline! @create
     updateTimeline(id: ID!, name: String!): Timeline @update
     deleteTimeline(id: ID!): Timeline @delete
