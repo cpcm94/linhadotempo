@@ -1,37 +1,15 @@
-import styled from 'styled-components'
 import React, { useState } from 'react'
 import { LOGIN_MUTATION } from './LOGIN_MUTATION'
 import { useMutation } from '@apollo/client'
 import { saveToken } from '../_shared/AuthToken/saveToken'
 import { useHistory } from 'react-router-dom'
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  align-items: center;
-`
-const Wrapper = styled.div`
-  margin-top: 35px;
-  display: flex;
-  justify-content: center;
-`
-const Label = styled.label`
-  margin-bottom: 15px;
-  margin-top: 15px;
-`
-const SubmitButton = styled.button`
-  margin-top: 15px;
-`
-const ForgotPasswordText = styled.div`
-  margin-top: 15px;
-  min-width: 160px;
-
-  :hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
-`
+import {
+  Form,
+  Wrapper,
+  Label,
+  SubmitButton,
+  ForgotPasswordText,
+} from './LoginForm.styles'
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('')

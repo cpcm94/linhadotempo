@@ -10,21 +10,17 @@ export const LoginPageLoader = () => {
     notifyOnNetworkStatusChange: true,
   })
 
-  const [logout, { loading: logoutLoading, error: logoutError }] = useMutation(
-    LOGOUT_MUTATION,
-    {
-      onCompleted: () => deleteToken(),
-    }
-  )
+  const [logout, { loading: logoutLoading }] = useMutation(LOGOUT_MUTATION, {
+    onCompleted: () => deleteToken(),
+  })
 
   if (loading || logoutLoading) return <span>Loading...</span>
   if (error) console.log(error)
-  if (logoutError) console.log(logoutError)
   if (data && data.me)
     return (
       <>
-        <div>{data.me.name}</div>
-        <div>{data.me.id}</div>
+        <div>User name:{data.me.name}</div>
+        <div>User ID:{data.me.id}</div>
         <button onClick={logout}>Logout</button>
       </>
     )
