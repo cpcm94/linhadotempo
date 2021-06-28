@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import React, { useState } from 'react'
 import { LOGIN_MUTATION } from './LOGIN_MUTATION'
 import { useMutation } from '@apollo/client'
+import { saveToken } from '../_shared/AuthToken/saveToken'
 
 const Form = styled.form`
   display: flex;
@@ -35,12 +36,15 @@ export const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const afterComplete = (data) => {
+    if (data) {
+      saveToken(data.login)
+    }
+  }
+
   const [login, { data }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },
-    onCompleted: () => {
-      console.log('login completo')
-      console.log('data', data)
-    },
+    onCompleted: afterComplete,
   })
 
   const handleLoginChange = (e) => {
@@ -54,7 +58,7 @@ export const LoginForm = () => {
   const submitSignIn = (e) => {
     e.preventDefault()
     login()
-    // afterComplete(data)
+    afterComplete(data)
   }
 
   return (
