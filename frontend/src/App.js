@@ -1,33 +1,38 @@
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  concat,
+} from '@apollo/client'
+import { ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { TimelinePage } from './TimelinePage/TimelinePage'
-
+import { getToken } from './_shared/AuthToken/getToken'
 import { LoginPageLoader } from './LoginPage/LoginPageLoader'
 
-// const authLink = new ApolloLink((operation, forward) => {
-//   let token = RegExp('XSRF-TOKEN[^;]+').exec(document.cookie)
-//   token = decodeURIComponent(
-//     token ? token.toString().replace(/^[^=]+./, '') : ''
-//   )
-//   operation.setContext(({ headers }) => ({
-//     headers: {
-//       ...headers,
-//       'X-XSRF-TOKEN': token,
-//     },
-//   }))
-//   return forward(operation)
-// })
+const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
+  const token = getToken()
+  if (token) {
+    operation.setContext(({ headers }) => ({
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    }))
+  }
+  return forward(operation)
+})
 
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
 })
 
 const client = new ApolloClient({
-  link: httpLink,
+  link: concat(addAuthTokensInHeader, httpLink),
   cache: new InMemoryCache(),
 })
 

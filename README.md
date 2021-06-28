@@ -144,6 +144,8 @@ and use its return value when you run this command **inside the backend folder**
 heroku config:set APP_KEY=<insert return value>
 ```
 
+Also, use the APP_KEY value to set the APP_KEY environment variable inside the `.env` file inside your `backend` folder.
+
 Next its going to be necessary to change the buildpack that heroku uses by running the following commands, first run **inside the backend folder**:
 
 ```
@@ -174,6 +176,12 @@ Now to deploy to Heroku:
 
 ```
 git push heroku master
+```
+
+In case your heroku git remote isnt created at this point, you can run the following command while **inside the backend folder** to create it:
+
+```
+heroku git:remote -a <your-app-name>
 ```
 
 If trying to deploy a specific branch use, instead of master, `<branch>:master`.
@@ -230,10 +238,10 @@ heroku addons:open jawsdb
 
 Alternatively you can reach the browser page by going to your [heroku dashboard](https://dashboard.heroku.com/), on the resources tab and then clicking on Jawsdb addon.
 
-After deploying the app with the above configs you can run the following command while **inside backend folder** to execute migrations:
+After deploying the app with the above configs you can run the following command while **inside backend folder** to execute migrations and seeds:
 
 ```
-heroku run php artisan migrate
+heroku run php artisan migrate --seed
 ```
 
 In case you want to locally run the app and use the production database you'll need to configure your `.env` file, filling the database environment variables with your JawsDB information.
@@ -264,6 +272,12 @@ You can then run the command **inside the backend folder**:
 
 ```
 php artisan serve
+```
+
+To migrate and seed your local database after configuration, run the following command **inside the backend folder**:
+
+```
+php artisan migrate --seed
 ```
 
 ## GraphQL Playground
@@ -330,15 +344,23 @@ REACT_APP_GRAPHQL_ENDPOINT=https://<your-local-backend-address>/graphql ntl dev
 
 Remember you can check if its correctly connected by running queries on the GraphQL Playground.
 
+### Step 5 - Adding a Custom Domain (optional)
+
+Netlify lets you serve your application on custom domains that you own. To make use of this feature go to your apps `Site overview` tab and click `Domain settings`.
+
+Under `Custom domains` you click `Add domain alias` and insert your custom domain.
+
+A new Primary domain has been added, now click on `Check DNS configuration` and use the given configuration on your domain provider to link them.
+
+It could take between a few minutes to a handful of hours for the DNS propagation to occur and your app to be properly displayed in the new custom domain you set up.
+
 ## Laravel App Key
 
-The application’s encryption key is used by Laravel to encrypt user sessions and other information. Its value will be read from the APP_KEY environment variable.
-
-As it must comply with the rules of the selected cipher in the configuration, the easiest way to generate a valid key is using the `php artisan key:generate --show` command, which will print a key that you can copy and then paste into the next step. To know more, [read the laravel documentation](https://laravel.com/docs).
+[Laravel Docs](https://laravel.com/docs).
 
 ## Monorepo Buildpack
 
-This project is a monorepo with both frontend and backend on the same repo, meaning that it's necessary to use an additional heroku buildpack in order for the building of the heroku app to occur inside the correct folder instead of heroku trying to build off of the root folder. For more information on the monorepo buildpack, [check out their buildpack page on heroku](https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo).
+[Monorepo Buildpack Page](https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo).
 
 ## JawsDB MySQL Heroku Dashboard
 
@@ -356,11 +378,11 @@ If the environment variable `JAWSDB_URL` is set then the JawsDB was successfully
 
 ## JawsDB
 
-This project makes use of the heroku addon JawsDB, you can check out the [heroku article about JawsDB](https://devcenter.heroku.com/articles/jawsdb) or [their website](https://www.jawsdb.com/) for more information.
+[Heroku article about JawsDB](https://devcenter.heroku.com/articles/jawsdb) / [JawsDB Website](https://www.jawsdb.com/) for more information.
 
 ## GraphQL Playground
 
-GraphQL Playground is a graphical, interactive, in-browser GraphQL IDE, created by Prisma and based on GraphiQL. To know more, check out their [github repository](https://github.com/graphql/graphql-playground).
+[Graphql Playground Github Repo](https://github.com/graphql/graphql-playground).
 
 ## About Laravel
 

@@ -1,45 +1,44 @@
-import styled from 'styled-components'
 import React, { useState } from 'react'
 import { LOGIN_MUTATION } from './LOGIN_MUTATION'
 import { useMutation } from '@apollo/client'
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  align-items: center;
-`
-const Wrapper = styled.div`
-  margin-top: 35px;
-  display: flex;
-  justify-content: center;
-`
-const Label = styled.label`
-  margin-bottom: 15px;
-  margin-top: 15px;
-`
-const SubmitButton = styled.button`
-  margin-top: 15px;
-`
-const ForgotPasswordText = styled.div`
-  margin-top: 15px;
-  min-width: 160px;
-
-  :hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
-`
+import { saveToken } from '../_shared/AuthToken/saveToken'
+import { useHistory } from 'react-router-dom'
+import { ToastContainer, toast, Slide } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import {
+  Form,
+  Wrapper,
+  Label,
+  SubmitButton,
+  ForgotPasswordText,
+} from './LoginForm.styles'
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  let history = useHistory()
+
+  const navigateToHome = () => {
+    history.push('/')
+  }
+
+  const afterComplete = (data) => {
+    if (data) {
+      saveToken(data.login)
+      navigateToHome()
+    }
+  }
+
   const [login, { data }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },
-    onCompleted: () => {
-      console.log('login completo')
-      console.log('data', data)
+    onCompleted: afterComplete,
+    onError: () => {
+      toast.error('Usuário ou senha incorreta.', {
+        position: 'top-center',
+        hideProgressBar: true,
+        transition: Slide,
+      })
     },
   })
 
@@ -54,13 +53,13 @@ export const LoginForm = () => {
   const submitSignIn = (e) => {
     e.preventDefault()
     login()
-    // afterComplete(data)
+    afterComplete(data)
   }
 
   return (
     <Wrapper>
       <Form>
-        <Label>Usuário:</Label>
+        <Label>Email:</Label>
         <input
           type="text"
           id="email"
@@ -76,6 +75,7 @@ export const LoginForm = () => {
         />
         <SubmitButton onClick={submitSignIn}>Entrar</SubmitButton>
         <ForgotPasswordText>Esqueceu sua senha?</ForgotPasswordText>
+        <ToastContainer />
       </Form>
     </Wrapper>
   )
