@@ -3,6 +3,8 @@ import { LOGIN_MUTATION } from './LOGIN_MUTATION'
 import { useMutation } from '@apollo/client'
 import { saveToken } from '../_shared/AuthToken/saveToken'
 import { useHistory } from 'react-router-dom'
+import { ToastContainer, toast, Slide } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import {
   Form,
   Wrapper,
@@ -31,6 +33,13 @@ export const LoginForm = () => {
   const [login, { data }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },
     onCompleted: afterComplete,
+    onError: () => {
+      toast.error('Usuário ou senha incorreta.', {
+        position: 'top-center',
+        hideProgressBar: true,
+        transition: Slide,
+      })
+    },
   })
 
   const handleLoginChange = (e) => {
@@ -66,6 +75,7 @@ export const LoginForm = () => {
         />
         <SubmitButton onClick={submitSignIn}>Entrar</SubmitButton>
         <ForgotPasswordText>Esqueceu sua senha?</ForgotPasswordText>
+        <ToastContainer />
       </Form>
     </Wrapper>
   )
