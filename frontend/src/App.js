@@ -20,7 +20,7 @@ const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
     operation.setContext(({ headers }) => ({
       headers: {
         ...headers,
-        authorization: tokens ? `Bearer ${token}` : '',
+        authorization: token ? `Bearer ${token}` : '',
       },
     }))
   }
