@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { LOGIN_MUTATION } from './LOGIN_MUTATION'
 import { useMutation } from '@apollo/client'
 import { saveToken } from '../_shared/AuthToken/saveToken'
+import { useHistory } from 'react-router-dom'
 
 const Form = styled.form`
   display: flex;
@@ -36,9 +37,16 @@ export const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  let history = useHistory()
+
+  const navigateToHome = () => {
+    history.push('/')
+  }
+
   const afterComplete = (data) => {
     if (data) {
       saveToken(data.login)
+      navigateToHome()
     }
   }
 
@@ -64,7 +72,7 @@ export const LoginForm = () => {
   return (
     <Wrapper>
       <Form>
-        <Label>Usuário:</Label>
+        <Label>Email:</Label>
         <input
           type="text"
           id="email"

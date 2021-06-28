@@ -23,8 +23,8 @@ export const LoginPageLoader = () => {
   if (data && data.me)
     return (
       <>
-        <span>{data.me.name}</span>
-        <span>{data.me.id}</span>
+        <div>{data.me.name}</div>
+        <div>{data.me.id}</div>
         <button onClick={logout}>Logout</button>
       </>
     )
