@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { EntryNameWrapper } from './YearEntries.styles'
+import { EntriesWithoutMonths } from './EntriesWithoutMonths'
 import { Wrapper } from './Wrapper'
 import { EntriesWrapper } from './EntriesWrapper'
 import { EntryYearWrapper } from './EntryYearWrapper'
@@ -31,11 +31,7 @@ export const YearEntries = ({ timeEntriesByYear }) => {
       <EntryYearWrapper>{year}</EntryYearWrapper>
       <EntriesWrapper>
         <EntriesWithoutMonthsWrapper>
-          {entriesWithoutMonth[0]
-            ? entriesWithoutMonth.map((entry, index) => (
-                <EntryNameWrapper key={index}>{entry.name}</EntryNameWrapper>
-              ))
-            : null}
+          <EntriesWithoutMonths entriesWithoutMonth={entriesWithoutMonth} />
         </EntriesWithoutMonthsWrapper>
         {arrayOfGroupedEntriesByMonth.map((month, index) => (
           <MonthEntries timeEntriesByMonth={month} key={index} />

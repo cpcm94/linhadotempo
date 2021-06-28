@@ -5,6 +5,8 @@ export const ME_QUERY = gql`
     me {
       id
       name
+      type
+      email
     }
   }
 `
