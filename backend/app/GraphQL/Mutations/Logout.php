@@ -14,11 +14,16 @@ class Logout
     {
         $guard = Auth::guard(config('sanctum.guard', 'web'));
 
-        /** @var \App\Models\User|null $user */
-        $user = $guard->user();
-        if (isset($user->tokens)){$user->tokens()->delete();}
+        Auth::user()->tokens()->delete();
         $guard->logout();
-        return $user;
+
+        /** @var \App\Models\User|null $user */
+
+        if (sizeof(Auth::user()->tokens) === 0) {
+            return "Logout successful";
+        } else {
+            return "Logout failed";
+        }
 
         }
 }

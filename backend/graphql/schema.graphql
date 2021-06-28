@@ -76,7 +76,7 @@ type Query {
 
 type Mutation {
     login(email: String!, password: String!): String!
-    logout: User @guard
+    logout: String! @guard
     createTimeline(name: String!): Timeline! @create
     updateTimeline(id: ID!, name: String!): Timeline @update
     deleteTimeline(id: ID!): Timeline @delete
