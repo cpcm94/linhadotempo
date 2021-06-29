@@ -6,7 +6,6 @@ import { FormattingWrapper } from './FormattingWrapper'
 import PropTypes from 'prop-types'
 
 export const EntriesWithoutMonths = ({ entriesWithoutMonth }) => {
-  console.log('entriesWithoutMonth', entriesWithoutMonth)
   return (
     <>
       {entriesWithoutMonth[0]
