@@ -28,26 +28,26 @@ export const LoginForm = () => {
       saveToken(data.login.token)
       navigateToHome()
     }
-
-    if (!data.login.success) {
-      toast.error(data.login.message, {
-        position: 'top-center',
-        hideProgressBar: true,
-        transition: Slide,
-      })
-    }
   }
 
   const [login, { data }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },
     onCompleted: afterComplete,
     onError: (error) => {
-      console.error(error)
-      // toast.error('Erro inesperado ao se comunicar com o servidor', {
-      //   position: 'top-center',
-      //   hideProgressBar: true,
-      //   transition: Slide,
-      // })
+      console.log('error.message', error.message)
+      if (error.message === 'Invalid credentials.') {
+        toast.error('Email ou senha incorretos.', {
+          position: 'top-center',
+          hideProgressBar: true,
+          transition: Slide,
+        })
+      } else {
+        toast.error('Erro inesperado ao se comunicar com o servidor', {
+          position: 'top-center',
+          hideProgressBar: true,
+          transition: Slide,
+        })
+      }
     },
   })
 
