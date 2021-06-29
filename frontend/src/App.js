@@ -45,6 +45,7 @@ const Wrapped = () => {
   return (
     <Router>
       <div>
+        uri: {process.env.REACT_APP_GRAPHQL_ENDPOINT}
         <Switch>
           <Route path="/timeline">
             <TimelinePage />
