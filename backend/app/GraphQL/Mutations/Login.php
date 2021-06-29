@@ -11,6 +11,9 @@ class Login
      * @param  null  $_
      * @param  array<string, mixed>  $args
      */
+    public $token;
+    public $success;
+    public $message;
     public function __invoke($_, array $args)
     {
         // if (Auth::attempt($args)) {
@@ -27,8 +30,14 @@ class Login
         }
 
         $user = $guard->user();
+        $returnObj = new Login();
+        $returnObj->token = $user->createToken('API Token')->plainTextToken;
+        $returnObj->success = true;
+        $returnObj->message = "Login bem sucedido";
 
-        return $user->createToken('API Token')->plainTextToken;
+        return $returnObj;
+
+        
     }
 
 }
