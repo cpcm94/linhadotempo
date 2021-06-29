@@ -26,16 +26,24 @@ class Login
         $guard = Auth::guard(config('sanctum.guard', 'web'));
 
         if ( ! $guard->attempt($args)) {
-            throw new CredentialsError('Invalid credentials.');
+            $returnObj = new Login();
+            $returnObj->token = null;
+            $returnObj->success = false;
+            $returnObj->message = "Email ou senha incorretos";
+    
+            return $returnObj;
+
+        } else {
+
+            $user = $guard->user();
+            $returnObj = new Login();
+            $returnObj->token = $user->createToken('API Token')->plainTextToken;
+            $returnObj->success = true;
+            $returnObj->message = "Login bem sucedido";
+    
+            return $returnObj;
         }
 
-        $user = $guard->user();
-        $returnObj = new Login();
-        $returnObj->token = $user->createToken('API Token')->plainTextToken;
-        $returnObj->success = true;
-        $returnObj->message = "Login bem sucedido";
-
-        return $returnObj;
 
         
     }

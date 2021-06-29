@@ -24,9 +24,17 @@ export const LoginForm = () => {
   }
 
   const afterComplete = (data) => {
-    if (data) {
+    if (data && data.login.success) {
       saveToken(data.login.token)
       navigateToHome()
+    }
+
+    if (!data.login.success) {
+      toast.error(data.login.message, {
+        position: 'top-center',
+        hideProgressBar: true,
+        transition: Slide,
+      })
     }
   }
 
@@ -35,11 +43,11 @@ export const LoginForm = () => {
     onCompleted: afterComplete,
     onError: (error) => {
       console.error(error)
-      toast.error('Erro inesperado ao se comunicar com o servidor', {
-        position: 'top-center',
-        hideProgressBar: true,
-        transition: Slide,
-      })
+      // toast.error('Erro inesperado ao se comunicar com o servidor', {
+      //   position: 'top-center',
+      //   hideProgressBar: true,
+      //   transition: Slide,
+      // })
     },
   })
 
