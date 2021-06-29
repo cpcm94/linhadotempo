@@ -33,8 +33,9 @@ export const LoginForm = () => {
   const [login, { data }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },
     onCompleted: afterComplete,
-    onError: () => {
-      toast.error('Usuário ou senha incorreta.', {
+    onError: (error) => {
+      console.error(error)
+      toast.error('Erro inesperado ao se comunicar com o servidor', {
         position: 'top-center',
         hideProgressBar: true,
         transition: Slide,
