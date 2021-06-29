@@ -25,7 +25,7 @@ export const LoginForm = () => {
 
   const afterComplete = (data) => {
     if (data) {
-      saveToken(data.login)
+      saveToken(data.login.token)
       navigateToHome()
     }
   }
