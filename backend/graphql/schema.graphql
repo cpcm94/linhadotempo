@@ -35,6 +35,12 @@ type TimeEntry {
     timeline: Timeline @belongsTo
 }
 
+type LoginResponse {
+    token: String!
+    success: Boolean!
+    message: String
+}
+
 input CreateTimeEntryInput {
     name: String!
     year: Int!
@@ -75,7 +81,7 @@ type Query {
 }
 
 type Mutation {
-    login(email: String!, password: String!): String!
+    login(email: String!, password: String!): LoginResponse!
     logout: String! @guard
     createTimeline(name: String!): Timeline! @create
     updateTimeline(id: ID!, name: String!): Timeline @update

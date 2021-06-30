@@ -24,8 +24,8 @@ export const LoginForm = () => {
   }
 
   const afterComplete = (data) => {
-    if (data) {
-      saveToken(data.login)
+    if (data && data.login.success) {
+      saveToken(data.login.token)
       navigateToHome()
     }
   }
@@ -33,12 +33,21 @@ export const LoginForm = () => {
   const [login, { data }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },
     onCompleted: afterComplete,
-    onError: () => {
-      toast.error('Usuário ou senha incorreta.', {
-        position: 'top-center',
-        hideProgressBar: true,
-        transition: Slide,
-      })
+    onError: (error) => {
+      console.log('error.message', error.message)
+      if (error.message === 'Invalid credentials.') {
+        toast.error('Email ou senha incorretos.', {
+          position: 'top-center',
+          hideProgressBar: true,
+          transition: Slide,
+        })
+      } else {
+        toast.error('Erro inesperado ao se comunicar com o servidor', {
+          position: 'top-center',
+          hideProgressBar: true,
+          transition: Slide,
+        })
+      }
     },
   })
 
