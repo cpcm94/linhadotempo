@@ -36,14 +36,7 @@ export const MonthEntries = ({ timeEntriesByMonth }) => {
       <MonthAndEntryWrapper>
         <MonthWrapper>{filteredEntriesWithoutDay ? month : null}</MonthWrapper>
         <EntryWithoutDayWrapper>
-          {filteredEntriesWithoutDay
-            ? entriesWithoutDay.map((entries, index) => (
-                <EntriesWithoutDay
-                  key={index}
-                  timeEntriesWithoutDay={entries}
-                />
-              ))
-            : null}
+          <EntriesWithoutDay timeEntriesWithoutDay={entriesWithoutDay} />
         </EntryWithoutDayWrapper>
       </MonthAndEntryWrapper>
       <DayEntries timeEntriesByDay={arrayOfGroupedEntriesByDay} />
