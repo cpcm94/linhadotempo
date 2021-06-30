@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import {
   IconWrapper,
   TimelinesWrapper,
-  UserTimelinesWrapper,
+  TimelinesListWrapper,
   TimelinesListLabel,
-} from './TimelineForm.styles'
+} from './TimelinesList.styles'
 
-export const UserTimelines = ({ timelines }) => {
+export const TimelinesList = ({ timelines }) => {
   return (
-    <UserTimelinesWrapper>
+    <TimelinesListWrapper>
       <TimelinesListLabel>Linhas do Tempo</TimelinesListLabel>
       {timelines.map((timeline) => (
         <TimelinesWrapper key={timeline.id}>
@@ -17,10 +17,10 @@ export const UserTimelines = ({ timelines }) => {
           <div>{timeline.name}</div>
         </TimelinesWrapper>
       ))}
-    </UserTimelinesWrapper>
+    </TimelinesListWrapper>
   )
 }
 
-UserTimelines.propTypes = {
+TimelinesList.propTypes = {
   timelines: PropTypes.array,
 }

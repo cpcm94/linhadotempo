@@ -9,7 +9,7 @@ import {
 import { ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { TimelinePage } from './TimelinePage/TimelinePage'
+import { TimelinesLoader } from './TimelinesPage/TimelinesLoader'
 import { getToken } from './_shared/AuthToken/getToken'
 import { LoginPageLoader } from './LoginPage/LoginPageLoader'
 
@@ -45,8 +45,8 @@ const Wrapped = () => {
     <Router>
       <div>
         <Switch>
-          <Route path="/timeline">
-            <TimelinePage />
+          <Route path="/timelines">
+            <TimelinesLoader />
           </Route>
           <Route path="/login">
             <LoginPageLoader />

@@ -1,40 +1,34 @@
 import React, { useState } from 'react'
-import { UserTimelines } from './UserTimelines'
 import PropTypes from 'prop-types'
 import {
   Wrapper,
-  NewTimelineWrapper,
   NewTimelineNameWrapper,
-  BottomContainer,
-  NewTimelineLabel,
+  TimelineTitle,
+  TimelineNameLabel,
 } from './TimelineForm.styles'
-import { Layout } from '../Layout'
 
-export const TimelineForm = ({ user }) => {
-  const [timelineName, setTimelineName] = useState('')
+export const TimelineForm = ({ timeline }) => {
+  const initialTimelineName = timeline && timeline.name ? timeline.name : ''
+  const [timelineName, setTimelineName] = useState(initialTimelineName)
   const handleNameChange = (e) => {
     setTimelineName(e.target.value)
   }
   return (
-    <Layout>
+    <>
+      <TimelineTitle>Linha do tempo</TimelineTitle>
       <Wrapper>
-        <NewTimelineWrapper>
-          <NewTimelineLabel>Linha do tempo: </NewTimelineLabel>
-          <NewTimelineNameWrapper
-            type="text"
-            id="timeline"
-            value={timelineName}
-            onChange={handleNameChange}
-          />
-        </NewTimelineWrapper>
-        <BottomContainer>
-          <UserTimelines timelines={user.timelines} />
-        </BottomContainer>
+        <TimelineNameLabel>Nome:</TimelineNameLabel>
+        <NewTimelineNameWrapper
+          type="text"
+          id="timeline"
+          value={timelineName}
+          onChange={handleNameChange}
+        />
       </Wrapper>
-    </Layout>
+    </>
   )
 }
 
 TimelineForm.propTypes = {
-  user: PropTypes.object,
+  timeline: PropTypes.object,
 }
