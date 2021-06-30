@@ -3,12 +3,12 @@ import { colors } from '../colors'
 
 export const TimelinesListLabel = styled.div`
   text-align: center;
-  font-family: Karla;
 `
 
 export const TimelinesListWrapper = styled.div`
   padding: 1rem;
   height: 100%;
+  margin-bottom: 70px;
 `
 
 export const IconWrapper = styled.div`

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Wrapper,
@@ -7,28 +7,35 @@ import {
   TimelineNameLabel,
 } from './TimelineForm.styles'
 
-export const TimelineForm = ({ timeline }) => {
-  const initialTimelineName = timeline && timeline.name ? timeline.name : ''
-  const [timelineName, setTimelineName] = useState(initialTimelineName)
+export const TimelineForm = ({ timelineName, setTimelineName, loading }) => {
   const handleNameChange = (e) => {
     setTimelineName(e.target.value)
   }
   return (
     <>
-      <TimelineTitle>Linha do tempo</TimelineTitle>
-      <Wrapper>
-        <TimelineNameLabel>Nome:</TimelineNameLabel>
-        <NewTimelineNameWrapper
-          type="text"
-          id="timeline"
-          value={timelineName}
-          onChange={handleNameChange}
-        />
-      </Wrapper>
+      {loading ? (
+        <span>Loading...</span>
+      ) : (
+        <>
+          <TimelineTitle>Linha do tempo</TimelineTitle>
+          <Wrapper>
+            <TimelineNameLabel>Nome:</TimelineNameLabel>
+            <NewTimelineNameWrapper
+              type="text"
+              id="timeline"
+              value={timelineName}
+              onChange={handleNameChange}
+            />
+          </Wrapper>
+        </>
+      )}
     </>
   )
 }
 
 TimelineForm.propTypes = {
   timeline: PropTypes.object,
+  timelineName: PropTypes.string,
+  setTimelineName: PropTypes.func,
+  loading: PropTypes.bool,
 }

@@ -19,6 +19,6 @@ export const TimelinesLoader = () => {
   return loading ? (
     <div>Loading...</div>
   ) : data ? (
-    <TimelinesPage timelines={data.timelines.data} />
+    <TimelinesPage timelines={data.timelines} />
   ) : null
 }

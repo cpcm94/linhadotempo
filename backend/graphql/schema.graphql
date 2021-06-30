@@ -76,6 +76,10 @@ input CreateTimeLineInput {
     name: String!
 }
 
+input UpdateTimelineInput {
+    name: String
+}
+
 type Query {
     users: [User!]! @all
     user(id: ID! @eq): User @find
@@ -92,7 +96,8 @@ type Mutation {
     login(input: LoginInput! @spread): LoginResponse!
     logout: String! @guard
     createTimeline(input: CreateTimeLineInput! @spread): Timeline! @create
-    updateTimeline(id: ID!, name: String!): Timeline @update
+    updateTimeline(id: ID!, input: UpdateTimelineInput! @spread): Timeline
+        @update
     deleteTimeline(id: ID!): Timeline @delete
     createTimeEntry(input: CreateTimeEntryInput! @spread): TimeEntry @create
     deleteTimeEntry(id: ID!): TimeEntry @delete
