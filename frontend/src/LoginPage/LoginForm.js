@@ -41,7 +41,7 @@ export const LoginForm = () => {
   }
 
   const [login, { data }] = useMutation(LOGIN_MUTATION, {
-    variables: { email: email, password: password },
+    variables: { input: { email: email, password: password } },
     onCompleted: saveTokenAndGoHome,
     onError: (error) => {
       console.error(error.message)
