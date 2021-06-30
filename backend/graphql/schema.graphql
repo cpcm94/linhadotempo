@@ -67,6 +67,10 @@ input CreateUserInput {
     password: String! @hash
     type: String!
 }
+input LoginInput {
+    email: String!
+    password: String!
+}
 
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
@@ -81,7 +85,7 @@ type Query {
 }
 
 type Mutation {
-    login(email: String!, password: String!): LoginResponse!
+    login(input: LoginInput! @spread): LoginResponse!
     logout: String! @guard
     createTimeline(name: String!): Timeline! @create
     updateTimeline(id: ID!, name: String!): Timeline @update

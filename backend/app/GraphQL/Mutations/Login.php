@@ -11,31 +11,22 @@ class Login
      * @param  null  $_
      * @param  array<string, mixed>  $args
      */
-    public $token;
-    public $success;
-    public $message;
     public function __invoke($_, array $args)
     {
-        // if (Auth::attempt($args)) {
-        //     $user = User::find(Auth::id());
-        //     return $user;
-        // }
-        // return null;
-        // ‘message’ => ‘The username/password combination you entered is invalid.’,
 
         $guard = Auth::guard(config('sanctum.guard', 'web'));
 
         if ( ! $guard->attempt($args)) {
-            throw new CredentialsError('Invalid credentials.');
+            return [
+                "success" => false,
+                "message" => "Email ou senha inválidos"
+            ];           
         } else {
-
-            $user = $guard->user();
-            $returnObj = new Login();
-            $returnObj->token = $user->createToken('API Token')->plainTextToken;
-            $returnObj->success = true;
-            $returnObj->message = "Login bem sucedido";
-    
-            return $returnObj;
+            return [
+                "token" => $guard->user()->createToken('API Token')->plainTextToken,
+                "success" =>  true,
+                "message" => "Login bem sucedido"
+            ];
         }
 
 
