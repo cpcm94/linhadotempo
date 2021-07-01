@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
-import { Footer } from '../_shared/Footer/Footer'
+import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/client'
 import { CREATE_TIMELINE_MUTATION } from './CREATE_TIMELINE_MUTATION'
-import { CreateTimelineButton } from './CreateTimelineButton'
 import { useHistory } from 'react-router-dom'
 
 export const NewTimelinePage = ({ user }) => {
@@ -23,12 +22,12 @@ export const NewTimelinePage = ({ user }) => {
 
   return (
     <Layout>
+      <Header title={'Criar linha do tempo'} loading={loading} />
       <TimelineForm
         timelineName={timelineName}
         setTimelineName={setTimelineName}
-        loading={loading}
+        onClick={saveTimeline}
       />
-      <Footer pageActions={<CreateTimelineButton onClick={saveTimeline} />} />
     </Layout>
   )
 }

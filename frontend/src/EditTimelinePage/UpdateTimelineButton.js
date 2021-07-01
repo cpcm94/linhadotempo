@@ -14,14 +14,13 @@ const UpdateTimelineButtonWrapper = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 100vw;
 `
 
 export const UpdateTimelineButton = ({ onClick }) => {
   return (
     <Wrapper>
       <UpdateTimelineButtonWrapper onClick={onClick}>
-        Salvar alterações na linha do tempo
+        Salvar
       </UpdateTimelineButtonWrapper>
     </Wrapper>
   )

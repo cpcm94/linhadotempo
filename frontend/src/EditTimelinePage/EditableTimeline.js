@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Layout } from '../_shared/Layout'
-import { Footer } from '../_shared/Footer/Footer'
+import { Header } from '../_shared/Header/Header'
 import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
-import { UpdateTimelineButton } from './UpdateTimelineButton'
 import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router'
@@ -22,12 +21,12 @@ export const EditableTimeline = ({ timeline }) => {
   })
   return (
     <Layout>
+      <Header title={'Editar linha do tempo'} loading={loading} />
       <TimelineForm
         timelineName={timelineName}
         setTimelineName={setTimelineName}
-        loading={loading}
+        onClick={updateTimeline}
       />
-      <Footer pageActions={<UpdateTimelineButton onClick={updateTimeline} />} />
     </Layout>
   )
 }

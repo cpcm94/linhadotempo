@@ -14,14 +14,13 @@ const CreateTimelineButtonWrapper = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 100vw;
 `
 
 export const CreateTimelineButton = ({ onClick }) => {
   return (
     <Wrapper>
       <CreateTimelineButtonWrapper onClick={onClick}>
-        Criar linha do tempo
+        Salvar
       </CreateTimelineButtonWrapper>
     </Wrapper>
   )
