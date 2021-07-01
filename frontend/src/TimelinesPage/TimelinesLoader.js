@@ -5,6 +5,7 @@ import { TimelinesPage } from './TimelinesPage'
 
 export const TimelinesLoader = () => {
   const { data, loading, error } = useQuery(TIMELINES_QUERY, {
+    fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
   })
 
