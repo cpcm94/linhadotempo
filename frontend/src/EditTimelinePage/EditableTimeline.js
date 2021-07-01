@@ -1,31 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Layout } from '../_shared/Layout'
 import { Header } from '../_shared/Header/Header'
 import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
-import { useHistory } from 'react-router'
+
+const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
+let timeoutId = null
 
 export const EditableTimeline = ({ timeline }) => {
+  const isFirstRun = useRef(true)
+
   const [timelineName, setTimelineName] = useState(timeline.name)
-  let history = useHistory()
 
-  const navigateToTimelinesPage = () => {
-    history.push('/timelines')
-  }
+  const [updateTimeline, { loading }] = useMutation(UPDATE_TIMELINE_MUTATION)
 
-  const [updateTimeline, { loading }] = useMutation(UPDATE_TIMELINE_MUTATION, {
-    variables: { id: timeline.id, input: { name: timelineName } },
-    onCompleted: navigateToTimelinesPage,
-  })
+  useEffect(() => {
+    if (!isFirstRun.current) {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+      timeoutId = setTimeout(() => {
+        const payload = {
+          variables: {
+            id: timeline.id,
+            input: {
+              name: timelineName,
+            },
+          },
+        }
+        updateTimeline(payload)
+      }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+    } else {
+      isFirstRun.current = false
+    }
+  }, [updateTimeline, timeline.id, timelineName])
+
   return (
     <Layout>
-      <Header title={'Editar linha do tempo'} loading={loading} />
+      <Header
+        returnButton={true}
+        subTitle={'Editar linha do tempo'}
+        title={timelineName}
+        loading={loading}
+      />
       <TimelineForm
         timelineName={timelineName}
         setTimelineName={setTimelineName}
-        onClick={updateTimeline}
       />
     </Layout>
   )

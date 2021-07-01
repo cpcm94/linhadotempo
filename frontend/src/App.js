@@ -1,5 +1,4 @@
 import React from 'react'
-import logo from './logo.svg'
 import {
   ApolloClient,
   InMemoryCache,
@@ -63,12 +62,7 @@ const Wrapped = () => {
             <EditTimelinePage />
           </Route>
           <Route path="/">
-            <div>
-              <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>Linha do Tempo</p>
-              </header>
-            </div>
+            <TimelinesLoader />
           </Route>
         </Switch>
       </div>
