@@ -1,9 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Wrapper, TextFieldColor } from './TimelineForm.styles'
+import { Wrapper, TextFieldColor, StyledButton } from './TimelineForm.styles'
 import { colors } from '../colors'
 
-export const TimelineForm = ({ timelineName, setTimelineName, loading }) => {
+export const TimelineForm = ({
+  timelineName,
+  setTimelineName,
+  loading,
+  onClick,
+}) => {
   const handleNameChange = (e) => {
     setTimelineName(e.target.value)
   }
@@ -23,6 +28,9 @@ export const TimelineForm = ({ timelineName, setTimelineName, loading }) => {
               value={timelineName}
               onChange={handleNameChange}
             />
+            <StyledButton variant="contained" onClick={onClick}>
+              Salvar
+            </StyledButton>
           </Wrapper>
         </>
       )}
@@ -35,4 +43,5 @@ TimelineForm.propTypes = {
   timelineName: PropTypes.string,
   setTimelineName: PropTypes.func,
   loading: PropTypes.bool,
+  onClick: PropTypes.func,
 }

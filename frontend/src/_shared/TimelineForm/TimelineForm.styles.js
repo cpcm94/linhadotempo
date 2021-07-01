@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
 import { colors } from '../colors'
+import { Button } from '@material-ui/core'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -31,11 +32,19 @@ export const TextFieldColor = styled(TextField)`
     color: ${colors.brown};
   }
   .MuiOutlinedInput-root {
-    &:hover fieldset {
+    fieldset {
       border-color: ${colors.brown};
     }
     &.Mui-focused fieldset {
       border-color: ${colors.brown};
     }
   }
+`
+
+export const StyledButton = styled(Button)`
+  height: 56px;
+  && {
+    color: ${colors.white};
+  }
+  background-color: ${colors.brown} !important;
 `

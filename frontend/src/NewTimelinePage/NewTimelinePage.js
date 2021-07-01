@@ -5,7 +5,6 @@ import { Layout } from '../_shared/Layout'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/client'
 import { CREATE_TIMELINE_MUTATION } from './CREATE_TIMELINE_MUTATION'
-import { CreateTimelineButton } from './CreateTimelineButton'
 import { useHistory } from 'react-router-dom'
 
 export const NewTimelinePage = ({ user }) => {
@@ -23,14 +22,11 @@ export const NewTimelinePage = ({ user }) => {
 
   return (
     <Layout>
-      <Header
-        title={'Criar linha do tempo'}
-        pageActions={<CreateTimelineButton onClick={saveTimeline} />}
-        loading={loading}
-      />
+      <Header title={'Criar linha do tempo'} loading={loading} />
       <TimelineForm
         timelineName={timelineName}
         setTimelineName={setTimelineName}
+        onClick={saveTimeline}
       />
     </Layout>
   )
