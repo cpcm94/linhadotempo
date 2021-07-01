@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Layout } from '../_shared/Layout'
-import { Footer } from '../_shared/Footer/Footer'
+import { Header } from '../_shared/Header/Header'
 import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { UpdateTimelineButton } from './UpdateTimelineButton'
 import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
@@ -22,12 +22,15 @@ export const EditableTimeline = ({ timeline }) => {
   })
   return (
     <Layout>
+      <Header
+        title={'Editar linha do tempo'}
+        pageActions={<UpdateTimelineButton onClick={updateTimeline} />}
+      />
       <TimelineForm
         timelineName={timelineName}
         setTimelineName={setTimelineName}
         loading={loading}
       />
-      <Footer pageActions={<UpdateTimelineButton onClick={updateTimeline} />} />
     </Layout>
   )
 }

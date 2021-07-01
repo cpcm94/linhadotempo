@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Karla');
   :root {
-    --primary-color: #01796f;
+    --primary-color: #CB857C;
     --white: #FFFAFF;
   }
   * {

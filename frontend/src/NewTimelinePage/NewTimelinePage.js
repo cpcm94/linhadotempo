@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
-import { Footer } from '../_shared/Footer/Footer'
+import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/client'
@@ -23,12 +23,15 @@ export const NewTimelinePage = ({ user }) => {
 
   return (
     <Layout>
+      <Header
+        title={'Criar linha do tempo'}
+        pageActions={<CreateTimelineButton onClick={saveTimeline} />}
+      />
       <TimelineForm
         timelineName={timelineName}
         setTimelineName={setTimelineName}
         loading={loading}
       />
-      <Footer pageActions={<CreateTimelineButton onClick={saveTimeline} />} />
     </Layout>
   )
 }

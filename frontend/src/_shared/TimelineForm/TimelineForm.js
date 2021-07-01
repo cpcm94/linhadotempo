@@ -1,11 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  Wrapper,
-  NewTimelineNameWrapper,
-  TimelineTitle,
-  TimelineNameLabel,
-} from './TimelineForm.styles'
+import { Wrapper, TextFieldColor } from './TimelineForm.styles'
+import { colors } from '../colors'
 
 export const TimelineForm = ({ timelineName, setTimelineName, loading }) => {
   const handleNameChange = (e) => {
@@ -17,12 +13,13 @@ export const TimelineForm = ({ timelineName, setTimelineName, loading }) => {
         <span>Loading...</span>
       ) : (
         <>
-          <TimelineTitle>Linha do tempo</TimelineTitle>
           <Wrapper>
-            <TimelineNameLabel>Nome:</TimelineNameLabel>
-            <NewTimelineNameWrapper
+            <TextFieldColor
               type="text"
               id="timeline"
+              variant="outlined"
+              label="Nome"
+              color={colors.brown}
               value={timelineName}
               onChange={handleNameChange}
             />
