@@ -15,6 +15,7 @@ export const EditableTimeline = ({ timeline }) => {
   const navigateToTimelinesPage = () => {
     history.push('/timelines')
   }
+
   const [updateTimeline, { loading }] = useMutation(UPDATE_TIMELINE_MUTATION, {
     variables: { id: timeline.id, input: { name: timelineName } },
     onCompleted: navigateToTimelinesPage,
