@@ -1,19 +1,9 @@
 import styled from 'styled-components'
-import { colors } from '../colors'
-
-export const Wrapper = styled.div`
-  background-color: ${colors.brown};
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 70px;
-`
+import { colors } from '../../_shared/colors'
 
 export const ButtonWrapper = styled.div`
   background-color: ${colors.white};
+  margin-right: 1.5rem;
   border: solid 1px #999;
   color: #655;
   border-radius: 5px;
@@ -27,9 +17,5 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
-export const PageActions = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: row-reverse;
+  cursor: pointer;
 `

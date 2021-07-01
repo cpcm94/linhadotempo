@@ -1,13 +1,12 @@
 import React from 'react'
-import { Wrapper, ButtonWrapper } from './Footer.styles'
+import { Wrapper, PageActions } from './Footer.styles'
+import PropTypes from 'prop-types'
 
-export const Footer = () => {
+export const Footer = ({ pageActions }) => {
   return (
-    <Wrapper>
-      <ButtonWrapper />
-      <ButtonWrapper />
-      <ButtonWrapper />
-      <ButtonWrapper />
-    </Wrapper>
+    <Wrapper>{pageActions && <PageActions>{pageActions}</PageActions>}</Wrapper>
   )
+}
+Footer.propTypes = {
+  pageActions: PropTypes.element,
 }

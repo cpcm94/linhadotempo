@@ -1,6 +1,6 @@
 import React from 'react'
 import { LoginPage } from './LoginPage'
-import { ME_QUERY } from './ME_QUERY'
+import { ME_QUERY } from '../_shared/ME_QUERY'
 import { useQuery, useMutation } from '@apollo/client'
 import { LOGOUT_MUTATION } from './LOGOUT_MUTATION'
 import { deleteToken } from '../_shared/AuthToken/deleteToken'

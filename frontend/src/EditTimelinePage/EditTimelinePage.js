@@ -1,14 +1,13 @@
 import React from 'react'
-import { TimelineLoader } from './TimelineLoader'
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
+import { EditTimelineLoader } from './EditTimelineLoader'
 
-export const TimelinePage = () => {
+export const EditTimelinePage = () => {
   let { path } = useRouteMatch()
-
   return (
     <Switch>
       <Route path={`${path}/:timelineId`}>
-        <TimelineLoader />
+        <EditTimelineLoader />
       </Route>
     </Switch>
   )

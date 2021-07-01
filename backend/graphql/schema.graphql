@@ -71,14 +71,22 @@ input LoginInput {
     email: String!
     password: String!
 }
+input CreateTimeLineInput {
+    user_id: String!
+    name: String!
+}
+
+input UpdateTimelineInput {
+    name: String
+}
 
 type Query {
-    users: [User!]! @paginate(defaultCount: 10)
+    users: [User!]! @all
     user(id: ID! @eq): User @find
     me: User @auth
-    timelines: [Timeline!]! @paginate(defaultCount: 10)
+    timelines: [Timeline!]! @all
     timeline(id: ID @eq): Timeline @find
-    time_entries: [TimeEntry] @paginate(defaultCount: 10)
+    time_entries: [TimeEntry] @all
     time_entry(id: ID! @eq): TimeEntry @find
     hello: String!
     greet(name: String!): String
@@ -87,8 +95,9 @@ type Query {
 type Mutation {
     login(input: LoginInput! @spread): LoginResponse!
     logout: String! @guard
-    createTimeline(name: String!): Timeline! @create
-    updateTimeline(id: ID!, name: String!): Timeline @update
+    createTimeline(input: CreateTimeLineInput! @spread): Timeline! @create
+    updateTimeline(id: ID!, input: UpdateTimelineInput! @spread): Timeline
+        @update
     deleteTimeline(id: ID!): Timeline @delete
     createTimeEntry(input: CreateTimeEntryInput! @spread): TimeEntry @create
     deleteTimeEntry(id: ID!): TimeEntry @delete
