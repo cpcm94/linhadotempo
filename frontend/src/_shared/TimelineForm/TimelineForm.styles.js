@@ -27,7 +27,7 @@ export const TimelineNameLabel = styled.label`
 `
 
 export const TextFieldColor = styled(TextField)`
-  label.focused {
+  label.Mui-focused {
     color: ${colors.brown};
   }
   .MuiOutlinedInput-root {

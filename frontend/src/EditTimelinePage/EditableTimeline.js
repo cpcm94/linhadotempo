@@ -24,12 +24,12 @@ export const EditableTimeline = ({ timeline }) => {
     <Layout>
       <Header
         title={'Editar linha do tempo'}
+        loading={loading}
         pageActions={<UpdateTimelineButton onClick={updateTimeline} />}
       />
       <TimelineForm
         timelineName={timelineName}
         setTimelineName={setTimelineName}
-        loading={loading}
       />
     </Layout>
   )

@@ -26,11 +26,11 @@ export const NewTimelinePage = ({ user }) => {
       <Header
         title={'Criar linha do tempo'}
         pageActions={<CreateTimelineButton onClick={saveTimeline} />}
+        loading={loading}
       />
       <TimelineForm
         timelineName={timelineName}
         setTimelineName={setTimelineName}
-        loading={loading}
       />
     </Layout>
   )
