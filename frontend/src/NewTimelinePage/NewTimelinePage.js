@@ -27,6 +27,8 @@ export const NewTimelinePage = ({ user }) => {
         timelineName={timelineName}
         setTimelineName={setTimelineName}
         onClick={saveTimeline}
+        showButton={true}
+        buttonMessage={'Criar linha do tempo'}
       />
     </Layout>
   )

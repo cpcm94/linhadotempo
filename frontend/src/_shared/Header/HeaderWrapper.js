@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.div`
   color: #fff;
   position: sticky;
   top: 0;
-  height: 2rem;
+  height: 3rem;
   z-index: 2;
   overflow-x: hidden;
   align-items: center;

@@ -5,8 +5,10 @@ import { Button } from '@material-ui/core'
 
 export const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
-  min-height: calc(100vh - 2rem);
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: calc(100vh - 3rem);
   padding: 1rem;
 `
 

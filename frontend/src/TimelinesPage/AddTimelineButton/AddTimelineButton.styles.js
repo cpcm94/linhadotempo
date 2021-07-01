@@ -3,6 +3,7 @@ import { colors } from '../../_shared/colors'
 
 export const ButtonWrapper = styled.div`
   background-color: ${colors.white};
+  padding-bottom: 5px;
   margin-right: 1.5rem;
   border: solid 1px #999;
   color: #655;
