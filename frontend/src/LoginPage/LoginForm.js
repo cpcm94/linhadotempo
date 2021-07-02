@@ -24,26 +24,20 @@ export const LoginForm = () => {
   }
 
   const saveTokenAndGoHome = (data) => {
-    if (data) {
-      console.log('data', data)
-      if (data.login.success) {
-        saveToken(data.login.token)
-        navigateToHome()
-        history.go(0)
-      } else {
-        console.log('data. fail', data)
-        toast.error(data.login.message, {
-          position: 'top-center',
-          hideProgressBar: true,
-          transition: Slide,
-        })
-      }
+    if (data.login.success) {
+      saveToken(data.login.token)
+      navigateToHome()
+    } else {
+      toast.error(data.login.message, {
+        position: 'top-center',
+        hideProgressBar: true,
+        transition: Slide,
+      })
     }
   }
 
-  const [login, { data }] = useMutation(LOGIN_MUTATION, {
+  const [login] = useMutation(LOGIN_MUTATION, {
     variables: { input: { email: email, password: password } },
-    onCompleted: saveTokenAndGoHome,
     onError: (error) => {
       console.error(error.message)
       toast.error('Erro inesperado ao se comunicar com o servidor', {
@@ -64,8 +58,9 @@ export const LoginForm = () => {
 
   const submitSignIn = (e) => {
     e.preventDefault()
-    login()
-    saveTokenAndGoHome(data)
+    login().then((response) => {
+      saveTokenAndGoHome(response.data)
+    })
   }
 
   return (
