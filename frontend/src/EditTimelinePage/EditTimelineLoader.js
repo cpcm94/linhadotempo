@@ -13,7 +13,6 @@ export const EditTimelineLoader = () => {
   if (error) {
     return console.log(error)
   }
-  console.log('data', data)
   return (
     <>
       {loading ? (
