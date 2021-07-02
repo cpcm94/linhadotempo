@@ -2,13 +2,11 @@ import styled from 'styled-components'
 
 export const Title = styled.div`
   font-size: 1.1rem;
-  flex: 1;
+  padding: 0 0.5rem 0 0;
 `
 
 export const PageActions = styled.div`
   display: flex;
-  flex: 1;
-  flex-direction: row-reverse;
 `
 
 export const SubTitle = styled.div`

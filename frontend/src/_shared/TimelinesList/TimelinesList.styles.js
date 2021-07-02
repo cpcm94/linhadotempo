@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { colors } from '../colors'
 
 export const TimelinesListWrapper = styled.div`
-  padding: 1rem;
   height: 100%;
 `
 
@@ -29,7 +28,7 @@ export const IconWrapper = styled.div`
 export const TimelinesWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 0.5rem 0 0.5rem 0.5rem;
+  padding: 1rem 0 1rem 1.5rem;
   cursor: pointer;
   :hover {
     background-color: ${colors.lightBrown};

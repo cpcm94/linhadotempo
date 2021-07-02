@@ -22,8 +22,8 @@ export const Header = ({
         </TitlesWrapper>
       )}
       {onlyTitle && <Title>{title}</Title>}
-      {loading && <span>Loading...</span>}
       {pageActions && <PageActions>{pageActions}</PageActions>}
+      {loading && <span>Loading...</span>}
     </HeaderWrapper>
   )
 }
