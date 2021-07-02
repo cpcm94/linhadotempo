@@ -33,18 +33,6 @@ export const ReturnButton = () => {
         >
           <title>Layer 1</title>
           <line
-            stroke={colors.white}
-            strokeWidth="20"
-            strokeLinecap="undefined"
-            strokeLinejoin="undefined"
-            id="svg_2"
-            y2="297.99975"
-            x2="576.16685"
-            y1="297.99975"
-            x1="223.83319"
-            fill="none"
-          />
-          <line
             strokeLinecap="undefined"
             strokeLinejoin="undefined"
             id="svg_3"
