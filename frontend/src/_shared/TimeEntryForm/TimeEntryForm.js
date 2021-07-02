@@ -14,20 +14,13 @@ export const TimeEntryForm = ({
   setTimeEntryMonth,
   timeEntryDay,
   setTimeEntryDay,
+  timelines,
+  setTimeline,
   loading,
   onClick,
 }) => {
-  const handleNameChange = (e) => {
-    setTimeEntryName(e.target.value)
-  }
-  const handleYearChange = (e) => {
-    setTimeEntryYear(e.target.value)
-  }
-  const handleMonthChange = (e) => {
-    setTimeEntryMonth(e.target.value)
-  }
-  const handleDayChange = (e) => {
-    setTimeEntryDay(e.target.value)
+  const handleChange = (setNewValue) => (e) => {
+    setNewValue(e.target.value)
   }
   return (
     <>
@@ -37,13 +30,28 @@ export const TimeEntryForm = ({
         <>
           <Wrapper>
             <StyledTextField
+              select
+              id="timeline_id"
+              variant="outlined"
+              label="Linha do tempo"
+              color={colors.brown}
+              value={timelines}
+              onChange={handleChange(setTimeline)}
+            >
+              {timelines.map((timeline) => (
+                <MenuItem key={timeline.id} value={timeline.id}>
+                  {timeline.name}
+                </MenuItem>
+              ))}
+            </StyledTextField>
+            <StyledTextField
               type="text"
               id="entryName"
               variant="outlined"
               label="Nome"
               color={colors.brown}
               value={timeEntryName}
-              onChange={handleNameChange}
+              onChange={handleChange(setTimeEntryName)}
             />
             <StyledTextField
               type="text"
@@ -52,7 +60,7 @@ export const TimeEntryForm = ({
               label="Ano"
               color={colors.brown}
               value={timeEntryYear}
-              onChange={handleYearChange}
+              onChange={handleChange(setTimeEntryYear)}
             />
             <StyledTextField
               select
@@ -61,7 +69,7 @@ export const TimeEntryForm = ({
               label="Mês"
               color={colors.brown}
               value={timeEntryMonth}
-              onChange={handleMonthChange}
+              onChange={handleChange(setTimeEntryMonth)}
             >
               {Months.map((month, index) => (
                 <MenuItem key={index} value={month}>
@@ -76,7 +84,7 @@ export const TimeEntryForm = ({
               label="Dia"
               color={colors.brown}
               value={timeEntryDay}
-              onChange={handleDayChange}
+              onChange={handleChange(setTimeEntryDay)}
             >
               {Days.map((day, index) => (
                 <MenuItem key={index} value={day}>
@@ -103,6 +111,8 @@ TimeEntryForm.propTypes = {
   setTimeEntryMonth: PropTypes.func,
   timeEntryDay: PropTypes.number,
   setTimeEntryDay: PropTypes.func,
+  timelines: PropTypes.array,
+  setTimeline: PropTypes.func,
   loading: PropTypes.bool,
   onClick: PropTypes.func,
 }

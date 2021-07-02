@@ -16,4 +16,18 @@ Primary.args = {
   annual_importance: false,
   monthly_importance: false,
   loading: false,
+  timelines: [
+    {
+      id: '1',
+      name: 'timeline teste1',
+    },
+    {
+      id: '2',
+      name: 'timeline teste2',
+    },
+    {
+      id: '3',
+      name: 'timeline teste3',
+    },
+  ],
 }
