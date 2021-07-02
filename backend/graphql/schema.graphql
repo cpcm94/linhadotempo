@@ -36,9 +36,9 @@ type TimeEntry {
 }
 
 type LoginResponse {
-    token: String!
+    token: String
     success: Boolean!
-    message: String
+    message: String!
 }
 
 input CreateTimeEntryInput {
