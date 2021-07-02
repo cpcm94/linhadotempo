@@ -85,7 +85,7 @@ export const TimeEntryForm = ({
               ))}
             </StyledTextField>
             <StyledButton variant="contained" onClick={onClick}>
-              Salvar acontecimento
+              Criar Acontecimento
             </StyledButton>
           </Wrapper>
         </>
