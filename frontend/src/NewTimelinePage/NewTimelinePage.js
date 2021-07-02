@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
-import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/client'
 import { CREATE_TIMELINE_MUTATION } from './CREATE_TIMELINE_MUTATION'
 import { useHistory } from 'react-router-dom'
 
-export const NewTimelinePage = ({ user }) => {
+export const NewTimelinePage = () => {
   const [timelineName, setTimelineName] = useState('')
   let history = useHistory()
 
@@ -16,7 +15,7 @@ export const NewTimelinePage = ({ user }) => {
   }
 
   const [saveTimeline, { loading }] = useMutation(CREATE_TIMELINE_MUTATION, {
-    variables: { input: { name: timelineName, user_id: user.me.id } },
+    variables: { input: { name: timelineName } },
     onCompleted: navigateToTimelinesPage,
   })
 
@@ -32,9 +31,4 @@ export const NewTimelinePage = ({ user }) => {
       />
     </Layout>
   )
-}
-
-NewTimelinePage.propTypes = {
-  timelines: PropTypes.array,
-  user: PropTypes.object,
 }

@@ -88,14 +88,14 @@ type Query {
     timeline(id: ID @eq): Timeline @find
     time_entries: [TimeEntry] @all
     time_entry(id: ID! @eq): TimeEntry @find
-    hello: String!
-    greet(name: String!): String
 }
 
 type Mutation {
     login(input: LoginInput! @spread): LoginResponse!
     logout: String! @guard
-    createTimeline(input: CreateTimeLineInput! @spread): Timeline! @create
+    createTimeline(input: CreateTimeLineInput! @spread): Timeline!
+        @create
+        @inject(context: "user.id", name: "input.user_id")
     updateTimeline(id: ID!, input: UpdateTimelineInput! @spread): Timeline
         @update
     deleteTimeline(id: ID!): Timeline @delete
