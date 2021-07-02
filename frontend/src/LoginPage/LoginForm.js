@@ -29,6 +29,7 @@ export const LoginForm = () => {
       if (data.login.success) {
         saveToken(data.login.token)
         navigateToHome()
+        history.go(0)
       } else {
         console.log('data. fail', data)
         toast.error(data.login.message, {
