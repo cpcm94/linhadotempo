@@ -36,9 +36,9 @@ type TimeEntry {
 }
 
 type LoginResponse {
-    token: String!
+    token: String
     success: Boolean!
-    message: String
+    message: String!
 }
 
 input CreateTimeEntryInput {
@@ -72,7 +72,6 @@ input LoginInput {
     password: String!
 }
 input CreateTimeLineInput {
-    user_id: String!
     name: String!
 }
 
@@ -84,18 +83,18 @@ type Query {
     users: [User!]! @all
     user(id: ID! @eq): User @find
     me: User @auth
-    timelines: [Timeline!]! @all
-    timeline(id: ID @eq): Timeline @find
+    timelines: [Timeline!]! @all @whereAuth(relation: "user")
+    timeline(id: ID @eq): Timeline @find @whereAuth(relation: "user")
     time_entries: [TimeEntry] @all
     time_entry(id: ID! @eq): TimeEntry @find
-    hello: String!
-    greet(name: String!): String
 }
 
 type Mutation {
     login(input: LoginInput! @spread): LoginResponse!
     logout: String! @guard
-    createTimeline(input: CreateTimeLineInput! @spread): Timeline! @create
+    createTimeline(input: CreateTimeLineInput! @spread): Timeline!
+        @create
+        @inject(context: "user.id", name: "user_id")
     updateTimeline(id: ID!, input: UpdateTimelineInput! @spread): Timeline
         @update
     deleteTimeline(id: ID!): Timeline @delete
