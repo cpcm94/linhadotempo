@@ -72,7 +72,6 @@ input LoginInput {
     password: String!
 }
 input CreateTimeLineInput {
-    user_id: String!
     name: String!
 }
 
