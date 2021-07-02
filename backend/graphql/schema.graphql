@@ -92,9 +92,9 @@ type Query {
 type Mutation {
     login(input: LoginInput! @spread): LoginResponse!
     logout: String! @guard
-    createTimeline(input: CreateTimeLineInput!): Timeline!
+    createTimeline(input: CreateTimeLineInput! @spread): Timeline!
         @create
-        @inject(context: "user.id", name: "input.user_id")
+        @inject(context: "user.id", name: "user_id")
     updateTimeline(id: ID!, input: UpdateTimelineInput! @spread): Timeline
         @update
     deleteTimeline(id: ID!): Timeline @delete
