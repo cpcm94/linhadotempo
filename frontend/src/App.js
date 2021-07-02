@@ -13,7 +13,6 @@ import { getToken } from './_shared/AuthToken/getToken'
 import { LoginPageLoader } from './LoginPage/LoginPageLoader'
 import { NewTimelineLoader } from './NewTimelinePage/NewTimelineLoader'
 import { EditTimelinePage } from './EditTimelinePage/EditTimelinePage'
-import { CurrentUserContextProvider } from './_shared/CurrentUserContextProvider'
 
 const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
   const token = getToken()
@@ -39,9 +38,7 @@ const client = new ApolloClient({
 
 const ApolloApp = (Wrapped) => (
   <ApolloProvider client={client}>
-    <CurrentUserContextProvider>
-      <Wrapped />
-    </CurrentUserContextProvider>
+    <Wrapped />
   </ApolloProvider>
 )
 const Wrapped = () => {
