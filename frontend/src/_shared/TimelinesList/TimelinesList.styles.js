@@ -1,15 +1,12 @@
 import styled from 'styled-components'
 import { colors } from '../colors'
 
-export const TimelinesListLabel = styled.div`
-  text-align: center;
-`
-
 export const TimelinesListWrapper = styled.div`
   padding: 1rem;
   height: 100%;
-  margin-bottom: 70px;
 `
+
+export const TimelineNameWrapper = styled.div``
 
 export const IconWrapper = styled.div`
   margin: 0 5px 0 0;
@@ -32,5 +29,9 @@ export const IconWrapper = styled.div`
 export const TimelinesWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  cursor: pointer;
+  :hover {
+    background-color: ${colors.lightBrown};
+  }
 `

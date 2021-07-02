@@ -4,7 +4,7 @@ import {
   IconWrapper,
   TimelinesWrapper,
   TimelinesListWrapper,
-  TimelinesListLabel,
+  TimelineNameWrapper,
 } from './TimelinesList.styles'
 import { useHistory } from 'react-router-dom'
 
@@ -17,13 +17,14 @@ export const TimelinesList = ({ timelines }) => {
   }
   return (
     <TimelinesListWrapper>
-      <TimelinesListLabel>Linhas do Tempo</TimelinesListLabel>
       {timelines.map((timeline) => (
         <TimelinesWrapper key={timeline.id}>
           <IconWrapper>{timeline.id}</IconWrapper>
-          <div onClick={navigateToEditTimelinePage(history, timeline.id)}>
+          <TimelineNameWrapper
+            onClick={navigateToEditTimelinePage(history, timeline.id)}
+          >
             {timeline.name}
-          </div>
+          </TimelineNameWrapper>
         </TimelinesWrapper>
       ))}
     </TimelinesListWrapper>
