@@ -5,8 +5,11 @@ import {
   TimelinesWrapper,
   TimelinesListWrapper,
   TimelineNameWrapper,
+  EditButtonWrapper,
+  IconAndNameWrapper,
 } from './TimelinesList.styles'
 import { useHistory } from 'react-router-dom'
+import { EditTimelineButton } from '../EditTimelineButton'
 
 export const TimelinesList = ({ timelines }) => {
   let history = useHistory()
@@ -15,16 +18,25 @@ export const TimelinesList = ({ timelines }) => {
     e.stopPropagation()
     history.push(`/editTimeline/${timelineId}`)
   }
+  const navigateToViewTimelinePage = (history, timelineId) => (e) => {
+    e.stopPropagation()
+    history.push(`/viewTimeline/${timelineId}`)
+  }
   return (
     <TimelinesListWrapper>
       {timelines.map((timeline) => (
         <TimelinesWrapper key={timeline.id}>
-          <IconWrapper>{timeline.id}</IconWrapper>
-          <TimelineNameWrapper
+          <IconAndNameWrapper
+            onClick={navigateToViewTimelinePage(history, timeline.id)}
+          >
+            <IconWrapper>{timeline.id}</IconWrapper>
+            <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
+          </IconAndNameWrapper>
+          <EditButtonWrapper
             onClick={navigateToEditTimelinePage(history, timeline.id)}
           >
-            {timeline.name}
-          </TimelineNameWrapper>
+            <EditTimelineButton />
+          </EditButtonWrapper>
         </TimelinesWrapper>
       ))}
     </TimelinesListWrapper>

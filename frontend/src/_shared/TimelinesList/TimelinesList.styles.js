@@ -5,8 +5,25 @@ export const TimelinesListWrapper = styled.div`
   height: 100%;
 `
 
-export const TimelineNameWrapper = styled.div``
+export const TimelineNameWrapper = styled.div`
+  flex: 1;
+`
+export const EditButtonWrapper = styled.div`
+  align-self: center;
+  :hover {
+    background-color: ${colors.lightBrown};
+  }
+`
 
+export const IconAndNameWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 1rem 0 1rem 1.5rem;
+  :hover {
+    background-color: ${colors.lightBrown};
+  }
+`
 export const IconWrapper = styled.div`
   margin: 0 5px 0 0;
   background-color: ${colors.white};
@@ -27,10 +44,5 @@ export const IconWrapper = styled.div`
 
 export const TimelinesWrapper = styled.div`
   display: flex;
-  align-items: center;
-  padding: 1rem 0 1rem 1.5rem;
   cursor: pointer;
-  :hover {
-    background-color: ${colors.lightBrown};
-  }
 `

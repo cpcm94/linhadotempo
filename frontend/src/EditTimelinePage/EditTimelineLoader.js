@@ -9,6 +9,7 @@ export const EditTimelineLoader = () => {
 
   const { data, loading, error } = useQuery(TIMELINE_QUERY, {
     variables: { id: timelineId },
+    fetchPolicy: 'cache-and-network',
   })
   if (error) {
     return console.log(error)
