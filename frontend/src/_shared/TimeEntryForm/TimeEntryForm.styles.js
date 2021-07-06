@@ -11,6 +11,9 @@ export const StyledTextField = styled(TextField)`
   .MuiSelect-root {
     min-width: 30px;
   }
+  #timeline_id {
+    min-width: 177px;
+  }
   .MuiOutlinedInput-root {
     fieldset {
       border-color: ${colors.brown};
@@ -22,8 +25,8 @@ export const StyledTextField = styled(TextField)`
 `
 
 export const StyledButton = styled(Button)`
-  height: 56px;
-  width: 200px;
+  height: 3.5rem;
+  width: 14rem;
   align-self: center;
   && {
     color: ${colors.white};
