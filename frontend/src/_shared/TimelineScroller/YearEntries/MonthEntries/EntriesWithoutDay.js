@@ -20,5 +20,5 @@ export const EntriesWithoutDay = ({ timeEntriesWithoutDay }) => {
 }
 
 EntriesWithoutDay.propTypes = {
-  timeEntriesWithoutDay: PropTypes.object,
+  timeEntriesWithoutDay: PropTypes.array,
 }
