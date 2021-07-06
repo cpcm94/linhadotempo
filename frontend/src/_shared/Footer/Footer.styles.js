@@ -4,7 +4,6 @@ import { colors } from '../colors'
 export const Wrapper = styled.div`
   background-color: ${colors.brown};
   display: flex;
-  justify-content: space-around;
   align-items: center;
   position: fixed;
   bottom: 0;
