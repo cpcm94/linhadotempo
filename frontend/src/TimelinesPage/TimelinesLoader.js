@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { TIMELINES_QUERY } from './TIMELINES_QUERY'
+import { TIMELINES_QUERY } from '../_shared/TIMELINES_QUERY'
 import { TimelinesPage } from './TimelinesPage'
 
 export const TimelinesLoader = () => {
