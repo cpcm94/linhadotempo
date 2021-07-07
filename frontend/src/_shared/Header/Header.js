@@ -14,7 +14,7 @@ export const Header = ({
   const onlyTitle = title && !subTitle
   return (
     <HeaderWrapper>
-      {returnButton && <ReturnButton />}
+      {returnButton && <ReturnButton onClick={returnButton} />}
       {subTitle && (
         <TitlesWrapper>
           <SubTitle>{subTitle}</SubTitle>
@@ -34,4 +34,5 @@ Header.propTypes = {
   loading: PropTypes.bool,
   pageActions: PropTypes.element,
   returnButton: PropTypes.bool,
+  returnButtonClick: PropTypes.func,
 }

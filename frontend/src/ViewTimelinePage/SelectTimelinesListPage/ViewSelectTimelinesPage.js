@@ -1,14 +1,14 @@
 import React from 'react'
-import { ViewTimelineLoader } from './ViewTimelineLoader'
+import { SelectTimelinesLoader } from './SelectTimelinesLoader'
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
 
-export const ViewTimelinePage = () => {
+export const ViewSelectTimelinesPage = () => {
   let { path } = useRouteMatch()
 
   return (
     <Switch>
-      <Route path={`${path}/:timelineId`}>
-        <ViewTimelineLoader />
+      <Route path={`${path}/`}>
+        <SelectTimelinesLoader />
       </Route>
     </Switch>
   )

@@ -20,7 +20,7 @@ export const TimelinesList = ({ timelines }) => {
   }
   const navigateToViewTimelinePage = (history, timelineId) => (e) => {
     e.stopPropagation()
-    history.push(`/viewTimeline/${timelineId}`)
+    history.push(`/viewTimeline/?timelines=${timelineId}`)
   }
   return (
     <TimelinesListWrapper>

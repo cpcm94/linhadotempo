@@ -1,22 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useHistory } from 'react-router-dom'
 import { colors } from './colors'
+import PropTypes from 'prop-types'
 
 const Wrapper = styled.div`
   margin-right: 10px;
   cursor: pointer;
 `
 
-export const ReturnButton = () => {
-  const history = useHistory()
-
+export const ReturnButton = ({ onClick }) => {
   return (
-    <Wrapper
-      onClick={() => {
-        history.goBack()
-      }}
-    >
+    <Wrapper onClick={onClick}>
       <svg
         width="20"
         height="20"
@@ -83,4 +77,8 @@ export const ReturnButton = () => {
       </svg>
     </Wrapper>
   )
+}
+
+ReturnButton.propTypes = {
+  onClick: PropTypes.func,
 }

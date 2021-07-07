@@ -5,6 +5,16 @@ export const TIMELINES_QUERY = gql`
     timelines {
       id
       name
+      time_entries {
+        id
+        name
+        year
+        month
+        day
+        annual_importance
+        monthly_importance
+        timeline_id
+      }
     }
   }
 `
