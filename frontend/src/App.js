@@ -13,7 +13,7 @@ import { getToken } from './_shared/AuthToken/getToken'
 import { LoginPageLoader } from './LoginPage/LoginPageLoader'
 import { NewTimelineLoader } from './NewTimelinePage/NewTimelineLoader'
 import { EditTimelinePage } from './EditTimelinePage/EditTimelinePage'
-import { ViewTimelinePage } from './ViewTimelinePage/ViewTimelinePage'
+import { ViewTimelinesPage } from './ViewTimelinePage/ViewTimelinesPage'
 
 const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
   const token = getToken()
@@ -60,7 +60,7 @@ const Wrapped = () => {
             <EditTimelinePage />
           </Route>
           <Route path="/viewTimeline">
-            <ViewTimelinePage />
+            <ViewTimelinesPage />
           </Route>
           <Route path="/">
             <TimelinesLoader />

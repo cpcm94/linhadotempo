@@ -5,11 +5,18 @@ import { Header } from '../_shared/Header/Header'
 import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
+import { useHistory } from 'react-router-dom'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
 export const EditableTimeline = ({ timeline }) => {
+  let history = useHistory()
+
+  const goBackToPreviousPage = () => {
+    history.goBack()
+  }
+
   const isFirstRun = useRef(true)
 
   const [timelineName, setTimelineName] = useState(timeline.name)
@@ -40,7 +47,7 @@ export const EditableTimeline = ({ timeline }) => {
   return (
     <Layout>
       <Header
-        returnButton={true}
+        returnButton={goBackToPreviousPage}
         subTitle={'Editar linha do tempo'}
         title={timelineName}
         loading={loading}

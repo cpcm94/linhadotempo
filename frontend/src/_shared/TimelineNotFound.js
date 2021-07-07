@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout } from './Layout'
 import styled from 'styled-components'
 import { Header } from './Header/Header'
+import { useHistory } from 'react-router-dom'
 
 const MessageWrapper = styled.div`
   margin-top: 30px;
@@ -10,9 +11,14 @@ const MessageWrapper = styled.div`
 `
 
 export const TimelineNotFound = () => {
+  let history = useHistory()
+
+  const goToPreviousPage = () => {
+    history.goBack()
+  }
   return (
     <Layout>
-      <Header returnButton={true} />
+      <Header returnButton={goToPreviousPage} />
       <MessageWrapper>Essa linha do tempo não existe!</MessageWrapper>
     </Layout>
   )
