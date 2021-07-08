@@ -50,9 +50,9 @@ export const TimelinePage = ({ timelines }) => {
               color={colors.white}
               onClick={navigateToSelectTimelines}
             />
-            {/* {timelinesArray().map((timeline) => (
+            {timelinesArray().map((timeline) => (
               <Button key={timeline.id}>{timeline.id}</Button>
-            ))} */}
+            ))}
           </>
         }
       />
