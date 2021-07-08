@@ -5,7 +5,11 @@ import PropTypes from 'prop-types'
 
 export const TimelinesContext = createContext()
 export const TimelinesContextProvider = ({ children }) => {
-  const { data: timelinesData, loading } = useQuery(TIMELINES_QUERY, {
+  const {
+    data: timelinesData,
+    loading,
+    refetch: refetchTimelines,
+  } = useQuery(TIMELINES_QUERY, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-first',
   })
@@ -13,7 +17,7 @@ export const TimelinesContextProvider = ({ children }) => {
   const timelines = timelinesData ? timelinesData.timelines : null
 
   return (
-    <TimelinesContext.Provider value={{ timelines, loading }}>
+    <TimelinesContext.Provider value={{ timelines, loading, refetchTimelines }}>
       {children}
     </TimelinesContext.Provider>
   )

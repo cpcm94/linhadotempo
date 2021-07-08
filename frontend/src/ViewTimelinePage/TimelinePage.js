@@ -32,20 +32,27 @@ export const TimelinePage = ({ timelines }) => {
     })
   }
 
+  const navigateToNewEntryPage = () => {
+    history.push({
+      pathname: '/viewTimeline/newEntry/',
+      search: `?timelines=${timelinesString}`,
+    })
+  }
+
   return (
     <Layout>
       <TimelineScroller timelines={timelinesArray()} />
       <Footer
         pageActions={
           <>
-            <Button>+</Button>
+            <Button onClick={navigateToNewEntryPage}>+</Button>
             <EllipsisButton
               color={colors.white}
               onClick={navigateToSelectTimelines}
             />
-            {timelinesArray().map((timeline) => (
+            {/* {timelinesArray().map((timeline) => (
               <Button key={timeline.id}>{timeline.id}</Button>
-            ))}
+            ))} */}
           </>
         }
       />

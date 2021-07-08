@@ -13,10 +13,6 @@ export const TimelinesLoader = () => {
     console.error(error)
   }
 
-  if (data) {
-    console.log('data', data)
-  }
-
   return loading ? (
     <div>Loading...</div>
   ) : data ? (

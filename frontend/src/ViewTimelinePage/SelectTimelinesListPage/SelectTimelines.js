@@ -3,6 +3,7 @@ import { SelectTimelinesList } from './SelectTimelinesList/SelectTimelinesList'
 import { Header } from '../../_shared/Header/Header'
 import { Layout } from '../../_shared/Layout'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 
 export const SelectTimelines = ({ timelines, queriedTimelines }) => {
   const filteredSelectedTimelines = timelines.filter((timeline) =>
@@ -11,12 +12,25 @@ export const SelectTimelines = ({ timelines, queriedTimelines }) => {
   const [selectedTimelines, setSelectedTimelines] = useState(
     filteredSelectedTimelines
   )
+
+  const stringOfSelectedTimelines = selectedTimelines
+    .map((timeline) => timeline.id)
+    .toString()
+
+  let history = useHistory()
+
+  const navigateToViewTimelines = () => {
+    history.push({
+      pathname: '/viewTimeline/',
+      search: `?timelines=${stringOfSelectedTimelines}`,
+    })
+  }
   return (
     <Layout>
       <Header
         subTitle={'Selecionar linhas do tempo'}
         title={'Linhas do Tempo'}
-        returnButton={true}
+        returnButton={navigateToViewTimelines}
       />
       <SelectTimelinesList
         timelines={timelines}

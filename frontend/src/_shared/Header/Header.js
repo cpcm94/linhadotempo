@@ -33,6 +33,5 @@ Header.propTypes = {
   subTitle: PropTypes.any,
   loading: PropTypes.bool,
   pageActions: PropTypes.element,
-  returnButton: PropTypes.bool,
-  returnButtonClick: PropTypes.func,
+  returnButton: PropTypes.func,
 }
