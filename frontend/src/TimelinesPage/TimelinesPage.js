@@ -1,5 +1,5 @@
 import React from 'react'
-import { TimelinesList } from '../_shared/TimelinesList/TimelinesList'
+import { TimelinesList } from './TimelinesList/TimelinesList'
 import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
 import { AddTimelineButton } from './AddTimelineButton/AddTimelineButton'

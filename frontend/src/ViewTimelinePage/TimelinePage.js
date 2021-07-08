@@ -4,7 +4,7 @@ import { Footer } from '../_shared/Footer/Footer'
 import { Button } from './Button'
 import { EllipsisButton } from '../_shared/EllipsisButton'
 import PropTypes from 'prop-types'
-import { TimelineScroller } from '../_shared/TimelineScroller/TimelineScroller'
+import { TimelineScroller } from './TimelineScroller/TimelineScroller'
 import { colors } from '../_shared/colors'
 import { useHistory } from 'react-router-dom'
 
