@@ -9,7 +9,7 @@ import {
   IconAndNameWrapper,
 } from './TimelinesList.styles'
 import { useHistory } from 'react-router-dom'
-import { EditTimelineButton } from '../EditTimelineButton'
+import { EditTimelineButton } from '../../_shared/EditTimelineButton'
 
 export const TimelinesList = ({ timelines }) => {
   let history = useHistory()

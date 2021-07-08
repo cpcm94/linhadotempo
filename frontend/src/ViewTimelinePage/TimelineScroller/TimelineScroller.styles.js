@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../colors'
+import { colors } from '../../_shared/colors'
 
 export const EntriesWrapper = styled.div`
   background-color: ${colors.white};

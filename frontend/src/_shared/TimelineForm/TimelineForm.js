@@ -7,7 +7,6 @@ export const TimelineForm = ({
   setTimelineName,
   loading,
   onClick,
-  showButton,
   buttonMessage,
 }) => {
   const handleNameChange = (e) => {
@@ -28,7 +27,7 @@ export const TimelineForm = ({
               value={timelineName}
               onChange={handleNameChange}
             />
-            {showButton && (
+            {buttonMessage && (
               <StyledButton variant="contained" onClick={onClick}>
                 {buttonMessage}
               </StyledButton>
@@ -46,6 +45,5 @@ TimelineForm.propTypes = {
   setTimelineName: PropTypes.func,
   loading: PropTypes.bool,
   onClick: PropTypes.func,
-  showButton: PropTypes.bool,
   buttonMessage: PropTypes.string,
 }

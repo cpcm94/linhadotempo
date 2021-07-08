@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SelectTimelinesList } from '../../_shared/SelectTimelinesList/SelectTimelinesList'
+import { SelectTimelinesList } from './SelectTimelinesList/SelectTimelinesList'
 import { Header } from '../../_shared/Header/Header'
 import { Layout } from '../../_shared/Layout'
 import PropTypes from 'prop-types'

@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Wrapper, EntriesWrapper } from './TimelineScroller.styles'
 import { YearEntries } from './YearEntries/YearEntries'
-import { Footer } from '../Footer/Footer'
-import { Layout } from '../Layout'
+import { Footer } from '../../_shared/Footer/Footer'
+import { Layout } from '../../_shared/Layout'
 
 export const TimelineScroller = ({ timelines }) => {
   const timeEntries = timelines.map((timeline) => timeline.time_entries).flat()

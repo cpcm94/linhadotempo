@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Grid from '@material-ui/core/Grid'
-import { colors } from '../../colors'
+import { colors } from '../../../_shared/colors'
 
 export const EntryIcon = styled(({ ...other }) => (
   <Grid item={true} xs={1} {...other} />
