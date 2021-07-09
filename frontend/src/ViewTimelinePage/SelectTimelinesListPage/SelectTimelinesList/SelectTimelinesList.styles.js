@@ -30,9 +30,13 @@ export const SelectedIconAndNameWrapper = styled.div`
   align-items: center;
   flex: 1;
   padding: 1rem 0 1rem 1.5rem;
-  background-color: ${colors.lightBrown};
+  height: ${({ timelinesIconRow }) => (timelinesIconRow ? '3.5rem' : '3rem')};
+  transition: background-color 0.5s ease-out;
+
+  background-color: ${({ isSelected }) =>
+    isSelected ? colors.lightBrown : colors.white};
   :hover {
-    background-color: ${colors.midBrown};
+    filter: brightness(0.95);
   }
 `
 

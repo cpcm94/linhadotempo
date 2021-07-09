@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
 import { colors } from '../../../_shared/colors'
 import { Button } from '@material-ui/core'
+import RadioGroup from '@material-ui/core/RadioGroup'
 
 export const StyledTextField = styled(TextField)`
   align-self: center;
@@ -15,9 +16,6 @@ export const StyledTextField = styled(TextField)`
     min-width: 177px;
   }
 
-  #entryYear-helper-text {
-    text-align: center;
-  }
   .MuiOutlinedInput-root {
     fieldset {
       border-color: ${colors.brown};
@@ -39,7 +37,9 @@ export const StyledButton = styled(Button)`
   && {
     color: ${colors.white};
   }
-  background-color: ${colors.brown} !important;
+  &.MuiButton-contained {
+    background-color: ${colors.brown};
+  }
 `
 export const Wrapper = styled.div`
   display: flex;
@@ -47,4 +47,10 @@ export const Wrapper = styled.div`
   justify-content: space-around;
   min-height: calc(100vh - 2rem);
   padding: 1rem;
+`
+
+export const StyledRadioGroup = styled(RadioGroup)`
+  margin-top: -2rem;
+  display: flex;
+  justify-content: space-evenly;
 `

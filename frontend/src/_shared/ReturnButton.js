@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 const Wrapper = styled.div`
   margin-right: 10px;
   cursor: pointer;
+  align-self: center;
 `
 
 export const ReturnButton = ({ onClick }) => {
