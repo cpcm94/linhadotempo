@@ -5,14 +5,16 @@ import {
   StyledTextField,
   StyledButton,
   MonthDayWrapper,
+  StyledRadioGroup,
 } from './TimeEntryForm.styles'
 import MenuItem from '@material-ui/core/MenuItem'
+import Radio from '@material-ui/core/Radio'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { Months, Days } from './DateArrays'
 import { useMutation } from '@apollo/client'
 import { TIME_ENTRY_MUTATION } from './TIME_ENTRY_MUTATION'
 import { useHistory } from 'react-router-dom'
-import { convertFormData } from './convertFormData'
-import { convertEmptyStringToNull } from './convertEmptyStringToNull'
+import { convertFormDataValues } from './convertFormDataValues'
 
 export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
   const [entry, setEntry] = useState({
@@ -24,16 +26,17 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
     annual_importance: false,
     monthly_importance: false,
   })
+  const [radioValue, setRadioValue] = useState('DC')
 
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
-    newEntry[entryPropName] = convertFormData(entryPropName, e.target.value)
+    newEntry[entryPropName] = e.target.value
     setEntry(newEntry)
   }
 
   const [createEntry, { loading }] = useMutation(TIME_ENTRY_MUTATION, {
     variables: {
-      input: convertEmptyStringToNull(entry),
+      input: convertFormDataValues(entry, radioValue),
     },
   })
 
@@ -89,6 +92,24 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
               value={entry.year}
               onChange={handleChange('year')}
             />
+            <StyledRadioGroup
+              row
+              onChange={(e) => setRadioValue(e.target.value)}
+              defaultValue="DC"
+            >
+              <FormControlLabel
+                value="AC"
+                control={<Radio />}
+                label="A.C."
+                labelPlacement="end"
+              />
+              <FormControlLabel
+                value="DC"
+                control={<Radio />}
+                label="D.C."
+                labelPlacement="end"
+              />
+            </StyledRadioGroup>
             <MonthDayWrapper>
               <StyledTextField
                 select
