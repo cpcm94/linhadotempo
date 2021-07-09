@@ -17,3 +17,5 @@ export const TitlesWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
+
+export const IconRow = styled.div``

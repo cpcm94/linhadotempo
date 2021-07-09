@@ -1,27 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   IconWrapper,
   TimelinesWrapper,
   TimelinesListWrapper,
   TimelineNameWrapper,
-  IconAndNameWrapper,
   SelectedIconAndNameWrapper,
 } from './SelectTimelinesList.styles'
+import { isSelected } from './isSelected'
 
 export const SelectTimelinesList = ({
   timelines,
   selectedTimelines,
   setSelectedTimelines,
 }) => {
-  const nonSelectedTimelines = timelines.filter(
-    (timeline) =>
-      !selectedTimelines.map((timeline) => timeline.id).includes(timeline.id)
-  )
-
-  const [remainingTimelines, setRemainingTimelines] =
-    useState(nonSelectedTimelines)
-
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
@@ -33,37 +25,24 @@ export const SelectTimelinesList = ({
           (timelineItem) => timelineItem.id !== timeline.id
         )
       )
-      setRemainingTimelines([...remainingTimelines, timeline])
     } else {
-      setRemainingTimelines(
-        remainingTimelines.filter(
-          (timelineItem) => timelineItem.id !== timeline.id
-        )
-      )
       setSelectedTimelines([...selectedTimelines, timeline])
     }
   }
+
   return (
     <TimelinesListWrapper>
-      {selectedTimelines.map((timeline) => {
+      {timelines.map((timeline) => {
         const onTimelineClick = (event) => toggleTimelines(event, timeline)
         return (
           <TimelinesWrapper key={timeline.id}>
-            <SelectedIconAndNameWrapper onClick={onTimelineClick}>
+            <SelectedIconAndNameWrapper
+              isSelected={isSelected(timeline.id, arraySelectedTimelinesId)}
+              onClick={onTimelineClick}
+            >
               <IconWrapper>{timeline.id}</IconWrapper>
               <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
             </SelectedIconAndNameWrapper>
-          </TimelinesWrapper>
-        )
-      })}
-      {remainingTimelines.map((timeline) => {
-        const onTimelineClick = (event) => toggleTimelines(event, timeline)
-        return (
-          <TimelinesWrapper key={timeline.id}>
-            <IconAndNameWrapper onClick={onTimelineClick}>
-              <IconWrapper>{timeline.id}</IconWrapper>
-              <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
-            </IconAndNameWrapper>
           </TimelinesWrapper>
         )
       })}

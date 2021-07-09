@@ -4,6 +4,7 @@ import { Header } from '../../_shared/Header/Header'
 import { Layout } from '../../_shared/Layout'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+import { TimelinesIconRow } from './TimelinesIconRow'
 
 export const SelectTimelines = ({ timelines, queriedTimelines }) => {
   const filteredSelectedTimelines = timelines.filter((timeline) =>
@@ -31,6 +32,7 @@ export const SelectTimelines = ({ timelines, queriedTimelines }) => {
         subTitle={'Selecionar linhas do tempo'}
         title={'Linhas do Tempo'}
         returnButton={navigateToViewTimelines}
+        timelinesIconRow={<TimelinesIconRow timelines={selectedTimelines} />}
       />
       <SelectTimelinesList
         timelines={timelines}

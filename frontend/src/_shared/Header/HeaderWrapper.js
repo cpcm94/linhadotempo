@@ -8,8 +8,9 @@ export const HeaderWrapper = styled.div`
   color: #fff;
   position: sticky;
   top: 0;
-  height: 3rem;
+  height: ${({ timelinesIconRow }) => (timelinesIconRow ? '3.5rem' : '3rem')};
   z-index: 2;
   overflow-x: hidden;
-  align-items: center;
+  align-items: ${({ timelinesIconRow }) =>
+    timelinesIconRow ? 'flex-start' : 'center'}; ;
 `
