@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { TimelinePage } from './TimelinePage'
 import { TimelinesContext } from './TimelinesContextProvider'
+import { filterTimelines } from './filterTimelines'
 import qs from 'query-string'
 
 export const ViewTimelinesLoader = () => {
@@ -10,10 +11,7 @@ export const ViewTimelinesLoader = () => {
     arrayFormat: 'comma',
   }).timelines
 
-  const filteredTimelines =
-    timelines && queriedTimelines
-      ? timelines.filter((timeline) => queriedTimelines.includes(timeline.id))
-      : timelines
+  const filteredTimelines = filterTimelines(timelines, queriedTimelines)
 
   return loading ? (
     <span>Loading...</span>

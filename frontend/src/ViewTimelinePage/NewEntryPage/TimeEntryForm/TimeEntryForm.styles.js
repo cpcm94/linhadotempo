@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
-import { colors } from '../colors'
+import { colors } from '../../../_shared/colors'
 import { Button } from '@material-ui/core'
 
 export const StyledTextField = styled(TextField)`
@@ -14,6 +14,10 @@ export const StyledTextField = styled(TextField)`
   #timeline_id {
     min-width: 177px;
   }
+
+  #entryYear-helper-text {
+    text-align: center;
+  }
   .MuiOutlinedInput-root {
     fieldset {
       border-color: ${colors.brown};
@@ -22,6 +26,10 @@ export const StyledTextField = styled(TextField)`
       border-color: ${colors.brown};
     }
   }
+`
+export const MonthDayWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
 `
 
 export const StyledButton = styled(Button)`
