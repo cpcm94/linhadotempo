@@ -11,6 +11,8 @@ import { Months, Days } from './DateArrays'
 import { useMutation } from '@apollo/client'
 import { TIME_ENTRY_MUTATION } from './TIME_ENTRY_MUTATION'
 import { useHistory } from 'react-router-dom'
+import { convertFormData } from './convertFormData'
+import { convertEmptyStringToNull } from './convertEmptyStringToNull'
 
 export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
   const [entry, setEntry] = useState({
@@ -22,20 +24,16 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
     annual_importance: false,
     monthly_importance: false,
   })
+
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
-    if (entryPropName === 'year') {
-      newEntry[entryPropName] = parseInt(e.target.value)
-      setEntry(newEntry)
-    } else {
-      newEntry[entryPropName] = e.target.value
-      setEntry(newEntry)
-    }
+    newEntry[entryPropName] = convertFormData(entryPropName, e.target.value)
+    setEntry(newEntry)
   }
 
   const [createEntry, { loading }] = useMutation(TIME_ENTRY_MUTATION, {
     variables: {
-      input: entry,
+      input: convertEmptyStringToNull(entry),
     },
   })
 
@@ -44,7 +42,6 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
   const goBack = () => {
     history.goBack()
   }
-  const aheadOfCurrentYear = entry.year > new Date().getFullYear()
   const submitSignIn = (e) => {
     e.preventDefault()
     createEntry().then(() => {
@@ -52,6 +49,8 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
       goBack()
     })
   }
+
+  const disableSubmitButton = entry.month === '' && entry.day !== ''
 
   return (
     <>
@@ -85,15 +84,9 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
             <StyledTextField
               type="number"
               id="entryYear"
-              error={aheadOfCurrentYear}
               variant="outlined"
               label="Ano"
               value={entry.year}
-              helperText={
-                aheadOfCurrentYear
-                  ? 'Ano maior que o ano atual.'
-                  : 'De 0 até o ano atual.'
-              }
               onChange={handleChange('year')}
             />
             <MonthDayWrapper>
@@ -105,6 +98,7 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
                 value={entry.month}
                 onChange={handleChange('month')}
               >
+                <MenuItem value={''}>{''}</MenuItem>
                 {Months.map((month, index) => (
                   <MenuItem key={index} value={month}>
                     {month}
@@ -119,6 +113,7 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
                 value={entry.day}
                 onChange={handleChange('day')}
               >
+                <MenuItem value={''}>{''}</MenuItem>
                 {Days.map((day, index) => (
                   <MenuItem key={index} value={day}>
                     {day}
@@ -127,7 +122,12 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
               </StyledTextField>
             </MonthDayWrapper>
 
-            <StyledButton variant="contained" onClick={submitSignIn}>
+            <StyledButton
+              disabled={disableSubmitButton}
+              variant="contained"
+              onClick={submitSignIn}
+              id="submitButton"
+            >
               Criar Acontecimento
             </StyledButton>
           </Wrapper>

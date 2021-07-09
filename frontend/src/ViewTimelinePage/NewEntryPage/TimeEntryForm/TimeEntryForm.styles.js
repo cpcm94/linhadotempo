@@ -15,9 +15,6 @@ export const StyledTextField = styled(TextField)`
     min-width: 177px;
   }
 
-  #entryYear-helper-text {
-    text-align: center;
-  }
   .MuiOutlinedInput-root {
     fieldset {
       border-color: ${colors.brown};
@@ -39,7 +36,9 @@ export const StyledButton = styled(Button)`
   && {
     color: ${colors.white};
   }
-  background-color: ${colors.brown} !important;
+  &.MuiButton-contained {
+    background-color: ${colors.brown};
+  }
 `
 export const Wrapper = styled.div`
   display: flex;
