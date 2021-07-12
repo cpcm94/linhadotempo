@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Layout } from '../_shared/Layout'
 import { Footer } from '../_shared/Footer/Footer'
 import { Button } from './Button'
@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import { TimelineScroller } from './TimelineScroller/TimelineScroller'
 import { colors } from '../_shared/colors'
 import { useHistory } from 'react-router-dom'
+import { TimelinesButtonsRow } from './TimelinesButtonsRow'
 
 export const TimelinePage = ({ timelines }) => {
   const timelinesArray = () => {
@@ -18,6 +19,8 @@ export const TimelinePage = ({ timelines }) => {
       return timelineArray
     }
   }
+
+  const [visibleTimelines, setVisibleTimelines] = useState(timelinesArray())
 
   let history = useHistory()
 
@@ -41,7 +44,7 @@ export const TimelinePage = ({ timelines }) => {
 
   return (
     <Layout>
-      <TimelineScroller timelines={timelinesArray()} />
+      <TimelineScroller visibleTimelines={visibleTimelines} />
       <Footer
         pageActions={
           <>
@@ -50,9 +53,11 @@ export const TimelinePage = ({ timelines }) => {
               color={colors.white}
               onClick={navigateToSelectTimelines}
             />
-            {timelinesArray().map((timeline) => (
-              <Button key={timeline.id}>{timeline.id}</Button>
-            ))}
+            <TimelinesButtonsRow
+              timelines={timelinesArray()}
+              visibleTimelines={visibleTimelines}
+              setVisibleTimelines={setVisibleTimelines}
+            />
           </>
         }
       />

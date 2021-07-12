@@ -6,25 +6,26 @@ import { EntriesWrapper } from './EntriesWrapper'
 import { EntryYearWrapper } from './EntryYearWrapper'
 import { MonthEntries } from './MonthEntries/MonthEntries'
 import { EntriesWithoutMonthsWrapper } from './EntriesWithoutMonthsWrapper'
+import { convertObjectToArray } from '../convertObjectToArray'
+import { groupBy } from '../groupBy'
+import { filterEntriesWithValue } from './filterEntriesWithValue'
+import { filterEntriesWithoutValue } from './filterEntriesWithoutValue'
 
 export const YearEntries = ({ timeEntriesByYear }) => {
   const year = timeEntriesByYear[0].year
-  const entriesWithoutMonth = timeEntriesByYear.filter(
-    (entry) => entry.month === null
-  )
-  const entriesWithMonths = timeEntriesByYear.filter(
-    (entry) => entry.month !== null
+
+  const entriesWithoutMonth = filterEntriesWithValue(timeEntriesByYear, 'month')
+
+  const entriesWithMonths = filterEntriesWithoutValue(
+    timeEntriesByYear,
+    'month'
   )
 
-  const entriesGroupedByMonth = entriesWithMonths.reduce((r, a) => {
-    r[a.month] = r[a.month] || []
-    r[a.month].push(a)
-    return r
-  }, {})
+  const entriesGroupedByMonth = groupBy(entriesWithMonths, 'month')
 
-  const arrayOfGroupedEntriesByMonth = Object.entries(entriesGroupedByMonth)
-    .map((array) => array.splice(1))
-    .flat(1)
+  const arrayOfGroupedEntriesByMonth = convertObjectToArray(
+    entriesGroupedByMonth
+  )
 
   return (
     <Wrapper>

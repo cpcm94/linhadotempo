@@ -7,34 +7,29 @@ import { DayEntries } from './DayEntries/DayEntries'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
 import { EntryWithoutDayWrapper } from './EntryWithoutDayWrapper'
 import { MonthWrapper } from './MonthWrapper'
+import { convertObjectToArray } from '../../convertObjectToArray'
+import { groupBy } from '../../groupBy'
+import { filterEntriesWithValue } from '../filterEntriesWithValue'
+import { filterEntriesWithoutValue } from '../filterEntriesWithoutValue'
 import PropTypes from 'prop-types'
 
 export const MonthEntries = ({ timeEntriesByMonth }) => {
   const month = timeEntriesByMonth[0].month
-  const entriesWithoutDay = timeEntriesByMonth.filter(
-    (entry) => entry.day === null
-  )
 
-  const entriesWithDay = timeEntriesByMonth.filter(
-    (entry) => entry.day !== null
-  )
+  const entriesWithoutDay = filterEntriesWithValue(timeEntriesByMonth, 'day')
 
-  const entriesGroupedByDay = entriesWithDay.reduce((r, a) => {
-    r[a.day] = r[a.day] || []
-    r[a.day].push(a)
-    return r
-  }, {})
+  const entriesWithDay = filterEntriesWithoutValue(timeEntriesByMonth, 'day')
 
-  const arrayOfGroupedEntriesByDay = Object.entries(entriesGroupedByDay)
-    .map((array) => array.splice(1))
-    .flat()
+  const entriesGroupedByDay = groupBy(entriesWithDay, 'day')
 
-  const filteredEntriesWithoutDay = entriesWithoutDay.length > 0
+  const arrayOfGroupedEntriesByDay = convertObjectToArray(entriesGroupedByDay)
+
+  const hasEntriesWithoutDay = entriesWithoutDay.length > 0
 
   return (
     <MonthEntriesWrapper>
       <MonthAndEntryWrapper>
-        <MonthWrapper>{filteredEntriesWithoutDay ? month : null}</MonthWrapper>
+        <MonthWrapper>{hasEntriesWithoutDay ? month : null}</MonthWrapper>
         <EntryWithoutDayWrapper>
           <EntriesWithoutDay timeEntriesWithoutDay={entriesWithoutDay} />
         </EntryWithoutDayWrapper>

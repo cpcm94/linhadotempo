@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   padding: 1rem 1.5rem;
 `
 
-export const EditTimelineButton = ({ color, onClick }) => {
+export const EditButton = ({ color, onClick }) => {
   return (
     <Wrapper onClick={onClick}>
       <svg
@@ -38,7 +38,7 @@ export const EditTimelineButton = ({ color, onClick }) => {
   )
 }
 
-EditTimelineButton.propTypes = {
+EditButton.propTypes = {
   onClick: PropTypes.func,
   color: PropTypes.string,
 }

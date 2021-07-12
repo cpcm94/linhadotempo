@@ -9,7 +9,7 @@ import {
   IconAndNameWrapper,
 } from './TimelinesList.styles'
 import { useHistory } from 'react-router-dom'
-import { EditTimelineButton } from '../../_shared/EditTimelineButton'
+import { EditButton } from '../../_shared/EditButton'
 
 export const TimelinesList = ({ timelines }) => {
   let history = useHistory()
@@ -35,7 +35,7 @@ export const TimelinesList = ({ timelines }) => {
           <EditButtonWrapper
             onClick={navigateToEditTimelinePage(history, timeline.id)}
           >
-            <EditTimelineButton />
+            <EditButton />
           </EditButtonWrapper>
         </TimelinesWrapper>
       ))}

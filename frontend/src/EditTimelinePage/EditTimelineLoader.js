@@ -3,7 +3,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { TIMELINE_QUERY } from './TIMELINE_QUERY'
 import { EditableTimeline } from './EditableTimeline'
-import { TimelineNotFound } from '../_shared/TimelineNotFound'
+import { TimelineNotFound } from './TimelineNotFound'
 
 export const EditTimelineLoader = () => {
   let { timelineId } = useParams()
