@@ -7,8 +7,11 @@ export const Wrapper = styled.div`
   align-items: center;
   position: fixed;
   bottom: 0;
+  right: 0;
+  left: 0;
   width: 100%;
   height: 70px;
+  overflow-x: scroll;
 `
 
 export const ButtonWrapper = styled.div`

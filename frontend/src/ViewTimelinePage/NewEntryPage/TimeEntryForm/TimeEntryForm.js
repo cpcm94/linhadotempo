@@ -47,7 +47,8 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
   }
   const submitSignIn = (e) => {
     e.preventDefault()
-    createEntry().then(() => {
+    createEntry().then((res) => {
+      console.log('res', res)
       refetchTimelines()
       goBack()
     })

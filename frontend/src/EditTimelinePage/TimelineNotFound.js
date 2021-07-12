@@ -1,7 +1,7 @@
 import React from 'react'
-import { Layout } from './Layout'
+import { Layout } from '../_shared/Layout'
 import styled from 'styled-components'
-import { Header } from './Header/Header'
+import { Header } from '../_shared/Header/Header'
 import { useHistory } from 'react-router-dom'
 
 const MessageWrapper = styled.div`

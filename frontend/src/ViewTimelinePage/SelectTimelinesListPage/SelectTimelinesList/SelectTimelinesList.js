@@ -7,7 +7,7 @@ import {
   TimelineNameWrapper,
   SelectedIconAndNameWrapper,
 } from './SelectTimelinesList.styles'
-import { isSelected } from './isSelected'
+import { isSelected } from '../../../_shared/isSelected'
 
 export const SelectTimelinesList = ({
   timelines,
