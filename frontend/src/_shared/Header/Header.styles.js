@@ -18,4 +18,6 @@ export const TitlesWrapper = styled.div`
   flex-direction: column;
 `
 
-export const IconRow = styled.div``
+export const IconRow = styled.div`
+  padding: 0.25rem 0 0 0;
+`

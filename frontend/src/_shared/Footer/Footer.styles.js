@@ -10,8 +10,7 @@ export const Wrapper = styled.div`
   right: 0;
   left: 0;
   width: 100%;
-  height: 70px;
-  overflow-x: scroll;
+  height: 4.5rem;
 `
 
 export const ButtonWrapper = styled.div`

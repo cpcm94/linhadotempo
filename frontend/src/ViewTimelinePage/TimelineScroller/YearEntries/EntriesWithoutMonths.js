@@ -5,12 +5,12 @@ import { EntryAndIconWrapper } from './EntryAndIconWrapper'
 import { FormattingWrapper } from './FormattingWrapper'
 import PropTypes from 'prop-types'
 
-export const EntriesWithoutMonths = ({ entriesWithoutMonth }) => {
+export const EntriesWithoutMonths = ({ entriesWithoutMonth, newEntryId }) => {
   return (
     <>
       {entriesWithoutMonth[0]
         ? entriesWithoutMonth.map((entry, index) => (
-            <EntryAndIconWrapper key={index}>
+            <EntryAndIconWrapper key={index} isNew={newEntryId === entry.id}>
               <FormattingWrapper />
               <EntryNameWrapper>{entry.name}</EntryNameWrapper>
               <EntryIcon>{entry.timeline_id}</EntryIcon>
@@ -23,4 +23,5 @@ export const EntriesWithoutMonths = ({ entriesWithoutMonth }) => {
 
 EntriesWithoutMonths.propTypes = {
   entriesWithoutMonth: PropTypes.array,
+  newEntryId: PropTypes.string,
 }

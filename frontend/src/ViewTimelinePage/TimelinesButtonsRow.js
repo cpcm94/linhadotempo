@@ -6,24 +6,31 @@ import { isSelected } from '../_shared/isSelected'
 
 const Button = styled.div`
   background-color: ${colors.white};
-  margin: 0 0.5rem 0 0.5rem;
+  margin: 0 0.35rem 0 0.35rem;
   border: solid 1px #999;
   color: #655;
   border-radius: 5px;
-  min-width: 2rem;
-  min-height: 2rem;
-  width: 2rem;
-  height: 2rem;
-  font-size: 2rem;
+  min-width: 1.8rem;
+  min-height: 1.8rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  font-size: 1.6rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: center;
   opacity: ${({ isSelected }) => (isSelected ? '1' : '0.5')};
   :hover {
     cursor: pointer;
   }
 `
-
+const Wrapper = styled.div`
+  display: flex;
+  width: 80vw;
+  margin-right: 5rem;
+  overflow-x: scroll;
+  min-height: 4rem;
+`
 export const TimelinesButtonsRow = ({
   timelines,
   visibleTimelines,
@@ -45,7 +52,7 @@ export const TimelinesButtonsRow = ({
     }
   }
   return (
-    <>
+    <Wrapper>
       {timelines.map((timeline) => {
         const onTimelineButtonClick = (event) => handleClick(event, timeline)
         return (
@@ -58,7 +65,7 @@ export const TimelinesButtonsRow = ({
           </Button>
         )
       })}
-    </>
+    </Wrapper>
   )
 }
 

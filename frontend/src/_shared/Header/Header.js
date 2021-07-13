@@ -18,17 +18,17 @@ export const Header = ({
   returnButton,
   timelinesIconRow,
 }) => {
-  const onlyTitle = title && !subTitle
+  const onlyTitle = title && !subTitle && !timelinesIconRow
   return (
     <HeaderWrapper timelinesIconRow={timelinesIconRow}>
       {returnButton && <ReturnButton onClick={returnButton} />}
-      {subTitle && (
+      {subTitle || timelinesIconRow ? (
         <TitlesWrapper>
           <SubTitle>{subTitle}</SubTitle>
           <Title>{title}</Title>
           {timelinesIconRow && <IconRow>{timelinesIconRow}</IconRow>}
         </TitlesWrapper>
-      )}
+      ) : null}
       {onlyTitle && <Title>{title}</Title>}
       {pageActions && <PageActions>{pageActions}</PageActions>}
       {loading && <span>Loading...</span>}

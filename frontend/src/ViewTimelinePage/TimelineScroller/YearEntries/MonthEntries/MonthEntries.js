@@ -11,10 +11,11 @@ import { convertObjectToArray } from '../../convertObjectToArray'
 import { groupBy } from '../../groupBy'
 import { filterEntriesWithValue } from '../filterEntriesWithValue'
 import { filterEntriesWithoutValue } from '../filterEntriesWithoutValue'
+import { monthNameArray } from './monthNameArray'
 import PropTypes from 'prop-types'
 
-export const MonthEntries = ({ timeEntriesByMonth }) => {
-  const month = timeEntriesByMonth[0].month
+export const MonthEntries = ({ timeEntriesByMonth, newEntryId }) => {
+  const month = monthNameArray[timeEntriesByMonth[0].month]
 
   const entriesWithoutDay = filterEntriesWithValue(timeEntriesByMonth, 'day')
 
@@ -31,14 +32,21 @@ export const MonthEntries = ({ timeEntriesByMonth }) => {
       <MonthAndEntryWrapper>
         <MonthWrapper>{hasEntriesWithoutDay ? month : null}</MonthWrapper>
         <EntryWithoutDayWrapper>
-          <EntriesWithoutDay timeEntriesWithoutDay={entriesWithoutDay} />
+          <EntriesWithoutDay
+            timeEntriesWithoutDay={entriesWithoutDay}
+            newEntryId={newEntryId}
+          />
         </EntryWithoutDayWrapper>
       </MonthAndEntryWrapper>
-      <DayEntries timeEntriesByDay={arrayOfGroupedEntriesByDay} />
+      <DayEntries
+        timeEntriesByDay={arrayOfGroupedEntriesByDay}
+        newEntryId={newEntryId}
+      />
     </MonthEntriesWrapper>
   )
 }
 
 MonthEntries.propTypes = {
   timeEntriesByMonth: PropTypes.array,
+  newEntryId: PropTypes.string,
 }
