@@ -17,7 +17,7 @@ export const EntryAndIconWrapper = styled.div`
   animation: ${({ isNew }) =>
     isNew
       ? css`
-          ${newBackgroundColor} 4s
+          ${newBackgroundColor} 6s
         `
       : null};
 `

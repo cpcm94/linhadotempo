@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout } from '../_shared/Layout'
 import { Footer } from '../_shared/Footer/Footer'
 import { Button } from './Button'
@@ -64,6 +64,14 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
       search: `?timelines=${timelinesString}`,
     })
   }
+
+  useEffect(() => {
+    const hash = window.location.hash
+    const element = hash && document.getElementById(hash.substr(1))
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [])
 
   return (
     <Layout>
