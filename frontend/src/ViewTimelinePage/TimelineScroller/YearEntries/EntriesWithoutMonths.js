@@ -1,17 +1,22 @@
 import React from 'react'
-import { EntryIcon } from './EntryIcon'
-import { EntryNameWrapper } from './EntryNameWrapper'
-import { EntryAndIconWrapper } from './EntryAndIconWrapper'
-import { FormattingWrapper } from './FormattingWrapper'
+import {
+  EntryIcon,
+  EntryNameWrapper,
+  EntryAndIconWrapper,
+} from './YearEntries.styles'
+
 import PropTypes from 'prop-types'
 
-export const EntriesWithoutMonths = ({ entriesWithoutMonth }) => {
+export const EntriesWithoutMonths = ({ entriesWithoutMonth, newEntryId }) => {
   return (
     <>
       {entriesWithoutMonth[0]
         ? entriesWithoutMonth.map((entry, index) => (
-            <EntryAndIconWrapper key={index}>
-              <FormattingWrapper />
+            <EntryAndIconWrapper
+              key={index}
+              isNew={newEntryId === entry.id}
+              id={entry.id}
+            >
               <EntryNameWrapper>{entry.name}</EntryNameWrapper>
               <EntryIcon>{entry.timeline_id}</EntryIcon>
             </EntryAndIconWrapper>
@@ -23,4 +28,5 @@ export const EntriesWithoutMonths = ({ entriesWithoutMonth }) => {
 
 EntriesWithoutMonths.propTypes = {
   entriesWithoutMonth: PropTypes.array,
+  newEntryId: PropTypes.string,
 }

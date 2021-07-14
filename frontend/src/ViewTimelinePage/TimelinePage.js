@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout } from '../_shared/Layout'
 import { Footer } from '../_shared/Footer/Footer'
 import { Button } from './Button'
@@ -8,8 +8,9 @@ import { TimelineScroller } from './TimelineScroller/TimelineScroller'
 import { colors } from '../_shared/colors'
 import { useHistory } from 'react-router-dom'
 import { TimelinesButtonsRow } from './TimelinesButtonsRow'
+import { AddButtonWrapper, EllipsisButtonsWrapper } from './TimelinePage.styles'
 
-export const TimelinePage = ({ timelines }) => {
+export const TimelinePage = ({ timelines, previousTimelines }) => {
   const timelinesArray = () => {
     let timelineArray = []
     if (Array.isArray(timelines)) {
@@ -19,6 +20,28 @@ export const TimelinePage = ({ timelines }) => {
       return timelineArray
     }
   }
+  const previousTimelinesArray = () => {
+    let timelineArray = []
+    if (Array.isArray(previousTimelines)) {
+      return previousTimelines
+    } else {
+      timelineArray.push(previousTimelines)
+      return timelineArray
+    }
+  }
+
+  const oldEntry =
+    previousTimelines &&
+    previousTimelinesArray()
+      .map((timeline) => timeline.time_entries.map((entry) => entry.id))
+      .flat()
+
+  const newEntry = timelinesArray()
+    .map((timeline) => timeline.time_entries.map((entry) => entry.id))
+    .flat()
+
+  const brandNewEntry =
+    oldEntry[0] && newEntry.filter((entry) => !oldEntry.includes(entry))[0]
 
   const [visibleTimelines, setVisibleTimelines] = useState(timelinesArray())
 
@@ -42,17 +65,32 @@ export const TimelinePage = ({ timelines }) => {
     })
   }
 
+  useEffect(() => {
+    const hash = window.location.hash
+    const element = hash && document.getElementById(hash.substr(1))
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [])
+
   return (
     <Layout>
-      <TimelineScroller visibleTimelines={visibleTimelines} />
+      <TimelineScroller
+        visibleTimelines={visibleTimelines}
+        newEntryId={brandNewEntry}
+      />
       <Footer
         pageActions={
           <>
-            <Button onClick={navigateToNewEntryPage}>+</Button>
-            <EllipsisButton
-              color={colors.white}
-              onClick={navigateToSelectTimelines}
-            />
+            <EllipsisButtonsWrapper>
+              <EllipsisButton
+                color={colors.white}
+                onClick={navigateToSelectTimelines}
+              />
+            </EllipsisButtonsWrapper>
+            <AddButtonWrapper>
+              <Button onClick={navigateToNewEntryPage}>+</Button>
+            </AddButtonWrapper>
             <TimelinesButtonsRow
               timelines={timelinesArray()}
               visibleTimelines={visibleTimelines}
@@ -67,4 +105,5 @@ export const TimelinePage = ({ timelines }) => {
 
 TimelinePage.propTypes = {
   timelines: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  previousTimelines: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 }

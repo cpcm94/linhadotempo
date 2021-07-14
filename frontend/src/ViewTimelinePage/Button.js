@@ -7,14 +7,16 @@ export const Button = styled.div`
   border: solid 1px #999;
   color: #655;
   border-radius: 5px;
-  min-width: 2rem;
-  min-height: 2rem;
-  width: 2rem;
-  height: 2rem;
+  min-width: 1.8rem;
+  min-height: 1.8rem;
+  width: 1.8rem;
+  height: 1.8rem;
   font-size: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: center;
+
   :hover {
     cursor: pointer;
   }

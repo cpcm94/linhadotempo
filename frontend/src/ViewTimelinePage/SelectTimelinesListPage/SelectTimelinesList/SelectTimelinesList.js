@@ -35,7 +35,7 @@ export const SelectTimelinesList = ({
       {timelines.map((timeline) => {
         const onTimelineClick = (event) => toggleTimelines(event, timeline)
         return (
-          <TimelinesWrapper key={timeline.id}>
+          <TimelinesWrapper key={timeline.id} id={timeline.id}>
             <SelectedIconAndNameWrapper
               isSelected={isSelected(timeline.id, arraySelectedTimelinesId)}
               onClick={onTimelineClick}

@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.div`
   color: #fff;
   position: sticky;
   top: 0;
-  height: ${({ timelinesIconRow }) => (timelinesIconRow ? '3.5rem' : '3rem')};
+  height: ${({ timelinesIconRow }) => (timelinesIconRow ? '4.25rem' : '3rem')};
   z-index: 2;
   overflow-x: hidden;
   align-items: ${({ timelinesIconRow }) =>

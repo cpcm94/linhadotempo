@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
-export const EntryNameWrapper = styled.div`
-  padding: 0 0px 0 5px;
-`
+export const EntryNameWrapper = styled.div``
 
 export const DayEntriesWrapper = styled.div`
   display: flex;

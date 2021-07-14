@@ -1,18 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { EntriesWithoutMonths } from './EntriesWithoutMonths'
-import { Wrapper } from './Wrapper'
-import { EntriesWrapper } from './EntriesWrapper'
-import { EntryYearWrapper } from './EntryYearWrapper'
 import { MonthEntries } from './MonthEntries/MonthEntries'
-import { EntriesWithoutMonthsWrapper } from './EntriesWithoutMonthsWrapper'
+import {
+  EntriesWithoutMonthsWrapper,
+  Wrapper,
+  EntriesWrapper,
+  EntryYearWrapper,
+} from './YearEntries.styles'
 import { convertObjectToArray } from '../convertObjectToArray'
 import { groupBy } from '../groupBy'
 import { filterEntriesWithValue } from './filterEntriesWithValue'
 import { filterEntriesWithoutValue } from './filterEntriesWithoutValue'
 
-export const YearEntries = ({ timeEntriesByYear }) => {
-  const year = timeEntriesByYear[0].year
+export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
+  const year = timeEntriesByYear[0].year.toString().startsWith('-')
+    ? `AC ${timeEntriesByYear[0].year.toString().substr(1)}`
+    : timeEntriesByYear[0].year.toString()
 
   const entriesWithoutMonth = filterEntriesWithValue(timeEntriesByYear, 'month')
 
@@ -32,10 +36,17 @@ export const YearEntries = ({ timeEntriesByYear }) => {
       <EntryYearWrapper>{year}</EntryYearWrapper>
       <EntriesWrapper>
         <EntriesWithoutMonthsWrapper>
-          <EntriesWithoutMonths entriesWithoutMonth={entriesWithoutMonth} />
+          <EntriesWithoutMonths
+            entriesWithoutMonth={entriesWithoutMonth}
+            newEntryId={newEntryId}
+          />
         </EntriesWithoutMonthsWrapper>
         {arrayOfGroupedEntriesByMonth.map((month, index) => (
-          <MonthEntries timeEntriesByMonth={month} key={index} />
+          <MonthEntries
+            timeEntriesByMonth={month}
+            key={index}
+            newEntryId={newEntryId}
+          />
         ))}
       </EntriesWrapper>
     </Wrapper>
@@ -44,4 +55,5 @@ export const YearEntries = ({ timeEntriesByYear }) => {
 
 YearEntries.propTypes = {
   timeEntriesByYear: PropTypes.array,
+  newEntryId: PropTypes.string,
 }

@@ -29,8 +29,7 @@ export const SelectTimelines = ({ timelines, queriedTimelines }) => {
   return (
     <Layout>
       <Header
-        subTitle={'Selecionar linhas do tempo'}
-        title={'Linhas do Tempo'}
+        title={'Selecionar linhas do tempo'}
         returnButton={navigateToViewTimelines}
         timelinesIconRow={<TimelinesIconRow timelines={selectedTimelines} />}
       />

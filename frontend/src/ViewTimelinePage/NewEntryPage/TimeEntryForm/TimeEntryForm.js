@@ -41,16 +41,20 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
   })
 
   let history = useHistory()
+  const timelinesString = timelines.map((timeline) => timeline.id).toString()
 
-  const goBack = () => {
-    history.goBack()
+  const goBack = (newEntryId) => {
+    history.push({
+      pathname: '/viewTimeline/',
+      search: `?timelines=${timelinesString}`,
+      hash: `#${newEntryId}`,
+    })
   }
   const submitSignIn = (e) => {
     e.preventDefault()
     createEntry().then((res) => {
-      console.log('res', res)
       refetchTimelines()
-      goBack()
+      goBack(res.data.createTimeEntry.id)
     })
   }
 
