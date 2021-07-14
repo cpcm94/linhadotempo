@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { colors } from '../../../../_shared/colors'
+import { colors } from '../../../../../../_shared/colors'
 
-export const MonthWrapper = styled.div`
+export const EntryDateWrapper = styled.div`
   position: relative;
   z-index: 1;
   &:before {
@@ -21,18 +21,17 @@ export const MonthWrapper = styled.div`
   color: ${colors.grey};
 `
 
-export const MonthEntriesWrapper = styled.div`
+export const EntriesWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-export const MonthAndEntryWrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `
 
-export const EntryWithoutDayWrapper = styled.div``
-
-export const EntryNameWrapper = styled.div`
+export const EntryWrapper = styled.div`
   flex: 1;
 `

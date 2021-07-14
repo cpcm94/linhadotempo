@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { EntriesWithoutMonths } from './EntriesWithoutMonths'
-import { Wrapper } from './Wrapper'
-import { EntriesWrapper } from './EntriesWrapper'
-import { EntryYearWrapper } from './EntryYearWrapper'
 import { MonthEntries } from './MonthEntries/MonthEntries'
-import { EntriesWithoutMonthsWrapper } from './EntriesWithoutMonthsWrapper'
+import {
+  EntriesWithoutMonthsWrapper,
+  Wrapper,
+  EntriesWrapper,
+  EntryYearWrapper,
+} from './YearEntries.styles'
 import { convertObjectToArray } from '../convertObjectToArray'
 import { groupBy } from '../groupBy'
 import { filterEntriesWithValue } from './filterEntriesWithValue'

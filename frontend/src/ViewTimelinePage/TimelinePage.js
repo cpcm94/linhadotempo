@@ -40,7 +40,8 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
     .map((timeline) => timeline.time_entries.map((entry) => entry.id))
     .flat()
 
-  const brandNewEntry = newEntry.filter((entry) => !oldEntry.includes(entry))[0]
+  const brandNewEntry =
+    oldEntry[0] && newEntry.filter((entry) => !oldEntry.includes(entry))[0]
 
   const [visibleTimelines, setVisibleTimelines] = useState(timelinesArray())
 
