@@ -11,45 +11,24 @@ import { TimelinesButtonsRow } from './TimelinesButtonsRow'
 import { AddButtonWrapper, EllipsisButtonsWrapper } from './TimelinePage.styles'
 
 export const TimelinePage = ({ timelines, previousTimelines }) => {
-  const timelinesArray = () => {
-    let timelineArray = []
-    if (Array.isArray(timelines)) {
-      return timelines
-    } else {
-      timelineArray.push(timelines)
-      return timelineArray
-    }
-  }
-  const previousTimelinesArray = () => {
-    let timelineArray = []
-    if (Array.isArray(previousTimelines)) {
-      return previousTimelines
-    } else {
-      timelineArray.push(previousTimelines)
-      return timelineArray
-    }
-  }
-
   const oldEntry =
     previousTimelines &&
-    previousTimelinesArray()
+    previousTimelines
       .map((timeline) => timeline.time_entries.map((entry) => entry.id))
       .flat()
 
-  const newEntry = timelinesArray()
+  const newEntry = timelines
     .map((timeline) => timeline.time_entries.map((entry) => entry.id))
     .flat()
 
   const brandNewEntry =
     oldEntry[0] && newEntry.filter((entry) => !oldEntry.includes(entry))[0]
 
-  const [visibleTimelines, setVisibleTimelines] = useState(timelinesArray())
+  const [visibleTimelines, setVisibleTimelines] = useState(timelines)
 
   let history = useHistory()
 
-  const timelinesString = timelinesArray()
-    .map((timeline) => timeline.id)
-    .toString()
+  const timelinesString = timelines.map((timeline) => timeline.id).toString()
 
   const navigateToSelectTimelines = () => {
     history.push({
@@ -73,6 +52,8 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
     }
   }, [])
 
+  console.log('timelines', timelines)
+
   return (
     <Layout>
       <TimelineScroller
@@ -92,7 +73,7 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
               <Button onClick={navigateToNewEntryPage}>+</Button>
             </AddButtonWrapper>
             <TimelinesButtonsRow
-              timelines={timelinesArray()}
+              timelines={timelines}
               visibleTimelines={visibleTimelines}
               setVisibleTimelines={setVisibleTimelines}
             />
