@@ -15,9 +15,8 @@ import { filterEntriesWithoutValue } from './filterEntriesWithoutValue'
 
 export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
   const year = timeEntriesByYear[0].year.toString().startsWith('-')
-    ? `AC ${timeEntriesByYear[0].year.toString().substr(1)}`
+    ? `${timeEntriesByYear[0].year.toString().substr(1)} a.c.`
     : timeEntriesByYear[0].year.toString()
-
   const entriesWithoutMonth = filterEntriesWithValue(timeEntriesByYear, 'month')
 
   const entriesWithMonths = filterEntriesWithoutValue(
@@ -33,7 +32,9 @@ export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
 
   return (
     <Wrapper>
-      <EntryYearWrapper>{year}</EntryYearWrapper>
+      <EntryYearWrapper>
+        <span>{year}</span>
+      </EntryYearWrapper>
       <EntriesWrapper>
         <EntriesWithoutMonthsWrapper>
           <EntriesWithoutMonths
