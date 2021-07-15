@@ -25,10 +25,10 @@ export const EntryAndIconWrapper = styled.div`
 export const EntryYearWrapper = styled.div`
   position: relative;
   z-index: 1;
-  padding: 0.5rem 0 0.5rem 0rem;
+  padding: 0.5rem 0 0.5rem 3rem;
   color: ${colors.lightGrey};
   &:before {
-    border-top: 1px solid ${colors.lightGrey};
+    border-top: 1px solid ${colors.lightBrown};
     content: '';
     margin: 0 auto;
     position: absolute;
@@ -41,11 +41,9 @@ export const EntryYearWrapper = styled.div`
   }
   span {
     background: ${colors.white};
-    padding: 0 0 0 0.5rem;
   }
-  font-weight: bold;
   font-size: 0.85em;
-  color: ${colors.grey};
+  color: ${colors.brown};
 `
 export const Wrapper = styled.div`
   display: flex;
