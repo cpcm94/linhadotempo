@@ -28,7 +28,9 @@ export const MonthEntries = ({ timeEntriesByMonth, newEntryId }) => {
   return (
     <MonthEntriesWrapper>
       <MonthAndEntryWrapper>
-        <MonthWrapper>{month}</MonthWrapper>
+        <MonthWrapper>
+          <span>{month}</span>
+        </MonthWrapper>
         <EntryWithoutDayWrapper>
           <EntriesWithoutDay
             timeEntriesWithoutDay={entriesWithoutDay}

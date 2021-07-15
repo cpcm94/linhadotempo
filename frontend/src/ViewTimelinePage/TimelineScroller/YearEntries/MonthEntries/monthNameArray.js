@@ -1,4 +1,5 @@
 export const monthNameArray = [
+  'buffer',
   'Janeiro',
   'Fevereiro',
   'Março',

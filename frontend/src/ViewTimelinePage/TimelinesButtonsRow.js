@@ -26,9 +26,17 @@ const Button = styled.div`
 `
 const Wrapper = styled.div`
   display: flex;
-  width: 80vw;
+  justify-content: space-between;
+  width: 77vw;
   margin-right: 5rem;
   overflow-x: scroll;
+  @media (min-width: 540px) {
+    width: 85vw;
+  }
+  @media (min-width: 720px) {
+    overflow-x: hidden;
+    width: 90vw;
+  }
   min-height: 4rem;
 `
 export const TimelinesButtonsRow = ({

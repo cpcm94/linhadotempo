@@ -13,7 +13,9 @@ export const Entries = ({ entries, newEntryId }) => {
 
   return (
     <Wrapper>
-      <EntryDateWrapper>{entryDate}</EntryDateWrapper>
+      <EntryDateWrapper>
+        <span>{entryDate}</span>
+      </EntryDateWrapper>
       <EntriesWrapper>
         {entries.map((entry, index) => (
           <EntryAndIconWrapper

@@ -10,7 +10,15 @@ export const EntriesWrapper = styled.div`
   top: 0;
   width: 100%;
   margin-bottom: 70px;
-  padding: 1rem;
+  @media (min-width: 540px) {
+    padding: 0 20%;
+  }
+  @media (min-width: 720px) {
+    padding: 0 25%;
+  }
+  @media (min-width: 1080px) {
+    padding: 0 35%;
+  }
 `
 export const Wrapper = styled.div`
   width: 100%;
