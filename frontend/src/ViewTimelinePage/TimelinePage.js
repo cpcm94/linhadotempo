@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Layout } from '../_shared/Layout'
 import { Footer } from '../_shared/Footer/Footer'
 import { Button } from './Button'
@@ -9,17 +9,20 @@ import { colors } from '../_shared/colors'
 import { useHistory } from 'react-router-dom'
 import { TimelinesButtonsRow } from './TimelinesButtonsRow'
 import { AddButtonWrapper, EllipsisButtonsWrapper } from './TimelinePage.styles'
+import { mapTimeEntriesId } from './mapTimeEntriesId'
+import { findClosestNegativeNumberToZero } from './findClosestNegativeNumberToZero'
+import { getScrollPosition } from './getScrollPosition'
 
 export const TimelinePage = ({ timelines, previousTimelines }) => {
-  const oldEntry =
-    previousTimelines &&
-    previousTimelines
-      .map((timeline) => timeline.time_entries.map((entry) => entry.id))
-      .flat()
+  const [displayEntryId, setDisplayEntryId] = useState(null)
+  const oldEntry = mapTimeEntriesId(previousTimelines)
 
-  const newEntry = timelines
-    .map((timeline) => timeline.time_entries.map((entry) => entry.id))
-    .flat()
+  const newEntry = mapTimeEntriesId(timelines)
+
+  const objectRefs = newEntry.reduce((accumulator, curr) => {
+    accumulator[curr] = useRef(null)
+    return accumulator
+  }, {})
 
   const brandNewEntry =
     oldEntry[0] && newEntry.filter((entry) => !oldEntry.includes(entry))[0]
@@ -43,6 +46,13 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
       search: `?timelines=${timelinesString}`,
     })
   }
+  const displayEntry = timelines
+    .map((timeline) => timeline.time_entries.map((entry) => entry))
+    .flat()
+    .filter((entry) => entry.id === displayEntryId)
+  if (displayEntry[0]) {
+    console.log('displayEntry', displayEntry[0].year)
+  }
 
   useEffect(() => {
     const hash = window.location.hash
@@ -52,13 +62,24 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
     }
   }, [])
 
-  console.log('timelines', timelines)
+  const handleScroll = () => {
+    const elementsCoords = getScrollPosition(objectRefs)
+    const min = findClosestNegativeNumberToZero(elementsCoords)
+    setDisplayEntryId(min.entryId)
+  }
+
+  useEffect(() => {
+    handleScroll()
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  })
 
   return (
     <Layout>
       <TimelineScroller
         visibleTimelines={visibleTimelines}
         newEntryId={brandNewEntry}
+        forwardedRef={objectRefs}
       />
       <Footer
         pageActions={

@@ -13,7 +13,11 @@ import { groupBy } from '../groupBy'
 import { filterEntriesWithValue } from './filterEntriesWithValue'
 import { filterEntriesWithoutValue } from './filterEntriesWithoutValue'
 
-export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
+export const YearEntries = ({
+  timeEntriesByYear,
+  newEntryId,
+  forwardedRef,
+}) => {
   const year = timeEntriesByYear[0].year.toString().startsWith('-')
     ? `${timeEntriesByYear[0].year.toString().substr(1)} a.c.`
     : timeEntriesByYear[0].year.toString()
@@ -40,6 +44,7 @@ export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
           <EntriesWithoutMonths
             entriesWithoutMonth={entriesWithoutMonth}
             newEntryId={newEntryId}
+            forwardedRef={forwardedRef}
           />
         </EntriesWithoutMonthsWrapper>
         {arrayOfGroupedEntriesByMonth.map((month, index) => (
@@ -47,6 +52,7 @@ export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
             timeEntriesByMonth={month}
             key={index}
             newEntryId={newEntryId}
+            forwardedRef={forwardedRef}
           />
         ))}
       </EntriesWrapper>
@@ -57,4 +63,5 @@ export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
 YearEntries.propTypes = {
   timeEntriesByYear: PropTypes.array,
   newEntryId: PropTypes.string,
+  forwardedRef: PropTypes.any,
 }
