@@ -51,7 +51,7 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
     .flat()
     .filter((entry) => entry.id === displayEntryId)
   if (displayEntry[0]) {
-    console.log('displayEntry', displayEntry[0].year)
+    console.log('displayEntry', displayEntry[0])
   }
 
   useEffect(() => {
