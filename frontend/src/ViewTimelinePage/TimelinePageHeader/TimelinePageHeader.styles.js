@@ -3,6 +3,8 @@ import { colors } from '../../_shared/colors'
 
 export const EntryWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
+  flex: 1;
   color: ${colors.white};
 `
 
@@ -19,8 +21,17 @@ export const HeaderWrapper = styled.div`
   overflow-x: hidden;
 `
 
-export const YearWrapper = styled.div``
+export const YearWrapper = styled.div`
+  flex: 1;
+  text-align: center;
+`
 
-export const MonthWrapper = styled.div``
+export const MonthWrapper = styled.div`
+  flex: 1;
+  text-align: center;
+`
 
-export const DayWrapper = styled.div``
+export const DayWrapper = styled.div`
+  flex: 1;
+  text-align: center;
+`
