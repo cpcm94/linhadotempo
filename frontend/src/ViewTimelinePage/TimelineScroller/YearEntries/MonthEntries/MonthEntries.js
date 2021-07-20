@@ -14,7 +14,11 @@ import { filterEntriesWithoutValue } from '../filterEntriesWithoutValue'
 import { monthNameArray } from './monthNameArray'
 import PropTypes from 'prop-types'
 
-export const MonthEntries = ({ timeEntriesByMonth, newEntryId }) => {
+export const MonthEntries = ({
+  timeEntriesByMonth,
+  newEntryId,
+  forwardedRef,
+}) => {
   const month = monthNameArray[timeEntriesByMonth[0].month]
 
   const entriesWithoutDay = filterEntriesWithValue(timeEntriesByMonth, 'day')
@@ -28,17 +32,21 @@ export const MonthEntries = ({ timeEntriesByMonth, newEntryId }) => {
   return (
     <MonthEntriesWrapper>
       <MonthAndEntryWrapper>
-        <MonthWrapper>{month}</MonthWrapper>
+        <MonthWrapper>
+          <span>{month}</span>
+        </MonthWrapper>
         <EntryWithoutDayWrapper>
           <EntriesWithoutDay
             timeEntriesWithoutDay={entriesWithoutDay}
             newEntryId={newEntryId}
+            forwardedRef={forwardedRef}
           />
         </EntryWithoutDayWrapper>
       </MonthAndEntryWrapper>
       <DayEntries
         timeEntriesByDay={arrayOfGroupedEntriesByDay}
         newEntryId={newEntryId}
+        forwardedRef={forwardedRef}
       />
     </MonthEntriesWrapper>
   )
@@ -47,4 +55,5 @@ export const MonthEntries = ({ timeEntriesByMonth, newEntryId }) => {
 MonthEntries.propTypes = {
   timeEntriesByMonth: PropTypes.array,
   newEntryId: PropTypes.string,
+  forwardedRef: PropTypes.any,
 }

@@ -6,7 +6,11 @@ import { Layout } from '../../_shared/Layout'
 import { convertObjectToArray } from './convertObjectToArray'
 import { groupBy } from './groupBy'
 
-export const TimelineScroller = ({ visibleTimelines, newEntryId }) => {
+export const TimelineScroller = ({
+  visibleTimelines,
+  newEntryId,
+  forwardedRef,
+}) => {
   const timeEntries = visibleTimelines
     .map((timeline) => timeline.time_entries)
     .flat()
@@ -27,6 +31,7 @@ export const TimelineScroller = ({ visibleTimelines, newEntryId }) => {
               timeEntriesByYear={timeEntriesByYear}
               key={index}
               newEntryId={newEntryId}
+              forwardedRef={forwardedRef}
             />
           ))}
         </EntriesWrapper>
@@ -39,4 +44,5 @@ TimelineScroller.propTypes = {
   timelines: PropTypes.array,
   visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
+  forwardedRef: PropTypes.any,
 }

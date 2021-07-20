@@ -4,21 +4,24 @@ import { colors } from '../../../../../../_shared/colors'
 export const EntryDateWrapper = styled.div`
   position: relative;
   z-index: 1;
+  padding: 0.5rem 0 0.5rem 3rem;
   &:before {
-    border-top: 1px solid ${colors.lightGrey};
+    border-top: 1px solid ${colors.lightBrown};
     content: '';
     margin: 0 auto;
     position: absolute;
     top: 50%;
-    left: 15%;
+    left: 0%;
     right: 0%;
     bottom: 0;
-    width: 85%;
+    width: 100%;
     z-index: -1;
   }
-  font-weight: bold;
+  span {
+    background: ${colors.white};
+  }
   font-size: 0.85em;
-  color: ${colors.grey};
+  color: ${colors.brown};
 `
 
 export const EntriesWrapper = styled.div`

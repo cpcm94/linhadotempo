@@ -46,7 +46,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-around;
   min-height: calc(100vh - 2rem);
-  padding: 1rem;
+  padding: 0.75rem;
+  align-items: center;
 `
 
 export const StyledRadioGroup = styled(RadioGroup)`

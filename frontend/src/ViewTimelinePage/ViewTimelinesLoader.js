@@ -11,10 +11,14 @@ export const ViewTimelinesLoader = () => {
     arrayFormat: 'comma',
   }).timelines
 
-  const filteredTimelines = filterTimelines(timelines, queriedTimelines)
+  const timelinesArray = Array.isArray(queriedTimelines)
+    ? queriedTimelines
+    : queriedTimelines.split()
+
+  const filteredTimelines = filterTimelines(timelines, timelinesArray)
   const filteredPreviousTimelines = filterTimelines(
     previousTimelines,
-    queriedTimelines
+    timelinesArray
   )
 
   return loading ? (

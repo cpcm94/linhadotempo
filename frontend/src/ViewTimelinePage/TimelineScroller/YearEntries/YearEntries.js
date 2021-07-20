@@ -13,11 +13,14 @@ import { groupBy } from '../groupBy'
 import { filterEntriesWithValue } from './filterEntriesWithValue'
 import { filterEntriesWithoutValue } from './filterEntriesWithoutValue'
 
-export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
+export const YearEntries = ({
+  timeEntriesByYear,
+  newEntryId,
+  forwardedRef,
+}) => {
   const year = timeEntriesByYear[0].year.toString().startsWith('-')
-    ? `AC ${timeEntriesByYear[0].year.toString().substr(1)}`
+    ? `${timeEntriesByYear[0].year.toString().substr(1)} a.c.`
     : timeEntriesByYear[0].year.toString()
-
   const entriesWithoutMonth = filterEntriesWithValue(timeEntriesByYear, 'month')
 
   const entriesWithMonths = filterEntriesWithoutValue(
@@ -33,12 +36,15 @@ export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
 
   return (
     <Wrapper>
-      <EntryYearWrapper>{year}</EntryYearWrapper>
+      <EntryYearWrapper>
+        <span>{year}</span>
+      </EntryYearWrapper>
       <EntriesWrapper>
         <EntriesWithoutMonthsWrapper>
           <EntriesWithoutMonths
             entriesWithoutMonth={entriesWithoutMonth}
             newEntryId={newEntryId}
+            forwardedRef={forwardedRef}
           />
         </EntriesWithoutMonthsWrapper>
         {arrayOfGroupedEntriesByMonth.map((month, index) => (
@@ -46,6 +52,7 @@ export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
             timeEntriesByMonth={month}
             key={index}
             newEntryId={newEntryId}
+            forwardedRef={forwardedRef}
           />
         ))}
       </EntriesWrapper>
@@ -56,4 +63,5 @@ export const YearEntries = ({ timeEntriesByYear, newEntryId }) => {
 YearEntries.propTypes = {
   timeEntriesByYear: PropTypes.array,
   newEntryId: PropTypes.string,
+  forwardedRef: PropTypes.any,
 }

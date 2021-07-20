@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Layout } from '../_shared/Layout'
 import { Footer } from '../_shared/Footer/Footer'
 import { Button } from './Button'
@@ -9,47 +9,29 @@ import { colors } from '../_shared/colors'
 import { useHistory } from 'react-router-dom'
 import { TimelinesButtonsRow } from './TimelinesButtonsRow'
 import { AddButtonWrapper, EllipsisButtonsWrapper } from './TimelinePage.styles'
+import { mapTimeEntriesId } from './mapTimeEntriesId'
+import { findClosestNegativeNumberToZero } from './findClosestNegativeNumberToZero'
+import { getScrollPosition } from './getScrollPosition'
 
 export const TimelinePage = ({ timelines, previousTimelines }) => {
-  const timelinesArray = () => {
-    let timelineArray = []
-    if (Array.isArray(timelines)) {
-      return timelines
-    } else {
-      timelineArray.push(timelines)
-      return timelineArray
-    }
-  }
-  const previousTimelinesArray = () => {
-    let timelineArray = []
-    if (Array.isArray(previousTimelines)) {
-      return previousTimelines
-    } else {
-      timelineArray.push(previousTimelines)
-      return timelineArray
-    }
-  }
+  const [displayEntryId, setDisplayEntryId] = useState(null)
+  const oldEntry = mapTimeEntriesId(previousTimelines)
 
-  const oldEntry =
-    previousTimelines &&
-    previousTimelinesArray()
-      .map((timeline) => timeline.time_entries.map((entry) => entry.id))
-      .flat()
+  const newEntry = mapTimeEntriesId(timelines)
 
-  const newEntry = timelinesArray()
-    .map((timeline) => timeline.time_entries.map((entry) => entry.id))
-    .flat()
+  const objectRefs = newEntry.reduce((accumulator, curr) => {
+    accumulator[curr] = useRef(null)
+    return accumulator
+  }, {})
 
   const brandNewEntry =
     oldEntry[0] && newEntry.filter((entry) => !oldEntry.includes(entry))[0]
 
-  const [visibleTimelines, setVisibleTimelines] = useState(timelinesArray())
+  const [visibleTimelines, setVisibleTimelines] = useState(timelines)
 
   let history = useHistory()
 
-  const timelinesString = timelinesArray()
-    .map((timeline) => timeline.id)
-    .toString()
+  const timelinesString = timelines.map((timeline) => timeline.id).toString()
 
   const navigateToSelectTimelines = () => {
     history.push({
@@ -64,6 +46,13 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
       search: `?timelines=${timelinesString}`,
     })
   }
+  const displayEntry = timelines
+    .map((timeline) => timeline.time_entries.map((entry) => entry))
+    .flat()
+    .filter((entry) => entry.id === displayEntryId)
+  if (displayEntry[0]) {
+    console.log('displayEntry', displayEntry[0])
+  }
 
   useEffect(() => {
     const hash = window.location.hash
@@ -73,11 +62,24 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
     }
   }, [])
 
+  const handleScroll = () => {
+    const elementsCoords = getScrollPosition(objectRefs)
+    const min = findClosestNegativeNumberToZero(elementsCoords)
+    setDisplayEntryId(min.entryId)
+  }
+
+  useEffect(() => {
+    handleScroll()
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  })
+
   return (
     <Layout>
       <TimelineScroller
         visibleTimelines={visibleTimelines}
         newEntryId={brandNewEntry}
+        forwardedRef={objectRefs}
       />
       <Footer
         pageActions={
@@ -92,7 +94,7 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
               <Button onClick={navigateToNewEntryPage}>+</Button>
             </AddButtonWrapper>
             <TimelinesButtonsRow
-              timelines={timelinesArray()}
+              timelines={timelines}
               visibleTimelines={visibleTimelines}
               setVisibleTimelines={setVisibleTimelines}
             />

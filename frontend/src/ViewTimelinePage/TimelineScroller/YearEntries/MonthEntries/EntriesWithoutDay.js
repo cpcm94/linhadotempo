@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import { EntryNameWrapper } from './MonthEntries.styles'
 import { EntryAndIconWrapper, EntryIcon } from '../YearEntries.styles'
 
-export const EntriesWithoutDay = ({ timeEntriesWithoutDay, newEntryId }) => {
+export const EntriesWithoutDay = ({
+  timeEntriesWithoutDay,
+  newEntryId,
+  forwardedRef,
+}) => {
   return (
     <>
       {timeEntriesWithoutDay[0]
@@ -12,6 +16,7 @@ export const EntriesWithoutDay = ({ timeEntriesWithoutDay, newEntryId }) => {
               key={index}
               isNew={newEntryId === entry.id}
               id={entry.id}
+              ref={forwardedRef[entry.id]}
             >
               <EntryNameWrapper>{entry.name}</EntryNameWrapper>
               <EntryIcon>{entry.timeline_id}</EntryIcon>
@@ -25,4 +30,5 @@ export const EntriesWithoutDay = ({ timeEntriesWithoutDay, newEntryId }) => {
 EntriesWithoutDay.propTypes = {
   timeEntriesWithoutDay: PropTypes.array,
   newEntryId: PropTypes.string,
+  forwardedRef: PropTypes.any,
 }
