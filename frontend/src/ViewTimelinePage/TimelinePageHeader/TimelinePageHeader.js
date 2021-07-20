@@ -10,7 +10,6 @@ import {
 import { monthNameArray } from '../../_shared/monthNameArray'
 
 export const TimelinePageHeader = ({ displayEntry }) => {
-  console.log('displayEntry', displayEntry)
   const monthName =
     displayEntry && displayEntry.month
       ? monthNameArray[displayEntry.month]

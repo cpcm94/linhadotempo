@@ -9,7 +9,6 @@ export const getScrollPosition = (elementObject) => {
   const result = refArray.map((ref) =>
     getClientRect(ref?.current || document.body)
   )
-  console.log('result', result)
   if (!isBrowser) return { x: 0, y: 0 }
   return result
 }

@@ -48,7 +48,7 @@ export const EntryYearWrapper = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 80px;
+  min-height: 50px;
 `
 
 export const EntryNameWrapper = styled.div`

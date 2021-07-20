@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom'
 import { TimelinesButtonsRow } from './TimelinesButtonsRow'
 import { AddButtonWrapper, EllipsisButtonsWrapper } from './TimelinePage.styles'
 import { mapTimeEntriesId } from './mapTimeEntriesId'
-import { findClosestNegativeNumberToZero } from './findClosestNegativeNumberToZero'
+import { findEntryToDisplay } from './findEntryToDisplay'
 import { getScrollPosition } from './getScrollPosition'
 import { TimelinePageHeader } from './TimelinePageHeader/TimelinePageHeader'
 
@@ -47,22 +47,22 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
       search: `?timelines=${timelinesString}`,
     })
   }
-  const displayEntry = timelines
+  const entries = timelines
     .map((timeline) => timeline.time_entries.map((entry) => entry))
     .flat()
-    .filter((entry) => entry.id === displayEntryId)[0]
+  const displayEntry = entries.filter((entry) => entry.id === displayEntryId)[0]
 
   useEffect(() => {
     const hash = window.location.hash
     const element = hash && document.getElementById(hash.substr(1))
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }, [])
 
   const handleScroll = () => {
     const elementsCoords = getScrollPosition(objectRefs)
-    const min = findClosestNegativeNumberToZero(elementsCoords)
+    const min = findEntryToDisplay(elementsCoords, entries)
     setDisplayEntryId(min.entryId)
   }
 
