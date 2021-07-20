@@ -11,7 +11,7 @@ import { convertObjectToArray } from '../../convertObjectToArray'
 import { groupBy } from '../../groupBy'
 import { filterEntriesWithValue } from '../filterEntriesWithValue'
 import { filterEntriesWithoutValue } from '../filterEntriesWithoutValue'
-import { monthNameArray } from './monthNameArray'
+import { monthNameArray } from '../../../../_shared/monthNameArray'
 import PropTypes from 'prop-types'
 
 export const MonthEntries = ({

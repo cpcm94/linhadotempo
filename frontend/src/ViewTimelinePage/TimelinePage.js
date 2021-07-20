@@ -12,9 +12,10 @@ import { AddButtonWrapper, EllipsisButtonsWrapper } from './TimelinePage.styles'
 import { mapTimeEntriesId } from './mapTimeEntriesId'
 import { findClosestNegativeNumberToZero } from './findClosestNegativeNumberToZero'
 import { getScrollPosition } from './getScrollPosition'
+import { TimelinePageHeader } from './TimelinePageHeader/TimelinePageHeader'
 
 export const TimelinePage = ({ timelines, previousTimelines }) => {
-  const [displayEntryId, setDisplayEntryId] = useState(null)
+  const [displayEntryId, setDisplayEntryId] = useState({})
   const oldEntry = mapTimeEntriesId(previousTimelines)
 
   const newEntry = mapTimeEntriesId(timelines)
@@ -49,10 +50,7 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
   const displayEntry = timelines
     .map((timeline) => timeline.time_entries.map((entry) => entry))
     .flat()
-    .filter((entry) => entry.id === displayEntryId)
-  if (displayEntry[0]) {
-    console.log('displayEntry', displayEntry[0])
-  }
+    .filter((entry) => entry.id === displayEntryId)[0]
 
   useEffect(() => {
     const hash = window.location.hash
@@ -76,6 +74,7 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
 
   return (
     <Layout>
+      <TimelinePageHeader displayEntry={displayEntry} />
       <TimelineScroller
         visibleTimelines={visibleTimelines}
         newEntryId={brandNewEntry}
