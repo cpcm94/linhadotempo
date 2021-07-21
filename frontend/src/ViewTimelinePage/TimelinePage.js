@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { Layout } from '../_shared/Layout'
 import { Footer } from '../_shared/Footer/Footer'
 import { Button } from './Button'
@@ -15,20 +15,19 @@ import { getScrollPosition } from './getScrollPosition'
 import { TimelinePageHeader } from './TimelinePageHeader/TimelinePageHeader'
 
 export const TimelinePage = ({ timelines, previousTimelines }) => {
-  const [displayEntryId, setDisplayEntryId] = useState({})
+  const [displayEntry, setDisplayEntry] = useState({})
   const oldEntry = mapTimeEntriesId(previousTimelines)
 
   const newEntry = mapTimeEntriesId(timelines)
-
-  const objectRefs = newEntry.reduce((accumulator, curr) => {
-    accumulator[curr] = useRef(null)
-    return accumulator
-  }, {})
 
   const brandNewEntry =
     oldEntry[0] && newEntry.filter((entry) => !oldEntry.includes(entry))[0]
 
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
+  const objectRefs = newEntry.reduce((accumulator, curr) => {
+    accumulator[curr] = useRef(null)
+    return accumulator
+  }, {})
 
   let history = useHistory()
 
@@ -50,8 +49,10 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
   const entries = timelines
     .map((timeline) => timeline.time_entries.map((entry) => entry))
     .flat()
-  const displayEntry = entries.filter((entry) => entry.id === displayEntryId)[0]
 
+  useEffect(() => {
+    handleScroll()
+  }, [handleScroll, visibleTimelines])
   useEffect(() => {
     const hash = window.location.hash
     const element = hash && document.getElementById(hash.substr(1))
@@ -60,15 +61,15 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
     }
   }, [])
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const elementsCoords = getScrollPosition(objectRefs)
-    const min = findEntryToDisplay(elementsCoords, entries)
-    setDisplayEntryId(min.entryId)
-  }
+    const entryToDisplay = findEntryToDisplay(elementsCoords, entries)
+    setDisplayEntry(entryToDisplay)
+  }, [entries, objectRefs])
 
   useEffect(() => {
-    handleScroll()
     window.addEventListener('scroll', handleScroll)
+
     return () => window.removeEventListener('scroll', handleScroll)
   })
 

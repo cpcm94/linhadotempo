@@ -19,6 +19,15 @@ export const HeaderWrapper = styled.div`
   height: 2rem;
   z-index: 2;
   overflow-x: hidden;
+  @media (min-width: 540px) {
+    padding: 5px 20%;
+  }
+  @media (min-width: 720px) {
+    padding: 5px 27%;
+  }
+  @media (min-width: 1080px) {
+    padding: 5px 33%;
+  }
 `
 
 export const YearWrapper = styled.div`
