@@ -26,7 +26,7 @@ const Button = styled.div`
 `
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 77vw;
   margin-right: 5rem;
   overflow-x: scroll;
@@ -35,6 +35,7 @@ const Wrapper = styled.div`
   }
   @media (min-width: 720px) {
     overflow-x: hidden;
+    justify-content: space-evenly;
     width: 90vw;
   }
   min-height: 4rem;
