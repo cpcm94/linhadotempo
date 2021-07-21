@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Wrapper, EntriesWrapper } from './TimelineScroller.styles'
 import { YearEntries } from './YearEntries/YearEntries'
-import { Layout } from '../../_shared/Layout'
 import { convertObjectToArray } from './convertObjectToArray'
 import { groupBy } from './groupBy'
 
@@ -23,20 +22,18 @@ export const TimelineScroller = ({
     (a, b) => a[0].year - b[0].year
   )
   return (
-    <Layout>
-      <Wrapper>
-        <EntriesWrapper>
-          {entriesSortedByYear.map((timeEntriesByYear, index) => (
-            <YearEntries
-              timeEntriesByYear={timeEntriesByYear}
-              key={index}
-              newEntryId={newEntryId}
-              forwardedRef={forwardedRef}
-            />
-          ))}
-        </EntriesWrapper>
-      </Wrapper>
-    </Layout>
+    <Wrapper>
+      <EntriesWrapper>
+        {entriesSortedByYear.map((timeEntriesByYear, index) => (
+          <YearEntries
+            timeEntriesByYear={timeEntriesByYear}
+            key={index}
+            newEntryId={newEntryId}
+            forwardedRef={forwardedRef}
+          />
+        ))}
+      </EntriesWrapper>
+    </Wrapper>
   )
 }
 

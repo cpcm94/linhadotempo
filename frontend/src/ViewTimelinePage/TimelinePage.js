@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { Layout } from '../_shared/Layout'
 import { Footer } from '../_shared/Footer/Footer'
 import { Button } from './Button'
@@ -10,24 +10,24 @@ import { useHistory } from 'react-router-dom'
 import { TimelinesButtonsRow } from './TimelinesButtonsRow'
 import { AddButtonWrapper, EllipsisButtonsWrapper } from './TimelinePage.styles'
 import { mapTimeEntriesId } from './mapTimeEntriesId'
-import { findClosestNegativeNumberToZero } from './findClosestNegativeNumberToZero'
+import { findEntryToDisplay } from './findEntryToDisplay'
 import { getScrollPosition } from './getScrollPosition'
+import { TimelinePageHeader } from './TimelinePageHeader/TimelinePageHeader'
 
 export const TimelinePage = ({ timelines, previousTimelines }) => {
-  const [displayEntryId, setDisplayEntryId] = useState(null)
+  const [displayEntry, setDisplayEntry] = useState({})
   const oldEntry = mapTimeEntriesId(previousTimelines)
 
   const newEntry = mapTimeEntriesId(timelines)
-
-  const objectRefs = newEntry.reduce((accumulator, curr) => {
-    accumulator[curr] = useRef(null)
-    return accumulator
-  }, {})
 
   const brandNewEntry =
     oldEntry[0] && newEntry.filter((entry) => !oldEntry.includes(entry))[0]
 
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
+  const objectRefs = newEntry.reduce((accumulator, curr) => {
+    accumulator[curr] = useRef(null)
+    return accumulator
+  }, {})
 
   let history = useHistory()
 
@@ -46,36 +46,36 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
       search: `?timelines=${timelinesString}`,
     })
   }
-  const displayEntry = timelines
+  const entries = timelines
     .map((timeline) => timeline.time_entries.map((entry) => entry))
     .flat()
-    .filter((entry) => entry.id === displayEntryId)
-  if (displayEntry[0]) {
-    console.log('displayEntry', displayEntry[0])
-  }
 
+  useEffect(() => {
+    handleScroll()
+  }, [handleScroll, visibleTimelines])
   useEffect(() => {
     const hash = window.location.hash
     const element = hash && document.getElementById(hash.substr(1))
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }, [])
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const elementsCoords = getScrollPosition(objectRefs)
-    const min = findClosestNegativeNumberToZero(elementsCoords)
-    setDisplayEntryId(min.entryId)
-  }
+    const entryToDisplay = findEntryToDisplay(elementsCoords, entries)
+    setDisplayEntry(entryToDisplay)
+  }, [entries, objectRefs])
 
   useEffect(() => {
-    handleScroll()
     window.addEventListener('scroll', handleScroll)
+
     return () => window.removeEventListener('scroll', handleScroll)
   })
 
   return (
     <Layout>
+      <TimelinePageHeader displayEntry={displayEntry} />
       <TimelineScroller
         visibleTimelines={visibleTimelines}
         newEntryId={brandNewEntry}
