@@ -3,7 +3,12 @@ import { DayEntriesWrapper } from './DayEntries.styles'
 import { Entries } from './Entries/Entries'
 import PropTypes from 'prop-types'
 
-export const DayEntries = ({ timeEntriesByDay, newEntryId, forwardedRef }) => {
+export const DayEntries = ({
+  timeEntriesByDay,
+  newEntryId,
+  forwardedRef,
+  displayEntry,
+}) => {
   return (
     <DayEntriesWrapper>
       {timeEntriesByDay[0]
@@ -13,6 +18,7 @@ export const DayEntries = ({ timeEntriesByDay, newEntryId, forwardedRef }) => {
               key={index}
               newEntryId={newEntryId}
               forwardedRef={forwardedRef}
+              displayEntry={displayEntry}
             />
           ))
         : null}
@@ -24,4 +30,5 @@ DayEntries.propTypes = {
   timeEntriesByDay: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
+  displayEntry: PropTypes.object,
 }

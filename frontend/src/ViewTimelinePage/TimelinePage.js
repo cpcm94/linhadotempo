@@ -78,7 +78,9 @@ export const TimelinePage = ({
   const handleScroll = useCallback(() => {
     const elementsCoords = getScrollPosition(objectRefs)
     const entryToDisplay = findEntryToDisplay(elementsCoords, entries)
-    setDisplayEntry(entryToDisplay)
+    if (entryToDisplay) {
+      setDisplayEntry(entryToDisplay)
+    }
   }, [entries, objectRefs])
 
   useEffect(() => {
@@ -96,7 +98,6 @@ export const TimelinePage = ({
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   })
-
   return (
     <Layout>
       <TimelinePageHeader displayEntry={displayEntry} />
@@ -105,6 +106,7 @@ export const TimelinePage = ({
           visibleTimelines={visibleTimelines}
           newEntryId={brandNewEntry}
           forwardedRef={objectRefs}
+          displayEntry={displayEntry}
         />
       ) : (
         <NoEntriesYet visibleTimelines={visibleTimelines} />

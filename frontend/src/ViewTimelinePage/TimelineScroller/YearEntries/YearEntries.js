@@ -17,6 +17,7 @@ export const YearEntries = ({
   timeEntriesByYear,
   newEntryId,
   forwardedRef,
+  displayEntry,
 }) => {
   const year = timeEntriesByYear[0].year.toString().startsWith('-')
     ? `${timeEntriesByYear[0].year.toString().substr(1)} a.c.`
@@ -33,10 +34,11 @@ export const YearEntries = ({
   const arrayOfGroupedEntriesByMonth = convertObjectToArray(
     entriesGroupedByMonth
   )
+  const isDisplayEntryYear = displayEntry.year === timeEntriesByYear[0].year
 
   return (
     <Wrapper>
-      <EntryYearWrapper>
+      <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
         <span>{year}</span>
       </EntryYearWrapper>
       <EntriesWrapper>
@@ -53,6 +55,7 @@ export const YearEntries = ({
             key={index}
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
+            displayEntry={displayEntry}
           />
         ))}
       </EntriesWrapper>
@@ -64,4 +67,5 @@ YearEntries.propTypes = {
   timeEntriesByYear: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
+  displayEntry: PropTypes.object,
 }

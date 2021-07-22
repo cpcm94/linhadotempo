@@ -8,12 +8,23 @@ import {
 import { EntryAndIconWrapper, EntryIcon } from '../../../YearEntries.styles'
 import PropTypes from 'prop-types'
 
-export const Entries = ({ entries, newEntryId, forwardedRef }) => {
+export const Entries = ({
+  entries,
+  newEntryId,
+  forwardedRef,
+  displayEntry,
+}) => {
   const entryDate = `${entries[0].day}`
+  const { day, month, year } = entries[0]
+
+  const isDisplayEntryDay =
+    displayEntry.day === day &&
+    displayEntry.month === month &&
+    displayEntry.year === year
 
   return (
     <Wrapper>
-      <EntryDateWrapper>
+      <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
         <span>{entryDate}</span>
       </EntryDateWrapper>
       <EntriesWrapper>
@@ -37,4 +48,5 @@ Entries.propTypes = {
   entries: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
+  displayEntry: PropTypes.object,
 }

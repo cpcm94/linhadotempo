@@ -18,6 +18,7 @@ export const MonthEntries = ({
   timeEntriesByMonth,
   newEntryId,
   forwardedRef,
+  displayEntry,
 }) => {
   const month = monthNameArray[timeEntriesByMonth[0].month]
 
@@ -29,10 +30,14 @@ export const MonthEntries = ({
 
   const arrayOfGroupedEntriesByDay = convertObjectToArray(entriesGroupedByDay)
 
+  const isDisplayEntryMonth =
+    displayEntry.month === timeEntriesByMonth[0].month &&
+    displayEntry.year === timeEntriesByMonth[0].year
+
   return (
     <MonthEntriesWrapper>
       <MonthAndEntryWrapper>
-        <MonthWrapper>
+        <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
           <span>{month}</span>
         </MonthWrapper>
         <EntryWithoutDayWrapper>
@@ -47,6 +52,7 @@ export const MonthEntries = ({
         timeEntriesByDay={arrayOfGroupedEntriesByDay}
         newEntryId={newEntryId}
         forwardedRef={forwardedRef}
+        displayEntry={displayEntry}
       />
     </MonthEntriesWrapper>
   )
@@ -56,4 +62,5 @@ MonthEntries.propTypes = {
   timeEntriesByMonth: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
+  displayEntry: PropTypes.object,
 }

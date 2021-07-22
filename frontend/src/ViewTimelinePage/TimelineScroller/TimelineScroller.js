@@ -15,6 +15,7 @@ export const TimelineScroller = ({
   visibleTimelines,
   newEntryId,
   forwardedRef,
+  displayEntry,
 }) => {
   const timeEntries = visibleTimelines
     .map((timeline) => timeline.time_entries)
@@ -37,6 +38,7 @@ export const TimelineScroller = ({
               key={index}
               newEntryId={newEntryId}
               forwardedRef={forwardedRef}
+              displayEntry={displayEntry}
             />
           ))}
         </EntriesWrapper>
@@ -57,4 +59,5 @@ TimelineScroller.propTypes = {
   visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
+  displayEntry: PropTypes.object,
 }

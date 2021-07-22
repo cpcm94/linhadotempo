@@ -11,11 +11,6 @@ export const NewEntryLoader = () => {
   }).timelines
 
   const hash = qs.parse(location.hash)
-  // const convertedHash = {
-  //   year: parseInt(hash.year),
-  //   month: hash.month ? parseInt(hash.month) : null,
-  //   day: hash.day ? parseInt(hash.day) : null,
-  // }
 
   const filteredTimelines = filterTimelines(timelines, queriedTimelines)
 

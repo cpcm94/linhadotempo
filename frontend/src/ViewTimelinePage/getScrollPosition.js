@@ -4,7 +4,10 @@ export const getScrollPosition = (elementObject) => {
   const getClientRect = (element) => {
     const elementCoord = element.getBoundingClientRect().y
     const entryId = element && element.id ? element.id : null
-    return { elementCoord, entryId }
+    return {
+      elementCoord,
+      entryId,
+    }
   }
   const result = refArray.map((ref) =>
     getClientRect(ref?.current || document.body)
