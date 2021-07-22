@@ -22,10 +22,10 @@ export const ViewTimelinesLoader = () => {
     timelinesArray
   )
   const noValidTimelines =
-    timelinesArray.length > 0 && filteredTimelines.length === 0 ? true : false
+    timelinesArray.length > 0 && filteredTimelines.length === 0
 
   const containsInvalidTimelines =
-    timelinesArray.length !== filteredTimelines.length ? true : false
+    timelinesArray.length !== filteredTimelines.length
 
   return loading ? (
     <span>Loading...</span>
