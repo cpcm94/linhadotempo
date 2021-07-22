@@ -13,8 +13,16 @@ import { mapTimeEntriesId } from './mapTimeEntriesId'
 import { findEntryToDisplay } from './findEntryToDisplay'
 import { getScrollPosition } from './getScrollPosition'
 import { TimelinePageHeader } from './TimelinePageHeader/TimelinePageHeader'
+import { NoEntriesYet } from './NoEntriesYet'
+import { ToastContainer, toast, Slide } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-export const TimelinePage = ({ timelines, previousTimelines }) => {
+export const TimelinePage = ({
+  timelines,
+  previousTimelines,
+  hasInvalidTimelines,
+}) => {
+  const alreadyRan = useRef(false)
   const [displayEntry, setDisplayEntry] = useState({})
   const oldEntry = mapTimeEntriesId(previousTimelines)
 
@@ -32,6 +40,11 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
   let history = useHistory()
 
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
+  const displayEntryDate = `timeline=${displayEntry.timeline_id}&year=${
+    displayEntry.year
+  }${displayEntry.month ? `&month=${displayEntry.month}` : ''}${
+    displayEntry.day ? `&day=${displayEntry.day}` : ''
+  }`
 
   const navigateToSelectTimelines = () => {
     history.push({
@@ -44,6 +57,7 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
     history.push({
       pathname: '/viewTimeline/newEntry/',
       search: `?timelines=${timelinesString}`,
+      hash: `#${displayEntryDate}`,
     })
   }
   const entries = timelines
@@ -68,19 +82,33 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
   }, [entries, objectRefs])
 
   useEffect(() => {
+    if (hasInvalidTimelines && !alreadyRan.current) {
+      toast.error(
+        'Você não tem acesso à uma ou mais linhas do tempo que tentou acessar.',
+        {
+          position: 'top-center',
+          hideProgressBar: true,
+          transition: Slide,
+        }
+      )
+      alreadyRan.current = true
+    }
     window.addEventListener('scroll', handleScroll)
-
     return () => window.removeEventListener('scroll', handleScroll)
   })
 
   return (
     <Layout>
       <TimelinePageHeader displayEntry={displayEntry} />
-      <TimelineScroller
-        visibleTimelines={visibleTimelines}
-        newEntryId={brandNewEntry}
-        forwardedRef={objectRefs}
-      />
+      {entries[0] ? (
+        <TimelineScroller
+          visibleTimelines={visibleTimelines}
+          newEntryId={brandNewEntry}
+          forwardedRef={objectRefs}
+        />
+      ) : (
+        <NoEntriesYet visibleTimelines={visibleTimelines} />
+      )}
       <Footer
         pageActions={
           <>
@@ -101,6 +129,7 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
           </>
         }
       />
+      <ToastContainer />
     </Layout>
   )
 }
@@ -108,4 +137,5 @@ export const TimelinePage = ({ timelines, previousTimelines }) => {
 TimelinePage.propTypes = {
   timelines: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   previousTimelines: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  hasInvalidTimelines: PropTypes.bool,
 }

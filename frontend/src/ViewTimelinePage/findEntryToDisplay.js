@@ -30,26 +30,28 @@ const breakPoint = (entry) => {
 }
 
 const entryValue = (entry) => {
-  if (
-    !entry.alreadyUpdated &&
-    entry.firstEntryOfYear &&
-    !entry.day &&
-    entry.elementCoord > 47
-  ) {
-    return { ...entry, month: null }
-  } else if (
-    !entry.firstEntryOfYear &&
-    entry.firstEntryOfMonth &&
-    entry.day &&
-    entry.elementCoord > 47
-  ) {
-    return { ...entry, day: null }
-  } else if (firstOfYearWithMonthAndDay(entry) && entry.elementCoord > 80) {
-    return { ...entry, month: null, day: null }
-  } else if (firstOfYearWithMonthAndDay(entry) && entry.elementCoord > 47) {
-    return { ...entry, day: null, alreadyUpdated: true }
-  } else {
-    return entry
+  if (entry) {
+    if (
+      !entry.alreadyUpdated &&
+      entry.firstEntryOfYear &&
+      !entry.day &&
+      entry.elementCoord > 47
+    ) {
+      return { ...entry, month: null }
+    } else if (
+      !entry.firstEntryOfYear &&
+      entry.firstEntryOfMonth &&
+      entry.day &&
+      entry.elementCoord > 47
+    ) {
+      return { ...entry, day: null }
+    } else if (firstOfYearWithMonthAndDay(entry) && entry.elementCoord > 80) {
+      return { ...entry, month: null, day: null }
+    } else if (firstOfYearWithMonthAndDay(entry) && entry.elementCoord > 47) {
+      return { ...entry, day: null, alreadyUpdated: true }
+    } else {
+      return entry
+    }
   }
 }
 const insertDatesInArray = (array, entries) =>
@@ -60,6 +62,8 @@ const insertDatesInArray = (array, entries) =>
       year: entry[0] && entry[0].year ? entry[0].year : null,
       month: entry[0] && entry[0].month ? entry[0].month : null,
       day: entry[0] && entry[0].day ? entry[0].day : null,
+      timeline_id:
+        entry[0] && entry[0].timeline_id ? entry[0].timeline_id : null,
     }
   })
 
@@ -150,29 +154,31 @@ export const findEntryToDisplay = (array, entries) => {
     coordArrayWithFirstEntryOfDay
   )
 
-  const closest = coordArrayWithAllProps.reduce((previous, current) => {
-    if (window.scrollY < 70) {
-      return coordArrayWithAllProps.filter(
-        (entry) => entry.firstEntry === true
-      )[0]
-    }
-    const currentIsValid =
-      current && Math.abs(current.elementCoord) < breakPoint(current)
-    const previousIsValid =
-      previous && Math.abs(previous.elementCoord) < breakPoint(previous)
-    if (currentIsValid && previousIsValid) {
-      return Math.abs(current.elementCoord - breakPoint(current)) <
-        Math.abs(previous.elementCoord - breakPoint(previous))
-        ? current
-        : previous
-    } else if (currentIsValid && !previousIsValid) {
-      return current
-    } else if (previousIsValid && !currentIsValid) {
-      return previous
-    } else {
-      return current
-    }
-  })
+  const closest =
+    coordArrayWithAllProps[0] &&
+    coordArrayWithAllProps.reduce((previous, current) => {
+      if (window.scrollY < 70) {
+        return coordArrayWithAllProps.filter(
+          (entry) => entry.firstEntry === true
+        )[0]
+      }
+      const currentIsValid =
+        current && Math.abs(current.elementCoord) < breakPoint(current)
+      const previousIsValid =
+        previous && Math.abs(previous.elementCoord) < breakPoint(previous)
+      if (currentIsValid && previousIsValid) {
+        return Math.abs(current.elementCoord - breakPoint(current)) <
+          Math.abs(previous.elementCoord - breakPoint(previous))
+          ? current
+          : previous
+      } else if (currentIsValid && !previousIsValid) {
+        return current
+      } else if (previousIsValid && !currentIsValid) {
+        return previous
+      } else {
+        return current
+      }
+    })
 
   return entryValue(closest)
 }

@@ -3,6 +3,7 @@ import { TimelinePage } from './TimelinePage'
 import { TimelinesContext } from './TimelinesContextProvider'
 import { filterTimelines } from './filterTimelines'
 import qs from 'query-string'
+import { NoValidTimelinesPage } from './NoValidTimelinesPage'
 
 export const ViewTimelinesLoader = () => {
   const { timelines, previousTimelines, loading } = useContext(TimelinesContext)
@@ -20,13 +21,21 @@ export const ViewTimelinesLoader = () => {
     previousTimelines,
     timelinesArray
   )
+  const noValidTimelines =
+    timelinesArray.length > 0 && filteredTimelines.length === 0 ? true : false
+
+  const containsInvalidTimelines =
+    timelinesArray.length !== filteredTimelines.length ? true : false
 
   return loading ? (
     <span>Loading...</span>
+  ) : noValidTimelines ? (
+    <NoValidTimelinesPage />
   ) : timelines ? (
     <TimelinePage
       timelines={filteredTimelines}
       previousTimelines={filteredPreviousTimelines}
+      hasInvalidTimelines={containsInvalidTimelines}
     />
   ) : null
 }

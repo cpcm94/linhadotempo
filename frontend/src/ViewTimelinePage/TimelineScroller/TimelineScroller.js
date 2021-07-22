@@ -1,9 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Wrapper, EntriesWrapper } from './TimelineScroller.styles'
+import {
+  Wrapper,
+  EntriesWrapper,
+  InvisibleIconWrapper,
+} from './TimelineScroller.styles'
 import { YearEntries } from './YearEntries/YearEntries'
 import { convertObjectToArray } from './convertObjectToArray'
 import { groupBy } from './groupBy'
+import { InvisibleIcon } from '../../_shared/InvisibleIcon'
+import { MessageWrapper } from '../../_shared/MessageWrapper'
 
 export const TimelineScroller = ({
   visibleTimelines,
@@ -23,16 +29,25 @@ export const TimelineScroller = ({
   )
   return (
     <Wrapper>
-      <EntriesWrapper>
-        {entriesSortedByYear.map((timeEntriesByYear, index) => (
-          <YearEntries
-            timeEntriesByYear={timeEntriesByYear}
-            key={index}
-            newEntryId={newEntryId}
-            forwardedRef={forwardedRef}
-          />
-        ))}
-      </EntriesWrapper>
+      {visibleTimelines[0] ? (
+        <EntriesWrapper>
+          {entriesSortedByYear.map((timeEntriesByYear, index) => (
+            <YearEntries
+              timeEntriesByYear={timeEntriesByYear}
+              key={index}
+              newEntryId={newEntryId}
+              forwardedRef={forwardedRef}
+            />
+          ))}
+        </EntriesWrapper>
+      ) : (
+        <>
+          <InvisibleIconWrapper>
+            <InvisibleIcon />
+          </InvisibleIconWrapper>
+          <MessageWrapper>Todas as linhas estão invisíveis.</MessageWrapper>
+        </>
+      )}
     </Wrapper>
   )
 }

@@ -31,7 +31,26 @@ export const ButtonWrapper = styled.div`
   align-items: center;
 `
 export const PageActions = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: row-reverse;
+  @media (min-width: 1600px) {
+    width: 40%;
+    margin: 0 30%;
+  }
+  @media (max-width: 1599px) {
+    width: 50%;
+    margin: 0 25%;
+  }
+  @media (max-width: 1439px) {
+    width: 70%;
+    margin: 0 15%;
+  }
+  @media (max-width: 1023px) {
+    width: 55%;
+    margin: 0 24%;
+  }
+  @media (max-width: 719px) {
+    width: 100%;
+    margin: 0;
+  }
 `
