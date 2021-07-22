@@ -18,6 +18,7 @@ export const Entries = ({
   const { day, month, year } = entries[0]
 
   const isDisplayEntryDay =
+    displayEntry &&
     displayEntry.day === day &&
     displayEntry.month === month &&
     displayEntry.year === year

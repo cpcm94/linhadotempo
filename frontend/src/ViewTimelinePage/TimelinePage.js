@@ -40,11 +40,11 @@ export const TimelinePage = ({
   let history = useHistory()
 
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
-  const displayEntryDate = `timeline=${displayEntry.timeline_id}&year=${
-    displayEntry.year
-  }${displayEntry.month ? `&month=${displayEntry.month}` : ''}${
-    displayEntry.day ? `&day=${displayEntry.day}` : ''
-  }`
+  const displayEntryDate =
+    displayEntry &&
+    `timeline=${displayEntry.timeline_id}&year=${displayEntry.year}${
+      displayEntry.month ? `&month=${displayEntry.month}` : ''
+    }${displayEntry.day ? `&day=${displayEntry.day}` : ''}`
 
   const navigateToSelectTimelines = () => {
     history.push({
@@ -78,10 +78,10 @@ export const TimelinePage = ({
   const handleScroll = useCallback(() => {
     const elementsCoords = getScrollPosition(objectRefs)
     const entryToDisplay = findEntryToDisplay(elementsCoords, entries)
-    if (entryToDisplay) {
+    if (entryToDisplay || !visibleTimelines[0]) {
       setDisplayEntry(entryToDisplay)
     }
-  }, [entries, objectRefs])
+  }, [entries, objectRefs, visibleTimelines])
 
   useEffect(() => {
     if (hasInvalidTimelines && !alreadyRan.current) {

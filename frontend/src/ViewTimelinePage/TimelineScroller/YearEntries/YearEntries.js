@@ -34,7 +34,8 @@ export const YearEntries = ({
   const arrayOfGroupedEntriesByMonth = convertObjectToArray(
     entriesGroupedByMonth
   )
-  const isDisplayEntryYear = displayEntry.year === timeEntriesByYear[0].year
+  const isDisplayEntryYear =
+    displayEntry && displayEntry.year === timeEntriesByYear[0].year
 
   return (
     <Wrapper>
