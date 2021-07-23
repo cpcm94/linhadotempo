@@ -10,6 +10,13 @@ export const NewEntryLoader = () => {
     arrayFormat: 'comma',
   }).timelines
 
+  const hash = qs.parse(location.hash)
+  // const convertedHash = {
+  //   year: parseInt(hash.year),
+  //   month: hash.month ? parseInt(hash.month) : null,
+  //   day: hash.day ? parseInt(hash.day) : null,
+  // }
+
   const filteredTimelines = filterTimelines(timelines, queriedTimelines)
 
   return loading ? (
@@ -18,6 +25,7 @@ export const NewEntryLoader = () => {
     <NewEntryPage
       timelines={filteredTimelines}
       refetchTimelines={refetchTimelines}
+      defaultDate={hash}
     />
   ) : null
 }

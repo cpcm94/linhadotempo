@@ -30,15 +30,20 @@ const Wrapper = styled.div`
   width: 77vw;
   margin-right: 5rem;
   overflow-x: scroll;
-  @media (min-width: 540px) {
-    width: 85vw;
-  }
-  @media (min-width: 720px) {
+
+  @media (min-width: 1600px) {
     overflow-x: hidden;
-    justify-content: space-evenly;
-    width: 90vw;
+  }
+  @media (min-width: 1440px) {
+    margin-right: 0;
+    overflow-x: hidden;
+  }
+  @media (min-width: 1024px) {
+    overflow-x: hidden;
+    margin-right: 0;
   }
   min-height: 4rem;
+  max-height: 4rem;
 `
 export const TimelinesButtonsRow = ({
   timelines,

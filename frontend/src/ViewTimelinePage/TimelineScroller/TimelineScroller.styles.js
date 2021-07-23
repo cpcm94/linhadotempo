@@ -23,3 +23,7 @@ export const EntriesWrapper = styled.div`
 export const Wrapper = styled.div`
   width: 100%;
 `
+export const InvisibleIconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`

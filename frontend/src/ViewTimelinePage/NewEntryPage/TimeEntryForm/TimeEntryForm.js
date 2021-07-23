@@ -15,14 +15,19 @@ import { useMutation } from '@apollo/client'
 import { TIME_ENTRY_MUTATION } from './TIME_ENTRY_MUTATION'
 import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from './convertFormDataValues'
+import { monthNameArray } from '../../../_shared/monthNameArray'
 
-export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
+export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
+  const defaultYearIsNegative = defaultDate.year.startsWith('-')
+  const defaultDateYearWithoutNegative = defaultYearIsNegative
+    ? defaultDate.year.substr(1)
+    : defaultDate.year
   const [entry, setEntry] = useState({
-    timeline_id: '',
+    timeline_id: defaultDate.timeline,
     name: '',
-    year: '',
-    month: '',
-    day: '',
+    year: defaultDateYearWithoutNegative,
+    month: defaultDate.month ? defaultDate.month : '',
+    day: defaultDate.day ? defaultDate.day : '',
     annual_importance: false,
     monthly_importance: false,
   })
@@ -59,6 +64,7 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
   }
 
   const disableSubmitButton = entry.month === '' && entry.day !== ''
+  const singleTimeline = timelines.length === 1
 
   return (
     <>
@@ -71,6 +77,7 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
               select
               id="timeline_id"
               variant="outlined"
+              disabled={singleTimeline}
               label="Linha do tempo"
               value={entry.timeline_id}
               onChange={handleChange('timeline_id')}
@@ -100,7 +107,7 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
             <StyledRadioGroup
               row
               onChange={(e) => setRadioValue(e.target.value)}
-              defaultValue="DC"
+              defaultValue={defaultYearIsNegative ? 'AC' : 'DC'}
             >
               <FormControlLabel
                 value="AC"
@@ -127,7 +134,7 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
                 <MenuItem value={''}>{''}</MenuItem>
                 {Months.map((month, index) => (
                   <MenuItem key={index} value={month}>
-                    {month}
+                    {monthNameArray[month]}
                   </MenuItem>
                 ))}
               </StyledTextField>
@@ -166,4 +173,5 @@ export const TimeEntryForm = ({ timelines, refetchTimelines }) => {
 TimeEntryForm.propTypes = {
   timelines: PropTypes.array,
   refetchTimelines: PropTypes.func,
+  defaultDate: PropTypes.object,
 }
