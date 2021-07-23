@@ -40,11 +40,11 @@ export const TimelinePage = ({
   let history = useHistory()
 
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
-  const displayEntryDate = `timeline=${displayEntry.timeline_id}&year=${
-    displayEntry.year
-  }${displayEntry.month ? `&month=${displayEntry.month}` : ''}${
-    displayEntry.day ? `&day=${displayEntry.day}` : ''
-  }`
+  const displayEntryDate =
+    displayEntry &&
+    `timeline=${displayEntry.timeline_id}&year=${displayEntry.year}${
+      displayEntry.month ? `&month=${displayEntry.month}` : ''
+    }${displayEntry.day ? `&day=${displayEntry.day}` : ''}`
 
   const navigateToSelectTimelines = () => {
     history.push({
@@ -78,8 +78,10 @@ export const TimelinePage = ({
   const handleScroll = useCallback(() => {
     const elementsCoords = getScrollPosition(objectRefs)
     const entryToDisplay = findEntryToDisplay(elementsCoords, entries)
-    setDisplayEntry(entryToDisplay)
-  }, [entries, objectRefs])
+    if (entryToDisplay || !visibleTimelines[0]) {
+      setDisplayEntry(entryToDisplay)
+    }
+  }, [entries, objectRefs, visibleTimelines])
 
   useEffect(() => {
     if (hasInvalidTimelines && !alreadyRan.current) {
@@ -96,7 +98,6 @@ export const TimelinePage = ({
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   })
-
   return (
     <Layout>
       <TimelinePageHeader displayEntry={displayEntry} />
@@ -105,6 +106,7 @@ export const TimelinePage = ({
           visibleTimelines={visibleTimelines}
           newEntryId={brandNewEntry}
           forwardedRef={objectRefs}
+          displayEntry={displayEntry}
         />
       ) : (
         <NoEntriesYet visibleTimelines={visibleTimelines} />

@@ -1,10 +1,43 @@
-import styled from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 import { colors } from '../../../../_shared/colors'
+
+const fadeOut = keyframes`
+from {
+  opacity: 1;
+  visibility: visible;
+}
+to {
+  opacity: 0;
+  visibility: hidden;
+
+}
+`
+
+const fadeIn = keyframes`
+from {
+  opacity: 0;
+  visibility: hidden;
+}
+to {
+  opacity: 1;
+  visibility: visible;
+
+
+}
+`
 
 export const MonthWrapper = styled.div`
   position: relative;
   z-index: 1;
-  padding: 0.5rem 0 0.5rem 3rem;
+  padding: 0.5rem 0 0.5rem 2.25rem;
+  animation: ${({ isDisplayEntryMonth }) =>
+    isDisplayEntryMonth
+      ? css`
+          ${fadeOut} 1s forwards
+        `
+      : css`
+          ${fadeIn} 1s forwards
+        `};
   &:before {
     border-top: 1px solid ${colors.lightBrown};
     content: '';

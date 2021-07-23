@@ -13,19 +13,19 @@ const breakPoint = (entry) => {
   if (entry.firstEntry === true) {
     return 70
   } else if (entry.firstEntryOfYear && !entry.month) {
-    return 47
+    return 53
   } else if (entry.firstEntryOfYear && !entry.day) {
-    return 80
+    return 86
   } else if (firstOfYearWithMonthAndDay(entry)) {
-    return 107
+    return 113
   } else if (entry.firstEntryOfMonth && !entry.day) {
-    return 47
+    return 53
   } else if (entry.firstEntryOfMonth) {
-    return 80
+    return 86
   } else if (entry.firstEntryOfDay) {
-    return 47
+    return 53
   } else {
-    return 40
+    return 0
   }
 }
 
@@ -35,19 +35,19 @@ const entryValue = (entry) => {
       !entry.alreadyUpdated &&
       entry.firstEntryOfYear &&
       !entry.day &&
-      entry.elementCoord > 47
+      entry.elementCoord > 53
     ) {
       return { ...entry, month: null }
     } else if (
       !entry.firstEntryOfYear &&
       entry.firstEntryOfMonth &&
       entry.day &&
-      entry.elementCoord > 47
+      entry.elementCoord > 53
     ) {
       return { ...entry, day: null }
-    } else if (firstOfYearWithMonthAndDay(entry) && entry.elementCoord > 80) {
+    } else if (firstOfYearWithMonthAndDay(entry) && entry.elementCoord > 86) {
       return { ...entry, month: null, day: null }
-    } else if (firstOfYearWithMonthAndDay(entry) && entry.elementCoord > 47) {
+    } else if (firstOfYearWithMonthAndDay(entry) && entry.elementCoord > 53) {
       return { ...entry, day: null, alreadyUpdated: true }
     } else {
       return entry
@@ -164,8 +164,10 @@ export const findEntryToDisplay = (array, entries) => {
       }
       const currentIsValid =
         current && Math.abs(current.elementCoord) < breakPoint(current)
+
       const previousIsValid =
         previous && Math.abs(previous.elementCoord) < breakPoint(previous)
+
       if (currentIsValid && previousIsValid) {
         return Math.abs(current.elementCoord - breakPoint(current)) <
           Math.abs(previous.elementCoord - breakPoint(previous))
@@ -176,9 +178,8 @@ export const findEntryToDisplay = (array, entries) => {
       } else if (previousIsValid && !currentIsValid) {
         return previous
       } else {
-        return current
+        return null
       }
     })
-
   return entryValue(closest)
 }

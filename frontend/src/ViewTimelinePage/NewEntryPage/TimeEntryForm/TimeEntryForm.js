@@ -26,8 +26,8 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
     timeline_id: defaultDate.timeline,
     name: '',
     year: defaultDateYearWithoutNegative,
-    month: defaultDate.month ? defaultDate.month : '',
-    day: defaultDate.day ? defaultDate.day : '',
+    month: defaultDate.month ? parseInt(defaultDate.month) : '',
+    day: defaultDate.day ? parseInt(defaultDate.day) : '',
     annual_importance: false,
     monthly_importance: false,
   })
