@@ -25,6 +25,7 @@ export const LoginForm = ({ refetchUser }) => {
   }
 
   const saveTokenAndGoHome = (data) => {
+    console.log('data', data)
     if (data.login.success) {
       saveToken(data.login.token)
       refetchUser()
