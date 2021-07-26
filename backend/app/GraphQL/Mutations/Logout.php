@@ -20,9 +20,11 @@ class Logout
         /** @var \App\Models\User|null $user */
 
         if (sizeof(Auth::user()->tokens) === 0) {
-            return "Logout successful";
+            return ["success" => true,
+            "message" => "Logout bem sucedido"];
         } else {
-            return "Logout failed";
+            return ["success" => false,
+            "message" => "Logout falhou"];
         }
 
         }

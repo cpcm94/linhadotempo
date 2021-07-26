@@ -41,6 +41,11 @@ type LoginResponse {
     message: String!
 }
 
+type LogoutResponse {
+    success: Boolean!
+    message: String!
+}
+
 input CreateTimeEntryInput {
     name: String!
     year: Int!
@@ -78,6 +83,9 @@ input CreateTimeLineInput {
 input UpdateTimelineInput {
     name: String
 }
+input UpdatePasswordInput {
+    password: String! @hash
+}
 
 type Query {
     users: [User!]! @all
@@ -91,7 +99,7 @@ type Query {
 
 type Mutation {
     login(input: LoginInput! @spread): LoginResponse!
-    logout: String! @guard
+    logout: LogoutResponse! @guard
     createTimeline(input: CreateTimeLineInput! @spread): Timeline!
         @create
         @inject(context: "user.id", name: "user_id")
@@ -103,4 +111,5 @@ type Mutation {
     updateTimeEntry(id: ID!, input: UpdateTimeEntryInput! @spread): TimeEntry
         @update
     createUser(input: CreateUserInput! @spread): User! @create
+    updatePassword(id: ID! input: UpdatePasswordInput! @spread) @update
 }
