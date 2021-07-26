@@ -6,8 +6,9 @@ import { LOGOUT_MUTATION } from './LOGOUT_MUTATION'
 import { useHistory } from 'react-router-dom'
 import { toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import PropTypes from 'prop-types'
 
-export const LogoutButton = () => {
+export const LogoutButton = ({ refetchUser }) => {
   const [logout, { loading: logoutLoading }] = useMutation(LOGOUT_MUTATION)
   let history = useHistory()
 
@@ -20,6 +21,7 @@ export const LogoutButton = () => {
     logout().then((res) => {
       if (res.data.logout.success) {
         deleteToken()
+        refetchUser()
         navigateToLogin()
       } else {
         toast.error(res.data.logout.message, {
@@ -45,4 +47,7 @@ export const LogoutButton = () => {
       )}
     </Wrapper>
   )
+}
+LogoutButton.propTypes = {
+  refetchUser: PropTypes.func,
 }
