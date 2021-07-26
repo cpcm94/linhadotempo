@@ -45,7 +45,6 @@ export const ChangePasswordForm = ({ user }) => {
   }
   const disableSubmitButton =
     userPassword === '' || userPassword.length !== confirmPassword.length
-  console.log('disableSubmitButton', disableSubmitButton)
   return (
     <Wrapper>
       <StyledTextField

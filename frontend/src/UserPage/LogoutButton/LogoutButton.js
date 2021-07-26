@@ -1,12 +1,11 @@
 import { useMutation } from '@apollo/client'
 import React from 'react'
-import { StyledButton } from './LogoutButton.styles'
+import { StyledButton, Wrapper } from './LogoutButton.styles'
 import { deleteToken } from '../../_shared/AuthToken/deleteToken'
 import { LOGOUT_MUTATION } from './LOGOUT_MUTATION'
 import { useHistory } from 'react-router-dom'
 import { toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Wrapper } from '../ChangePasswordForm/ChangePasswordForm.styles'
 
 export const LogoutButton = () => {
   const [logout, { loading: logoutLoading }] = useMutation(LOGOUT_MUTATION)
