@@ -39,7 +39,6 @@ export const StyledButton = styled(Button)`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  width: 25%;
   align-items: center;
 `
 export const Wrapper = styled.div`

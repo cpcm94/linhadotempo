@@ -15,9 +15,11 @@ const Button = styled.div``
 
 export const UserButton = ({ onClick, initial }) => {
   return (
-    <Wrapper onClick={onClick}>
-      <Button>{initial}</Button>
-    </Wrapper>
+    <>
+      {initial && (
+        <Wrapper onClick={onClick}>{<Button>{initial}</Button>}</Wrapper>
+      )}
+    </>
   )
 }
 

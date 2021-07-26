@@ -13,3 +13,9 @@ export const StyledButton = styled(Button)`
     background-color: ${colors.brown};
   }
 `
+
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+`

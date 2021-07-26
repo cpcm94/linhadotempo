@@ -12,8 +12,9 @@ import {
   StyledButton,
   ForgotPasswordText,
 } from './LoginForm.styles'
+import PropTypes from 'prop-types'
 
-export const LoginForm = () => {
+export const LoginForm = ({ refetchUser }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -24,8 +25,10 @@ export const LoginForm = () => {
   }
 
   const saveTokenAndGoHome = (data) => {
+    console.log('data', data)
     if (data.login.success) {
       saveToken(data.login.token)
+      refetchUser()
       navigateToHome()
     } else {
       toast.error(data.login.message, {
@@ -94,4 +97,7 @@ export const LoginForm = () => {
       </Form>
     </Wrapper>
   )
+}
+LoginForm.propTypes = {
+  refetchUser: PropTypes.func,
 }
