@@ -111,5 +111,5 @@ type Mutation {
     updateTimeEntry(id: ID!, input: UpdateTimeEntryInput! @spread): TimeEntry
         @update
     createUser(input: CreateUserInput! @spread): User! @create
-    updatePassword(id: ID! input: UpdatePasswordInput! @spread) @update
+    updatePassword(id: ID!, input: UpdatePasswordInput! @spread) @update
 }
