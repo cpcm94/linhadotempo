@@ -14,6 +14,8 @@ import { LoginPageLoader } from './LoginPage/LoginPageLoader'
 import { NewTimelineLoader } from './NewTimelinePage/NewTimelineLoader'
 import { EditTimelinePage } from './EditTimelinePage/EditTimelinePage'
 import { ViewTimelinesPage } from './ViewTimelinePage/ViewTimelinesPage'
+import { CurrentUserContextProvider } from './_shared/CurrentUserContextProvider'
+import { UserPageLoader } from './UserPage/UserPageLoader'
 
 const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
   const token = getToken()
@@ -39,7 +41,9 @@ const client = new ApolloClient({
 
 const ApolloApp = (Wrapped) => (
   <ApolloProvider client={client}>
-    <Wrapped />
+    <CurrentUserContextProvider>
+      <Wrapped />
+    </CurrentUserContextProvider>
   </ApolloProvider>
 )
 const Wrapped = () => {
@@ -61,6 +65,9 @@ const Wrapped = () => {
           </Route>
           <Route path="/viewTimeline">
             <ViewTimelinesPage />
+          </Route>
+          <Route path="/userPage">
+            <UserPageLoader />
           </Route>
           <Route path="/">
             <TimelinesLoader />
