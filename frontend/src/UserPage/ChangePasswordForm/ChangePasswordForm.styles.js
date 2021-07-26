@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
-import { colors } from '../_shared/colors'
+import { colors } from '../../_shared/colors'
 import { Button } from '@material-ui/core'
 
 export const StyledTextField = styled(TextField)`
@@ -25,6 +25,13 @@ export const StyledTextField = styled(TextField)`
   }
 `
 
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: 2rem;
+`
+
 export const StyledButton = styled(Button)`
   height: 3.5rem;
   width: 14rem;
@@ -34,26 +41,5 @@ export const StyledButton = styled(Button)`
   }
   &.MuiButton-contained {
     background-color: ${colors.brown};
-  }
-`
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  align-items: center;
-`
-export const Wrapper = styled.div`
-  margin-top: 35px;
-  display: flex;
-  justify-content: center;
-`
-
-export const ForgotPasswordText = styled.div`
-  margin-top: 15px;
-  min-width: 160px;
-
-  :hover {
-    cursor: pointer;
-    text-decoration: underline;
   }
 `

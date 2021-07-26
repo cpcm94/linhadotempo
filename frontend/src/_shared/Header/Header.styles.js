@@ -21,3 +21,9 @@ export const TitlesWrapper = styled.div`
 export const IconRow = styled.div`
   padding: 0.25rem 0 0 0;
 `
+
+export const UserButtonWrapper = styled.div`
+  position: absolute;
+  top: 0.9rem;
+  right: 1rem;
+`
