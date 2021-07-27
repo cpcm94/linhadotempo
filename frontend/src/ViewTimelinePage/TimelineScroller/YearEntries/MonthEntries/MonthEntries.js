@@ -59,9 +59,6 @@ export const MonthEntries = ({
             </MonthSpanWrapper>
           </MonthWrapper>
         )}
-        {/* <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
-          <span>{month}</span>
-        </MonthWrapper> */}
         <EntryWithoutDayWrapper>
           <EntriesWithoutDay
             timeEntriesWithoutDay={entriesWithoutDay}
