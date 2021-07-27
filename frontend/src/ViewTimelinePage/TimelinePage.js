@@ -68,10 +68,22 @@ export const TimelinePage = ({
     handleScroll()
   }, [handleScroll, visibleTimelines])
   useEffect(() => {
+    if (displayEntry.entryId) {
+      history.push({
+        pathname: '/viewTimeline/',
+        search: `?timelines=${timelinesString}`,
+        hash: `#${displayEntry.entryId}`,
+      })
+    }
+  }, [displayEntry, history, timelinesString])
+  useEffect(() => {
     const hash = window.location.hash
     const element = hash && document.getElementById(hash.substr(1))
+    const yOffset = -40
+    const elementPositionWithOffset =
+      element.getBoundingClientRect().top + window.pageYOffset + yOffset
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
     }
   }, [])
 

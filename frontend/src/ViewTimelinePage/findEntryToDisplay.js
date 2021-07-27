@@ -6,31 +6,6 @@ const breakPoint = (entry) => {
   }
 }
 
-const entryValue = (entry) => {
-  if (entry) {
-    if (
-      !entry.alreadyUpdated &&
-      entry.firstEntryOfYear &&
-      !entry.day &&
-      entry.elementCoord > 53
-    ) {
-      return { ...entry, month: null }
-    } else if (
-      !entry.firstEntryOfYear &&
-      entry.firstEntryOfMonth &&
-      entry.day &&
-      entry.elementCoord > 53
-    ) {
-      return { ...entry, day: null }
-    } else if (firstOfYearWithMonthAndDay(entry) && entry.elementCoord > 86) {
-      return { ...entry, month: null, day: null }
-    } else if (firstOfYearWithMonthAndDay(entry) && entry.elementCoord > 53) {
-      return { ...entry, day: null, alreadyUpdated: true }
-    } else {
-      return entry
-    }
-  }
-}
 const insertDatesInArray = (array, entries) =>
   array.map((ref) => {
     const entry = entries.filter((entry) => entry.id === ref.entryId)
@@ -56,8 +31,6 @@ const insertFirstEntryInEntries = (coordArrayWithDates) =>
       return entry
     }
   })
-const firstOfYearWithMonthAndDay = (entry) =>
-  entry.firstEntryOfYear && entry.firstEntryOfMonth && entry.firstEntryOfDay
 
 export const findEntryToDisplay = (array, entries) => {
   const coordArrayWithDates = insertDatesInArray(array, entries)
@@ -91,5 +64,5 @@ export const findEntryToDisplay = (array, entries) => {
         return null
       }
     })
-  return entryValue(closest)
+  return closest
 }

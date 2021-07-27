@@ -9,12 +9,13 @@ export const SelectTimelinesLoader = () => {
     arrayFormat: 'comma',
   }).timelines
 
+  const timelinesArray = Array.isArray(queriedTimelines)
+    ? queriedTimelines
+    : queriedTimelines.split()
+
   return loading ? (
     <span>Loading...</span>
   ) : timelines ? (
-    <SelectTimelines
-      timelines={timelines}
-      queriedTimelines={queriedTimelines}
-    />
+    <SelectTimelines timelines={timelines} queriedTimelines={timelinesArray} />
   ) : null
 }
