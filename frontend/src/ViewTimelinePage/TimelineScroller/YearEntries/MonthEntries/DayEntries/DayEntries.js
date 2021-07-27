@@ -8,6 +8,8 @@ export const DayEntries = ({
   newEntryId,
   forwardedRef,
   displayEntry,
+  hasMonth,
+  hasYear,
 }) => {
   return (
     <DayEntriesWrapper>
@@ -19,6 +21,8 @@ export const DayEntries = ({
               newEntryId={newEntryId}
               forwardedRef={forwardedRef}
               displayEntry={displayEntry}
+              hasMonth={hasMonth}
+              hasYear={hasYear}
             />
           ))
         : null}
@@ -31,4 +35,6 @@ DayEntries.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
+  hasMonth: PropTypes.bool,
+  hasYear: PropTypes.bool,
 }

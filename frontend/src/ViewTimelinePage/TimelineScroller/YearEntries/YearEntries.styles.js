@@ -22,44 +22,14 @@ export const EntryAndIconWrapper = styled.div`
       : null};
 `
 
-const fadeOut = keyframes`
-from {
-  opacity: 1;
-  visibility: visible;
-}
-to {
-  opacity: 0;
-  visibility: hidden;
-
-}
-`
-
-const fadeIn = keyframes`
-from {
-  opacity: 0;
-  visibility: hidden;
-}
-to {
-  opacity: 1;
-  visibility: visible;
-
-
-}
-`
-
 export const EntryYearWrapper = styled.div`
+  display: flex;
   position: relative;
   z-index: 1;
-  padding: 0.5rem 0 0.5rem 2.25rem;
+  padding: 0.5rem 1rem;
   color: ${colors.lightGrey};
-  animation: ${({ isDisplayEntryYear }) =>
-    isDisplayEntryYear
-      ? css`
-          ${fadeOut} 1s forwards
-        `
-      : css`
-          ${fadeIn} 1s forwards
-        `};
+  visibility: ${({ isDisplayEntryYear }) =>
+    isDisplayEntryYear ? 'hidden' : 'visible'};
   &:before {
     border-top: 1px solid ${colors.lightBrown};
     content: '';
@@ -74,6 +44,7 @@ export const EntryYearWrapper = styled.div`
   }
   span {
     background: ${colors.white};
+    padding: 0 0.25rem;
   }
   font-size: 0.85em;
   color: ${colors.brown};
@@ -111,3 +82,8 @@ export const EntriesWrapper = styled.div`
 `
 
 export const EntriesWithoutMonthsWrapper = styled.div``
+
+export const YearWrapper = styled.div`
+  flex: 0.33;
+  text-align: center;
+`
