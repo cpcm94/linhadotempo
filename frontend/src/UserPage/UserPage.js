@@ -8,7 +8,7 @@ import { ChangePasswordForm } from './ChangePasswordForm/ChangePasswordForm'
 import { LogoutButton } from './LogoutButton/LogoutButton'
 import { Wrapper } from './UserPage.styles'
 
-export const UserPage = ({ user }) => {
+export const UserPage = ({ user, refetchUser }) => {
   return (
     <Layout>
       <Header />
@@ -16,7 +16,7 @@ export const UserPage = ({ user }) => {
         <UserInfo user={user} />
         <ChangePasswordForm user={user} />
       </Wrapper>
-      <LogoutButton />
+      <LogoutButton refetchUser={refetchUser} />
       <ToastContainer />
     </Layout>
   )
@@ -24,4 +24,5 @@ export const UserPage = ({ user }) => {
 
 UserPage.propTypes = {
   user: PropTypes.object,
+  refetchUser: PropTypes.func,
 }
