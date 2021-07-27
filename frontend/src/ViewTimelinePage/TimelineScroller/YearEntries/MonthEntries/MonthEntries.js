@@ -54,7 +54,7 @@ export const MonthEntries = ({
                 <span>{yearAC}</span>
               </YearWrapper>
             )}
-            <MonthSpanWrapper>
+            <MonthSpanWrapper hasYear={hasYear}>
               <span>{month}</span>
             </MonthSpanWrapper>
           </MonthWrapper>
