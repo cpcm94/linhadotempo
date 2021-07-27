@@ -49,6 +49,6 @@ export const YearWrapper = styled.div`
 `
 
 export const MonthSpanWrapper = styled.div`
-  flex: 0.33;
+  flex: ${({ hasYear }) => (hasYear ? 1 : 0.33)};
   text-align: center;
 `

@@ -49,9 +49,6 @@ export const YearEntries = ({
           </YearWrapper>
         </EntryYearWrapper>
       )}
-      {/* <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
-        <span>{year}</span>
-      </EntryYearWrapper> */}
       <EntriesWrapper>
         <EntriesWithoutMonthsWrapper>
           <EntriesWithoutMonths

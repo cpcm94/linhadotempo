@@ -1,34 +1,3 @@
-// const filterForYear = (array, entry) =>
-//   array.filter((innerEntry) => innerEntry.year === entry.year)
-
-// const filterForMonth = (array, entry) =>
-//   array.filter((innerEntry) => innerEntry.month === entry.month)
-
-// const findEntryWithTheLowerCoord = (array) =>
-//   array.reduce((previous, current) => {
-//     return previous.elementCoord < current.elementCoord ? previous : current
-//   })
-
-// const breakPoint = (entry) => {
-//   if (entry.firstEntry === true) {
-//     return 70
-//   } else if (entry.firstEntryOfYear && !entry.month) {
-//     return 53
-//   } else if (entry.firstEntryOfYear && !entry.day) {
-//     return 86
-//   } else if (firstOfYearWithMonthAndDay(entry)) {
-//     return 113
-//   } else if (entry.firstEntryOfMonth && !entry.day) {
-//     return 53
-//   } else if (entry.firstEntryOfMonth) {
-//     return 86
-//   } else if (entry.firstEntryOfDay) {
-//     return 53
-//   } else {
-//     return 0
-//   }
-// }
-
 const breakPoint = (entry) => {
   if (entry.firstEntry === true) {
     return 70
@@ -75,58 +44,6 @@ const insertDatesInArray = (array, entries) =>
     }
   })
 
-// const insertFirstEntryOfYearInEntries = (arrayWithDate) =>
-//   arrayWithDate.map((entry) => {
-//     const filteredForYear = filterForYear(arrayWithDate, entry)
-
-//     const minimumCoordForYear = findEntryWithTheLowerCoord(filteredForYear)
-
-//     if (entry.elementCoord > minimumCoordForYear.elementCoord) {
-//       return { ...entry, firstEntryOfYear: false }
-//     } else {
-//       return { ...entry, firstEntryOfYear: true }
-//     }
-//   })
-
-// const insertFirstEntryOfMonthInEntries = (
-//   coordArrayWithFirstEntryOfYear,
-//   arrayWithDate
-// ) =>
-//   coordArrayWithFirstEntryOfYear.map((entry) => {
-//     const filteredForYear = filterForYear(arrayWithDate, entry)
-
-//     const filteredForMonth = filterForMonth(filteredForYear, entry)
-
-//     const minimumCoordForMonth = findEntryWithTheLowerCoord(filteredForMonth)
-
-//     if (entry.elementCoord > minimumCoordForMonth.elementCoord) {
-//       return { ...entry, firstEntryOfMonth: false }
-//     } else {
-//       return { ...entry, firstEntryOfMonth: true }
-//     }
-//   })
-
-// const insertFirstEntryOfDayInEntries = (
-//   coordArrayWithFirstEntryOfMonth,
-//   coordArrayWithDates
-// ) =>
-//   coordArrayWithFirstEntryOfMonth.map((entry) => {
-//     const filteredForYear = filterForYear(coordArrayWithDates, entry)
-
-//     const filteredForMonth = filterForMonth(filteredForYear, entry)
-
-//     const filteredForDay = filteredForMonth.filter(
-//       (innerEntry) => innerEntry.day === entry.day
-//     )
-//     const minimumCoordForMonth = findEntryWithTheLowerCoord(filteredForDay)
-
-//     if (entry.elementCoord > minimumCoordForMonth.elementCoord) {
-//       return { ...entry, firstEntryOfDay: false }
-//     } else {
-//       return { ...entry, firstEntryOfDay: true }
-//     }
-//   })
-
 const insertFirstEntryInEntries = (coordArrayWithDates) =>
   coordArrayWithDates.map((entry) => {
     const lowestYear = coordArrayWithDates
@@ -144,19 +61,6 @@ const firstOfYearWithMonthAndDay = (entry) =>
 
 export const findEntryToDisplay = (array, entries) => {
   const coordArrayWithDates = insertDatesInArray(array, entries)
-
-  // const coordArrayWithFirstEntryOfYear =
-  //   insertFirstEntryOfYearInEntries(coordArrayWithDates)
-
-  // const coordArrayWithFirstEntryOfMonth = insertFirstEntryOfMonthInEntries(
-  //   coordArrayWithFirstEntryOfYear,
-  //   coordArrayWithDates
-  // )
-
-  // const coordArrayWithFirstEntryOfDay = insertFirstEntryOfDayInEntries(
-  //   coordArrayWithFirstEntryOfMonth,
-  //   coordArrayWithDates
-  // )
 
   const coordArrayWithAllProps = insertFirstEntryInEntries(coordArrayWithDates)
 
