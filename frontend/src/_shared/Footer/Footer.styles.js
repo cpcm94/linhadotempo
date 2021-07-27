@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { colors } from '../colors'
 
 export const Wrapper = styled.div`
+  padding: 0.25rem 0.75rem;
   background-color: ${colors.brown};
   display: flex;
   align-items: center;
@@ -33,21 +34,15 @@ export const ButtonWrapper = styled.div`
 export const PageActions = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  @media (min-width: 1600px) {
-    width: 40%;
-    margin: 0 30%;
-  }
-  @media (max-width: 1599px) {
+  background-color: ${colors.brown};
+
+  @media (min-width: 1440px) {
     width: 50%;
-    margin: 0 25%;
+    margin: 0 35.5%;
   }
   @media (max-width: 1439px) {
-    width: 70%;
-    margin: 0 15%;
-  }
-  @media (max-width: 1023px) {
     width: 55%;
-    margin: 0 24%;
+    margin: 0 26%;
   }
   @media (max-width: 719px) {
     width: 100%;

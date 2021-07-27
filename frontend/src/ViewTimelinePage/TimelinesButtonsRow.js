@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 import { isSelected } from '../_shared/isSelected'
 
 const Button = styled.div`
+  margin-right: 0.5rem;
   background-color: ${colors.white};
-  margin: 0 0.35rem 0 0.35rem;
   border: solid 1px #999;
   color: #655;
   border-radius: 5px;
@@ -28,20 +28,15 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 77vw;
-  margin-right: 5rem;
+  margin-right: 22%;
   overflow-x: scroll;
-
-  @media (min-width: 1600px) {
-    overflow-x: hidden;
-  }
   @media (min-width: 1440px) {
-    margin-right: 0;
-    overflow-x: hidden;
+    margin-right: 50%;
   }
-  @media (min-width: 1024px) {
-    overflow-x: hidden;
-    margin-right: 0;
+  @media (max-width: 1439px) {
+    margin-right: 25%;
   }
+
   min-height: 4rem;
   max-height: 4rem;
 `

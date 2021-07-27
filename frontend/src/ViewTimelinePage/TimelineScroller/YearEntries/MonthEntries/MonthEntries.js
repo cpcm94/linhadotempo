@@ -4,6 +4,8 @@ import {
   MonthAndEntryWrapper,
   EntryWithoutDayWrapper,
   MonthWrapper,
+  YearWrapper,
+  MonthSpanWrapper,
 } from './MonthEntries.styles'
 import { DayEntries } from './DayEntries/DayEntries'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
@@ -19,8 +21,13 @@ export const MonthEntries = ({
   newEntryId,
   forwardedRef,
   displayEntry,
+  hasYear,
 }) => {
   const month = monthNameArray[timeEntriesByMonth[0].month]
+  const year = timeEntriesByMonth[0].year
+  const yearAC = year.toString().startsWith('-')
+    ? `${year.toString().substr(1)} a.c.`
+    : year.toString()
 
   const entriesWithoutDay = filterEntriesWithValue(timeEntriesByMonth, 'day')
 
@@ -35,12 +42,23 @@ export const MonthEntries = ({
     displayEntry.month === timeEntriesByMonth[0].month &&
     displayEntry.year === timeEntriesByMonth[0].year
 
+  const atLeastOneEntryWithoutDay = entriesWithoutDay[0] ? true : false
+
   return (
     <MonthEntriesWrapper>
       <MonthAndEntryWrapper>
-        <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
-          <span>{month}</span>
-        </MonthWrapper>
+        {atLeastOneEntryWithoutDay && (
+          <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
+            {!hasYear && (
+              <YearWrapper>
+                <span>{yearAC}</span>
+              </YearWrapper>
+            )}
+            <MonthSpanWrapper hasYear={hasYear}>
+              <span>{month}</span>
+            </MonthSpanWrapper>
+          </MonthWrapper>
+        )}
         <EntryWithoutDayWrapper>
           <EntriesWithoutDay
             timeEntriesWithoutDay={entriesWithoutDay}
@@ -54,6 +72,8 @@ export const MonthEntries = ({
         newEntryId={newEntryId}
         forwardedRef={forwardedRef}
         displayEntry={displayEntry}
+        hasMonth={atLeastOneEntryWithoutDay}
+        hasYear={hasYear}
       />
     </MonthEntriesWrapper>
   )
@@ -64,4 +84,5 @@ MonthEntries.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
+  hasYear: PropTypes.bool,
 }

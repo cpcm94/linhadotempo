@@ -4,18 +4,27 @@ import {
   EntriesWrapper,
   EntryDateWrapper,
   EntryWrapper,
+  YearWrapper,
+  MonthWrapper,
+  DayWrapper,
 } from './Entries.styles'
 import { EntryAndIconWrapper, EntryIcon } from '../../../YearEntries.styles'
 import PropTypes from 'prop-types'
+import { monthNameArray } from '../../../../../../_shared/monthNameArray'
 
 export const Entries = ({
   entries,
   newEntryId,
   forwardedRef,
   displayEntry,
+  hasMonth,
+  hasYear,
 }) => {
-  const entryDate = `${entries[0].day}`
   const { day, month, year } = entries[0]
+  const monthName = monthNameArray[month]
+  const yearAC = year.toString().startsWith('-')
+    ? `${year.toString().substr(1)} a.c.`
+    : year.toString()
 
   const isDisplayEntryDay =
     displayEntry &&
@@ -26,7 +35,13 @@ export const Entries = ({
   return (
     <Wrapper>
       <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
-        <span>{entryDate}</span>
+        <YearWrapper>
+          {!hasYear && !hasMonth && <span>{yearAC}</span>}
+        </YearWrapper>
+        <MonthWrapper>{!hasMonth && <span>{monthName}</span>}</MonthWrapper>
+        <DayWrapper>
+          <span>{day}</span>
+        </DayWrapper>
       </EntryDateWrapper>
       <EntriesWrapper>
         {entries.map((entry, index) => (
@@ -50,4 +65,6 @@ Entries.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
+  hasMonth: PropTypes.bool,
+  hasYear: PropTypes.bool,
 }

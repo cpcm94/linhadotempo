@@ -1,43 +1,13 @@
-import styled, { keyframes, css } from 'styled-components'
+import styled from 'styled-components'
 import { colors } from '../../../../../../_shared/colors'
 
-const fadeOut = keyframes`
-from {
-  opacity: 1;
-  visibility: visible;
-}
-to {
-  opacity: 0;
-  visibility: hidden;
-
-}
-`
-
-const fadeIn = keyframes`
-from {
-  opacity: 0;
-  visibility: hidden;
-}
-to {
-  opacity: 1;
-  visibility: visible;
-
-
-}
-`
-
 export const EntryDateWrapper = styled.div`
+  display: flex;
   position: relative;
   z-index: 1;
-  padding: 0.5rem 0 0.5rem 2.25rem;
-  animation: ${({ isDisplayEntryDay }) =>
-    isDisplayEntryDay
-      ? css`
-          ${fadeOut} 1s forwards
-        `
-      : css`
-          ${fadeIn} 1s forwards
-        `};
+  padding: 0.5rem 1rem;
+  visibility: ${({ isDisplayEntryDay }) =>
+    isDisplayEntryDay ? 'hidden' : 'visible'};
   &:before {
     border-top: 1px solid ${colors.lightBrown};
     content: '';
@@ -52,6 +22,7 @@ export const EntryDateWrapper = styled.div`
   }
   span {
     background: ${colors.white};
+    padding: 0 0.25rem;
   }
   font-size: 0.85em;
   color: ${colors.brown};
@@ -70,4 +41,19 @@ export const Wrapper = styled.div`
 
 export const EntryWrapper = styled.div`
   flex: 1;
+`
+
+export const YearWrapper = styled.div`
+  flex: 1;
+  text-align: center;
+`
+
+export const MonthWrapper = styled.div`
+  flex: 1;
+  text-align: center;
+`
+
+export const DayWrapper = styled.div`
+  flex: 1;
+  text-align: center;
 `

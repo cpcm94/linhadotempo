@@ -7,6 +7,7 @@ import {
   Wrapper,
   EntriesWrapper,
   EntryYearWrapper,
+  YearWrapper,
 } from './YearEntries.styles'
 import { convertObjectToArray } from '../convertObjectToArray'
 import { groupBy } from '../groupBy'
@@ -37,11 +38,17 @@ export const YearEntries = ({
   const isDisplayEntryYear =
     displayEntry && displayEntry.year === timeEntriesByYear[0].year
 
+  const atLeastOneEntryWithoutMonth = entriesWithoutMonth[0] ? true : false
+
   return (
     <Wrapper>
-      <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
-        <span>{year}</span>
-      </EntryYearWrapper>
+      {atLeastOneEntryWithoutMonth && (
+        <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
+          <YearWrapper>
+            <span>{year}</span>
+          </YearWrapper>
+        </EntryYearWrapper>
+      )}
       <EntriesWrapper>
         <EntriesWithoutMonthsWrapper>
           <EntriesWithoutMonths
@@ -57,6 +64,7 @@ export const YearEntries = ({
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
             displayEntry={displayEntry}
+            hasYear={atLeastOneEntryWithoutMonth}
           />
         ))}
       </EntriesWrapper>
