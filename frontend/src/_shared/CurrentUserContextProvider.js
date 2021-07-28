@@ -13,7 +13,6 @@ export const CurrentUserContextProvider = ({ children }) => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-first',
   })
-  console.log('data', data)
   const user =
     data && data.me
       ? {
