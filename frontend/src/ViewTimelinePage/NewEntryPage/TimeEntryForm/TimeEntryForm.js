@@ -23,7 +23,10 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
     ? defaultDate.year.substr(1)
     : defaultDate.year
   const [entry, setEntry] = useState({
-    timeline_id: defaultDate.timeline,
+    timeline_id:
+      defaultDate.timeline !== 'undefined'
+        ? defaultDate.timeline
+        : timelines[0].id,
     name: '',
     year: defaultDateYearWithoutNegative,
     month: defaultDate.month ? parseInt(defaultDate.month) : '',
@@ -48,18 +51,27 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
   let history = useHistory()
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
 
-  const goBack = (newEntryId) => {
+  const goBack = (newEntry) => {
+    console.log('newEntry', newEntry)
+    console.log(
+      `#date=${newEntry.year}${newEntry.month ? `/${newEntry.month}` : ''}${
+        newEntry.day ? `/${newEntry.day}` : ''
+      }`
+    )
     history.push({
       pathname: '/viewTimeline/',
       search: `?timelines=${timelinesString}`,
-      hash: `#${newEntryId}`,
+      hash: `#date=${newEntry.year}${
+        newEntry.month ? `/${newEntry.month}` : ''
+      }${newEntry.day ? `/${newEntry.day}` : ''}`,
     })
   }
   const submitSignIn = (e) => {
     e.preventDefault()
     createEntry().then((res) => {
-      refetchTimelines()
-      goBack(res.data.createTimeEntry.id)
+      refetchTimelines().then(() => {
+        goBack(res.data.createTimeEntry)
+      })
     })
   }
 
