@@ -21,8 +21,9 @@ export const LogoutButton = ({ refetchUser }) => {
     logout().then((res) => {
       if (res.data.logout.success) {
         deleteToken()
-        refetchUser()
-        navigateToLogin()
+        refetchUser().then(() => {
+          navigateToLogin()
+        })
       } else {
         toast.error(res.data.logout.message, {
           position: 'top-center',

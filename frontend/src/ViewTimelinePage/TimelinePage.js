@@ -11,6 +11,7 @@ import { TimelinesButtonsRow } from './TimelinesButtonsRow'
 import { AddButtonWrapper, EllipsisButtonsWrapper } from './TimelinePage.styles'
 import { mapTimeEntriesId } from './mapTimeEntriesId'
 import { findEntryToDisplay } from './findEntryToDisplay'
+import { findClosestNextEntryToHash } from './findClosestNextEntryToHash'
 import { getScrollPosition } from './getScrollPosition'
 import { TimelinePageHeader } from './TimelinePageHeader/TimelinePageHeader'
 import { NoEntriesYet } from './NoEntriesYet'
@@ -24,6 +25,8 @@ export const TimelinePage = ({
 }) => {
   const alreadyRan = useRef(false)
   const [displayEntry, setDisplayEntry] = useState({})
+  const [visibleTimelines, setVisibleTimelines] = useState(timelines)
+  const hash = useRef(window.location.hash)
   const oldEntry = mapTimeEntriesId(previousTimelines)
 
   const newEntry = mapTimeEntriesId(timelines)
@@ -31,7 +34,6 @@ export const TimelinePage = ({
   const brandNewEntry =
     oldEntry[0] && newEntry.filter((entry) => !oldEntry.includes(entry))[0]
 
-  const [visibleTimelines, setVisibleTimelines] = useState(timelines)
   const objectRefs = newEntry.reduce((accumulator, curr) => {
     accumulator[curr] = useRef(null)
     return accumulator
@@ -64,28 +66,58 @@ export const TimelinePage = ({
     .map((timeline) => timeline.time_entries.map((entry) => entry))
     .flat()
 
+  const isTheRightYear = (entry, hash) =>
+    entry.year.toString() === hash.substr(6).split('/')[0]
+  const isTheRightMonth = (entry, hash) =>
+    entry.month ? entry.month.toString() === hash.substr(6).split('/')[1] : true
+  const isTheRightDay = (entry, hash) =>
+    entry.day ? entry.day.toString() === hash.substr(6).split('/')[2] : true
+
+  const firstEntryOfExactDate = entries.filter((entry) => {
+    if (
+      isTheRightYear(entry, hash.current) &&
+      isTheRightMonth(entry, hash.current) &&
+      isTheRightDay(entry, hash.current)
+    ) {
+      return entry
+    }
+  })[0]
+
+  const closestNextEntryToHash = findClosestNextEntryToHash(
+    entries,
+    hash.current
+  )
+
+  const entryToScrollTo = firstEntryOfExactDate
+    ? firstEntryOfExactDate
+    : closestNextEntryToHash
+
+  const element = hash.current && document.getElementById(entryToScrollTo.id)
+
   useEffect(() => {
     handleScroll()
   }, [handleScroll, visibleTimelines])
+
+  useEffect(() => {
+    const yOffset = -40
+    const elementPositionWithOffset =
+      element &&
+      element.getBoundingClientRect().top + window.pageYOffset + yOffset
+    if (element) {
+      window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
+    }
+  }, [element])
   useEffect(() => {
     if (displayEntry.entryId) {
       history.push({
         pathname: '/viewTimeline/',
         search: `?timelines=${timelinesString}`,
-        hash: `#${displayEntry.entryId}`,
+        hash: `#date=${displayEntry.year}${
+          displayEntry.month ? `/${displayEntry.month}` : ''
+        }${displayEntry.day ? `/${displayEntry.day}` : ''}`,
       })
     }
   }, [displayEntry, history, timelinesString])
-  useEffect(() => {
-    const hash = window.location.hash
-    const element = hash && document.getElementById(hash.substr(1))
-    const yOffset = -40
-    const elementPositionWithOffset =
-      element.getBoundingClientRect().top + window.pageYOffset + yOffset
-    if (element) {
-      window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
-    }
-  }, [])
 
   const handleScroll = useCallback(() => {
     const elementsCoords = getScrollPosition(objectRefs)
