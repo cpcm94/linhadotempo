@@ -12,7 +12,11 @@ export const NewEntryLoader = () => {
 
   const hash = qs.parse(location.hash)
 
-  const filteredTimelines = filterTimelines(timelines, queriedTimelines)
+  const timelinesArray = Array.isArray(queriedTimelines)
+    ? queriedTimelines
+    : queriedTimelines.split()
+
+  const filteredTimelines = filterTimelines(timelines, timelinesArray)
 
   return loading ? (
     <span>Loading...</span>
