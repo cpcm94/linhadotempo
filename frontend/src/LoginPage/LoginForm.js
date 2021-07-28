@@ -68,9 +68,10 @@ export const LoginForm = ({ refetchUser }) => {
 
   return (
     <Wrapper>
-      <Form>
+      <Form onSubmit={submitSignIn}>
         <StyledTextField
           type="text"
+          autoCapitalize="none"
           id="email"
           variant="outlined"
           label="Email"
@@ -85,11 +86,7 @@ export const LoginForm = ({ refetchUser }) => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <StyledButton
-          variant="contained"
-          onClick={submitSignIn}
-          id="submitSignInButton"
-        >
+        <StyledButton type="submit" variant="contained" id="submitSignInButton">
           Entrar
         </StyledButton>
         <ForgotPasswordText>Esqueceu sua senha?</ForgotPasswordText>

@@ -81,6 +81,7 @@ export const TimelinePage = ({
     const element = hash && document.getElementById(hash.substr(1))
     const yOffset = -40
     const elementPositionWithOffset =
+      element &&
       element.getBoundingClientRect().top + window.pageYOffset + yOffset
     if (element) {
       window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
