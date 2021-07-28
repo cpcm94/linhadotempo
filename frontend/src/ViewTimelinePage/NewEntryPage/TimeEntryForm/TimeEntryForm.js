@@ -52,12 +52,6 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
 
   const goBack = (newEntry) => {
-    console.log('newEntry', newEntry)
-    console.log(
-      `#date=${newEntry.year}${newEntry.month ? `/${newEntry.month}` : ''}${
-        newEntry.day ? `/${newEntry.day}` : ''
-      }`
-    )
     history.push({
       pathname: '/viewTimeline/',
       search: `?timelines=${timelinesString}`,
