@@ -13,12 +13,14 @@ export const CurrentUserContextProvider = ({ children }) => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-first',
   })
-  const user = data
-    ? {
-        ...data.me,
-        initial: data.me ? data.me.name.substr(0, 1).toUpperCase() : null,
-      }
-    : null
+  console.log('data', data)
+  const user =
+    data && data.me
+      ? {
+          ...data.me,
+          initial: data.me ? data.me.name.substr(0, 1).toUpperCase() : null,
+        }
+      : null
   return (
     <CurrentUserContext.Provider value={{ userDataLoading, user, refetchUser }}>
       {children}

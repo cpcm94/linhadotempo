@@ -65,6 +65,9 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
 
   const disableSubmitButton = entry.month === '' && entry.day !== ''
   const singleTimeline = timelines.length === 1
+  const showSingleTimeline = entry.timeline_id
+    ? timelines[0].id
+    : entry.timeline_id
 
   return (
     <>
@@ -79,7 +82,7 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
               variant="outlined"
               disabled={singleTimeline}
               label="Linha do tempo"
-              value={entry.timeline_id}
+              value={showSingleTimeline}
               onChange={handleChange('timeline_id')}
             >
               {timelines.map((timeline) => (

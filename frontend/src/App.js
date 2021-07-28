@@ -70,7 +70,7 @@ const Wrapped = () => {
             <UserPageLoader />
           </Route>
           <Route path="/">
-            <TimelinesLoader />
+            <LoginPageLoader />
           </Route>
         </Switch>
       </div>
