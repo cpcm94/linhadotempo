@@ -17,6 +17,7 @@ to {
 export const EntryWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 0.2rem 0 0 0;
   flex: 1;
   color: ${colors.white};
 `

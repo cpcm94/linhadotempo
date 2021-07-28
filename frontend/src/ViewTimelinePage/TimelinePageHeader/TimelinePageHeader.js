@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import {
   HeaderWrapper,
@@ -8,8 +8,11 @@ import {
   DayWrapper,
 } from './TimelinePageHeader.styles'
 import { monthNameArray } from '../../_shared/monthNameArray'
+import { CurrentUserContext } from '../../_shared/CurrentUserContextProvider'
+import { MenuDrawer } from '../../_shared/MenuDrawer/MenuDrawer'
 
 export const TimelinePageHeader = ({ displayEntry }) => {
+  const { user } = useContext(CurrentUserContext)
   const monthName =
     displayEntry && displayEntry.month
       ? monthNameArray[displayEntry.month]
@@ -23,6 +26,7 @@ export const TimelinePageHeader = ({ displayEntry }) => {
 
   return (
     <HeaderWrapper>
+      <MenuDrawer user={user} />
       <EntryWrapper>
         <YearWrapper>{yearAC}</YearWrapper>
         <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
