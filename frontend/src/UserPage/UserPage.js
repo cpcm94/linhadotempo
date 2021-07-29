@@ -11,7 +11,7 @@ import { Wrapper } from './UserPage.styles'
 export const UserPage = ({ user, refetchUser }) => {
   return (
     <Layout>
-      <Header />
+      <Header showMenuButton={true} />
       <Wrapper>
         <UserInfo user={user} />
         <ChangePasswordForm user={user} />

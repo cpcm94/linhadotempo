@@ -37,8 +37,8 @@ const Wrapper = styled.div`
     margin-right: 25%;
   }
 
-  min-height: 4rem;
-  max-height: 4rem;
+  min-height: 3rem;
+  max-height: 3rem;
 `
 export const TimelinesButtonsRow = ({
   timelines,
