@@ -108,7 +108,7 @@ export const TimelinePage = ({
     }
   }, [element])
   useEffect(() => {
-    if (displayEntry.entryId) {
+    if (displayEntry && displayEntry.entryId) {
       history.push({
         pathname: '/viewTimeline/',
         search: `?timelines=${timelinesString}`,

@@ -5,6 +5,7 @@ export const HeaderWrapper = styled.div`
   padding: 5px 20px;
   width: 100%;
   background: var(--primary-color);
+  overscroll-behavior: none;
   color: #fff;
   position: sticky;
   top: 0;

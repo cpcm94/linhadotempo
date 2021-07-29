@@ -35,13 +35,21 @@ export const Entries = ({
   return (
     <Wrapper>
       <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
+        <DayWrapper>
+          <span>
+            {day} {!hasMonth ? ' de' : ''}
+          </span>
+        </DayWrapper>
+        <MonthWrapper>
+          {!hasMonth && (
+            <span>
+              {monthName} {!hasYear ? ' de' : ''}
+            </span>
+          )}
+        </MonthWrapper>
         <YearWrapper>
           {!hasYear && !hasMonth && <span>{yearAC}</span>}
         </YearWrapper>
-        <MonthWrapper>{!hasMonth && <span>{monthName}</span>}</MonthWrapper>
-        <DayWrapper>
-          <span>{day}</span>
-        </DayWrapper>
       </EntryDateWrapper>
       <EntriesWrapper>
         {entries.map((entry, index) => (

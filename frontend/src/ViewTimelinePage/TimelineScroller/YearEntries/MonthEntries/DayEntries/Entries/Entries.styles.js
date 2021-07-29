@@ -5,7 +5,7 @@ export const EntryDateWrapper = styled.div`
   display: flex;
   position: relative;
   z-index: 1;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
   visibility: ${({ isDisplayEntryDay }) =>
     isDisplayEntryDay ? 'hidden' : 'visible'};
   &:before {
@@ -45,15 +45,12 @@ export const EntryWrapper = styled.div`
 
 export const YearWrapper = styled.div`
   flex: 1;
-  text-align: center;
 `
 
 export const MonthWrapper = styled.div`
-  flex: 1;
-  text-align: center;
+  flex: 1.5;
 `
 
 export const DayWrapper = styled.div`
   flex: 1;
-  text-align: center;
 `
