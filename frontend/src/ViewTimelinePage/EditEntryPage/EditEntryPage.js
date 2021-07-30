@@ -5,7 +5,11 @@ import { Layout } from '../../_shared/Layout'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 
-export const NewEntryPage = ({ timelines, refetchTimelines, defaultDate }) => {
+export const EditEntryPage = ({
+  timelines,
+  refetchTimelines,
+  entryToUpdate,
+}) => {
   let history = useHistory()
   const goBack = () => {
     history.goBack()
@@ -14,20 +18,20 @@ export const NewEntryPage = ({ timelines, refetchTimelines, defaultDate }) => {
     <Layout>
       <Header
         title={'Acontecimento'}
-        subTitle={'Criar Acontecimento'}
+        subTitle={'Editar Acontecimento'}
         returnButton={goBack}
       />
       <TimeEntryForm
         timelines={timelines}
         refetchTimelines={refetchTimelines}
-        defaultDate={defaultDate}
+        entryToUpdate={entryToUpdate}
       />
     </Layout>
   )
 }
 
-NewEntryPage.propTypes = {
+EditEntryPage.propTypes = {
   timelines: PropTypes.array,
   refetchTimelines: PropTypes.func,
-  defaultDate: PropTypes.object,
+  entryToUpdate: PropTypes.object,
 }
