@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core'
 import RadioGroup from '@material-ui/core/RadioGroup'
 
 export const StyledTextField = styled(TextField)`
-  align-self: center;
+  /* align-self: center; */
   label.Mui-focused {
     color: ${colors.brown};
   }
@@ -13,7 +13,14 @@ export const StyledTextField = styled(TextField)`
     min-width: 30px;
   }
   #timeline_id {
-    min-width: 177px;
+    max-width: 177px;
+  }
+  .MuiInputBase-root {
+    max-width: calc(100vw - 3rem);
+  }
+
+  &.MuiFormControl-root {
+    margin: 1rem 1.5rem 1rem 0.5rem;
   }
 
   .MuiOutlinedInput-root {
@@ -25,15 +32,48 @@ export const StyledTextField = styled(TextField)`
     }
   }
 `
+
+export const StyledYearTextField = styled(TextField)`
+  label.Mui-focused {
+    color: ${colors.brown};
+  }
+  .MuiInputBase-root {
+    max-width: calc(50vw - 2.5rem);
+  }
+
+  &.MuiFormControl-root {
+    margin: 1rem 0 1rem 0.5rem;
+  }
+
+  .MuiOutlinedInput-root {
+    fieldset {
+      border-color: ${colors.brown};
+    }
+    &.Mui-focused fieldset {
+      border-color: ${colors.brown};
+    }
+  }
+`
+
+export const YearAndRadiosWrapper = styled.div`
+  display: flex;
+`
 export const MonthDayWrapper = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+`
+
+export const MonthWrapper = styled.div`
+  display: flex;
+`
+
+export const DayWrapper = styled.div`
+  display: flex;
 `
 
 export const StyledButton = styled(Button)`
   height: 3.5rem;
-  width: 14rem;
-  align-self: center;
+  width: calc(100vw - 2rem);
   && {
     color: ${colors.white};
   }
@@ -41,17 +81,23 @@ export const StyledButton = styled(Button)`
     background-color: ${colors.brown};
   }
 `
-export const Wrapper = styled.div`
+export const InnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   min-height: calc(100vh - 2rem);
   padding: 0.75rem;
-  align-items: center;
+`
+export const Wrapper = styled.div`
+  display: flex;
 `
 
 export const StyledRadioGroup = styled(RadioGroup)`
-  margin-top: -2rem;
+  margin: 0 0 0 0.5rem;
   display: flex;
-  justify-content: space-evenly;
+  &.MuiFormGroup-root {
+    flex-wrap: nowrap;
+  }
+  .MuiRadio-colorSecondary.Mui-checked {
+    color: ${colors.brown};
+  }
 `

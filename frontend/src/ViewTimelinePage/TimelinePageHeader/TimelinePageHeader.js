@@ -28,15 +28,15 @@ export const TimelinePageHeader = ({ displayEntry }) => {
     <HeaderWrapper>
       <MenuDrawer user={user} />
       <EntryWrapper>
-        <YearWrapper>{yearAC}</YearWrapper>
-        <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
-          {monthName}
-        </MonthWrapper>
         <DayWrapper
           isDisplayEntryDay={displayEntry && displayEntry.day ? true : false}
         >
-          {displayEntry && displayEntry.day}
+          {displayEntry && displayEntry.day ? `${displayEntry.day} de` : null}
         </DayWrapper>
+        <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
+          {monthName && `${monthName} de`}
+        </MonthWrapper>
+        <YearWrapper>{yearAC}</YearWrapper>
       </EntryWrapper>
     </HeaderWrapper>
   )

@@ -13,6 +13,7 @@ import { ReturnButton } from '../ReturnButton'
 import { CurrentUserContext } from '../CurrentUserContextProvider'
 import { UserButton } from '../UserButton'
 import { useHistory } from 'react-router-dom'
+import { MenuDrawer } from '../MenuDrawer/MenuDrawer'
 
 export const Header = ({
   title,
@@ -21,6 +22,7 @@ export const Header = ({
   subTitle,
   returnButton,
   timelinesIconRow,
+  showMenuButton,
 }) => {
   const { user, userLoading } = useContext(CurrentUserContext)
   let history = useHistory()
@@ -34,6 +36,7 @@ export const Header = ({
     <span>Loading...</span>
   ) : (
     <HeaderWrapper timelinesIconRow={timelinesIconRow}>
+      {showMenuButton && <MenuDrawer user={user} />}
       {returnButton && <ReturnButton onClick={returnButton} />}
       {subTitle || timelinesIconRow ? (
         <TitlesWrapper>
@@ -61,4 +64,5 @@ Header.propTypes = {
   pageActions: PropTypes.element,
   returnButton: PropTypes.func,
   timelinesIconRow: PropTypes.element,
+  showMenuButton: PropTypes.bool,
 }

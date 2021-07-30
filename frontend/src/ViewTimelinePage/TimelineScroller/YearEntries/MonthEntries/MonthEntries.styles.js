@@ -3,9 +3,10 @@ import { colors } from '../../../../_shared/colors'
 
 export const MonthWrapper = styled.div`
   display: flex;
+  flex-direction: row-reverse;
   position: relative;
   z-index: 1;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
   visibility: ${({ isDisplayEntryMonth }) =>
     isDisplayEntryMonth ? 'hidden' : 'visible'};
   &:before {
@@ -44,11 +45,11 @@ export const EntryNameWrapper = styled.div`
   flex: 1;
 `
 export const YearWrapper = styled.div`
-  flex: 0.33;
-  text-align: center;
+  flex: 0.288;
 `
 
 export const MonthSpanWrapper = styled.div`
-  flex: ${({ hasYear }) => (hasYear ? 1 : 0.33)};
-  text-align: center;
+  flex-direction: row-reverse;
+  align-self: flex-end;
+  flex: ${({ hasYear }) => (hasYear ? 0.714 : 0.424)};
 `

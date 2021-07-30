@@ -4,7 +4,6 @@ import { colors } from '../_shared/colors'
 export const EllipsisButtonsWrapper = styled.div`
   position: fixed;
   right: 2.5rem;
-  bottom: 0.95rem;
   background-color: ${colors.brown};
   @media (min-width: 1440px) {
     right: 37.5%;
@@ -17,7 +16,7 @@ export const EllipsisButtonsWrapper = styled.div`
   }
   @media (max-width: 719px) {
     right: 2.5rem;
-    bottom: 1rem;
+    bottom: 0.25rem;
   }
 `
 
@@ -36,6 +35,6 @@ export const AddButtonWrapper = styled.div`
   }
   @media (max-width: 719px) {
     right: 0.75rem;
-    bottom: 1.25rem;
+    bottom: 0.5rem;
   }
 `

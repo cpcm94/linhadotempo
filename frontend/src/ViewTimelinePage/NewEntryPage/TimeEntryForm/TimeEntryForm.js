@@ -4,24 +4,30 @@ import {
   Wrapper,
   StyledTextField,
   StyledButton,
-  MonthDayWrapper,
-  StyledRadioGroup,
+  InnerWrapper,
+  MonthWrapper,
+  DayWrapper,
+  StyledYearTextField,
+  YearAndRadiosWrapper,
 } from './TimeEntryForm.styles'
 import MenuItem from '@material-ui/core/MenuItem'
-import Radio from '@material-ui/core/Radio'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { Months, Days } from './DateArrays'
 import { useMutation } from '@apollo/client'
 import { TIME_ENTRY_MUTATION } from './TIME_ENTRY_MUTATION'
 import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from './convertFormDataValues'
 import { monthNameArray } from '../../../_shared/monthNameArray'
+import { XIcon } from '../../../_shared/XIcon'
+import { YearOptionSelect } from './YearOptionSelect'
 
 export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
-  const defaultYearIsNegative = defaultDate.year.startsWith('-')
-  const defaultDateYearWithoutNegative = defaultYearIsNegative
-    ? defaultDate.year.substr(1)
-    : defaultDate.year
+  const defaultDateYearWithoutNegative =
+    defaultDate.year && defaultDate.year.startsWith('-')
+      ? defaultDate.year.substr(1)
+      : defaultDate.year && !defaultDate.year.startsWith('-')
+      ? defaultDate.year
+      : ''
+
   const [entry, setEntry] = useState({
     timeline_id:
       defaultDate.timeline !== 'undefined'
@@ -35,10 +41,15 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
     monthly_importance: false,
   })
   const [radioValue, setRadioValue] = useState('DC')
-
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
     newEntry[entryPropName] = e.target.value
+    setEntry(newEntry)
+  }
+
+  const resetFieldValue = (fieldName) => () => {
+    const newEntry = { ...entry }
+    newEntry[fieldName] = ''
     setEntry(newEntry)
   }
 
@@ -80,8 +91,8 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
       {loading ? (
         <span>Loading...</span>
       ) : (
-        <>
-          <Wrapper>
+        <Wrapper>
+          <InnerWrapper>
             <StyledTextField
               select
               id="timeline_id"
@@ -105,33 +116,21 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
               value={entry.name}
               onChange={handleChange('name')}
             />
-            <StyledTextField
-              type="number"
-              id="entryYear"
-              variant="outlined"
-              label="Ano"
-              value={entry.year}
-              onChange={handleChange('year')}
-            />
-            <StyledRadioGroup
-              row
-              onChange={(e) => setRadioValue(e.target.value)}
-              defaultValue={defaultYearIsNegative ? 'AC' : 'DC'}
-            >
-              <FormControlLabel
-                value="AC"
-                control={<Radio />}
-                label="A.C."
-                labelPlacement="end"
+            <YearAndRadiosWrapper>
+              <StyledYearTextField
+                type="number"
+                id="entryYear"
+                variant="outlined"
+                label="Ano"
+                value={entry.year}
+                onChange={handleChange('year')}
               />
-              <FormControlLabel
-                value="DC"
-                control={<Radio />}
-                label="D.C."
-                labelPlacement="end"
+              <YearOptionSelect
+                setRadioValue={setRadioValue}
+                radioValue={radioValue}
               />
-            </StyledRadioGroup>
-            <MonthDayWrapper>
+            </YearAndRadiosWrapper>
+            <MonthWrapper>
               <StyledTextField
                 select
                 id="entryMonth"
@@ -147,6 +146,11 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
                   </MenuItem>
                 ))}
               </StyledTextField>
+              {entry.month !== '' && (
+                <XIcon onClick={resetFieldValue('month')} />
+              )}
+            </MonthWrapper>
+            <DayWrapper>
               <StyledTextField
                 select
                 id="entryDay"
@@ -162,7 +166,8 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
                   </MenuItem>
                 ))}
               </StyledTextField>
-            </MonthDayWrapper>
+              {entry.day !== '' && <XIcon onClick={resetFieldValue('day')} />}
+            </DayWrapper>
 
             <StyledButton
               disabled={disableSubmitButton}
@@ -172,8 +177,8 @@ export const TimeEntryForm = ({ timelines, refetchTimelines, defaultDate }) => {
             >
               Criar Acontecimento
             </StyledButton>
-          </Wrapper>
-        </>
+          </InnerWrapper>
+        </Wrapper>
       )}
     </>
   )

@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   right: 0;
   left: 0;
   width: 100%;
-  height: 4.5rem;
+  height: 3rem;
   z-index: 2;
 `
 
