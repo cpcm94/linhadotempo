@@ -60,12 +60,16 @@ export const Entries = ({
           {!hasMonth && (
             <DateInnerWrapper hasYear={hasYear}>
               <MonthSpan>{monthName}</MonthSpan>
-              {!hasYear ? <DateText> de</DateText> : ''}
             </DateInnerWrapper>
           )}
         </MonthWrapper>
         <YearWrapper>
-          {!hasYear && !hasMonth && <YearSpan>{yearAC}</YearSpan>}
+          {!hasYear && !hasMonth && (
+            <>
+              <DateText> de</DateText>
+              <YearSpan>{yearAC}</YearSpan>
+            </>
+          )}
         </YearWrapper>
       </EntryDateWrapper>
       <EntriesWrapper>

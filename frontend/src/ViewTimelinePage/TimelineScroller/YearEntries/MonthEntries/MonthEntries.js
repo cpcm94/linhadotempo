@@ -53,13 +53,13 @@ export const MonthEntries = ({
           <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
             {!hasYear && (
               <YearWrapper>
+                <DateText>de</DateText>
                 <span>{yearAC}</span>
               </YearWrapper>
             )}
             <MonthSpanWrapper hasYear={hasYear}>
               <DateInnerWrapper hasYear={hasYear}>
                 <span>{month}</span>
-                {!hasYear ? <DateText>de</DateText> : ''}
               </DateInnerWrapper>
             </MonthSpanWrapper>
           </MonthWrapper>

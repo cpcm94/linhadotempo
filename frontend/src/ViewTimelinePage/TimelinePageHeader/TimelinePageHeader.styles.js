@@ -17,7 +17,7 @@ to {
 export const EntryWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0.2rem 0 0 1rem;
+  padding: 0.2rem 0 0 1.25rem;
   flex: 1;
   color: ${colors.white};
 `
@@ -46,12 +46,12 @@ export const HeaderWrapper = styled.div`
 `
 
 export const YearWrapper = styled.div`
-  flex: 1.5;
+  flex: 1.8;
   animation: ${fadeIn} 1s forwards;
 `
 
 export const MonthWrapper = styled.div`
-  flex: 1.6;
+  flex: 1.25;
   animation: ${({ isDisplayEntryMonth }) =>
     isDisplayEntryMonth &&
     css`
@@ -60,7 +60,7 @@ export const MonthWrapper = styled.div`
 `
 
 export const DayWrapper = styled.div`
-  flex: 0.75;
+  flex: 0.8;
   animation: ${({ isDisplayEntryDay }) =>
     isDisplayEntryDay &&
     css`
