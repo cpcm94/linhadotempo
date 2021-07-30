@@ -27,12 +27,12 @@ export const EntryYearWrapper = styled.div`
   position: relative;
   flex-direction: row-reverse;
   z-index: 1;
-  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  padding: 0.5rem 1rem 0.5rem 3rem;
   color: ${colors.lightGrey};
   visibility: ${({ isDisplayEntryYear }) =>
     isDisplayEntryYear ? 'hidden' : 'visible'};
   &:before {
-    border-top: 1px solid ${colors.lightBrown};
+    border-top: 1px solid ${colors.lightGrey};
     content: '';
     margin: 0 auto;
     position: absolute;
@@ -85,5 +85,5 @@ export const EntriesWrapper = styled.div`
 export const EntriesWithoutMonthsWrapper = styled.div``
 
 export const YearWrapper = styled.div`
-  flex: 0.288;
+  flex: 0.39;
 `

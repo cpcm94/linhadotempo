@@ -6,6 +6,8 @@ import {
   MonthWrapper,
   YearWrapper,
   MonthSpanWrapper,
+  DateText,
+  DateInnerWrapper,
 } from './MonthEntries.styles'
 import { DayEntries } from './DayEntries/DayEntries'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
@@ -55,9 +57,10 @@ export const MonthEntries = ({
               </YearWrapper>
             )}
             <MonthSpanWrapper hasYear={hasYear}>
-              <span>
-                {month} {!hasYear ? ' de' : ''}
-              </span>
+              <DateInnerWrapper hasYear={hasYear}>
+                <span>{month}</span>
+                {!hasYear ? <DateText>de</DateText> : ''}
+              </DateInnerWrapper>
             </MonthSpanWrapper>
           </MonthWrapper>
         )}

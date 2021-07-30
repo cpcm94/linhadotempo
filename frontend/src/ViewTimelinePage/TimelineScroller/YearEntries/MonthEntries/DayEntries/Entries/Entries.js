@@ -7,6 +7,12 @@ import {
   YearWrapper,
   MonthWrapper,
   DayWrapper,
+  YearSpan,
+  MonthSpan,
+  DaySpan,
+  DateText,
+  DateInnerWrapper,
+  DayInnerWrapper,
 } from './Entries.styles'
 import { EntryAndIconWrapper, EntryIcon } from '../../../YearEntries.styles'
 import PropTypes from 'prop-types'
@@ -36,19 +42,21 @@ export const Entries = ({
     <Wrapper>
       <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
         <DayWrapper>
-          <span>
-            {day} {!hasMonth ? ' de' : ''}
-          </span>
+          <DayInnerWrapper hasMonth={hasMonth}>
+            <DaySpan>{day}</DaySpan>
+            {!hasMonth ? <DateText> de</DateText> : ''}
+          </DayInnerWrapper>
         </DayWrapper>
         <MonthWrapper>
           {!hasMonth && (
-            <span>
-              {monthName} {!hasYear ? ' de' : ''}
-            </span>
+            <DateInnerWrapper hasYear={hasYear}>
+              <MonthSpan>{monthName}</MonthSpan>
+              {!hasYear ? <DateText> de</DateText> : ''}
+            </DateInnerWrapper>
           )}
         </MonthWrapper>
         <YearWrapper>
-          {!hasYear && !hasMonth && <span>{yearAC}</span>}
+          {!hasYear && !hasMonth && <YearSpan>{yearAC}</YearSpan>}
         </YearWrapper>
       </EntryDateWrapper>
       <EntriesWrapper>
