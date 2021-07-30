@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
-import { colors } from '../../../_shared/colors'
+import { colors } from '../../_shared/colors'
 import { Button } from '@material-ui/core'
 import RadioGroup from '@material-ui/core/RadioGroup'
 

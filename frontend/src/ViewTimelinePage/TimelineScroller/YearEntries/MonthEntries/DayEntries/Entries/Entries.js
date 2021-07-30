@@ -17,6 +17,7 @@ import {
 import { EntryAndIconWrapper, EntryIcon } from '../../../YearEntries.styles'
 import PropTypes from 'prop-types'
 import { monthNameArray } from '../../../../../../_shared/monthNameArray'
+import { useHistory } from 'react-router-dom'
 
 export const Entries = ({
   entries,
@@ -26,6 +27,14 @@ export const Entries = ({
   hasMonth,
   hasYear,
 }) => {
+  let history = useHistory()
+  const navigateToEditEntry = (entry) => {
+    history.push({
+      pathname: '/viewTimeline/editEntry/',
+      search: window.location.search,
+      hash: `#entry=${entry.id}`,
+    })
+  }
   const { day, month, year } = entries[0]
   const monthName = monthNameArray[month]
   const yearAC = year.toString().startsWith('-')
@@ -67,7 +76,12 @@ export const Entries = ({
             id={entry.id}
             ref={forwardedRef[entry.id]}
           >
-            <EntryWrapper key={index}>{entry.name}</EntryWrapper>
+            <EntryWrapper
+              key={index}
+              onClick={() => navigateToEditEntry(entry)}
+            >
+              {entry.name}
+            </EntryWrapper>
             <EntryIcon>{entry.timeline_id}</EntryIcon>
           </EntryAndIconWrapper>
         ))}

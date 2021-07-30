@@ -4,6 +4,7 @@ import { ViewSelectTimelinesPage } from './SelectTimelinesListPage/ViewSelectTim
 import { TimelinesContextProvider } from './TimelinesContextProvider'
 import { NewEntryLoader } from './NewEntryPage/NewEntryLoader'
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
+import { EditEntryLoader } from './EditEntryPage/EditEntryLoader'
 
 export const ViewTimelinesPage = () => {
   let { path } = useRouteMatch()
@@ -18,6 +19,9 @@ export const ViewTimelinesPage = () => {
         </Route>
         <Route exact path={`${path}/newEntry/`}>
           <NewEntryLoader />
+        </Route>
+        <Route exact path={`${path}/editEntry/`}>
+          <EditEntryLoader />
         </Route>
       </Switch>
     </TimelinesContextProvider>
