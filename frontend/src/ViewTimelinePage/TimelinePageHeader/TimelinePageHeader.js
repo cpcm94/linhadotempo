@@ -34,9 +34,12 @@ export const TimelinePageHeader = ({ displayEntry }) => {
           {displayEntry && displayEntry.day ? `${displayEntry.day} de` : null}
         </DayWrapper>
         <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
-          {monthName && `${monthName} de`}
+          {monthName}
         </MonthWrapper>
-        <YearWrapper>{yearAC}</YearWrapper>
+        <YearWrapper>
+          {monthName && 'de '}
+          {yearAC}
+        </YearWrapper>
       </EntryWrapper>
     </HeaderWrapper>
   )

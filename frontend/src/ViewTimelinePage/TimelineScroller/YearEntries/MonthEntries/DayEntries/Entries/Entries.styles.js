@@ -59,11 +59,11 @@ export const YearWrapper = styled.div`
 `
 
 export const MonthWrapper = styled.div`
-  flex: 1.47;
+  flex: 0.96;
 `
 
 export const DayWrapper = styled.div`
-  flex: 0.81;
+  flex: 0.68;
 `
 
 export const DateInnerWrapper = styled.div`
@@ -73,7 +73,7 @@ export const DateInnerWrapper = styled.div`
 
 export const DayInnerWrapper = styled.div`
   background: ${colors.white};
-  max-width: ${({ hasMonth }) => (!hasMonth ? 'auto' : '2rem')};
+  max-width: ${({ hasMonth }) => (!hasMonth ? 'auto' : '2.5rem')};
 `
 export const DateText = styled.span`
   background: ${colors.white};

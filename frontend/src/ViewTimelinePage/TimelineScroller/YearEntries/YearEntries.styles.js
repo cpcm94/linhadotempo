@@ -85,5 +85,5 @@ export const EntriesWrapper = styled.div`
 export const EntriesWithoutMonthsWrapper = styled.div``
 
 export const YearWrapper = styled.div`
-  flex: 0.39;
+  flex: 0.4;
 `

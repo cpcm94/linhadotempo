@@ -45,13 +45,13 @@ export const EntryNameWrapper = styled.div`
   flex: 1;
 `
 export const YearWrapper = styled.div`
-  flex: 0.4;
+  flex: 0.485;
 `
 
 export const MonthSpanWrapper = styled.div`
   flex-direction: row-reverse;
   align-self: flex-end;
-  flex: ${({ hasYear }) => (hasYear ? 0.78 : 0.38)};
+  flex: ${({ hasYear }) => (hasYear ? 0.78 : 0.29)};
 `
 export const DateText = styled.span`
   background: ${colors.white};
