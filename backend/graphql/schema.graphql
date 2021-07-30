@@ -58,7 +58,7 @@ input CreateTimeEntryInput {
 
 input UpdateTimeEntryInput {
     name: String
-    year: Int!
+    year: Int
     month: Int
     day: Int
     annual_importance: Boolean
