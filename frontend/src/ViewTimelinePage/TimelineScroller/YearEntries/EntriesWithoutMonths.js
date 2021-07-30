@@ -4,14 +4,22 @@ import {
   EntryNameWrapper,
   EntryAndIconWrapper,
 } from './YearEntries.styles'
-
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,
   newEntryId,
   forwardedRef,
 }) => {
+  let history = useHistory()
+  const navigateToEditEntry = (entry) => {
+    history.push({
+      pathname: '/viewTimeline/editEntry/',
+      search: window.location.search,
+      hash: `#entry=${entry.id}`,
+    })
+  }
   return (
     <>
       {entriesWithoutMonth[0]
@@ -23,7 +31,9 @@ export const EntriesWithoutMonths = ({
                 id={entry.id}
                 ref={forwardedRef[entry.id]}
               >
-                <EntryNameWrapper>{entry.name}</EntryNameWrapper>
+                <EntryNameWrapper onClick={() => navigateToEditEntry(entry)}>
+                  {entry.name}
+                </EntryNameWrapper>
                 <EntryIcon>{entry.timeline_id}</EntryIcon>
               </EntryAndIconWrapper>
             )

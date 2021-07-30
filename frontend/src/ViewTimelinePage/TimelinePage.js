@@ -40,7 +40,6 @@ export const TimelinePage = ({
   }, {})
 
   let history = useHistory()
-
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
   const displayEntryDate =
     displayEntry &&
@@ -54,12 +53,11 @@ export const TimelinePage = ({
       search: `?timelines=${timelinesString}`,
     })
   }
-
   const navigateToNewEntryPage = () => {
     history.push({
       pathname: '/viewTimeline/newEntry/',
       search: `?timelines=${timelinesString}`,
-      hash: `#${displayEntryDate}`,
+      hash: `#${displayEntryDate ? displayEntryDate : ''}`,
     })
   }
   const entries = timelines
