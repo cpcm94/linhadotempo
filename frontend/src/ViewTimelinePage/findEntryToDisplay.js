@@ -57,15 +57,12 @@ const insertFirstEntryInEntries = (coordArrayWithDates) =>
     const entryWithLowestDate = coordArrayFilteredByLowestMonth.filter(
       (entry) => entry.day === lowestDay
     )
-    const firstEntry = () => {
-      if (noMonthEntry[0]) {
-        return noMonthEntry[0]
-      } else if (!noMonthEntry[0] && noDayEntry[0]) {
-        return noDayEntry[0]
-      } else {
-        return entryWithLowestDate[0]
-      }
-    }
+    const firstEntry = noMonthEntry[0]
+      ? noMonthEntry[0]
+      : !noMonthEntry[0] && noDayEntry[0]
+      ? noDayEntry[0]
+      : entryWithLowestDate[0]
+
     if (entry.entryId === firstEntry().entryId) {
       return { ...entry, firstEntry: true }
     } else {
