@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
-import { colors } from '../_shared/colors'
+import { colors } from '../../_shared/colors'
 import { Button } from '@material-ui/core'
 
 export const StyledTextField = styled(TextField)`
-  align-self: center;
   margin: 0.75rem 0 !important;
 
   label.Mui-focused {
@@ -39,20 +38,10 @@ export const StyledButton = styled(Button)`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: calc(100% - 2.5rem);
 `
 export const Wrapper = styled.div`
   margin-top: 35px;
   display: flex;
   justify-content: center;
-`
-
-export const RegisterText = styled.div`
-  margin-top: 15px;
-  min-width: 160px;
-
-  :hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
 `

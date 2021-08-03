@@ -13,7 +13,7 @@ const newBackgroundColor = keyframes`
 export const EntryAndIconWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+  padding: 0.5rem 0.75rem 0.5rem 1rem;
   animation: ${({ isNew }) =>
     isNew
       ? css`

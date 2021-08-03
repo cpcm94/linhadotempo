@@ -69,7 +69,16 @@ input UpdateTimeEntryInput {
 input CreateUserInput {
     name: String!
     email: String!
+        @rules(
+            apply: ["unique:users,email"]
+            messages: [{ rule: "unique", message: "Email is already in use" }]
+        )
     password: String! @hash
+    type: String!
+}
+input UpdateUserInput {
+    name: String!
+    email: String!
     type: String!
 }
 input LoginInput {
@@ -111,5 +120,6 @@ type Mutation {
     updateTimeEntry(id: ID!, input: UpdateTimeEntryInput! @spread): TimeEntry
         @update
     createUser(input: CreateUserInput! @spread): User! @create
+    updateUser(id: ID!, input: UpdateUserInput! @spread): User! @update
     updatePassword(id: ID!, input: UpdatePasswordInput! @spread): User! @update
 }

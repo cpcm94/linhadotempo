@@ -26,7 +26,6 @@ const ListWrapper = styled.ul`
 `
 
 export const MenuDrawer = ({ user }) => {
-  console.log('user', user)
   const [drawer, setDrawer] = useState(false)
 
   const toggleDrawer = () => {
@@ -38,6 +37,10 @@ export const MenuDrawer = ({ user }) => {
     history.push('/timelines')
     setDrawer(!drawer)
   }
+  const navigateToUsers = () => {
+    history.push('/usersPage')
+    setDrawer(!drawer)
+  }
 
   return (
     <div>
@@ -46,6 +49,11 @@ export const MenuDrawer = ({ user }) => {
           <ListItemWrapper onClick={navigateToTimelines}>
             Linhas do Tempo
           </ListItemWrapper>
+          {user.type === 'admin' && (
+            <ListItemWrapper onClick={navigateToUsers}>
+              Usuários
+            </ListItemWrapper>
+          )}
         </ListWrapper>
       </Drawer>
       <MenuButton onClick={toggleDrawer} />

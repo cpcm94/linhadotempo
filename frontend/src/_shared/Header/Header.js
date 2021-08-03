@@ -41,11 +41,11 @@ export const Header = ({
       {subTitle || timelinesIconRow ? (
         <TitlesWrapper>
           <SubTitle>{subTitle}</SubTitle>
-          <Title>{title}</Title>
+          <Title hasMenuButton={showMenuButton}>{title}</Title>
           {timelinesIconRow && <IconRow>{timelinesIconRow}</IconRow>}
         </TitlesWrapper>
       ) : null}
-      {onlyTitle && <Title>{title}</Title>}
+      {onlyTitle && <Title hasMenuButton={showMenuButton}>{title}</Title>}
       {pageActions && <PageActions>{pageActions}</PageActions>}
       {loading && <span>Loading...</span>}
       {user && !userLoading && (
