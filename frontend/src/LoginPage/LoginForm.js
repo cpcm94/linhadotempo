@@ -88,11 +88,11 @@ export const LoginForm = ({ refetchUser, setShowLoginForm }) => {
         <StyledButton type="submit" variant="contained" id="submitSignInButton">
           Entrar
         </StyledButton>
-        <RegisterText onClick={() => setShowLoginForm(false)}>
-          Não possui uma conta? Registre-se
-        </RegisterText>
         <ToastContainer />
       </Form>
+      <RegisterText onClick={() => setShowLoginForm(false)}>
+        Não possui uma conta? Registre-se
+      </RegisterText>
     </Wrapper>
   )
 }
