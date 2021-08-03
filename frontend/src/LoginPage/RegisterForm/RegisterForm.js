@@ -7,8 +7,11 @@ import {
   Form,
   Wrapper,
 } from './RegisterForm.styles'
+import { ToastContainer, toast, Slide } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import PropTypes from 'prop-types'
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ setShowLoginForm }) => {
   const [user, setUser] = useState({
     name: '',
     password: '',
@@ -28,10 +31,29 @@ export const RegisterForm = () => {
     variables: {
       input: user,
     },
+    onError: (error) => {
+      error
+    },
   })
   const handleSubmit = () => {
+    if (confirmPassword !== user.password) {
+      toast.error('Os dois campos de senha precisam ser iguais!', {
+        position: 'top-center',
+        hideProgressBar: true,
+        transition: Slide,
+      })
+    }
     createUser().then((res) => {
-      console.log('res', res)
+      if (res.data) {
+        window.alert('Usuário criado com sucesso!')
+        setShowLoginForm(true)
+      } else if (res.errors.message.startsWith('Validation')) {
+        toast.error('Esse email já está cadastrado', {
+          position: 'top-center',
+          hideProgressBar: true,
+          transition: Slide,
+        })
+      }
     })
   }
 
@@ -39,9 +61,7 @@ export const RegisterForm = () => {
     user.password === '' || user.password.length !== confirmPassword.length
   return (
     <Wrapper>
-      <Form
-      //    onSubmit={handleSubmit}
-      >
+      <Form>
         <StyledTextField
           type="text"
           variant="outlined"
@@ -73,13 +93,17 @@ export const RegisterForm = () => {
             disabled={disableSubmitButton}
             variant="contained"
             id="submitCreateButton"
-            // type="submit"
             onClick={handleSubmit}
           >
             Criar Conta
           </StyledButton>
         )}
+        <ToastContainer />
       </Form>
     </Wrapper>
   )
+}
+
+RegisterForm.propTypes = {
+  setShowLoginForm: PropTypes.func,
 }
