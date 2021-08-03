@@ -19,7 +19,7 @@ export const IconAndNameWrapper = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
-  padding: 1rem 0 1rem 1.5rem;
+  padding: 1rem 0 1rem 1.25rem;
   :hover {
     background-color: ${colors.lightBrown};
   }

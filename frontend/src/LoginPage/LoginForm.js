@@ -10,11 +10,11 @@ import {
   Wrapper,
   Form,
   StyledButton,
-  ForgotPasswordText,
+  RegisterText,
 } from './LoginForm.styles'
 import PropTypes from 'prop-types'
 
-export const LoginForm = ({ refetchUser }) => {
+export const LoginForm = ({ refetchUser, setShowLoginForm }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -88,12 +88,15 @@ export const LoginForm = ({ refetchUser }) => {
         <StyledButton type="submit" variant="contained" id="submitSignInButton">
           Entrar
         </StyledButton>
-        <ForgotPasswordText>Esqueceu sua senha?</ForgotPasswordText>
         <ToastContainer />
       </Form>
+      <RegisterText onClick={() => setShowLoginForm(false)}>
+        Não possui uma conta? Registre-se
+      </RegisterText>
     </Wrapper>
   )
 }
 LoginForm.propTypes = {
   refetchUser: PropTypes.func,
+  setShowLoginForm: PropTypes.func,
 }

@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Title = styled.div`
   font-size: 1.1rem;
-  padding: 0 0.5rem 0 0;
+  padding: ${({ hasMenuButton }) =>
+    hasMenuButton ? '0 0.5rem 0 0.5rem' : '0 0.5rem 0 0'};
 `
 
 export const PageActions = styled.div`
