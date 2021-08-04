@@ -68,11 +68,7 @@ input UpdateTimeEntryInput {
 
 input CreateUserInput {
     name: String!
-    email: String!
-        @rules(
-            apply: ["unique:users,email"]
-            messages: [{ rule: "unique", message: "Email is already in use" }]
-        )
+    email: String! @rules(apply: ["unique:users,email"])
     password: String! @hash
     type: String!
 }

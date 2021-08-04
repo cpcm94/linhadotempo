@@ -16,7 +16,7 @@ export const LoginPage = ({ refetchUser }) => {
           setShowLoginForm={setShowLoginForm}
         />
       ) : (
-        <RegisterForm />
+        <RegisterForm setShowLoginForm={setShowLoginForm} />
       )}
     </Layout>
   )
