@@ -18,6 +18,8 @@ type User {
 type Timeline {
     id: ID!
     name: String!
+    color: String
+    initials: String
     time_entries: [TimeEntry] @hasMany
     user_id: String
     user: User @belongsTo
@@ -83,10 +85,14 @@ input LoginInput {
 }
 input CreateTimeLineInput {
     name: String!
+    color: String
+    initials: String
 }
 
 input UpdateTimelineInput {
     name: String
+    color: String
+    initials: String
 }
 input UpdatePasswordInput {
     password: String! @hash
