@@ -5,6 +5,12 @@ const breakPoint = (entry) => {
     return 53
   }
 }
+const findMinimum = (array) => {
+  return array.reduce((current, previous) => Math.min(current, previous))
+}
+const getLowestYear = (array) => {
+  return findMinimum(array.map((entry) => entry.year))
+}
 
 const insertDatesInArray = (array, entries) =>
   array.map((ref) => {
@@ -21,11 +27,43 @@ const insertDatesInArray = (array, entries) =>
 
 const insertFirstEntryInEntries = (coordArrayWithDates) =>
   coordArrayWithDates.map((entry) => {
-    const lowestYear = coordArrayWithDates
-      .map((entry) => entry.year)
-      .reduce((current, previous) => Math.min(current, previous))
+    const lowestYear = getLowestYear(coordArrayWithDates)
+    const coordArrayFilteredByLowestYear = coordArrayWithDates.filter(
+      (entry) => entry.year === lowestYear
+    )
 
-    if (entry.year === lowestYear) {
+    const noMonthEntry = coordArrayFilteredByLowestYear.filter(
+      (entry) => !entry.month
+    )
+
+    const lowestMonth = findMinimum(
+      coordArrayFilteredByLowestYear.map((entry) =>
+        entry.month ? entry.month : 13
+      )
+    )
+    const coordArrayFilteredByLowestMonth =
+      coordArrayFilteredByLowestYear.filter(
+        (entry) => entry.month === lowestMonth
+      )
+    const noDayEntry = coordArrayFilteredByLowestMonth.filter(
+      (entry) => !entry.day
+    )
+    const lowestDay = findMinimum(
+      coordArrayFilteredByLowestMonth.map((entry) =>
+        entry.day ? entry.day : 50
+      )
+    )
+
+    const entryWithLowestDate = coordArrayFilteredByLowestMonth.filter(
+      (entry) => entry.day === lowestDay
+    )
+    const firstEntry = noMonthEntry[0]
+      ? noMonthEntry[0]
+      : !noMonthEntry[0] && noDayEntry[0]
+      ? noDayEntry[0]
+      : entryWithLowestDate[0]
+
+    if (entry.entryId === firstEntry().entryId) {
       return { ...entry, firstEntry: true }
     } else {
       return entry
