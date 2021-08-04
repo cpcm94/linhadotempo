@@ -36,8 +36,9 @@ export const TimelineScroller = ({
   const arrayOfGroupedEntries = convertObjectToArray(entriesGroupedByYear)
 
   const entriesSortedByYear = arrayOfGroupedEntries.sort(
-    (a, b) => a[0].year - b[0].year
+    (a, b) => b[0].year - a[0].year
   )
+
   return (
     <Wrapper>
       {visibleTimelines[0] ? (

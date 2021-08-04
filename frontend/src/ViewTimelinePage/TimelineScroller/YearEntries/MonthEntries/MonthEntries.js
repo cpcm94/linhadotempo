@@ -40,6 +40,10 @@ export const MonthEntries = ({
 
   const arrayOfGroupedEntriesByDay = convertObjectToArray(entriesGroupedByDay)
 
+  const entriesSortedByDay = arrayOfGroupedEntriesByDay.sort(
+    (a, b) => b[0].day - a[0].day
+  )
+
   const isDisplayEntryMonth =
     displayEntry &&
     displayEntry.month === timeEntriesByMonth[0].month &&
@@ -75,8 +79,8 @@ export const MonthEntries = ({
         </EntryWithoutDayWrapper>
       </MonthAndEntryWrapper>
       <DayEntries
-        timeEntriesByDay={arrayOfGroupedEntriesByDay}
         timelines={timelines}
+        timeEntriesByDay={entriesSortedByDay}
         newEntryId={newEntryId}
         forwardedRef={forwardedRef}
         displayEntry={displayEntry}
