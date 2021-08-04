@@ -7,16 +7,19 @@ import { ToastContainer } from 'react-toastify'
 import { ChangePasswordForm } from './ChangePasswordForm/ChangePasswordForm'
 import { LogoutButton } from './LogoutButton/LogoutButton'
 import { Wrapper } from './UserPage.styles'
+import { Container } from '../_shared/Container'
 
 export const UserPage = ({ user, refetchUser }) => {
   return (
     <Layout>
       <Header showMenuButton={true} />
-      <Wrapper>
-        <UserInfo user={user} />
-        <ChangePasswordForm user={user} />
-      </Wrapper>
-      <LogoutButton refetchUser={refetchUser} />
+      <Container>
+        <Wrapper>
+          <UserInfo user={user} />
+          <ChangePasswordForm user={user} />
+        </Wrapper>
+        <LogoutButton refetchUser={refetchUser} />
+      </Container>
       <ToastContainer />
     </Layout>
   )

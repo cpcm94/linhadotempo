@@ -4,6 +4,7 @@ import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
 import { AddTimelineButton } from './AddTimelineButton/AddTimelineButton'
 import PropTypes from 'prop-types'
+import { Container } from '../_shared/Container'
 
 export const TimelinesPage = ({ timelines }) => {
   return (
@@ -13,7 +14,9 @@ export const TimelinesPage = ({ timelines }) => {
         pageActions={<AddTimelineButton />}
         showMenuButton={true}
       />
-      <TimelinesList timelines={timelines} />
+      <Container>
+        <TimelinesList timelines={timelines} />
+      </Container>
     </Layout>
   )
 }

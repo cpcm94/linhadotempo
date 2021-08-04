@@ -17,6 +17,7 @@ import { TimelinePageHeader } from './TimelinePageHeader/TimelinePageHeader'
 import { NoEntriesYet } from './NoEntriesYet'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { TimelineScrollerContainer } from './TimelineScrollerContainer'
 
 export const TimelinePage = ({
   timelines,
@@ -143,16 +144,18 @@ export const TimelinePage = ({
   return (
     <Layout>
       <TimelinePageHeader displayEntry={displayEntry} />
-      {entries[0] ? (
-        <TimelineScroller
-          visibleTimelines={visibleTimelines}
-          newEntryId={brandNewEntry}
-          forwardedRef={objectRefs}
-          displayEntry={displayEntry}
-        />
-      ) : (
-        <NoEntriesYet visibleTimelines={visibleTimelines} />
-      )}
+      <TimelineScrollerContainer>
+        {entries[0] ? (
+          <TimelineScroller
+            visibleTimelines={visibleTimelines}
+            newEntryId={brandNewEntry}
+            forwardedRef={objectRefs}
+            displayEntry={displayEntry}
+          />
+        ) : (
+          <NoEntriesYet visibleTimelines={visibleTimelines} />
+        )}
+      </TimelineScrollerContainer>
       <Footer
         pageActions={
           <>

@@ -25,11 +25,10 @@ export const EntryWrapper = styled.div`
 export const HeaderWrapper = styled.div`
   display: flex;
   padding: 0.25rem 1rem;
-  overscroll-behavior: none;
   width: 100%;
   background: var(--primary-color);
   color: #fff;
-  position: sticky;
+  position: fixed;
   top: 0;
   height: 2rem;
   z-index: 2;

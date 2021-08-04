@@ -6,6 +6,7 @@ import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
+import { Container } from '@material-ui/core'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -55,7 +56,12 @@ export const EditableTimeline = ({ timeline }) => {
         title={timelineObject.name}
         loading={loading}
       />
-      <TimelineForm timeline={timelineObject} setTimeline={setTimelineObject} />
+      <Container>
+        <TimelineForm
+          timeline={timelineObject}
+          setTimeline={setTimelineObject}
+        />
+      </Container>
     </Layout>
   )
 }
