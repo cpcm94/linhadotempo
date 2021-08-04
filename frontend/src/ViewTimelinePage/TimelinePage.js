@@ -88,8 +88,10 @@ export const TimelinePage = ({
   )
 
   const entryToScrollTo = firstEntryOfExactDate
-    ? firstEntryOfExactDate
+    ? firstEntryOfExactDate.id
     : closestNextEntryToHash
+    ? closestNextEntryToHash.id
+    : null
 
   useEffect(() => {
     handleScroll()
@@ -97,14 +99,14 @@ export const TimelinePage = ({
 
   useEffect(() => {
     const yOffset = -40
-    const element = hash.current && document.getElementById(entryToScrollTo.id)
+    const element = hash.current && document.getElementById(entryToScrollTo)
     const elementPositionWithOffset =
       element &&
       element.getBoundingClientRect().top + window.pageYOffset + yOffset
     if (element) {
       window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
     }
-  }, [entryToScrollTo.id])
+  }, [entryToScrollTo])
   useEffect(() => {
     if (displayEntry && displayEntry.entryId) {
       history.push({
