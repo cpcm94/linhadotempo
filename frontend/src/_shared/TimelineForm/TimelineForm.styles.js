@@ -6,27 +6,10 @@ import { Button } from '@material-ui/core'
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-direction: column;
+  justify-content: space-between;
   min-height: calc(100vh - 3rem);
-  padding: 1rem;
-`
-
-export const NewTimelineNameWrapper = styled.input`
-  width: 50vw;
-  max-height: 20px;
-`
-
-export const BottomContainer = styled.div`
-  height: calc(80vh - 2rem);
-`
-
-export const TimelineTitle = styled.div`
-  text-align: center;
-`
-
-export const TimelineNameLabel = styled.label`
-  padding-right: 5px;
+  padding: 1rem 0 1rem 0;
 `
 
 export const TextFieldColor = styled(TextField)`

@@ -10,6 +10,10 @@ export const NewTimelinePage = () => {
   const [timelineName, setTimelineName] = useState('')
   let history = useHistory()
 
+  const goBack = () => {
+    history.goBack()
+  }
+
   const navigateToTimelinesPage = () => {
     history.push('/timelines')
   }
@@ -21,7 +25,11 @@ export const NewTimelinePage = () => {
 
   return (
     <Layout>
-      <Header title={'Criar linha do tempo'} loading={loading} />
+      <Header
+        title={'Criar linha do tempo'}
+        loading={loading}
+        returnButton={goBack}
+      />
       <TimelineForm
         timelineName={timelineName}
         setTimelineName={setTimelineName}
