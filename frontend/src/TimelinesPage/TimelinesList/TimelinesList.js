@@ -10,6 +10,7 @@ import {
 } from './TimelinesList.styles'
 import { useHistory } from 'react-router-dom'
 import { EditButton } from '../../_shared/EditButton'
+import { timelineColor } from '../../_shared/timelineColor'
 
 export const TimelinesList = ({ timelines }) => {
   let history = useHistory()
@@ -29,7 +30,9 @@ export const TimelinesList = ({ timelines }) => {
           <IconAndNameWrapper
             onClick={navigateToViewTimelinePage(history, timeline.id)}
           >
-            <IconWrapper>{timeline.id}</IconWrapper>
+            <IconWrapper color={timelineColor(timelines, timeline.id)}>
+              {timeline.id}
+            </IconWrapper>
             <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
           </IconAndNameWrapper>
           <EditButtonWrapper

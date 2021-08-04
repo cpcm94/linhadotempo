@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 export const DayEntries = ({
   timeEntriesByDay,
+  timelines,
   newEntryId,
   forwardedRef,
   displayEntry,
@@ -17,6 +18,7 @@ export const DayEntries = ({
         ? timeEntriesByDay.map((entry, index) => (
             <Entries
               entries={entry}
+              timelines={timelines}
               key={index}
               newEntryId={newEntryId}
               forwardedRef={forwardedRef}
@@ -32,6 +34,7 @@ export const DayEntries = ({
 
 DayEntries.propTypes = {
   timeEntriesByDay: PropTypes.array,
+  timelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,

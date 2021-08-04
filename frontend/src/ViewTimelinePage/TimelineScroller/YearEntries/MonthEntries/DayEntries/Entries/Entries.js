@@ -18,9 +18,11 @@ import { EntryAndIconWrapper, EntryIcon } from '../../../YearEntries.styles'
 import PropTypes from 'prop-types'
 import { monthNameArray } from '../../../../../../_shared/monthNameArray'
 import { useHistory } from 'react-router-dom'
+import { timelineColor } from '../../../../../../_shared/timelineColor'
 
 export const Entries = ({
   entries,
+  timelines,
   newEntryId,
   forwardedRef,
   displayEntry,
@@ -86,7 +88,9 @@ export const Entries = ({
             >
               {entry.name}
             </EntryWrapper>
-            <EntryIcon>{entry.timeline_id}</EntryIcon>
+            <EntryIcon color={timelineColor(timelines, entry.timeline_id)}>
+              {entry.timeline_id}
+            </EntryIcon>
           </EntryAndIconWrapper>
         ))}
       </EntriesWrapper>
@@ -96,6 +100,7 @@ export const Entries = ({
 
 Entries.propTypes = {
   entries: PropTypes.array,
+  timelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,

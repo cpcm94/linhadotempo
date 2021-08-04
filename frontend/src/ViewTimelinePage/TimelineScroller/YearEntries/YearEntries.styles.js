@@ -17,7 +17,7 @@ export const EntryAndIconWrapper = styled.div`
   animation: ${({ isNew }) =>
     isNew
       ? css`
-          ${newBackgroundColor} 6s
+          ${newBackgroundColor} 3s
         `
       : null};
 `
@@ -62,15 +62,14 @@ export const EntryNameWrapper = styled.div`
 `
 
 export const EntryIcon = styled.div`
-  background-color: ${colors.white};
-  border: solid 1px #999;
+  background-color: ${({ color }) => (color ? color : colors.white)};
   color: #655;
-  border-radius: 2px;
-  min-width: 1rem;
-  min-height: 1rem;
-  max-width: 1rem !important;
-  max-height: 1rem;
-  font-size: 1rem;
+  border-radius: 5px;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  max-width: 1.25rem !important;
+  max-height: 1.25rem;
+  font-size: 0.75rem;
   text-align: center;
   font-family: Karla;
   display: flex;

@@ -16,6 +16,7 @@ import { filterEntriesWithoutValue } from './filterEntriesWithoutValue'
 
 export const YearEntries = ({
   timeEntriesByYear,
+  timelines,
   newEntryId,
   forwardedRef,
   displayEntry,
@@ -55,12 +56,14 @@ export const YearEntries = ({
             entriesWithoutMonth={entriesWithoutMonth}
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
+            timelines={timelines}
           />
         </EntriesWithoutMonthsWrapper>
         {arrayOfGroupedEntriesByMonth.map((month, index) => (
           <MonthEntries
             timeEntriesByMonth={month}
             key={index}
+            timelines={timelines}
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
             displayEntry={displayEntry}
@@ -74,6 +77,7 @@ export const YearEntries = ({
 
 YearEntries.propTypes = {
   timeEntriesByYear: PropTypes.array,
+  timelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,

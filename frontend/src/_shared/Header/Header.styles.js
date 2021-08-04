@@ -26,5 +26,5 @@ export const IconRow = styled.div`
 export const UserButtonWrapper = styled.div`
   position: absolute;
   top: 0.9rem;
-  right: 1rem;
+  right: 1.25rem;
 `

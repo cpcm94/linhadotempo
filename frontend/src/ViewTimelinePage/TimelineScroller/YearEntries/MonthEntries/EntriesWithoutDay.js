@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import { EntryNameWrapper } from './MonthEntries.styles'
 import { EntryAndIconWrapper, EntryIcon } from '../YearEntries.styles'
 import { useHistory } from 'react-router-dom'
+import { timelineColor } from '../../../../_shared/timelineColor'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
+  timelines,
   newEntryId,
   forwardedRef,
 }) => {
@@ -30,7 +32,9 @@ export const EntriesWithoutDay = ({
               <EntryNameWrapper onClick={() => navigateToEditEntry(entry)}>
                 {entry.name}
               </EntryNameWrapper>
-              <EntryIcon>{entry.timeline_id}</EntryIcon>
+              <EntryIcon color={timelineColor(timelines, entry.timeline_id)}>
+                {entry.timeline_id}
+              </EntryIcon>
             </EntryAndIconWrapper>
           ))
         : null}
@@ -40,6 +44,7 @@ export const EntriesWithoutDay = ({
 
 EntriesWithoutDay.propTypes = {
   timeEntriesWithoutDay: PropTypes.array,
+  timelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
 }
