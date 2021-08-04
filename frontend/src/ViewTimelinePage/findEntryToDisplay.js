@@ -71,10 +71,12 @@ const insertFirstEntryInEntries = (coordArrayWithDates) =>
       ? noDayEntry[0]
       : entryWithLowestDate[0]
 
-    if (entry && entry.entryId === firstEntry && firstEntry.entryId) {
-      return { ...entry, firstEntry: true }
-    } else {
-      return entry
+    if (entry && firstEntry) {
+      if (entry.entryId === firstEntry.entryId) {
+        return { ...entry, firstEntry: true }
+      } else {
+        return entry
+      }
     }
   })
 
