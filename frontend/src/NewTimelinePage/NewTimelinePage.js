@@ -5,9 +5,14 @@ import { Layout } from '../_shared/Layout'
 import { useMutation } from '@apollo/client'
 import { CREATE_TIMELINE_MUTATION } from './CREATE_TIMELINE_MUTATION'
 import { useHistory } from 'react-router-dom'
+import { Container } from '../_shared/Container'
 
 export const NewTimelinePage = () => {
-  const [timelineName, setTimelineName] = useState('')
+  const [timeline, setTimeline] = useState({
+    name: '',
+    color: '',
+    initials: '',
+  })
   let history = useHistory()
 
   const goBack = () => {
@@ -19,7 +24,7 @@ export const NewTimelinePage = () => {
   }
 
   const [saveTimeline, { loading }] = useMutation(CREATE_TIMELINE_MUTATION, {
-    variables: { input: { name: timelineName } },
+    variables: { input: timeline },
     onCompleted: navigateToTimelinesPage,
   })
 
@@ -30,12 +35,14 @@ export const NewTimelinePage = () => {
         loading={loading}
         returnButton={goBack}
       />
-      <TimelineForm
-        timelineName={timelineName}
-        setTimelineName={setTimelineName}
-        onClick={saveTimeline}
-        buttonMessage={'Criar linha do tempo'}
-      />
+      <Container>
+        <TimelineForm
+          timeline={timeline}
+          setTimeline={setTimeline}
+          onClick={saveTimeline}
+          buttonMessage={'Criar linha do tempo'}
+        />
+      </Container>
     </Layout>
   )
 }

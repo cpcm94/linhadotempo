@@ -17,6 +17,7 @@ import { TimelinePageHeader } from './TimelinePageHeader/TimelinePageHeader'
 import { NoEntriesYet } from './NoEntriesYet'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { TimelineScrollerContainer } from './TimelineScrollerContainer'
 
 export const TimelinePage = ({
   timelines,
@@ -87,10 +88,10 @@ export const TimelinePage = ({
   )
 
   const entryToScrollTo = firstEntryOfExactDate
-    ? firstEntryOfExactDate
+    ? firstEntryOfExactDate.id
     : closestNextEntryToHash
-
-  const element = hash.current && document.getElementById(entryToScrollTo.id)
+    ? closestNextEntryToHash.id
+    : null
 
   useEffect(() => {
     handleScroll()
@@ -98,13 +99,14 @@ export const TimelinePage = ({
 
   useEffect(() => {
     const yOffset = -40
+    const element = hash.current && document.getElementById(entryToScrollTo)
     const elementPositionWithOffset =
       element &&
       element.getBoundingClientRect().top + window.pageYOffset + yOffset
     if (element) {
       window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
     }
-  }, [element])
+  }, [entryToScrollTo])
   useEffect(() => {
     if (displayEntry && displayEntry.entryId) {
       history.push({
@@ -143,16 +145,18 @@ export const TimelinePage = ({
   return (
     <Layout>
       <TimelinePageHeader displayEntry={displayEntry} />
-      {entries[0] ? (
-        <TimelineScroller
-          visibleTimelines={visibleTimelines}
-          newEntryId={brandNewEntry}
-          forwardedRef={objectRefs}
-          displayEntry={displayEntry}
-        />
-      ) : (
-        <NoEntriesYet visibleTimelines={visibleTimelines} />
-      )}
+      <TimelineScrollerContainer>
+        {entries[0] ? (
+          <TimelineScroller
+            visibleTimelines={visibleTimelines}
+            newEntryId={brandNewEntry}
+            forwardedRef={objectRefs}
+            displayEntry={displayEntry}
+          />
+        ) : (
+          <NoEntriesYet visibleTimelines={visibleTimelines} />
+        )}
+      </TimelineScrollerContainer>
       <Footer
         pageActions={
           <>

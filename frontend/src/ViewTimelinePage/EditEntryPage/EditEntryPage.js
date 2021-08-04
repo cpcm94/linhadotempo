@@ -4,6 +4,7 @@ import { Header } from '../../_shared/Header/Header'
 import { Layout } from '../../_shared/Layout'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+import { Container } from '../../_shared/Container'
 
 export const EditEntryPage = ({
   timelines,
@@ -21,11 +22,13 @@ export const EditEntryPage = ({
         subTitle={'Editar Acontecimento'}
         returnButton={goBack}
       />
-      <TimeEntryForm
-        timelines={timelines}
-        refetchTimelines={refetchTimelines}
-        entryToUpdate={entryToUpdate}
-      />
+      <Container>
+        <TimeEntryForm
+          timelines={timelines}
+          refetchTimelines={refetchTimelines}
+          entryToUpdate={entryToUpdate}
+        />
+      </Container>
     </Layout>
   )
 }

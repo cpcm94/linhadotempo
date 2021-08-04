@@ -29,7 +29,7 @@ export const SelectedIconAndNameWrapper = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
-  padding: 1rem 0 1rem 1.5rem;
+  padding: 1rem 0 1rem 1.25rem;
   height: ${({ timelinesIconRow }) => (timelinesIconRow ? '3.5rem' : '3rem')};
   transition: background-color 0.5s ease-out;
 
@@ -42,14 +42,13 @@ export const SelectedIconAndNameWrapper = styled.div`
 
 export const IconWrapper = styled.div`
   margin: 0 5px 0 0;
-  background-color: ${colors.white};
-  border: solid 1px #999;
+  background-color: ${({ color }) => (color ? color : colors.white)};
   color: #655;
   border-radius: 2px;
-  min-width: 0.8rem;
-  min-height: 0.8rem;
-  width: 0.8rem;
-  height: 0.8rem;
+  min-width: 1rem;
+  min-height: 1rem;
+  width: 1rem;
+  height: 1rem;
   font-size: 0.8rem;
   text-align: center;
   font-family: Karla;

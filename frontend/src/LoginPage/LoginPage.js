@@ -4,20 +4,23 @@ import { Layout } from '../_shared/Layout'
 import { LoginForm } from './LoginForm'
 import PropTypes from 'prop-types'
 import { RegisterForm } from './RegisterForm/RegisterForm'
+import { Container } from '../_shared/Container'
 
 export const LoginPage = ({ refetchUser }) => {
   const [showLoginForm, setShowLoginForm] = useState(true)
   return (
     <Layout>
       <Header title={showLoginForm ? 'Entrar' : 'Registrar usuário'} />
-      {showLoginForm ? (
-        <LoginForm
-          refetchUser={refetchUser}
-          setShowLoginForm={setShowLoginForm}
-        />
-      ) : (
-        <RegisterForm setShowLoginForm={setShowLoginForm} />
-      )}
+      <Container>
+        {showLoginForm ? (
+          <LoginForm
+            refetchUser={refetchUser}
+            setShowLoginForm={setShowLoginForm}
+          />
+        ) : (
+          <RegisterForm setShowLoginForm={setShowLoginForm} />
+        )}
+      </Container>
     </Layout>
   )
 }

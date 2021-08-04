@@ -8,6 +8,7 @@ import {
   SelectedIconAndNameWrapper,
 } from './SelectTimelinesList.styles'
 import { isSelected } from '../../../_shared/isSelected'
+import { timelineColor } from '../../../_shared/timelineColor'
 
 export const SelectTimelinesList = ({
   timelines,
@@ -40,7 +41,9 @@ export const SelectTimelinesList = ({
               isSelected={isSelected(timeline.id, arraySelectedTimelinesId)}
               onClick={onTimelineClick}
             >
-              <IconWrapper>{timeline.id}</IconWrapper>
+              <IconWrapper color={timelineColor(timelines, timeline.id)}>
+                {timeline.id}
+              </IconWrapper>
               <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
             </SelectedIconAndNameWrapper>
           </TimelinesWrapper>

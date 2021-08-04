@@ -26,15 +26,14 @@ export const IconAndNameWrapper = styled.div`
 `
 export const IconWrapper = styled.div`
   margin: 0 5px 0 0;
-  background-color: ${colors.white};
-  border: solid 1px #999;
+  background-color: ${({ color }) => (color ? color : colors.white)};
   color: #655;
-  border-radius: 2px;
-  min-width: 0.8rem;
-  min-height: 0.8rem;
-  width: 0.8rem;
-  height: 0.8rem;
-  font-size: 0.8rem;
+  border-radius: 5px;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  max-width: 1.25rem !important;
+  max-height: 1.25rem;
+  font-size: 0.75rem;
   text-align: center;
   font-family: Karla;
   display: flex;

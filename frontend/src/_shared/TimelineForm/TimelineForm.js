@@ -1,16 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Wrapper, TextFieldColor, StyledButton } from './TimelineForm.styles'
+import {
+  Wrapper,
+  TextFieldColor,
+  StyledButton,
+  Form,
+  Icon,
+} from './TimelineForm.styles'
 
 export const TimelineForm = ({
-  timelineName,
-  setTimelineName,
+  timeline,
+  setTimeline,
   loading,
   onClick,
   buttonMessage,
 }) => {
-  const handleNameChange = (e) => {
-    setTimelineName(e.target.value)
+  const inputProps = {
+    maxLength: 3,
+  }
+  const handleChange = (timelinePropName) => (e) => {
+    const newTimeline = { ...timeline }
+    newTimeline[timelinePropName] = e.target.value
+    setTimeline(newTimeline)
   }
   return (
     <>
@@ -19,14 +30,34 @@ export const TimelineForm = ({
       ) : (
         <>
           <Wrapper>
-            <TextFieldColor
-              type="text"
-              id="timeline"
-              variant="outlined"
-              label="Nome"
-              value={timelineName}
-              onChange={handleNameChange}
-            />
+            <Form>
+              <TextFieldColor
+                type="text"
+                id="timeline"
+                variant="outlined"
+                label="Nome"
+                value={timeline.name}
+                onChange={handleChange('name')}
+              />
+              <TextFieldColor
+                type="text"
+                id="timelineInitial"
+                variant="outlined"
+                label="Sigla"
+                inputProps={inputProps}
+                value={timeline.initials}
+                onChange={handleChange('initials')}
+              />
+              <TextFieldColor
+                type="color"
+                id="timelineColor"
+                variant="outlined"
+                label="Cor"
+                value={timeline.color}
+                onChange={handleChange('color')}
+              />
+              <Icon color={timeline.color}>{timeline.initials}</Icon>
+            </Form>
             {buttonMessage && (
               <StyledButton variant="contained" onClick={onClick}>
                 {buttonMessage}
@@ -41,8 +72,7 @@ export const TimelineForm = ({
 
 TimelineForm.propTypes = {
   timeline: PropTypes.object,
-  timelineName: PropTypes.string,
-  setTimelineName: PropTypes.func,
+  setTimeline: PropTypes.func,
   loading: PropTypes.bool,
   onClick: PropTypes.func,
   buttonMessage: PropTypes.string,

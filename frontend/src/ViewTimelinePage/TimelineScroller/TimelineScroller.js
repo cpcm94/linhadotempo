@@ -21,6 +21,16 @@ export const TimelineScroller = ({
     .map((timeline) => timeline.time_entries)
     .flat()
 
+  const visibleTimelinesColorInitialsAndId = visibleTimelines.map(
+    (timeline) => {
+      return {
+        id: timeline.id,
+        color: timeline.color,
+        initials: timeline.initials,
+      }
+    }
+  )
+
   const entriesGroupedByYear = groupBy(timeEntries, 'year')
 
   const arrayOfGroupedEntries = convertObjectToArray(entriesGroupedByYear)
@@ -36,6 +46,7 @@ export const TimelineScroller = ({
           {entriesSortedByYear.map((timeEntriesByYear, index) => (
             <YearEntries
               timeEntriesByYear={timeEntriesByYear}
+              timelines={visibleTimelinesColorInitialsAndId}
               key={index}
               newEntryId={newEntryId}
               forwardedRef={forwardedRef}

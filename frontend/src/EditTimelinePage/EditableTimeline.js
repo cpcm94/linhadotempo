@@ -6,11 +6,13 @@ import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
+import { Container } from '../_shared/Container'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
 export const EditableTimeline = ({ timeline }) => {
+  console.log('timeline', timeline)
   let history = useHistory()
 
   const goBackToPreviousPage = () => {
@@ -19,7 +21,11 @@ export const EditableTimeline = ({ timeline }) => {
 
   const isFirstRun = useRef(true)
 
-  const [timelineName, setTimelineName] = useState(timeline.name)
+  const [timelineObject, setTimelineObject] = useState({
+    name: timeline.name,
+    color: timeline.color ? timeline.color : '',
+    initials: timeline.initials ? timeline.initials : '',
+  })
 
   const [updateTimeline, { loading }] = useMutation(UPDATE_TIMELINE_MUTATION)
 
@@ -32,9 +38,7 @@ export const EditableTimeline = ({ timeline }) => {
         const payload = {
           variables: {
             id: timeline.id,
-            input: {
-              name: timelineName,
-            },
+            input: timelineObject,
           },
         }
         updateTimeline(payload)
@@ -42,20 +46,22 @@ export const EditableTimeline = ({ timeline }) => {
     } else {
       isFirstRun.current = false
     }
-  }, [updateTimeline, timeline.id, timelineName])
+  }, [updateTimeline, timeline.id, timelineObject])
 
   return (
     <Layout>
       <Header
         returnButton={goBackToPreviousPage}
         subTitle={'Editar linha do tempo'}
-        title={timelineName}
+        title={timelineObject.name}
         loading={loading}
       />
-      <TimelineForm
-        timelineName={timelineName}
-        setTimelineName={setTimelineName}
-      />
+      <Container>
+        <TimelineForm
+          timeline={timelineObject}
+          setTimeline={setTimelineObject}
+        />
+      </Container>
     </Layout>
   )
 }

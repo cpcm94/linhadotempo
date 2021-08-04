@@ -5,9 +5,8 @@ export const HeaderWrapper = styled.div`
   padding: 5px 20px;
   width: 100%;
   background: var(--primary-color);
-  overscroll-behavior: none;
   color: #fff;
-  position: sticky;
+  position: fixed;
   top: 0;
   height: ${({ timelinesIconRow }) => (timelinesIconRow ? '4.25rem' : '3rem')};
   z-index: 2;

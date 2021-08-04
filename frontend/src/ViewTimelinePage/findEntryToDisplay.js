@@ -6,7 +6,7 @@ const breakPoint = (entry) => {
   }
 }
 const findMax = (array) => {
-  if (array[0]) {
+  if (array.some((element) => element !== null)) {
     return array.reduce((current, previous) => Math.max(current, previous))
   }
 }
