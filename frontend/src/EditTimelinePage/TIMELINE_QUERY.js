@@ -5,6 +5,8 @@ export const TIMELINE_QUERY = gql`
     timeline(id: $id) {
       id
       name
+      color
+      initials
     }
   }
 `
