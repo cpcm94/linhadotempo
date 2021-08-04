@@ -8,7 +8,11 @@ import PropTypes from 'prop-types'
 export const TimelinesPage = ({ timelines }) => {
   return (
     <Layout>
-      <Header title={'Linhas do Tempo'} pageActions={<AddTimelineButton />} />
+      <Header
+        title={'Linhas do Tempo'}
+        pageActions={<AddTimelineButton />}
+        showMenuButton={true}
+      />
       <TimelinesList timelines={timelines} />
     </Layout>
   )

@@ -5,11 +5,16 @@ const breakPoint = (entry) => {
     return 53
   }
 }
-const findMinimum = (array) => {
-  return array.reduce((current, previous) => Math.min(current, previous))
+const findMax = (array) => {
+  if (array[0]) {
+    return array.reduce((current, previous) => Math.max(current, previous))
+  }
 }
-const getLowestYear = (array) => {
-  return findMinimum(array.map((entry) => entry.year))
+const getHighestDateFrame = (array, dateFrame) => {
+  return findMax(array.map((entry) => entry[dateFrame]))
+}
+const filterForDateFrame = (array, dateFrame, dateFrameFilter) => {
+  return array.filter((entry) => entry[dateFrame] === dateFrameFilter)
 }
 
 const insertDatesInArray = (array, entries) =>
@@ -27,35 +32,38 @@ const insertDatesInArray = (array, entries) =>
 
 const insertFirstEntryInEntries = (coordArrayWithDates) =>
   coordArrayWithDates.map((entry) => {
-    const lowestYear = getLowestYear(coordArrayWithDates)
-    const coordArrayFilteredByLowestYear = coordArrayWithDates.filter(
-      (entry) => entry.year === lowestYear
+    const highestYear = getHighestDateFrame(coordArrayWithDates, 'year')
+    const coordArrayFilteredByHighestYear = filterForDateFrame(
+      coordArrayWithDates,
+      'year',
+      highestYear
     )
 
-    const noMonthEntry = coordArrayFilteredByLowestYear.filter(
+    const noMonthEntry = coordArrayFilteredByHighestYear.filter(
       (entry) => !entry.month
     )
 
-    const lowestMonth = findMinimum(
-      coordArrayFilteredByLowestYear.map((entry) =>
-        entry.month ? entry.month : 13
-      )
+    const highestMonth = getHighestDateFrame(
+      coordArrayFilteredByHighestYear,
+      'month'
     )
-    const coordArrayFilteredByLowestMonth =
-      coordArrayFilteredByLowestYear.filter(
-        (entry) => entry.month === lowestMonth
-      )
-    const noDayEntry = coordArrayFilteredByLowestMonth.filter(
+    const coordArrayFilteredByHighestMonth = filterForDateFrame(
+      coordArrayFilteredByHighestYear,
+      'month',
+      highestMonth
+    )
+    const noDayEntry = coordArrayFilteredByHighestMonth.filter(
       (entry) => !entry.day
     )
-    const lowestDay = findMinimum(
-      coordArrayFilteredByLowestMonth.map((entry) =>
-        entry.day ? entry.day : 50
-      )
+    const highestDay = getHighestDateFrame(
+      coordArrayFilteredByHighestMonth,
+      'day'
     )
 
-    const entryWithLowestDate = coordArrayFilteredByLowestMonth.filter(
-      (entry) => entry.day === lowestDay
+    const entryWithLowestDate = filterForDateFrame(
+      coordArrayFilteredByHighestMonth,
+      'day',
+      highestDay
     )
     const firstEntry = noMonthEntry[0]
       ? noMonthEntry[0]
@@ -63,10 +71,12 @@ const insertFirstEntryInEntries = (coordArrayWithDates) =>
       ? noDayEntry[0]
       : entryWithLowestDate[0]
 
-    if (entry.entryId === firstEntry().entryId) {
-      return { ...entry, firstEntry: true }
-    } else {
-      return entry
+    if (entry && firstEntry) {
+      if (entry.entryId === firstEntry.entryId) {
+        return { ...entry, firstEntry: true }
+      } else {
+        return entry
+      }
     }
   })
 

@@ -35,6 +35,9 @@ export const YearEntries = ({
   const arrayOfGroupedEntriesByMonth = convertObjectToArray(
     entriesGroupedByMonth
   )
+  const entriesSortedByMonth = arrayOfGroupedEntriesByMonth.sort(
+    (a, b) => b[0].month - a[0].month
+  )
   const isDisplayEntryYear =
     displayEntry && displayEntry.year === timeEntriesByYear[0].year
 
@@ -57,7 +60,7 @@ export const YearEntries = ({
             forwardedRef={forwardedRef}
           />
         </EntriesWithoutMonthsWrapper>
-        {arrayOfGroupedEntriesByMonth.map((month, index) => (
+        {entriesSortedByMonth.map((month, index) => (
           <MonthEntries
             timeEntriesByMonth={month}
             key={index}
