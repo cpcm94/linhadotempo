@@ -6,7 +6,7 @@ import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
-import { Container } from '@material-ui/core'
+import { Container } from '../_shared/Container'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null

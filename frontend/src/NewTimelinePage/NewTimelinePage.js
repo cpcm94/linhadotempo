@@ -8,7 +8,11 @@ import { useHistory } from 'react-router-dom'
 import { Container } from '../_shared/Container'
 
 export const NewTimelinePage = () => {
-  const [timelineName, setTimelineName] = useState('')
+  const [timeline, setTimeline] = useState({
+    name: '',
+    color: '',
+    initials: '',
+  })
   let history = useHistory()
 
   const goBack = () => {
@@ -20,7 +24,7 @@ export const NewTimelinePage = () => {
   }
 
   const [saveTimeline, { loading }] = useMutation(CREATE_TIMELINE_MUTATION, {
-    variables: { input: { name: timelineName } },
+    variables: { input: timeline },
     onCompleted: navigateToTimelinesPage,
   })
 
@@ -33,8 +37,8 @@ export const NewTimelinePage = () => {
       />
       <Container>
         <TimelineForm
-          timelineName={timelineName}
-          setTimelineName={setTimelineName}
+          timeline={timeline}
+          setTimeline={setTimeline}
           onClick={saveTimeline}
           buttonMessage={'Criar linha do tempo'}
         />

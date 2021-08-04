@@ -5,6 +5,8 @@ export const CREATE_TIMELINE_MUTATION = gql`
     createTimeline(input: $input) {
       id
       name
+      color
+      initials
       user_id
     }
   }
