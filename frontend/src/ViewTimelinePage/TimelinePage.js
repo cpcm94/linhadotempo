@@ -91,21 +91,20 @@ export const TimelinePage = ({
     ? firstEntryOfExactDate
     : closestNextEntryToHash
 
-  const element = hash.current && document.getElementById(entryToScrollTo.id)
-
   useEffect(() => {
     handleScroll()
   }, [handleScroll, visibleTimelines])
 
   useEffect(() => {
     const yOffset = -40
+    const element = hash.current && document.getElementById(entryToScrollTo.id)
     const elementPositionWithOffset =
       element &&
       element.getBoundingClientRect().top + window.pageYOffset + yOffset
     if (element) {
       window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
     }
-  }, [element])
+  }, [entryToScrollTo.id])
   useEffect(() => {
     if (displayEntry && displayEntry.entryId) {
       history.push({

@@ -14,7 +14,6 @@ export const EntriesWithoutMonths = ({
   newEntryId,
   forwardedRef,
 }) => {
-  console.log('timelines', timelines)
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
     history.push({
