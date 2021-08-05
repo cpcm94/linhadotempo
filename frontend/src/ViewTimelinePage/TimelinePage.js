@@ -137,9 +137,6 @@ export const TimelinePage = ({
   }, [entries, objectRefs, visibleTimelines])
 
   useEffect(() => {
-    document.body.addEventListener('touchmove', function (e) {
-      e.preventDefault()
-    })
     if (hasInvalidTimelines && !alreadyRan.current) {
       toast.error(
         'Você não tem acesso à uma ou mais linhas do tempo que tentou acessar.',
@@ -152,12 +149,7 @@ export const TimelinePage = ({
       alreadyRan.current = true
     }
     window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      document.body.removeEventListener('touchmove', function (e) {
-        e.preventDefault()
-      })
-    }
+    return () => window.removeEventListener('scroll', handleScroll)
   })
   return (
     <Layout>
