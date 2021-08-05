@@ -23,6 +23,7 @@ export const TimelinesList = ({ timelines }) => {
     e.stopPropagation()
     history.push(`/viewTimeline/?timelines=${timelineId}`)
   }
+  console.log('timelines', timelines)
   return (
     <TimelinesListWrapper>
       {timelines.map((timeline) => (
@@ -31,7 +32,7 @@ export const TimelinesList = ({ timelines }) => {
             onClick={navigateToViewTimelinePage(history, timeline.id)}
           >
             <IconWrapper color={timelineColor(timelines, timeline.id)}>
-              {timeline.id}
+              {timeline.initials}
             </IconWrapper>
             <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
           </IconAndNameWrapper>

@@ -7,6 +7,7 @@ import {
   Form,
   Icon,
 } from './TimelineForm.styles'
+import { GithubPicker } from 'react-color'
 
 export const TimelineForm = ({
   timeline,
@@ -17,10 +18,16 @@ export const TimelineForm = ({
 }) => {
   const inputProps = {
     maxLength: 3,
+    list: 'preset',
   }
   const handleChange = (timelinePropName) => (e) => {
     const newTimeline = { ...timeline }
     newTimeline[timelinePropName] = e.target.value
+    setTimeline(newTimeline)
+  }
+  const handleChangeColor = (color) => {
+    const newTimeline = { ...timeline }
+    newTimeline.color = color.hex
     setTimeline(newTimeline)
   }
   return (
@@ -48,13 +55,18 @@ export const TimelineForm = ({
                 value={timeline.initials}
                 onChange={handleChange('initials')}
               />
-              <TextFieldColor
+              {/* <TextFieldColor
                 type="color"
                 id="timelineColor"
                 variant="outlined"
                 label="Cor"
                 value={timeline.color}
                 onChange={handleChange('color')}
+              /> */}
+              <GithubPicker
+                triangle="hide"
+                color={timeline.color}
+                onChange={handleChangeColor}
               />
               <Icon color={timeline.color}>{timeline.initials}</Icon>
             </Form>

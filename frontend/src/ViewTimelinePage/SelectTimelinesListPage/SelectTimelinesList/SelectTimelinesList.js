@@ -42,7 +42,7 @@ export const SelectTimelinesList = ({
               onClick={onTimelineClick}
             >
               <IconWrapper color={timelineColor(timelines, timeline.id)}>
-                {timeline.id}
+                {timeline.initials}
               </IconWrapper>
               <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
             </SelectedIconAndNameWrapper>
