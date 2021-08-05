@@ -9,7 +9,7 @@ export const EntriesWrapper = styled.div`
   position: relative;
   top: 0;
   width: 100%;
-  margin-bottom: 70px;
+  margin-bottom: 3rem;
   @media (min-width: 540px) {
     padding: 0 20%;
   }

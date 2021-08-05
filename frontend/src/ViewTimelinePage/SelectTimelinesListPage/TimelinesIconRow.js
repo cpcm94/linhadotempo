@@ -14,7 +14,8 @@ const IconWrapper = styled.div`
   min-height: 1rem;
   width: 1rem;
   height: 1rem;
-  font-size: 1rem;
+  font-size: 0.5rem;
+  font-weight: bold;
   text-align: center;
   font-family: Karla;
   display: flex;
@@ -40,7 +41,7 @@ export const TimelinesIconRow = ({ timelines }) => {
           offset={-50}
         >
           <IconWrapper color={timelineColor(timelines, timeline.id)}>
-            {timeline.id}
+            {timeline.initials}
           </IconWrapper>
         </Link>
       ))}

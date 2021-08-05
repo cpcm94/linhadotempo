@@ -4,6 +4,7 @@ import { EntryNameWrapper } from './MonthEntries.styles'
 import { EntryAndIconWrapper, EntryIcon } from '../YearEntries.styles'
 import { useHistory } from 'react-router-dom'
 import { timelineColor } from '../../../../_shared/timelineColor'
+import { filterTimelineInitials } from '../filterTimelineInitials'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
@@ -33,7 +34,7 @@ export const EntriesWithoutDay = ({
                 {entry.name}
               </EntryNameWrapper>
               <EntryIcon color={timelineColor(timelines, entry.timeline_id)}>
-                {entry.timeline_id}
+                {filterTimelineInitials(timelines, entry)}
               </EntryIcon>
             </EntryAndIconWrapper>
           ))

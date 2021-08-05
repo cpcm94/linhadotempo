@@ -11,12 +11,14 @@ export const Icon = styled.div`
   min-height: 2rem;
   max-width: 2rem !important;
   max-height: 2rem;
-  font-size: 1rem;
+  font-size: 0.75rem;
+  font-weight: bold;
   text-align: center;
   font-family: Karla;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
 `
 
 export const Wrapper = styled.div`

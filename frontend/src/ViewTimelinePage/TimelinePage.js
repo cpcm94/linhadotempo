@@ -68,9 +68,13 @@ export const TimelinePage = ({
   const isTheRightYear = (entry, hash) =>
     entry.year.toString() === hash.substr(6).split('/')[0]
   const isTheRightMonth = (entry, hash) =>
-    entry.month ? entry.month.toString() === hash.substr(6).split('/')[1] : true
+    entry.month
+      ? entry.month.toString() === hash.substr(6).split('/')[1]
+      : !entry.month === !hash.substr(6).split('/')[1]
   const isTheRightDay = (entry, hash) =>
-    entry.day ? entry.day.toString() === hash.substr(6).split('/')[2] : true
+    entry.day
+      ? entry.day.toString() === hash.substr(6).split('/')[2]
+      : !entry.day === !hash.substr(6).split('/')[2]
 
   const firstEntryOfExactDate = entries.filter((entry) => {
     if (
@@ -108,7 +112,12 @@ export const TimelinePage = ({
     }
   }, [entryToScrollTo])
   useEffect(() => {
-    if (displayEntry && displayEntry.entryId) {
+    if (
+      displayEntry.year &&
+      (!isTheRightYear(displayEntry, window.location.hash) ||
+        !isTheRightMonth(displayEntry, window.location.hash) ||
+        !isTheRightDay(displayEntry, window.location.hash))
+    ) {
       history.push({
         pathname: '/viewTimeline/',
         search: `?timelines=${timelinesString}`,
@@ -128,6 +137,9 @@ export const TimelinePage = ({
   }, [entries, objectRefs, visibleTimelines])
 
   useEffect(() => {
+    document.body.addEventListener('touchmove', function (e) {
+      e.preventDefault()
+    })
     if (hasInvalidTimelines && !alreadyRan.current) {
       toast.error(
         'Você não tem acesso à uma ou mais linhas do tempo que tentou acessar.',
@@ -140,7 +152,12 @@ export const TimelinePage = ({
       alreadyRan.current = true
     }
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      document.body.removeEventListener('touchmove', function (e) {
+        e.preventDefault()
+      })
+    }
   })
   return (
     <Layout>

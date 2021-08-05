@@ -49,7 +49,8 @@ export const IconWrapper = styled.div`
   min-height: 1rem;
   width: 1rem;
   height: 1rem;
-  font-size: 0.8rem;
+  font-weight: bold;
+  font-size: 0.5rem;
   text-align: center;
   font-family: Karla;
   display: flex;

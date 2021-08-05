@@ -7,6 +7,7 @@ import {
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { timelineColor } from '../../../_shared/timelineColor'
+import { filterTimelineInitials } from './filterTimelineInitials'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,
@@ -38,7 +39,7 @@ export const EntriesWithoutMonths = ({
                   {entry.name}
                 </EntryNameWrapper>
                 <EntryIcon color={timelineColor(timelines, entry.timeline_id)}>
-                  {entry.timeline_id}
+                  {filterTimelineInitials(timelines, entry)}
                 </EntryIcon>
               </EntryAndIconWrapper>
             )

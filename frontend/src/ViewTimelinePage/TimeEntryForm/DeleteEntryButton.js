@@ -15,7 +15,6 @@ export const DeleteEntryButton = ({ entryId, afterDelete }) => {
   })
 
   const confirmAndDelete = () => {
-    console.log('click')
     var response = window.confirm('Apagar esse acontecimento?')
     response && deleteEntry().then(() => afterDelete())
   }
