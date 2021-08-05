@@ -34,6 +34,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     font-family: 'Karla';
+    overflow: hidden;
   }
   main {
     flex: 1 0 auto;
