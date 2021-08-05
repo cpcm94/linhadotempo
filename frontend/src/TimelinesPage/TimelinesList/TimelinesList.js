@@ -23,7 +23,6 @@ export const TimelinesList = ({ timelines }) => {
     e.stopPropagation()
     history.push(`/viewTimeline/?timelines=${timelineId}`)
   }
-  console.log('timelines', timelines)
   return (
     <TimelinesListWrapper>
       {timelines.map((timeline) => (

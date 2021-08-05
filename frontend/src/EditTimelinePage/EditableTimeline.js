@@ -12,7 +12,6 @@ const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
 export const EditableTimeline = ({ timeline }) => {
-  console.log('timeline', timeline)
   let history = useHistory()
 
   const goBackToPreviousPage = () => {
