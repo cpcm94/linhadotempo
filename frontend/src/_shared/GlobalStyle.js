@@ -29,12 +29,10 @@ export const GlobalStyle = createGlobalStyle`
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     touch-action: manipulation;
-    overflow: hidden;
   }
   body {
     margin: 0;
     font-family: 'Karla';
-    overflow: hidden;
   }
   main {
     flex: 1 0 auto;
