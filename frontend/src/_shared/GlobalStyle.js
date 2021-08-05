@@ -38,6 +38,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   main {
     flex: 1 0 auto;
+    overflow: hidden;
     h1,h2,h3,h4,h5,h6 {
     color: #0c2340;
     }
