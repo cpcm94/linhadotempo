@@ -29,10 +29,9 @@ export const EntriesWithoutDay = ({
               isNew={newEntryId === entry.id}
               id={entry.id}
               ref={forwardedRef[entry.id]}
+              onClick={() => navigateToEditEntry(entry)}
             >
-              <EntryNameWrapper onClick={() => navigateToEditEntry(entry)}>
-                {entry.name}
-              </EntryNameWrapper>
+              <EntryNameWrapper>{entry.name}</EntryNameWrapper>
               <EntryIcon color={timelineColor(timelines, entry.timeline_id)}>
                 {filterTimelineInitials(timelines, entry)}
               </EntryIcon>

@@ -10,6 +10,12 @@ import { useMutation } from '@apollo/client'
 import { UPDATE_PASSWORD_MUTATION } from './UPDATE_PASSWORD_MUTATION'
 import PropTypes from 'prop-types'
 
+const toastConfig = {
+  position: 'top-center',
+  hideProgressBar: true,
+  transition: Slide,
+}
+
 export const ChangePasswordForm = ({ user }) => {
   const [userPassword, setUserPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -19,7 +25,7 @@ export const ChangePasswordForm = ({ user }) => {
     {
       variables: {
         id: user.id,
-        input: userPassword,
+        input: { password: userPassword },
       },
     }
   )
@@ -35,13 +41,15 @@ export const ChangePasswordForm = ({ user }) => {
   const submitSavePassword = (e) => {
     e.preventDefault()
     if (confirmPassword !== userPassword)
-      return toast.error('As senhas precisam ser iguais!', {
-        position: 'top-center',
-        hideProgressBar: true,
-        transition: Slide,
-      })
+      return toast.error('As senhas precisam ser iguais!', toastConfig)
 
-    savePassword()
+    savePassword().then((res) => {
+      if (res.data.updatePassword) {
+        return toast.success('Senha atualizada com sucesso!', toastConfig)
+      } else {
+        return toast.error('Falha ao trocar de senha', toastConfig)
+      }
+    })
   }
   const disableSubmitButton =
     userPassword === '' || userPassword.length !== confirmPassword.length

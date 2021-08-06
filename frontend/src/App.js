@@ -17,6 +17,7 @@ import { ViewTimelinesPage } from './ViewTimelinePage/ViewTimelinesPage'
 import { CurrentUserContextProvider } from './_shared/CurrentUserContextProvider'
 import { UserPageLoader } from './UserPage/UserPageLoader'
 import { UsersLoader } from './UsersPage/UsersLoader'
+import { EditUserPage } from './EditUserPage/EditUserPage'
 
 const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
   const token = getToken()
@@ -67,11 +68,14 @@ const Wrapped = () => {
           <Route path="/viewTimeline">
             <ViewTimelinesPage />
           </Route>
-          <Route path="/usersPage">
+          <Route path="/users">
             <UsersLoader />
           </Route>
-          <Route path="/userPage">
+          <Route path="/user">
             <UserPageLoader />
+          </Route>
+          <Route path="/editUser">
+            <EditUserPage />
           </Route>
           <Route path="/">
             <LoginPageLoader />

@@ -3,6 +3,12 @@ import PropTypes from 'prop-types'
 import { StyledTextField, Wrapper } from './UserInfo.styles'
 
 export const UserInfo = ({ user }) => {
+  const userType =
+    user.type === 'basic'
+      ? 'Básico'
+      : user.type === 'admin'
+      ? 'Administrador'
+      : 'Premium'
   return (
     <Wrapper>
       <StyledTextField
@@ -26,7 +32,7 @@ export const UserInfo = ({ user }) => {
         id="userType"
         variant="outlined"
         label="Tipo de Usuário"
-        value={user.type}
+        value={userType}
         disabled={true}
       />
     </Wrapper>

@@ -38,7 +38,7 @@ export const MenuDrawer = ({ user }) => {
     setDrawer(!drawer)
   }
   const navigateToUsers = () => {
-    history.push('/usersPage')
+    history.push('/users')
     setDrawer(!drawer)
   }
 
@@ -49,7 +49,7 @@ export const MenuDrawer = ({ user }) => {
           <ListItemWrapper onClick={navigateToTimelines}>
             Linhas do Tempo
           </ListItemWrapper>
-          {user.type === 'admin' && (
+          {user && user.type === 'admin' && (
             <ListItemWrapper onClick={navigateToUsers}>
               Usuários
             </ListItemWrapper>

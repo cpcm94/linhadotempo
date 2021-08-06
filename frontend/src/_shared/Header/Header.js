@@ -28,7 +28,7 @@ export const Header = ({
   let history = useHistory()
 
   const navigateToUserPage = () => {
-    history.push('/userPage')
+    history.push('/user')
   }
 
   const onlyTitle = title && !subTitle && !timelinesIconRow

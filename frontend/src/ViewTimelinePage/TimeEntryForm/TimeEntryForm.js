@@ -142,7 +142,7 @@ export const TimeEntryForm = ({
   }
 
   const disableSubmitButton =
-    (entry.month === '' && entry.day !== '') || entry.name === ''
+    (entry.month === '' && entry.day !== '') || entry.name.trim() === ''
   const singleTimeline = timelines.length === 1
   const showSingleTimeline = entry.timeline_id
     ? entry.timeline_id

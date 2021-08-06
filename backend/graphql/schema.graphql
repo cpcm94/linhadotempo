@@ -48,6 +48,11 @@ type LogoutResponse {
     message: String!
 }
 
+type DeleteUserResponse {
+    success: Boolean!
+    message: String!
+}
+
 input CreateTimeEntryInput {
     name: String!
     year: Int!
@@ -76,7 +81,7 @@ input CreateUserInput {
 }
 input UpdateUserInput {
     name: String!
-    email: String!
+    email: String! @rules(apply: ["unique:users,email"])
     type: String!
 }
 input LoginInput {
@@ -124,4 +129,5 @@ type Mutation {
     createUser(input: CreateUserInput! @spread): User! @create
     updateUser(id: ID!, input: UpdateUserInput! @spread): User! @update
     updatePassword(id: ID!, input: UpdatePasswordInput! @spread): User! @update
+    deleteUser(id: ID!): DeleteUserResponse!
 }

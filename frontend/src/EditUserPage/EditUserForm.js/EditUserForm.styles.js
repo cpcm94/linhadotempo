@@ -4,32 +4,39 @@ import { colors } from '../../_shared/colors'
 import { Button } from '@material-ui/core'
 
 export const StyledTextField = styled(TextField)`
-  align-self: center;
   margin: 0.75rem 0 !important;
-
-  label.Mui-focused {
-    color: ${colors.brown};
+  label {
+    color: ${colors.brown} !important;
   }
-
   .MuiSelect-root {
     min-width: 30px;
   }
 
+  #userName {
+    color: ${colors.black};
+  }
+  #userType {
+    color: ${colors.black};
+  }
+  #userEmail {
+    color: ${colors.black};
+  }
   .MuiOutlinedInput-root {
     fieldset {
-      border-color: ${colors.brown};
+      border-color: ${colors.brown} !important;
     }
     &.Mui-focused fieldset {
-      border-color: ${colors.brown};
+      border-color: ${colors.brown} !important;
     }
   }
 `
 
 export const Wrapper = styled.div`
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin-top: 2rem;
+  padding: 0 1.25rem;
 `
 
 export const StyledButton = styled(Button)`
