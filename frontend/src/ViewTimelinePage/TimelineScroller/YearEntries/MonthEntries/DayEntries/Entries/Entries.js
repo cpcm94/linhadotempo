@@ -82,13 +82,9 @@ export const Entries = ({
             isNew={newEntryId === entry.id}
             id={entry.id}
             ref={forwardedRef[entry.id]}
+            onClick={() => navigateToEditEntry(entry)}
           >
-            <EntryWrapper
-              key={index}
-              onClick={() => navigateToEditEntry(entry)}
-            >
-              {entry.name}
-            </EntryWrapper>
+            <EntryWrapper key={index}>{entry.name}</EntryWrapper>
             <EntryIcon color={timelineColor(timelines, entry.timeline_id)}>
               {filterTimelineInitials(timelines, entry)}
             </EntryIcon>

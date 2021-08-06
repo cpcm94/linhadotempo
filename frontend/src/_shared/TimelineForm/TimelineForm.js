@@ -8,6 +8,7 @@ import {
   Icon,
 } from './TimelineForm.styles'
 import { GithubPicker } from 'react-color'
+import { colorsArray } from './colorsArray'
 
 export const TimelineForm = ({
   timeline,
@@ -55,18 +56,11 @@ export const TimelineForm = ({
                 value={timeline.initials}
                 onChange={handleChange('initials')}
               />
-              {/* <TextFieldColor
-                type="color"
-                id="timelineColor"
-                variant="outlined"
-                label="Cor"
-                value={timeline.color}
-                onChange={handleChange('color')}
-              /> */}
               <GithubPicker
                 triangle="hide"
                 color={timeline.color}
                 onChange={handleChangeColor}
+                colors={colorsArray}
               />
               <Icon color={timeline.color}>{timeline.initials}</Icon>
             </Form>

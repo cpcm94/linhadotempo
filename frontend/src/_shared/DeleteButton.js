@@ -9,14 +9,15 @@ const Wrapper = styled.div`
   cursor: pointer;
 `
 
-export const DeleteButton = ({ onClick }) => {
+export const DeleteButton = ({ onClick, color }) => {
   return (
     <Wrapper onClick={onClick}>
-      <Icon icon={trashIcon} color={colors.grey} height="30" />
+      <Icon icon={trashIcon} color={color ? color : colors.grey} height="30" />
     </Wrapper>
   )
 }
 
 DeleteButton.propTypes = {
   onClick: PropTypes.func,
+  color: PropTypes.string,
 }
