@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
 import { colors } from '../../_shared/colors'
 export const StyledTextField = styled(TextField)`
-  align-self: center;
   margin: 0.75rem 0 !important;
   label {
     color: ${colors.brown} !important;
@@ -32,6 +31,7 @@ export const StyledTextField = styled(TextField)`
 export const Wrapper = styled.div`
   margin-top: 2rem;
   display: flex;
+  padding: 0 1.25rem;
   flex-direction: column;
   flex: 1;
 `
