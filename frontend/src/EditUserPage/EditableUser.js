@@ -11,6 +11,8 @@ import { useMutation } from '@apollo/client'
 import { DELETE_USER_MUTATION } from './DELETE_USER_MUTATION'
 import { useHistory } from 'react-router-dom'
 import { DeleteButtonWrapper } from './DeleteButtonWrapper'
+import { toast, Slide } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const EditableUser = ({ user }) => {
   let history = useHistory()
