@@ -3,14 +3,14 @@ import {
   EntryIcon,
   EntryNameWrapper,
   EntryAndIconWrapper,
-} from './YearEntries.styles'
+} from './YearEntries/YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
-import { timelineColor } from '../../../_shared/timelineColor'
-import { filterTimelineInitials } from './filterTimelineInitials'
+import { timelineColor } from '../../_shared/timelineColor'
+import { filterTimelineInitials } from './YearEntries/filterTimelineInitials'
 
-export const EntriesWithoutMonths = ({
-  entriesWithoutMonth,
+export const EntriesWithoutYear = ({
+  entriesWithoutYear,
   timelines,
   newEntryId,
   forwardedRef,
@@ -26,7 +26,7 @@ export const EntriesWithoutMonths = ({
 
   return (
     <>
-      {entriesWithoutMonth.map((entry, index) => {
+      {entriesWithoutYear.map((entry, index) => {
         return (
           <EntryAndIconWrapper
             key={index}
@@ -46,8 +46,8 @@ export const EntriesWithoutMonths = ({
   )
 }
 
-EntriesWithoutMonths.propTypes = {
-  entriesWithoutMonth: PropTypes.array,
+EntriesWithoutYear.propTypes = {
+  entriesWithoutYear: PropTypes.array,
   timelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,

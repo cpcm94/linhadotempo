@@ -14,6 +14,8 @@ to {
 }
 `
 
+export const TextWrapper = styled.div``
+
 export const EntryWrapper = styled.div`
   display: flex;
   justify-content: space-between;

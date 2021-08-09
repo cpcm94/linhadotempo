@@ -66,7 +66,9 @@ export const TimelinePage = ({
     .flat()
 
   const isTheRightYear = (entry, hash) =>
-    entry.year.toString() === hash.substr(6).split('/')[0]
+    entry.year
+      ? entry.year.toString() === hash.substr(6).split('/')[0]
+      : !entry.year === !hash.substr(6).split('/')[0]
   const isTheRightMonth = (entry, hash) =>
     entry.month
       ? entry.month.toString() === hash.substr(6).split('/')[1]
@@ -86,6 +88,12 @@ export const TimelinePage = ({
     }
   })[0]
 
+  const firstEntryOfNullYear = entries.filter((entry) => {
+    if (!entry.year && hash.current.substr(6).split('/')[0] === 'null') {
+      return entry
+    }
+  })[0]
+
   const closestNextEntryToHash = findClosestNextEntryToHash(
     entries,
     hash.current
@@ -93,6 +101,8 @@ export const TimelinePage = ({
 
   const entryToScrollTo = firstEntryOfExactDate
     ? firstEntryOfExactDate.id
+    : firstEntryOfNullYear
+    ? firstEntryOfNullYear.id
     : closestNextEntryToHash
     ? closestNextEntryToHash.id
     : null
@@ -113,7 +123,8 @@ export const TimelinePage = ({
   }, [entryToScrollTo])
   useEffect(() => {
     if (
-      displayEntry.year &&
+      displayEntry &&
+      displayEntry.entryId &&
       (!isTheRightYear(displayEntry, window.location.hash) ||
         !isTheRightMonth(displayEntry, window.location.hash) ||
         !isTheRightDay(displayEntry, window.location.hash))

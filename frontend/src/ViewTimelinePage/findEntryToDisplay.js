@@ -32,6 +32,9 @@ const insertDatesInArray = (array, entries) =>
 
 const insertFirstEntryInEntries = (coordArrayWithDates) =>
   coordArrayWithDates.map((entry) => {
+    if (entry && !entry.year) {
+      return entry
+    }
     const highestYear = getHighestDateFrame(coordArrayWithDates, 'year')
     const coordArrayFilteredByHighestYear = filterForDateFrame(
       coordArrayWithDates,

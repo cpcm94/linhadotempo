@@ -6,6 +6,7 @@ import {
   YearWrapper,
   MonthWrapper,
   DayWrapper,
+  TextWrapper,
 } from './TimelinePageHeader.styles'
 import { monthNameArray } from '../../_shared/monthNameArray'
 import { CurrentUserContext } from '../../_shared/CurrentUserContextProvider'
@@ -13,6 +14,7 @@ import { MenuDrawer } from '../../_shared/MenuDrawer/MenuDrawer'
 
 export const TimelinePageHeader = ({ displayEntry }) => {
   const { user } = useContext(CurrentUserContext)
+
   const monthName =
     displayEntry && displayEntry.month
       ? monthNameArray[displayEntry.month]
@@ -28,18 +30,28 @@ export const TimelinePageHeader = ({ displayEntry }) => {
     <HeaderWrapper>
       <MenuDrawer user={user} />
       <EntryWrapper>
-        <DayWrapper
-          isDisplayEntryDay={displayEntry && displayEntry.day ? true : false}
-        >
-          {displayEntry && displayEntry.day ? `${displayEntry.day} de` : null}
-        </DayWrapper>
-        <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
-          {monthName}
-        </MonthWrapper>
-        <YearWrapper>
-          {monthName && 'de '}
-          {yearAC}
-        </YearWrapper>
+        {yearAC ? (
+          <>
+            <DayWrapper
+              isDisplayEntryDay={
+                displayEntry && displayEntry.day ? true : false
+              }
+            >
+              {displayEntry && displayEntry.day
+                ? `${displayEntry.day} de`
+                : null}
+            </DayWrapper>
+            <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
+              {monthName}
+            </MonthWrapper>
+            <YearWrapper>
+              {monthName && 'de '}
+              {yearAC}
+            </YearWrapper>
+          </>
+        ) : displayEntry && displayEntry.entryId ? (
+          <TextWrapper>Acontecimentos sem ano</TextWrapper>
+        ) : null}
       </EntryWrapper>
     </HeaderWrapper>
   )

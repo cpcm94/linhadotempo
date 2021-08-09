@@ -4,12 +4,17 @@ import {
   Wrapper,
   EntriesWrapper,
   InvisibleIconWrapper,
+  SpanWrapper,
+  EntryWithoutYearLabelWrapper,
 } from './TimelineScroller.styles'
 import { YearEntries } from './YearEntries/YearEntries'
 import { convertObjectToArray } from './convertObjectToArray'
 import { groupBy } from './groupBy'
 import { InvisibleIcon } from '../../_shared/InvisibleIcon'
 import { MessageWrapper } from '../../_shared/MessageWrapper'
+import { filterEntriesWithoutValue } from './YearEntries/filterEntriesWithoutValue'
+import { filterEntriesWithValue } from './YearEntries/filterEntriesWithValue'
+import { EntriesWithoutYear } from './EntriesWithoutYear'
 
 export const TimelineScroller = ({
   visibleTimelines,
@@ -31,7 +36,11 @@ export const TimelineScroller = ({
     }
   )
 
-  const entriesGroupedByYear = groupBy(timeEntries, 'year')
+  const entriesWithoutYear = filterEntriesWithValue(timeEntries, 'year')
+
+  const entriesWithYear = filterEntriesWithoutValue(timeEntries, 'year')
+
+  const entriesGroupedByYear = groupBy(entriesWithYear, 'year')
 
   const arrayOfGroupedEntries = convertObjectToArray(entriesGroupedByYear)
 
@@ -53,6 +62,21 @@ export const TimelineScroller = ({
               displayEntry={displayEntry}
             />
           ))}
+          {entriesWithoutYear[0] && (
+            <>
+              <EntryWithoutYearLabelWrapper>
+                <SpanWrapper>
+                  <span>{'Acontecimentos sem ano'}</span>
+                </SpanWrapper>
+              </EntryWithoutYearLabelWrapper>
+              <EntriesWithoutYear
+                entriesWithoutYear={entriesWithoutYear}
+                newEntryId={newEntryId}
+                forwardedRef={forwardedRef}
+                timelines={visibleTimelinesColorInitialsAndId}
+              />
+            </>
+          )}
         </EntriesWrapper>
       ) : (
         <>
