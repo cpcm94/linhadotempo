@@ -27,3 +27,34 @@ export const InvisibleIconWrapper = styled.div`
   display: flex;
   justify-content: center;
 `
+
+export const SpanWrapper = styled.div``
+
+export const EntryWithoutYearLabelWrapper = styled.div`
+  display: flex;
+  position: relative;
+  flex-direction: row-reverse;
+  z-index: 1;
+  padding: 0.5rem 1rem 0.5rem 3rem;
+  color: ${colors.lightGrey};
+  visibility: ${({ isDisplayEntryYear }) =>
+    isDisplayEntryYear ? 'hidden' : 'visible'};
+  &:before {
+    border-top: 1px solid ${colors.lightGrey};
+    content: '';
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0%;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+  }
+  span {
+    background: ${colors.white};
+    padding: 0 0.25rem;
+  }
+  font-size: 0.85em;
+  color: ${colors.brown};
+`

@@ -46,22 +46,24 @@ export const YearEntries = ({
 
   return (
     <Wrapper>
-      {atLeastOneEntryWithoutMonth && (
-        <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
-          <YearWrapper>
-            <span>{year}</span>
-          </YearWrapper>
-        </EntryYearWrapper>
-      )}
       <EntriesWrapper>
-        <EntriesWithoutMonthsWrapper>
-          <EntriesWithoutMonths
-            entriesWithoutMonth={entriesWithoutMonth}
-            newEntryId={newEntryId}
-            forwardedRef={forwardedRef}
-            timelines={timelines}
-          />
-        </EntriesWithoutMonthsWrapper>
+        {atLeastOneEntryWithoutMonth && (
+          <>
+            <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
+              <YearWrapper>
+                <span>{year}</span>
+              </YearWrapper>
+            </EntryYearWrapper>
+            <EntriesWithoutMonthsWrapper>
+              <EntriesWithoutMonths
+                entriesWithoutMonth={entriesWithoutMonth}
+                newEntryId={newEntryId}
+                forwardedRef={forwardedRef}
+                timelines={timelines}
+              />
+            </EntriesWithoutMonthsWrapper>
+          </>
+        )}
         {entriesSortedByMonth.map((month, index) => (
           <MonthEntries
             timeEntriesByMonth={month}
