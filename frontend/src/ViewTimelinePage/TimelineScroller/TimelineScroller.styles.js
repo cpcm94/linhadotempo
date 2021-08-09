@@ -33,9 +33,9 @@ export const SpanWrapper = styled.div``
 export const EntryWithoutYearLabelWrapper = styled.div`
   display: flex;
   position: relative;
-  flex-direction: row-reverse;
+  justify-content: center;
   z-index: 1;
-  padding: 0.5rem 1rem 0.5rem 3rem;
+  padding: 0.5rem 0 0.5rem 0;
   color: ${colors.lightGrey};
   visibility: ${({ isDisplayEntryYear }) =>
     isDisplayEntryYear ? 'hidden' : 'visible'};

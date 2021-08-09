@@ -74,10 +74,12 @@ export const TimeEntryForm = ({
           monthly_importance: false,
         }
   )
+  const hasDefaultDateAndYear = defaultDate && defaultDate.year
+  const hasEntryToUpdateAndYear = entryToUpdate && entryToUpdate.year
   const [radioValue, setRadioValue] = useState(
-    defaultDate && defaultDate.year.startsWith('-')
+    hasDefaultDateAndYear && defaultDate.year.startsWith('-')
       ? 'AC'
-      : entryToUpdate && entryToUpdate.year.toString().startsWith('-')
+      : hasEntryToUpdateAndYear && entryToUpdate.year.toString().startsWith('-')
       ? 'AC'
       : 'DC'
   )
@@ -142,7 +144,9 @@ export const TimeEntryForm = ({
   }
 
   const disableSubmitButton =
-    (entry.month === '' && entry.day !== '') || entry.name.trim() === ''
+    (entry.year === '' && (entry.month !== '' || entry.day !== '')) ||
+    (entry.month === '' && entry.day !== '') ||
+    entry.name.trim() === ''
   const singleTimeline = timelines.length === 1
   const showSingleTimeline = entry.timeline_id
     ? entry.timeline_id

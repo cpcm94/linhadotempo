@@ -37,7 +37,7 @@ export const TimelineScroller = ({
   )
 
   const entriesWithoutYear = filterEntriesWithValue(timeEntries, 'year')
-  console.log('entriesWithoutYear', entriesWithoutYear)
+
   const entriesWithYear = filterEntriesWithoutValue(timeEntries, 'year')
 
   const entriesGroupedByYear = groupBy(entriesWithYear, 'year')
@@ -64,11 +64,9 @@ export const TimelineScroller = ({
           ))}
           {entriesWithoutYear[0] && (
             <>
-              <EntryWithoutYearLabelWrapper
-                isDisplayEntryYear={isDisplayEntryYear}
-              >
+              <EntryWithoutYearLabelWrapper>
                 <SpanWrapper>
-                  <span>{'Acontecimento sem ano'}</span>
+                  <span>{'Acontecimentos sem ano'}</span>
                 </SpanWrapper>
               </EntryWithoutYearLabelWrapper>
               <EntriesWithoutYear
