@@ -37,11 +37,10 @@ export const TimelinePageHeader = ({ displayEntry }) => {
                 displayEntry && displayEntry.day ? true : false
               }
             >
-              {displayEntry && displayEntry.day
-                ? `${displayEntry.day} de`
-                : null}
+              {displayEntry && displayEntry.day ? displayEntry.day : null}
             </DayWrapper>
             <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
+              {displayEntry && displayEntry.day ? ` de ` : null}
               {monthName}
             </MonthWrapper>
             <YearWrapper>
@@ -50,7 +49,7 @@ export const TimelinePageHeader = ({ displayEntry }) => {
             </YearWrapper>
           </>
         ) : displayEntry && displayEntry.entryId ? (
-          <TextWrapper>Acontecimentos sem ano</TextWrapper>
+          <TextWrapper>Sem data definida</TextWrapper>
         ) : null}
       </EntryWrapper>
     </HeaderWrapper>
