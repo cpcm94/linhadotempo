@@ -24,6 +24,8 @@ export const Icon = styled.div`
 export const ImportExportButtons = styled.div`
   display: flex;
   margin: 1rem 0;
+  justify-content: space-between;
+  width: calc(100% - 2.5rem);
 `
 
 export const Wrapper = styled.div`
@@ -68,7 +70,7 @@ export const TextFieldColor = styled(TextField)`
 
 export const StyledButton = styled(Button)`
   height: 56px;
-  margin: 0 1rem !important;
+
   && {
     color: ${colors.white};
   }
