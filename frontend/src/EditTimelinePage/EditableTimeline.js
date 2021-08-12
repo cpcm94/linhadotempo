@@ -12,6 +12,11 @@ const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
 export const EditableTimeline = ({ timeline }) => {
+  const entriesInfo = timeline.time_entries.map((entry) => {
+    return `${entry.name}\t${entry.year ? entry.year : ''}\t${
+      entry.month ? entry.month : ''
+    }\t${entry.day ? entry.day : ''}\t`
+  })
   let history = useHistory()
 
   const goBackToPreviousPage = () => {
@@ -21,6 +26,7 @@ export const EditableTimeline = ({ timeline }) => {
   const isFirstRun = useRef(true)
 
   const [timelineObject, setTimelineObject] = useState({
+    id: timeline.id,
     name: timeline.name,
     color: timeline.color ? timeline.color : '',
     initials: timeline.initials ? timeline.initials : '',
@@ -59,6 +65,7 @@ export const EditableTimeline = ({ timeline }) => {
         <TimelineForm
           timeline={timelineObject}
           setTimeline={setTimelineObject}
+          entriesStringInfo={entriesInfo}
         />
       </Container>
     </Layout>
