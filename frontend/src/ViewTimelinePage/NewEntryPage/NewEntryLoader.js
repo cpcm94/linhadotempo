@@ -29,7 +29,7 @@ export const NewEntryLoader = () => {
     <NewEntryPage
       timelines={filteredTimelines}
       refetchTimelines={refetchTimelines}
-      defaultDate={hash}
+      defaultDateForNewEntry={hash}
     />
   ) : null
 }

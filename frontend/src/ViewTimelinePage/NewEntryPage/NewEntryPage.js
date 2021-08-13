@@ -6,7 +6,11 @@ import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { Container } from '../../_shared/Container'
 
-export const NewEntryPage = ({ timelines, refetchTimelines, defaultDate }) => {
+export const NewEntryPage = ({
+  timelines,
+  refetchTimelines,
+  defaultDateForNewEntry,
+}) => {
   let history = useHistory()
   const goBack = () => {
     history.goBack()
@@ -22,7 +26,7 @@ export const NewEntryPage = ({ timelines, refetchTimelines, defaultDate }) => {
         <TimeEntryForm
           timelines={timelines}
           refetchTimelines={refetchTimelines}
-          defaultDate={defaultDate}
+          defaultDateForNewEntry={defaultDateForNewEntry}
         />
       </Container>
     </Layout>
@@ -32,5 +36,5 @@ export const NewEntryPage = ({ timelines, refetchTimelines, defaultDate }) => {
 NewEntryPage.propTypes = {
   timelines: PropTypes.array,
   refetchTimelines: PropTypes.func,
-  defaultDate: PropTypes.object,
+  defaultDateForNewEntry: PropTypes.object,
 }

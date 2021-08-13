@@ -15,7 +15,7 @@ export const EditableTimeline = ({ timeline }) => {
   const entriesInfo = timeline.time_entries.map((entry) => {
     return `${entry.name}\t${entry.year ? entry.year : ''}\t${
       entry.month ? entry.month : ''
-    }\t${entry.day ? entry.day : ''}\t`
+    }\t${entry.day ? entry.day : ''}`
   })
   let history = useHistory()
 
