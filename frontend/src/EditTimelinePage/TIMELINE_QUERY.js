@@ -7,6 +7,13 @@ export const TIMELINE_QUERY = gql`
       name
       color
       initials
+      time_entries {
+        id
+        name
+        year
+        month
+        day
+      }
     }
   }
 `

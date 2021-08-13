@@ -21,11 +21,17 @@ export const Icon = styled.div`
   margin-top: 1rem;
 `
 
+export const ImportExportButtons = styled.div`
+  display: flex;
+  margin: 1rem 0;
+  justify-content: space-between;
+  width: calc(100% - 2.5rem);
+`
+
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-between;
   min-height: calc(100vh - 3rem);
   padding: 1rem 0 1rem 0;
 `
@@ -33,6 +39,12 @@ export const Wrapper = styled.div`
 export const Form = styled.div`
   display: flex;
   flex-direction: column;
+  width: calc(100% - 2.5rem);
+`
+
+export const ExportText = styled.pre`
+  margin: 0;
+  padding: 2rem 0 0 0;
   width: calc(100% - 2.5rem);
 `
 
@@ -58,6 +70,7 @@ export const TextFieldColor = styled(TextField)`
 
 export const StyledButton = styled(Button)`
   height: 56px;
+
   && {
     color: ${colors.white};
   }

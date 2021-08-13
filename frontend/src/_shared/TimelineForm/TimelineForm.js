@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Wrapper,
@@ -6,9 +6,15 @@ import {
   StyledButton,
   Form,
   Icon,
+  ImportExportButtons,
+  ExportText,
 } from './TimelineForm.styles'
 import { GithubPicker } from 'react-color'
 import { colorsArray } from './colorsArray'
+import { ImportInput } from './ImportInput/ImportInput'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { copyTextToClipboard } from './copyTextToClipboard'
 
 export const TimelineForm = ({
   timeline,
@@ -16,7 +22,29 @@ export const TimelineForm = ({
   loading,
   onClick,
   buttonMessage,
+  entriesStringInfo,
 }) => {
+  const [showExportText, setShowExportText] = useState(false)
+  const [showImportTextArea, setShowImportTextArea] = useState(false)
+
+  const toggleImportTextArea = () => {
+    setShowImportTextArea(!showImportTextArea)
+  }
+
+  const toggleExportText = () => {
+    setShowExportText(!showExportText)
+  }
+  const entriesString = `nome\tano\tmês\tdia\t
+${
+  entriesStringInfo &&
+  entriesStringInfo
+    .map(
+      (entryString) => `${entryString}
+`
+    )
+    .join('')
+}`
+
   const inputProps = {
     maxLength: 3,
     list: 'preset',
@@ -31,6 +59,7 @@ export const TimelineForm = ({
     newTimeline.color = color.hex
     setTimeline(newTimeline)
   }
+
   return (
     <>
       {loading ? (
@@ -64,11 +93,42 @@ export const TimelineForm = ({
               />
               <Icon color={timeline.color}>{timeline.initials}</Icon>
             </Form>
+            {entriesStringInfo && (
+              <ImportExportButtons>
+                <StyledButton
+                  id="exportButton"
+                  variant="contained"
+                  onClick={toggleExportText}
+                >
+                  Exportar
+                </StyledButton>
+                <StyledButton
+                  id="importButton"
+                  variant="contained"
+                  onClick={toggleImportTextArea}
+                >
+                  Importar
+                </StyledButton>
+              </ImportExportButtons>
+            )}
+            {showExportText && (
+              <ExportText onClick={() => copyTextToClipboard(entriesString)}>
+                {entriesString}
+              </ExportText>
+            )}
+            {showImportTextArea && (
+              <ImportInput
+                timelineId={timeline.id}
+                showImportTextArea={showImportTextArea}
+                setShowImportTextArea={setShowImportTextArea}
+              />
+            )}
             {buttonMessage && (
               <StyledButton variant="contained" onClick={onClick}>
                 {buttonMessage}
               </StyledButton>
             )}
+            <ToastContainer />
           </Wrapper>
         </>
       )}
@@ -82,4 +142,5 @@ TimelineForm.propTypes = {
   loading: PropTypes.bool,
   onClick: PropTypes.func,
   buttonMessage: PropTypes.string,
+  entriesStringInfo: PropTypes.array,
 }

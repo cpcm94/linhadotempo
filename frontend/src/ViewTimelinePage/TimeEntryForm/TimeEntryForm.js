@@ -13,7 +13,6 @@ import {
 import MenuItem from '@material-ui/core/MenuItem'
 import { Months, Days } from './DateArrays'
 import { useMutation } from '@apollo/client'
-import { CREATE_TIME_ENTRY_MUTATION } from './CREATE_TIME_ENTRY_MUTATION'
 import { UPDATE_TIME_ENTRY_MUTATION } from './UPDATE_TIME_ENTRY_MUTATION'
 import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from './convertFormDataValues'
@@ -21,6 +20,7 @@ import { monthNameArray } from '../../_shared/monthNameArray'
 import { XIcon } from '../../_shared/XIcon'
 import { YearOptionSelect } from './YearOptionSelect'
 import { DeleteEntryButton } from './DeleteEntryButton'
+import { CREATE_TIME_ENTRY_MUTATION } from '../../_shared/CREATE_TIME_ENTRY_MUTATION'
 
 export const TimeEntryForm = ({
   timelines,
