@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { colors } from '../../_shared/colors'
+import { colors } from './colors'
 import PropTypes from 'prop-types'
 
 const IconWrapper = styled.div`

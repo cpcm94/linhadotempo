@@ -44,8 +44,10 @@ export const Form = styled.div`
 
 export const ExportText = styled.pre`
   margin: 0;
-  padding: 2rem 0 0 0;
+  padding: 1rem;
   width: calc(100% - 2.5rem);
+  border: solid 1px ${colors.brown};
+  border-radius: 5px;
 `
 
 export const TextFieldColor = styled(TextField)`

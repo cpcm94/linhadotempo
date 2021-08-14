@@ -33,7 +33,7 @@ export const EditEntryLoader = () => {
     <EditEntryPage
       timelines={filteredTimelines}
       refetchTimelines={refetchTimelines}
-      entryToUpdate={filteredEntryById}
+      entryToEdit={filteredEntryById}
     />
   ) : (
     <NotValidEntry />

@@ -1,33 +1,27 @@
 import React, { useState } from 'react'
 import { TextareaAutosize } from '@material-ui/core'
-import { Entry } from './Entry'
+import { Entry } from './Entry/Entry'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { colors } from '../../colors'
+import { splitArrayIntoChunksOfLength } from './splitArrayIntoChunksOfLength'
 
 const Wrapper = styled.div`
   width: calc(100% - 2.5rem);
 `
 
-export const ImportInput = ({ timelineId }) => {
+export const ImportInput = ({ timeline }) => {
   const [importText, setImportText] = useState('')
 
   const splitString = importText
-    .replaceAll('\r', '')
-    .replaceAll('\n', '')
+    .replaceAll('\r', '\t')
+    .replaceAll('\n', '\t')
     .split('\t')
 
-  const splitArrayIntoChunksOfLen = (arr, len) => {
-    var chunks = [],
-      i = 0,
-      n = arr.length
-    while (i < n) {
-      chunks.push(arr.slice(i, (i += len)))
-    }
-    return chunks
-  }
-  const arraySplitIntoStringEntries = splitArrayIntoChunksOfLen(splitString, 4)
-    .slice(1)
-    .filter((chunk) => chunk.length === 4)
+  const arraySplitIntoStringEntries = splitArrayIntoChunksOfLength(
+    splitString,
+    4
+  ).filter((chunk) => chunk.length === 4)
 
   const arrayOfEntries = arraySplitIntoStringEntries.map((subArray) =>
     subArray.reduce((accumulator, currentValue, index) => {
@@ -44,17 +38,21 @@ export const ImportInput = ({ timelineId }) => {
     <Wrapper>
       <TextareaAutosize
         value={importText}
-        style={{ width: '100%' }}
+        style={{
+          width: '100%',
+          border: `solid 1px ${colors.brown}`,
+          borderRadius: '5px',
+        }}
         onChange={(e) => setImportText(e.target.value)}
       />
       {arrayOfEntries[0] &&
         arrayOfEntries.map((entry, index) => (
-          <Entry entry={entry} key={index} timelineId={timelineId} />
+          <Entry entry={entry} key={index} timeline={timeline} />
         ))}
     </Wrapper>
   )
 }
 
 ImportInput.propTypes = {
-  timelineId: PropTypes.string,
+  timeline: PropTypes.object,
 }

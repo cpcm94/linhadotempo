@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
-import { colors } from '../../_shared/colors'
-import { Button } from '@material-ui/core'
+import { colors } from '../../../colors'
 
 export const StyledTextField = styled(TextField)`
   /* align-self: center; */
@@ -31,7 +30,6 @@ export const StyledTextField = styled(TextField)`
     }
   }
 `
-
 export const StyledYearTextField = styled(TextField)`
   label.Mui-focused {
     color: ${colors.brown};
@@ -57,31 +55,15 @@ export const StyledYearTextField = styled(TextField)`
 export const YearAndRadiosWrapper = styled.div`
   display: flex;
 `
+export const MonthDayWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 export const MonthWrapper = styled.div`
   display: flex;
 `
 
 export const DayWrapper = styled.div`
-  display: flex;
-`
-
-export const StyledButton = styled(Button)`
-  height: 3.5rem;
-  width: calc(100vw - 2rem);
-  && {
-    color: ${colors.white};
-  }
-  &.MuiButton-contained {
-    background-color: ${colors.brown};
-  }
-`
-export const InnerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - 2rem);
-  padding: 0.75rem;
-`
-export const Wrapper = styled.div`
   display: flex;
 `
