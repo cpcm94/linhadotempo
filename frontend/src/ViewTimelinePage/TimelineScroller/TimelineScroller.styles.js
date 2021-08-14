@@ -35,7 +35,7 @@ export const EntryWithoutYearLabelWrapper = styled.div`
   position: relative;
   justify-content: center;
   z-index: 1;
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 0.5rem 0;
   color: ${colors.lightGrey};
   visibility: ${({ isDisplayEntryYear }) =>
     isDisplayEntryYear ? 'hidden' : 'visible'};
@@ -56,5 +56,5 @@ export const EntryWithoutYearLabelWrapper = styled.div`
     padding: 0 0.25rem;
   }
   font-size: 0.85em;
-  color: ${colors.brown};
+  color: ${colors.grey};
 `

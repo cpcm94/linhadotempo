@@ -3,10 +3,10 @@ import { colors } from '../../../../_shared/colors'
 
 export const MonthWrapper = styled.div`
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: center;
   position: relative;
   z-index: 1;
-  padding: 0.5rem 1rem 0.5rem 3rem;
+  padding: 0.5rem;
   visibility: ${({ isDisplayEntryMonth }) =>
     isDisplayEntryMonth ? 'hidden' : 'visible'};
   &:before {
@@ -26,7 +26,7 @@ export const MonthWrapper = styled.div`
     padding: 0 0.25rem;
   }
   font-size: 0.85em;
-  color: ${colors.brown};
+  color: ${colors.grey};
 `
 
 export const MonthEntriesWrapper = styled.div`
@@ -44,22 +44,14 @@ export const EntryWithoutDayWrapper = styled.div``
 export const EntryNameWrapper = styled.div`
   flex: 1;
 `
-export const YearWrapper = styled.div`
-  flex: 0.485;
-`
+export const YearWrapper = styled.div``
 
 export const MonthSpanWrapper = styled.div`
-  flex-direction: row-reverse;
-  align-self: flex-end;
-  flex: ${({ hasYear }) => (hasYear ? 0.78 : 0.29)};
+  display: flex;
+  justify-content: center;
 `
 export const DateText = styled.span`
   background: ${colors.white};
   padding-right: 0.25rem;
   color: ${colors.grey};
-`
-
-export const DateInnerWrapper = styled.div`
-  background: ${colors.white};
-  max-width: ${({ hasYear }) => (!hasYear ? 'auto' : '4.5rem')};
 `

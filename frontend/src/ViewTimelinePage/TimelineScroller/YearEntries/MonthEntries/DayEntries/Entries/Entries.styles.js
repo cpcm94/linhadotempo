@@ -4,8 +4,10 @@ import { colors } from '../../../../../../_shared/colors'
 export const EntryDateWrapper = styled.div`
   display: flex;
   position: relative;
+  justify-content: center;
   z-index: 1;
-  padding: 0.5rem 1rem 0.5rem 3rem;
+  padding: 0.5rem;
+
   visibility: ${({ isDisplayEntryDay }) =>
     isDisplayEntryDay ? 'hidden' : 'visible'};
   &:before {
@@ -21,7 +23,7 @@ export const EntryDateWrapper = styled.div`
     z-index: -1;
   }
   font-size: 0.85em;
-  color: ${colors.brown};
+  color: ${colors.grey};
 `
 
 export const YearSpan = styled.span`
@@ -55,28 +57,34 @@ export const EntryWrapper = styled.div`
 `
 
 export const YearWrapper = styled.div`
-  flex: 1.5;
+  flex: 4;
 `
 
 export const MonthWrapper = styled.div`
-  flex: 0.96;
+  flex: 1;
+  padding-right: 0.25rem;
 `
 
 export const DayWrapper = styled.div`
-  flex: 0.68;
+  flex: 0.2;
 `
 
 export const DateInnerWrapper = styled.div`
-  background: ${colors.white};
-  max-width: ${({ hasYear }) => (!hasYear ? 'auto' : '5rem')};
+  /* background: ${colors.white}; */
+  /* max-width: ${({ hasYear }) => (!hasYear ? 'auto' : '5rem')}; */
 `
 
 export const DayInnerWrapper = styled.div`
-  background: ${colors.white};
-  max-width: ${({ hasMonth }) => (!hasMonth ? 'auto' : '2.5rem')};
+  /* background: ${colors.white}; */
+  /* max-width: ${({ hasMonth }) => (!hasMonth ? 'auto' : '2.5rem')}; */
 `
 export const DateText = styled.span`
   background: ${colors.white};
-  padding-right: 0.25rem;
+  padding: 0 0.25rem;
   color: ${colors.grey};
+`
+export const DateSpan = styled.div`
+  display: flex;
+  padding: 0 0.5rem;
+  background: ${colors.white};
 `
