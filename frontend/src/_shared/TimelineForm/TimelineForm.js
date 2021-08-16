@@ -29,21 +29,21 @@ export const TimelineForm = ({
 
   const toggleImportTextArea = () => {
     setShowImportTextArea(!showImportTextArea)
+    if (showExportText) setShowExportText(false)
   }
 
   const toggleExportText = () => {
     setShowExportText(!showExportText)
+    if (showImportTextArea) setShowImportTextArea(false)
   }
-  const entriesString = `nome\tano\tmês\tdia\t
-${
-  entriesStringInfo &&
-  entriesStringInfo
-    .map(
-      (entryString) => `${entryString}
+  const entriesString =
+    entriesStringInfo &&
+    entriesStringInfo
+      .map(
+        (entryString) => `${entryString}
 `
-    )
-    .join('')
-}`
+      )
+      .join('')
 
   const inputProps = {
     maxLength: 3,
@@ -118,7 +118,7 @@ ${
             )}
             {showImportTextArea && (
               <ImportInput
-                timelineId={timeline.id}
+                timeline={timeline}
                 showImportTextArea={showImportTextArea}
                 setShowImportTextArea={setShowImportTextArea}
               />

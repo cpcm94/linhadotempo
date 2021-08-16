@@ -6,11 +6,7 @@ import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { Container } from '../../_shared/Container'
 
-export const EditEntryPage = ({
-  timelines,
-  refetchTimelines,
-  entryToUpdate,
-}) => {
+export const EditEntryPage = ({ timelines, refetchTimelines, entryToEdit }) => {
   let history = useHistory()
   const goBack = () => {
     history.goBack()
@@ -26,7 +22,7 @@ export const EditEntryPage = ({
         <TimeEntryForm
           timelines={timelines}
           refetchTimelines={refetchTimelines}
-          entryToUpdate={entryToUpdate}
+          entryToEdit={entryToEdit}
         />
       </Container>
     </Layout>
@@ -36,5 +32,5 @@ export const EditEntryPage = ({
 EditEntryPage.propTypes = {
   timelines: PropTypes.array,
   refetchTimelines: PropTypes.func,
-  entryToUpdate: PropTypes.object,
+  entryToEdit: PropTypes.object,
 }

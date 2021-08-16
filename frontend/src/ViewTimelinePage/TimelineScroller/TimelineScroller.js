@@ -66,7 +66,7 @@ export const TimelineScroller = ({
             <>
               <EntryWithoutYearLabelWrapper>
                 <SpanWrapper>
-                  <span>{'Acontecimentos sem ano'}</span>
+                  <span>{'Sem data definida'}</span>
                 </SpanWrapper>
               </EntryWithoutYearLabelWrapper>
               <EntriesWithoutYear

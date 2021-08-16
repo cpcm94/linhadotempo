@@ -16,49 +16,46 @@ import { CREATE_TIME_ENTRY_MUTATION } from '../../_shared/CREATE_TIME_ENTRY_MUTA
 import { MonthSelector } from './MonthSelector/MonthSelector'
 import { DaySelector } from './DaySelector/DaySelector'
 import { YearField } from './YearField/YearField'
+import { yearWithoutNegativeSign } from '../../_shared/yearWithoutNegativeSign'
 
+const createDefaultDateEntryObject = (defaultDateForNewEntry) => {
+  return {
+    timeline_id:
+      defaultDateForNewEntry.timeline !== 'undefined'
+        ? defaultDateForNewEntry.timeline
+        : timelines[0].id,
+    name: '',
+    year: yearWithoutNegativeSign(defaultDateForNewEntry),
+    month: defaultDateForNewEntry.month
+      ? parseInt(defaultDateForNewEntry.month)
+      : '',
+    day: defaultDateForNewEntry.day ? parseInt(defaultDateForNewEntry.day) : '',
+    annual_importance: false,
+    monthly_importance: false,
+  }
+}
+const createentryToEditEntryObject = (entryToEdit) => {
+  return {
+    timeline_id: entryToEdit.timeline_id,
+    name: entryToEdit.name,
+    year: yearWithoutNegativeSign(entryToEdit),
+    month: entryToEdit.month ? entryToEdit.month : '',
+    day: entryToEdit.day ? entryToEdit.day : '',
+    annual_importance: false,
+    monthly_importance: false,
+  }
+}
 export const TimeEntryForm = ({
   timelines,
   refetchTimelines,
-  defaultDate,
-  entryToUpdate,
+  defaultDateForNewEntry,
+  entryToEdit,
 }) => {
-  const yearWithoutNegative = (entry) => {
-    if (entry && entry.year) {
-      if (entry.year.toString().startsWith('-')) {
-        return entry.year.toString().substr(1)
-      } else if (!entry.year.toString().startsWith('-')) {
-        return entry.year.toString()
-      } else {
-        return ''
-      }
-    }
-  }
-
   const [entry, setEntry] = useState(
-    defaultDate
-      ? {
-          timeline_id:
-            defaultDate.timeline !== 'undefined'
-              ? defaultDate.timeline
-              : timelines[0].id,
-          name: '',
-          year: yearWithoutNegative(defaultDate),
-          month: defaultDate.month ? parseInt(defaultDate.month) : '',
-          day: defaultDate.day ? parseInt(defaultDate.day) : '',
-          annual_importance: false,
-          monthly_importance: false,
-        }
-      : entryToUpdate
-      ? {
-          timeline_id: entryToUpdate.timeline_id,
-          name: entryToUpdate.name,
-          year: yearWithoutNegative(entryToUpdate),
-          month: entryToUpdate.month ? entryToUpdate.month : '',
-          day: entryToUpdate.day ? entryToUpdate.day : '',
-          annual_importance: false,
-          monthly_importance: false,
-        }
+    defaultDateForNewEntry
+      ? createDefaultDateEntryObject(defaultDateForNewEntry)
+      : entryToEdit
+      ? createentryToEditEntryObject(entryToEdit)
       : {
           timeline_id: timelines[0].id,
           name: '',
@@ -69,12 +66,13 @@ export const TimeEntryForm = ({
           monthly_importance: false,
         }
   )
-  const hasDefaultDateAndYear = defaultDate && defaultDate.year
-  const hasEntryToUpdateAndYear = entryToUpdate && entryToUpdate.year
+  const hasDefaultDateAndYear =
+    defaultDateForNewEntry && defaultDateForNewEntry.year
+  const hasentryToEditAndYear = entryToEdit && entryToEdit.year
   const [radioValue, setRadioValue] = useState(
-    hasDefaultDateAndYear && defaultDate.year.startsWith('-')
+    hasDefaultDateAndYear && defaultDateForNewEntry.year.startsWith('-')
       ? 'AC'
-      : hasEntryToUpdateAndYear && entryToUpdate.year.toString().startsWith('-')
+      : hasentryToEditAndYear && entryToEdit.year.toString().startsWith('-')
       ? 'AC'
       : 'DC'
   )
@@ -119,7 +117,7 @@ export const TimeEntryForm = ({
     UPDATE_TIME_ENTRY_MUTATION,
     {
       variables: {
-        id: entryToUpdate ? entryToUpdate.id : null,
+        id: entryToEdit ? entryToEdit.id : null,
         input: convertFormDataValues(entry, radioValue),
       },
     }
@@ -157,10 +155,15 @@ export const TimeEntryForm = ({
     })
   }
 
+  const aboveMaxNameLength = entry.name.length > 255
+  const emptyName = entry.name.trim() === ''
+  const dayWithoutYearOrMonth =
+    entry.day !== '' && (entry.month === '' || entry.year === '')
+  const monthWithoutYear = entry.month !== '' && entry.year === ''
+
   const disableSubmitButton =
-    (entry.year === '' && (entry.month !== '' || entry.day !== '')) ||
-    (entry.month === '' && entry.day !== '') ||
-    entry.name.trim() === ''
+    aboveMaxNameLength || dayWithoutYearOrMonth || monthWithoutYear || emptyName
+
   const singleTimeline = timelines.length === 1
   const showSingleTimeline = entry.timeline_id
     ? entry.timeline_id
@@ -225,7 +228,7 @@ export const TimeEntryForm = ({
                   Editar Acontecimento
                 </StyledButton>
                 <DeleteEntryButton
-                  entryId={entryToUpdate.id}
+                  entryId={entryToEdit.id}
                   afterDelete={() =>
                     refetchTimelines().then(() => {
                       goBack()
@@ -253,6 +256,6 @@ export const TimeEntryForm = ({
 TimeEntryForm.propTypes = {
   timelines: PropTypes.array,
   refetchTimelines: PropTypes.func,
-  defaultDate: PropTypes.object,
-  entryToUpdate: PropTypes.object,
+  defaultDateForNewEntry: PropTypes.object,
+  entryToEdit: PropTypes.object,
 }

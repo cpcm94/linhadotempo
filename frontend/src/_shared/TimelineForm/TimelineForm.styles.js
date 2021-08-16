@@ -24,6 +24,8 @@ export const Icon = styled.div`
 export const ImportExportButtons = styled.div`
   display: flex;
   margin: 1rem 0;
+  justify-content: space-between;
+  width: calc(100% - 2.5rem);
 `
 
 export const Wrapper = styled.div`
@@ -42,8 +44,10 @@ export const Form = styled.div`
 
 export const ExportText = styled.pre`
   margin: 0;
-  padding: 2rem 0 0 0;
+  padding: 1rem;
   width: calc(100% - 2.5rem);
+  border: solid 1px ${colors.brown};
+  border-radius: 5px;
 `
 
 export const TextFieldColor = styled(TextField)`
@@ -68,7 +72,7 @@ export const TextFieldColor = styled(TextField)`
 
 export const StyledButton = styled(Button)`
   height: 56px;
-  margin: 0 1rem !important;
+
   && {
     color: ${colors.white};
   }

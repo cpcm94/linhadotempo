@@ -1,6 +1,10 @@
 export const convertFormDataValues = (entry, radioValue) => {
   const newEntry = { ...entry }
-  newEntry.year = parseInt(newEntry.year)
+  if (newEntry.year === '') {
+    newEntry.year = null
+  } else {
+    newEntry.year = parseInt(newEntry.year)
+  }
   if (newEntry.month === '') {
     newEntry.month = null
   }

@@ -7,12 +7,13 @@ import {
   YearWrapper,
   MonthWrapper,
   DayWrapper,
-  YearSpan,
-  MonthSpan,
-  DaySpan,
+  // YearSpan,
+  // MonthSpan,
+  // DaySpan,
+  DateSpan,
   DateText,
-  DateInnerWrapper,
-  DayInnerWrapper,
+  // DateInnerWrapper,
+  // DayInnerWrapper,
 } from './Entries.styles'
 import { EntryAndIconWrapper, EntryIcon } from '../../../YearEntries.styles'
 import PropTypes from 'prop-types'
@@ -27,8 +28,8 @@ export const Entries = ({
   newEntryId,
   forwardedRef,
   displayEntry,
-  hasMonth,
-  hasYear,
+  // hasMonth,
+  // hasYear,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -53,27 +54,21 @@ export const Entries = ({
   return (
     <Wrapper>
       <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
-        <DayWrapper>
-          <DayInnerWrapper hasMonth={hasMonth}>
-            <DaySpan>{day}</DaySpan>
-            {!hasMonth ? <DateText> de</DateText> : ''}
-          </DayInnerWrapper>
-        </DayWrapper>
-        <MonthWrapper>
-          {!hasMonth && (
-            <DateInnerWrapper hasYear={hasYear}>
-              <MonthSpan>{monthName}</MonthSpan>
-            </DateInnerWrapper>
-          )}
-        </MonthWrapper>
-        <YearWrapper>
-          {!hasYear && !hasMonth && (
-            <>
+        <DateSpan>
+          <DayWrapper>{day}</DayWrapper>
+          {
+            <MonthWrapper>
+              <DateText>de</DateText>
+              {monthName}
+            </MonthWrapper>
+          }
+          {
+            <YearWrapper>
               <DateText> de</DateText>
-              <YearSpan>{yearAC}</YearSpan>
-            </>
-          )}
-        </YearWrapper>
+              {yearAC}
+            </YearWrapper>
+          }
+        </DateSpan>
       </EntryDateWrapper>
       <EntriesWrapper>
         {entries.map((entry, index) => (
