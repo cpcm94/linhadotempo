@@ -5,22 +5,17 @@ import {
   StyledTextField,
   StyledButton,
   InnerWrapper,
-  MonthWrapper,
-  DayWrapper,
-  StyledYearTextField,
-  YearAndRadiosWrapper,
 } from './TimeEntryForm.styles'
 import MenuItem from '@material-ui/core/MenuItem'
-import { Months, Days } from './DateArrays'
 import { useMutation } from '@apollo/client'
 import { UPDATE_TIME_ENTRY_MUTATION } from './UPDATE_TIME_ENTRY_MUTATION'
 import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from './convertFormDataValues'
-import { monthNameArray } from '../../_shared/monthNameArray'
-import { XIcon } from '../../_shared/XIcon'
-import { YearOptionSelect } from './YearOptionSelect'
 import { DeleteEntryButton } from './DeleteEntryButton'
 import { CREATE_TIME_ENTRY_MUTATION } from '../../_shared/CREATE_TIME_ENTRY_MUTATION'
+import { MonthSelector } from './MonthSelector/MonthSelector'
+import { DaySelector } from './DaySelector/DaySelector'
+import { YearField } from './YearField/YearField'
 
 export const TimeEntryForm = ({
   timelines,
@@ -86,6 +81,25 @@ export const TimeEntryForm = ({
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
     newEntry[entryPropName] = e.target.value
+    setEntry(newEntry)
+  }
+
+  const setYear = (year) => {
+    const newEntry = { ...entry }
+    newEntry.year = year
+    setEntry(newEntry)
+  }
+  const handleMonthChange = (month) => (e) => {
+    e.preventDefault()
+    const newEntry = { ...entry }
+    newEntry.month = month
+    setEntry(newEntry)
+  }
+
+  const handleDayChange = (day) => (e) => {
+    e.preventDefault()
+    const newEntry = { ...entry }
+    newEntry.day = day
     setEntry(newEntry)
   }
 
@@ -182,59 +196,24 @@ export const TimeEntryForm = ({
               value={entry.name}
               onChange={handleChange('name')}
             />
-            <YearAndRadiosWrapper>
-              <StyledYearTextField
-                type="number"
-                id="entryYear"
-                variant="outlined"
-                label="Ano"
-                value={entry.year}
-                onChange={handleChange('year')}
-              />
-              <YearOptionSelect
-                setRadioValue={setRadioValue}
-                radioValue={radioValue}
-              />
-            </YearAndRadiosWrapper>
-            <MonthWrapper>
-              <StyledTextField
-                select
-                id="entryMonth"
-                variant="outlined"
-                label="Mês"
-                value={entry.month}
-                onChange={handleChange('month')}
-              >
-                <MenuItem value={''}>{''}</MenuItem>
-                {Months.map((month, index) => (
-                  <MenuItem key={index} value={month}>
-                    {monthNameArray[month]}
-                  </MenuItem>
-                ))}
-              </StyledTextField>
-              {entry.month !== '' && (
-                <XIcon onClick={resetFieldValue('month')} />
-              )}
-            </MonthWrapper>
-            <DayWrapper>
-              <StyledTextField
-                select
-                id="entryDay"
-                variant="outlined"
-                label="Dia"
-                value={entry.day}
-                onChange={handleChange('day')}
-              >
-                <MenuItem value={''}>{''}</MenuItem>
-                {Days.map((day, index) => (
-                  <MenuItem key={index} value={day}>
-                    {day}
-                  </MenuItem>
-                ))}
-              </StyledTextField>
-              {entry.day !== '' && <XIcon onClick={resetFieldValue('day')} />}
-            </DayWrapper>
-
+            <YearField
+              changeYear={handleChange}
+              setYear={setYear}
+              resetYear={resetFieldValue}
+              year={entry.year}
+              radioValue={radioValue}
+              setRadioValue={setRadioValue}
+            />
+            <MonthSelector
+              selectedMonth={entry.month}
+              changeMonth={handleMonthChange}
+              resetMonth={resetFieldValue}
+            />
+            <DaySelector
+              selectedDay={entry.day}
+              changeDay={handleDayChange}
+              resetDay={resetFieldValue}
+            />
             {entryToUpdate ? (
               <>
                 <StyledButton

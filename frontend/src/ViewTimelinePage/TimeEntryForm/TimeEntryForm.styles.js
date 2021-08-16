@@ -5,7 +5,6 @@ import { Button } from '@material-ui/core'
 import RadioGroup from '@material-ui/core/RadioGroup'
 
 export const StyledTextField = styled(TextField)`
-  /* align-self: center; */
   label.Mui-focused {
     color: ${colors.brown};
   }
