@@ -15,7 +15,8 @@ const Button = styled.div`
   min-height: 1.8rem;
   width: 1.8rem;
   height: 1.8rem;
-  font-size: 1.6rem;
+  font-size: 0.7rem;
+  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;

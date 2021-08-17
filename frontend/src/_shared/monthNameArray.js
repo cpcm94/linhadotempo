@@ -13,3 +13,19 @@ export const monthNameArray = [
   'Novembro',
   'Dezembro',
 ]
+
+export const abvMonthNameArray = [
+  'buffer',
+  'Jan',
+  'Fev',
+  'Mar',
+  'Abr',
+  'Mai',
+  'Jun',
+  'Jul',
+  'Ago',
+  'Set',
+  'Out',
+  'Nov',
+  'Dez',
+]

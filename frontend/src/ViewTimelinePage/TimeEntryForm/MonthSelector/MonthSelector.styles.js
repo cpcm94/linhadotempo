@@ -7,9 +7,10 @@ export const Wrapper = styled.div`
 
 export const MonthWrapper = styled.div`
   padding: 0.5rem 0.25rem;
-  min-width: 33%;
+  min-width: 25%;
   border-radius: 5px;
-  border: ${({ selected }) =>
-    selected ? `solid 1px ${colors.brown}` : `solid 1px ${colors.white}`};
+  background-color: ${({ selected }) =>
+    selected ? colors.brown : colors.white};
+  color: ${({ selected }) => (selected ? colors.white : colors.black)};
   cursor: pointer;
 `

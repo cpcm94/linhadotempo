@@ -7,13 +7,7 @@ export const EntryNameInput = ({ entryName, changeEntryName, resetName }) => {
   return (
     <>
       <SectionTitle title={'Acontecimento'} resetSection={resetName('name')} />
-      <div>
-        <Input
-          type="text"
-          value={entryName}
-          onChange={changeEntryName('name')}
-        />
-      </div>
+      <Input type="text" value={entryName} onChange={changeEntryName('name')} />
     </>
   )
 }

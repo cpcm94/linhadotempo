@@ -43,7 +43,11 @@ export const EditableTimeline = ({ timeline }) => {
         const payload = {
           variables: {
             id: timeline.id,
-            input: timelineObject,
+            input: {
+              name: timelineObject.name,
+              color: timelineObject.color,
+              initials: timelineObject.initials,
+            },
           },
         }
         updateTimeline(payload)
