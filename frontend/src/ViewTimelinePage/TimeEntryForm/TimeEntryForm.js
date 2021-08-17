@@ -17,6 +17,7 @@ import { DaySelector } from './DaySelector/DaySelector'
 import { YearField } from './YearField/YearField'
 import { yearWithoutNegativeSign } from '../../_shared/yearWithoutNegativeSign'
 import { convertFormDataValues } from '../../_shared/convertFormDataValues'
+import { EntryNameInput } from './EntryNameInput/EntryNameInput'
 
 const createDefaultDateEntryObject = (defaultDateForNewEntry) => {
   return {
@@ -191,13 +192,10 @@ export const TimeEntryForm = ({
                 </MenuItem>
               ))}
             </StyledTextField>
-            <StyledTextField
-              type="text"
-              id="entryName"
-              variant="outlined"
-              label="Nome"
-              value={entry.name}
-              onChange={handleChange('name')}
+            <EntryNameInput
+              entryName={entry.name}
+              changeEntryName={handleChange}
+              resetName={resetFieldValue}
             />
             <YearField
               changeYear={handleChange}
@@ -217,6 +215,7 @@ export const TimeEntryForm = ({
               changeDay={handleDayChange}
               resetDay={resetFieldValue}
             />
+
             {entryToEdit ? (
               <>
                 <StyledButton

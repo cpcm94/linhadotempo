@@ -1,24 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Days } from '../../../_shared/DateArrays'
-import {
-  DayTitle,
-  Wrapper,
-  DayWrapper,
-  XIconWrapper,
-} from './DaySelector.styles'
-import { XIcon } from '../../../_shared/XIcon'
+import { Wrapper, DayWrapper } from './DaySelector.styles'
+import { SectionTitle } from '../SectionTitle/SectionTitle'
 
 export const DaySelector = ({ selectedDay, changeDay, resetDay }) => {
   const isSelected = (day) => selectedDay === day
   return (
     <>
-      <DayTitle>
-        <span>Dia</span>
-        <XIconWrapper>
-          <XIcon onClick={resetDay('day')} />
-        </XIconWrapper>
-      </DayTitle>
+      <SectionTitle title={'Dia'} resetSection={resetDay('day')} />
       <Wrapper>
         {Days.map((day, index) => {
           return (
