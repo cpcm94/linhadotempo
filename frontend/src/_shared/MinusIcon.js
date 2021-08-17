@@ -7,21 +7,31 @@ const Wrapper = styled.div`
   cursor: pointer;
 `
 
-export const XIcon = ({ onClick }) => {
+export const MinusIcon = ({ onClick }) => {
   return (
     <Wrapper onClick={onClick}>
       <svg
-        width="30"
-        height="30"
+        width="40"
+        height="40"
         viewBox="0 0 50 50"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g>
-          <path
+        <g id="Layer_1">
+          <title>Layer 1</title>
+          <ellipse
+            ry="13.23671"
+            rx="13.52657"
             id="svg_1"
-            d="m9.57692,17.06594l6.99372,-6.52747l7.42932,6.93398l7.42932,-6.93398l6.99379,6.52747l-7.42932,6.93403l7.42932,6.93403l-6.99379,6.52754l-7.42932,-6.93404l-7.42932,6.93404l-6.99372,-6.52754l7.42926,-6.93403l-7.42926,-6.93403z"
+            cy="24"
+            cx="24"
             stroke={colors.brown}
             fill={colors.brown}
+          />
+          <path
+            id="svg_3"
+            d="m16.94686,21.53623l14.10628,0l0,4.92754l-14.10628,0l0,-4.92754z"
+            stroke={colors.brown}
+            fill={colors.white}
           />
         </g>
       </svg>
@@ -29,6 +39,6 @@ export const XIcon = ({ onClick }) => {
   )
 }
 
-XIcon.propTypes = {
+MinusIcon.propTypes = {
   onClick: PropTypes.func,
 }

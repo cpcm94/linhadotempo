@@ -4,7 +4,6 @@ import { colors } from '../../_shared/colors'
 import { Button } from '@material-ui/core'
 
 export const StyledTextField = styled(TextField)`
-  /* align-self: center; */
   label.Mui-focused {
     color: ${colors.brown};
   }
@@ -52,18 +51,6 @@ export const StyledYearTextField = styled(TextField)`
       border-color: ${colors.brown};
     }
   }
-`
-
-export const YearAndRadiosWrapper = styled.div`
-  display: flex;
-`
-
-export const MonthWrapper = styled.div`
-  display: flex;
-`
-
-export const DayWrapper = styled.div`
-  display: flex;
 `
 
 export const StyledButton = styled(Button)`

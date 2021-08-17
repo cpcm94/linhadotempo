@@ -23,7 +23,7 @@ const IconWrapper = styled.div`
 `
 const Wrapper = styled.div`
   display: flex;
-  margin: 2rem 0 0 1rem;
+  margin: 0rem 0 0 -1rem;
 `
 
 export const YearOptionSelect = ({ setRadioValue, radioValue }) => {
