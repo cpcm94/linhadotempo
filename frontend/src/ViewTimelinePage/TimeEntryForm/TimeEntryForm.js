@@ -228,9 +228,9 @@ export const TimeEntryForm = ({
                 </StyledButton>
                 <DeleteEntryButton
                   entryId={entryToEdit.id}
-                  afterDelete={() =>
+                  afterDelete={(deletedEntry) =>
                     refetchTimelines().then(() => {
-                      goBack()
+                      goBack(deletedEntry)
                     })
                   }
                 />

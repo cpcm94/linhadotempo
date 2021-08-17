@@ -6,6 +6,9 @@ export const DELETE_TIME_ENTRY_MUTATION = gql`
       id
       timeline_id
       name
+      year
+      month
+      day
     }
   }
 `

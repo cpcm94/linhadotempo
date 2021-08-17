@@ -19,6 +19,9 @@ import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { TimelineScrollerContainer } from './TimelineScrollerContainer'
 
+const HASH_UPDATE_DEBOUNCE_MILISECONDS = 500
+let timeoutId = null
+
 export const TimelinePage = ({
   timelines,
   previousTimelines,
@@ -129,13 +132,18 @@ export const TimelinePage = ({
         !isTheRightMonth(displayEntry, window.location.hash) ||
         !isTheRightDay(displayEntry, window.location.hash))
     ) {
-      history.push({
-        pathname: '/viewTimeline/',
-        search: `?timelines=${timelinesString}`,
-        hash: `#date=${displayEntry.year}${
-          displayEntry.month ? `/${displayEntry.month}` : ''
-        }${displayEntry.day ? `/${displayEntry.day}` : ''}`,
-      })
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+      timeoutId = setTimeout(() => {
+        history.push({
+          pathname: '/viewTimeline/',
+          search: `?timelines=${timelinesString}`,
+          hash: `#date=${displayEntry.year}${
+            displayEntry.month ? `/${displayEntry.month}` : ''
+          }${displayEntry.day ? `/${displayEntry.day}` : ''}`,
+        })
+      }, HASH_UPDATE_DEBOUNCE_MILISECONDS)
     }
   }, [displayEntry, history, timelinesString])
 
