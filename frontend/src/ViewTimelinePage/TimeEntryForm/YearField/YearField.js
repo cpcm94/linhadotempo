@@ -3,14 +3,12 @@ import PropTypes from 'prop-types'
 import {
   YearAndRadiosWrapper,
   StyledYearTextField,
-  YearTitle,
-  XIconWrapper,
   YearFieldAndButtons,
 } from './YearField.styles'
-import { YearOptionSelect } from '../YearOptionSelect'
-import { XIcon } from '../../../_shared/XIcon'
+import { YearOptionSelect } from '../../../_shared/YearOptionSelect'
 import { PlusIcon } from '../../../_shared/PlusIcon'
 import { MinusIcon } from '../../../_shared/MinusIcon'
+import { SectionTitle } from '../SectionTitle/SectionTitle'
 
 export const YearField = ({
   year,
@@ -21,12 +19,18 @@ export const YearField = ({
   setYear,
 }) => {
   const incrementByOne = (year) => {
+    if (year === '') {
+      return setYear('1')
+    }
     const newYear = parseInt(year) + 1
     const stringNewYear = newYear.toString()
     setYear(stringNewYear)
   }
   const decreaseByOne = (year) => {
     if (parseInt(year) === 0) return
+    if (year === '') {
+      return setYear('0')
+    }
     const newYear = parseInt(year) - 1
     const stringNewYear = newYear.toString()
     setYear(stringNewYear)
@@ -34,12 +38,7 @@ export const YearField = ({
 
   return (
     <>
-      <YearTitle>
-        <span>Ano</span>
-        <XIconWrapper>
-          <XIcon onClick={resetYear('year')} />
-        </XIconWrapper>
-      </YearTitle>
+      <SectionTitle title={'Ano'} resetSection={resetYear('year')} />
       <YearAndRadiosWrapper>
         <YearFieldAndButtons>
           <MinusIcon onClick={() => decreaseByOne(year)} />

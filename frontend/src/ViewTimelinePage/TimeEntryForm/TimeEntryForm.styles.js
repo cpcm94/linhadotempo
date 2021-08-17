@@ -53,18 +53,6 @@ export const StyledYearTextField = styled(TextField)`
   }
 `
 
-export const YearAndRadiosWrapper = styled.div`
-  display: flex;
-`
-
-export const MonthWrapper = styled.div`
-  display: flex;
-`
-
-export const DayWrapper = styled.div`
-  display: flex;
-`
-
 export const StyledButton = styled(Button)`
   height: 3.5rem;
   width: calc(100vw - 2rem);
