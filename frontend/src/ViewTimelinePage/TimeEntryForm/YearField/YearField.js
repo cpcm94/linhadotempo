@@ -7,7 +7,7 @@ import {
   XIconWrapper,
   YearFieldAndButtons,
 } from './YearField.styles'
-import { YearOptionSelect } from '../YearOptionSelect'
+import { YearOptionSelect } from '../../../_shared/YearOptionSelect'
 import { XIcon } from '../../../_shared/XIcon'
 import { PlusIcon } from '../../../_shared/PlusIcon'
 import { MinusIcon } from '../../../_shared/MinusIcon'

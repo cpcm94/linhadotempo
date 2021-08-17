@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Days } from '../DateArrays'
+import { Days } from '../../../_shared/DateArrays'
 import {
   DayTitle,
   Wrapper,

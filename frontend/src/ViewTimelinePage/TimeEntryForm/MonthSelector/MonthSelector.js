@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { monthNameArray } from '../../../_shared/monthNameArray'
-import { Months } from '../DateArrays'
+import { Months } from '../../../_shared/DateArrays'
 import {
   MonthTitle,
   Wrapper,

@@ -10,13 +10,13 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { useMutation } from '@apollo/client'
 import { UPDATE_TIME_ENTRY_MUTATION } from './UPDATE_TIME_ENTRY_MUTATION'
 import { useHistory } from 'react-router-dom'
-import { convertFormDataValues } from './convertFormDataValues'
 import { DeleteEntryButton } from './DeleteEntryButton'
 import { CREATE_TIME_ENTRY_MUTATION } from '../../_shared/CREATE_TIME_ENTRY_MUTATION'
 import { MonthSelector } from './MonthSelector/MonthSelector'
 import { DaySelector } from './DaySelector/DaySelector'
 import { YearField } from './YearField/YearField'
 import { yearWithoutNegativeSign } from '../../_shared/yearWithoutNegativeSign'
+import { convertFormDataValues } from '../../_shared/convertFormDataValues'
 
 const createDefaultDateEntryObject = (defaultDateForNewEntry) => {
   return {
@@ -34,7 +34,7 @@ const createDefaultDateEntryObject = (defaultDateForNewEntry) => {
     monthly_importance: false,
   }
 }
-const createentryToEditEntryObject = (entryToEdit) => {
+const createEntryToEditEntryObject = (entryToEdit) => {
   return {
     timeline_id: entryToEdit.timeline_id,
     name: entryToEdit.name,
@@ -55,7 +55,7 @@ export const TimeEntryForm = ({
     defaultDateForNewEntry
       ? createDefaultDateEntryObject(defaultDateForNewEntry)
       : entryToEdit
-      ? createentryToEditEntryObject(entryToEdit)
+      ? createEntryToEditEntryObject(entryToEdit)
       : {
           timeline_id: timelines[0].id,
           name: '',
