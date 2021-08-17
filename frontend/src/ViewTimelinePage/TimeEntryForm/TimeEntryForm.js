@@ -217,7 +217,7 @@ export const TimeEntryForm = ({
               changeDay={handleDayChange}
               resetDay={resetFieldValue}
             />
-            {entryToUpdate ? (
+            {entryToEdit ? (
               <>
                 <StyledButton
                   disabled={disableSubmitButton}
