@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import {
   Wrapper,
   StyledTextField,
-  StyledButton,
+  StyledUpdateButton,
+  StyledCreateButton,
   InnerWrapper,
+  EditButtonsWrapper,
 } from './TimeEntryForm.styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import { useMutation } from '@apollo/client'
@@ -12,12 +14,10 @@ import { UPDATE_TIME_ENTRY_MUTATION } from './UPDATE_TIME_ENTRY_MUTATION'
 import { useHistory } from 'react-router-dom'
 import { DeleteEntryButton } from './DeleteEntryButton'
 import { CREATE_TIME_ENTRY_MUTATION } from '../../_shared/CREATE_TIME_ENTRY_MUTATION'
-import { MonthSelector } from './MonthSelector/MonthSelector'
-import { DaySelector } from './DaySelector/DaySelector'
-import { YearField } from './YearField/YearField'
 import { yearWithoutNegativeSign } from '../../_shared/yearWithoutNegativeSign'
 import { convertFormDataValues } from '../../_shared/convertFormDataValues'
 import { EntryNameInput } from './EntryNameInput/EntryNameInput'
+import { DateDisplay } from './DateDisplay/DateDisplay'
 
 const createDefaultDateEntryObject = (defaultDateForNewEntry) => {
   return {
@@ -80,25 +80,6 @@ export const TimeEntryForm = ({
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
     newEntry[entryPropName] = e.target.value
-    setEntry(newEntry)
-  }
-
-  const setYear = (year) => {
-    const newEntry = { ...entry }
-    newEntry.year = year
-    setEntry(newEntry)
-  }
-  const handleMonthChange = (month) => (e) => {
-    e.preventDefault()
-    const newEntry = { ...entry }
-    newEntry.month = month
-    setEntry(newEntry)
-  }
-
-  const handleDayChange = (day) => (e) => {
-    e.preventDefault()
-    const newEntry = { ...entry }
-    newEntry.day = day
     setEntry(newEntry)
   }
 
@@ -192,40 +173,19 @@ export const TimeEntryForm = ({
                 </MenuItem>
               ))}
             </StyledTextField>
+            <DateDisplay
+              entry={entry}
+              setEntry={setEntry}
+              radioValue={radioValue}
+              setRadioValue={setRadioValue}
+            />
             <EntryNameInput
               entryName={entry.name}
               changeEntryName={handleChange}
               resetName={resetFieldValue}
             />
-            <YearField
-              changeYear={handleChange}
-              setYear={setYear}
-              resetYear={resetFieldValue}
-              year={entry.year}
-              radioValue={radioValue}
-              setRadioValue={setRadioValue}
-            />
-            <MonthSelector
-              selectedMonth={entry.month}
-              changeMonth={handleMonthChange}
-              resetMonth={resetFieldValue}
-            />
-            <DaySelector
-              selectedDay={entry.day}
-              changeDay={handleDayChange}
-              resetDay={resetFieldValue}
-            />
-
             {entryToEdit ? (
-              <>
-                <StyledButton
-                  disabled={disableSubmitButton}
-                  variant="contained"
-                  onClick={submitUpdateEntry}
-                  id="submitUpdateButton"
-                >
-                  Editar Acontecimento
-                </StyledButton>
+              <EditButtonsWrapper>
                 <DeleteEntryButton
                   entryId={entryToEdit.id}
                   afterDelete={(deletedEntry) =>
@@ -234,16 +194,24 @@ export const TimeEntryForm = ({
                     })
                   }
                 />
-              </>
+                <StyledUpdateButton
+                  disabled={disableSubmitButton}
+                  variant="contained"
+                  onClick={submitUpdateEntry}
+                  id="submitUpdateButton"
+                >
+                  Editar Acontecimento
+                </StyledUpdateButton>
+              </EditButtonsWrapper>
             ) : (
-              <StyledButton
+              <StyledCreateButton
                 disabled={disableSubmitButton}
                 variant="contained"
                 onClick={submitCreateEntry}
                 id="submitCreateButton"
               >
                 Criar Acontecimento
-              </StyledButton>
+              </StyledCreateButton>
             )}
           </InnerWrapper>
         </Wrapper>

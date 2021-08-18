@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { monthNameArray } from '../../../_shared/monthNameArray'
+import { abvMonthNameArray } from '../../../_shared/monthNameArray'
 import { Months } from '../../../_shared/DateArrays'
 import { Wrapper, MonthWrapper } from './MonthSelector.styles'
 import { SectionTitle } from '../SectionTitle/SectionTitle'
@@ -18,7 +18,7 @@ export const MonthSelector = ({ selectedMonth, changeMonth, resetMonth }) => {
               selected={isSelected(month)}
               onClick={changeMonth(month)}
             >
-              {monthNameArray[month]}
+              {abvMonthNameArray[month]}
             </MonthWrapper>
           )
         })}

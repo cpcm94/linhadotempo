@@ -52,10 +52,27 @@ export const StyledYearTextField = styled(TextField)`
     }
   }
 `
+export const EditButtonsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: calc(100% - 1.5rem);
+  position: fixed;
+  bottom: 5%;
+`
 
-export const StyledButton = styled(Button)`
+export const StyledUpdateButton = styled(Button)`
   height: 3.5rem;
-  width: calc(100vw - 2rem);
+  width: 100%;
+  && {
+    color: ${colors.white};
+  }
+  &.MuiButton-contained {
+    background-color: ${colors.brown};
+  }
+`
+
+export const StyledCreateButton = styled(Button)`
+  height: 3.5rem;
   && {
     color: ${colors.white};
   }
@@ -66,6 +83,7 @@ export const StyledButton = styled(Button)`
 export const InnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   min-height: calc(100vh - 2rem);
   padding: 0.75rem;
 `

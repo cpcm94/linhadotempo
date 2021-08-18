@@ -7,7 +7,7 @@ export const Input = styled(TextareaAutosize)`
   border: 0;
   width: calc(100vw - 2rem);
   padding: 0;
-  margin: 1rem 0;
+  margin: 1rem 0 1rem 0.5rem;
   &:focus {
     outline: none;
   }
