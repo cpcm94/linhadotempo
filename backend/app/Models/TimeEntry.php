@@ -11,6 +11,6 @@ class TimeEntry extends Model
     protected $fillable = ['name', 'entry_date', 'annual_importance', 'monthly_importance', 'timeline_id'];
 
     public function timeline() {
-        return $this->belongsTo(Timeline::class);
+        return $this->belongsToMany(Timeline::class);
     }
 }

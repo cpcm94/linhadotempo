@@ -20,7 +20,7 @@ type Timeline {
     name: String!
     color: String
     initials: String
-    time_entries: [TimeEntry] @hasMany
+    time_entries: [TimeEntry] @belongsToMany
     user_id: String
     user: User @belongsTo
 }
@@ -34,7 +34,7 @@ type TimeEntry {
     annual_importance: Boolean!
     monthly_importance: Boolean!
     timeline_id: String
-    timeline: Timeline @belongsTo
+    timeline: Timeline @belongsToMany
 }
 
 type LoginResponse {
