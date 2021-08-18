@@ -13,9 +13,6 @@ class RemoveTimelineIdColumnFromTimeEntries extends Migration
      */
     public function up()
     {
-        // Schema::table('time_entries', function (Blueprint $table) {
-        //     $table->dropForeign(['timeline_id']);
-        // });
 
         Schema::table('time_entries', function (Blueprint $table) {
             $table->dropColumn('timeline_id');
