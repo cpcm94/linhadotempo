@@ -5,6 +5,7 @@ import { YearField } from '../YearField/YearField'
 import PropTypes from 'prop-types'
 import { DateSpan, DateWrapper } from './DateDisplay.styles'
 import { monthNameArray } from '../../../_shared/monthNameArray'
+import { ResetFieldButton } from './ResetFieldButton'
 
 export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
   const [showDayPicker, setShowDayPicker] = useState(false)
@@ -63,25 +64,42 @@ export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
   return (
     <>
       <DateWrapper>
-        <DateSpan onClick={() => displayDatePicker('day')}>
+        <DateSpan
+          selected={showDayPicker}
+          onClick={() => displayDatePicker('day')}
+        >
           {checkIfEmptyString(entry.day) ? 'Dia' : entry.day}
+          {showDayPicker && (
+            <ResetFieldButton resetField={resetFieldValue('day')} />
+          )}
         </DateSpan>
         /
-        <DateSpan onClick={() => displayDatePicker('month')}>
+        <DateSpan
+          selected={showMonthPicker}
+          onClick={() => displayDatePicker('month')}
+        >
           {checkIfEmptyString(entry.month)
             ? 'Mês'
             : monthNameArray[entry.month]}
+          {showMonthPicker && (
+            <ResetFieldButton resetField={resetFieldValue('month')} />
+          )}
         </DateSpan>
         /
-        <DateSpan onClick={() => displayDatePicker('year')}>
+        <DateSpan
+          selected={showYearPicker}
+          onClick={() => displayDatePicker('year')}
+        >
           {checkIfEmptyString(entry.year) ? 'Ano' : entry.year}
+          {showYearPicker && (
+            <ResetFieldButton resetField={resetFieldValue('year')} />
+          )}
         </DateSpan>
       </DateWrapper>
       {showYearPicker && (
         <YearField
           changeYear={handleChange}
           setYear={setYear}
-          resetYear={resetFieldValue}
           year={entry.year}
           radioValue={radioValue}
           setRadioValue={setRadioValue}
@@ -91,15 +109,10 @@ export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
         <MonthSelector
           selectedMonth={entry.month}
           changeMonth={handleMonthChange}
-          resetMonth={resetFieldValue}
         />
       )}
       {showDayPicker && (
-        <DaySelector
-          selectedDay={entry.day}
-          changeDay={handleDayChange}
-          resetDay={resetFieldValue}
-        />
+        <DaySelector selectedDay={entry.day} changeDay={handleDayChange} />
       )}
     </>
   )

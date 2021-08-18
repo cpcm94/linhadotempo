@@ -8,12 +8,10 @@ import {
 import { YearOptionSelect } from '../../../_shared/YearOptionSelect'
 import { PlusIcon } from '../../../_shared/PlusIcon'
 import { MinusIcon } from '../../../_shared/MinusIcon'
-import { SectionTitle } from '../SectionTitle/SectionTitle'
 
 export const YearField = ({
   year,
   changeYear,
-  resetYear,
   radioValue,
   setRadioValue,
   setYear,
@@ -38,7 +36,6 @@ export const YearField = ({
 
   return (
     <>
-      <SectionTitle title={'Ano'} resetSection={resetYear('year')} />
       <YearAndRadiosWrapper>
         <YearFieldAndButtons>
           <MinusIcon onClick={() => decreaseByOne(year)} />
@@ -65,7 +62,6 @@ export const YearField = ({
 YearField.propTypes = {
   year: PropTypes.string,
   changeYear: PropTypes.func,
-  resetYear: PropTypes.func,
   radioValue: PropTypes.string,
   setRadioValue: PropTypes.func,
   setYear: PropTypes.func,

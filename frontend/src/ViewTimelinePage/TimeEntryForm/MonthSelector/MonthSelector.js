@@ -3,13 +3,11 @@ import PropTypes from 'prop-types'
 import { abvMonthNameArray } from '../../../_shared/monthNameArray'
 import { Months } from '../../../_shared/DateArrays'
 import { Wrapper, MonthWrapper } from './MonthSelector.styles'
-import { SectionTitle } from '../SectionTitle/SectionTitle'
 
-export const MonthSelector = ({ selectedMonth, changeMonth, resetMonth }) => {
+export const MonthSelector = ({ selectedMonth, changeMonth }) => {
   const isSelected = (month) => selectedMonth === month
   return (
     <>
-      <SectionTitle title={'Mês'} resetSection={resetMonth('month')} />
       <Wrapper>
         {Months.map((month, index) => {
           return (
@@ -30,5 +28,4 @@ export const MonthSelector = ({ selectedMonth, changeMonth, resetMonth }) => {
 MonthSelector.propTypes = {
   selectedMonth: PropTypes.number,
   changeMonth: PropTypes.func,
-  resetMonth: PropTypes.func,
 }
