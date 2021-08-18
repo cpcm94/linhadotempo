@@ -34,7 +34,7 @@ type TimeEntry {
     annual_importance: Boolean!
     monthly_importance: Boolean!
     timeline_id: String
-    timeline: Timeline @belongsToMany
+    timeline: [Timeline] @belongsToMany
 }
 
 type LoginResponse {
