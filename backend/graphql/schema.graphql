@@ -33,7 +33,6 @@ type TimeEntry {
     day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
-    timeline_id: String
     timeline: [Timeline] @belongsToMany
 }
 
@@ -60,7 +59,6 @@ input CreateTimeEntryInput {
     day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
-    timeline_id: String
 }
 
 input UpdateTimeEntryInput {
@@ -70,7 +68,6 @@ input UpdateTimeEntryInput {
     day: Int
     annual_importance: Boolean
     monthly_importance: Boolean
-    timeline_id: String
 }
 
 input CreateUserInput {
