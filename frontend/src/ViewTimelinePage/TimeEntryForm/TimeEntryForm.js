@@ -19,18 +19,16 @@ import { convertFormDataValues } from '../../_shared/convertFormDataValues'
 import { EntryNameInput } from './EntryNameInput/EntryNameInput'
 import { DateDisplay } from './DateDisplay/DateDisplay'
 
-const createDefaultDateEntryObject = (defaultDateForNewEntry) => {
+const createDefaultDateEntryObject = (defaultEntryData, timelines) => {
   return {
     timeline_id:
-      defaultDateForNewEntry.timeline !== 'undefined'
-        ? defaultDateForNewEntry.timeline
+      defaultEntryData.timeline !== 'undefined'
+        ? defaultEntryData.timeline
         : timelines[0].id,
     name: '',
-    year: yearWithoutNegativeSign(defaultDateForNewEntry),
-    month: defaultDateForNewEntry.month
-      ? parseInt(defaultDateForNewEntry.month)
-      : '',
-    day: defaultDateForNewEntry.day ? parseInt(defaultDateForNewEntry.day) : '',
+    year: yearWithoutNegativeSign(defaultEntryData),
+    month: defaultEntryData.month ? parseInt(defaultEntryData.month) : '',
+    day: defaultEntryData.day ? parseInt(defaultEntryData.day) : '',
     annual_importance: false,
     monthly_importance: false,
   }
@@ -46,15 +44,16 @@ const createEntryToEditEntryObject = (entryToEdit) => {
     monthly_importance: false,
   }
 }
+
 export const TimeEntryForm = ({
   timelines,
   refetchTimelines,
-  defaultDateForNewEntry,
+  defaultEntryData,
   entryToEdit,
 }) => {
   const [entry, setEntry] = useState(
-    defaultDateForNewEntry
-      ? createDefaultDateEntryObject(defaultDateForNewEntry)
+    defaultEntryData
+      ? createDefaultDateEntryObject(defaultEntryData, timelines)
       : entryToEdit
       ? createEntryToEditEntryObject(entryToEdit)
       : {
@@ -67,11 +66,10 @@ export const TimeEntryForm = ({
           monthly_importance: false,
         }
   )
-  const hasDefaultDateAndYear =
-    defaultDateForNewEntry && defaultDateForNewEntry.year
+  const hasDefaultDateAndYear = defaultEntryData && defaultEntryData.year
   const hasentryToEditAndYear = entryToEdit && entryToEdit.year
   const [radioValue, setRadioValue] = useState(
-    hasDefaultDateAndYear && defaultDateForNewEntry.year.startsWith('-')
+    hasDefaultDateAndYear && defaultEntryData.year.startsWith('-')
       ? 'AC'
       : hasentryToEditAndYear && entryToEdit.year.toString().startsWith('-')
       ? 'AC'
@@ -223,6 +221,6 @@ export const TimeEntryForm = ({
 TimeEntryForm.propTypes = {
   timelines: PropTypes.array,
   refetchTimelines: PropTypes.func,
-  defaultDateForNewEntry: PropTypes.object,
+  defaultEntryData: PropTypes.object,
   entryToEdit: PropTypes.object,
 }

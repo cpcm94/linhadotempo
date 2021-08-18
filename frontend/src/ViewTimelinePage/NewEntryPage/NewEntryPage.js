@@ -9,7 +9,7 @@ import { Container } from '../../_shared/Container'
 export const NewEntryPage = ({
   timelines,
   refetchTimelines,
-  defaultDateForNewEntry,
+  defaultEntryData,
 }) => {
   let history = useHistory()
   const goBack = () => {
@@ -26,7 +26,7 @@ export const NewEntryPage = ({
         <TimeEntryForm
           timelines={timelines}
           refetchTimelines={refetchTimelines}
-          defaultDateForNewEntry={defaultDateForNewEntry}
+          defaultEntryData={defaultEntryData}
         />
       </Container>
     </Layout>
@@ -36,5 +36,5 @@ export const NewEntryPage = ({
 NewEntryPage.propTypes = {
   timelines: PropTypes.array,
   refetchTimelines: PropTypes.func,
-  defaultDateForNewEntry: PropTypes.object,
+  defaultEntryData: PropTypes.object,
 }
