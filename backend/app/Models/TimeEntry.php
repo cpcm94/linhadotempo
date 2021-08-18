@@ -10,7 +10,7 @@ class TimeEntry extends Model
     use HasFactory;
     protected $fillable = ['name', 'entry_date', 'annual_importance', 'monthly_importance', 'timeline_id'];
 
-    public function timeline() {
+    public function timelines() {
         return $this->belongsToMany(Timeline::class);
     }
 }
