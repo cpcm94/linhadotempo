@@ -8,8 +8,16 @@ export const YearFieldAndButtons = styled.div`
 `
 
 export const StyledYearTextField = styled(TextField)`
+  #entryYear {
+    background-color: ${colors.white};
+    border-radius: 5px;
+  }
   label.Mui-focused {
     color: ${colors.brown};
+  }
+  label {
+    background-color: ${colors.white};
+    border-radius: 5px;
   }
   .MuiInputBase-root {
     max-width: 5rem;
@@ -32,4 +40,6 @@ export const YearAndRadiosWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${colors.lightBrown};
+  border-radius: 5px;
 `

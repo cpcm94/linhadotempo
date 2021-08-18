@@ -2,13 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Days } from '../../../_shared/DateArrays'
 import { Wrapper, DayWrapper } from './DaySelector.styles'
-import { SectionTitle } from '../SectionTitle/SectionTitle'
 
-export const DaySelector = ({ selectedDay, changeDay, resetDay }) => {
+export const DaySelector = ({ selectedDay, changeDay }) => {
   const isSelected = (day) => selectedDay === day
   return (
     <>
-      <SectionTitle title={'Dia'} resetSection={resetDay('day')} />
       <Wrapper>
         {Days.map((day, index) => {
           return (
@@ -29,5 +27,4 @@ export const DaySelector = ({ selectedDay, changeDay, resetDay }) => {
 DaySelector.propTypes = {
   selectedDay: PropTypes.number,
   changeDay: PropTypes.func,
-  resetDay: PropTypes.func,
 }
