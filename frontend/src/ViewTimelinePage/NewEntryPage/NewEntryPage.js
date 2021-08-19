@@ -13,7 +13,7 @@ export const NewEntryPage = ({
 }) => {
   let history = useHistory()
   const goBack = () => {
-    history.goBack()
+    history.push(`/viewTimeline/${location.search}`)
   }
   return (
     <Layout>

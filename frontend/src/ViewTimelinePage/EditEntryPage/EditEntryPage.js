@@ -9,7 +9,7 @@ import { EditEntryForm } from './EditEntryForm/EditEntryForm'
 export const EditEntryPage = ({ timelines, refetchTimelines, entryToEdit }) => {
   let history = useHistory()
   const goBack = () => {
-    history.goBack()
+    history.push(`/viewTimeline/${location.search}`)
   }
   return (
     <Layout>

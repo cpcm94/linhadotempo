@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { CREATE_TIME_ENTRY_MUTATION } from '../../../_shared/CREATE_TIME_ENTRY_MUTATION'
 import { SubmitFormButton } from '../../SubmitFormButton/SubmitFormButton'
+import { SectionTitle } from '../../SectionTitle/SectionTitle'
 
 export const NewEntryForm = ({
   timelines,
@@ -95,6 +96,7 @@ export const NewEntryForm = ({
   return (
     <Wrapper>
       <InnerWrapper>
+        <SectionTitle title={'Linhas do tempo'} />
         <StyledTextField
           select
           id="timeline_id"

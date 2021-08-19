@@ -39,8 +39,9 @@ export const YearEntries = ({
   const entriesSortedByMonth = arrayOfGroupedEntriesByMonth.sort(
     (a, b) => b[0].month - a[0].month
   )
+  const isNotFirstEntry = displayEntry && !displayEntry.firstEntry
   const isDisplayEntryYear =
-    displayEntry && displayEntry.year === timeEntriesByYear[0].year
+    isNotFirstEntry && displayEntry.year === timeEntriesByYear[0].year
 
   const atLeastOneEntryWithoutMonth = entriesWithoutMonth[0] ? true : false
 

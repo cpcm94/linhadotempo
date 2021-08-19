@@ -42,9 +42,9 @@ export const MonthEntries = ({
   const entriesSortedByDay = arrayOfGroupedEntriesByDay.sort(
     (a, b) => b[0].day - a[0].day
   )
-
+  const isNotFirstEntry = displayEntry && !displayEntry.firstEntry
   const isDisplayEntryMonth =
-    displayEntry &&
+    isNotFirstEntry &&
     displayEntry.month === timeEntriesByMonth[0].month &&
     displayEntry.year === timeEntriesByMonth[0].year
 
