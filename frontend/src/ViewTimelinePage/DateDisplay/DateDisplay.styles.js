@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../../_shared/colors'
+import { colors } from '../../_shared/colors'
 
 export const DateWrapper = styled.div`
   display: flex;
