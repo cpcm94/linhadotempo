@@ -1,15 +1,15 @@
 import React from 'react'
-import { TimeEntryForm } from '../TimeEntryForm/TimeEntryForm'
 import { Header } from '../../_shared/Header/Header'
 import { Layout } from '../../_shared/Layout'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { Container } from '../../_shared/Container'
+import { NewEntryForm } from './NewEntryForm/NewEntryForm'
 
 export const NewEntryPage = ({
   timelines,
   refetchTimelines,
-  defaultDateForNewEntry,
+  defaultEntryData,
 }) => {
   let history = useHistory()
   const goBack = () => {
@@ -23,10 +23,10 @@ export const NewEntryPage = ({
         returnButton={goBack}
       />
       <Container>
-        <TimeEntryForm
+        <NewEntryForm
           timelines={timelines}
           refetchTimelines={refetchTimelines}
-          defaultDateForNewEntry={defaultDateForNewEntry}
+          defaultEntryData={defaultEntryData}
         />
       </Container>
     </Layout>
@@ -36,5 +36,5 @@ export const NewEntryPage = ({
 NewEntryPage.propTypes = {
   timelines: PropTypes.array,
   refetchTimelines: PropTypes.func,
-  defaultDateForNewEntry: PropTypes.object,
+  defaultEntryData: PropTypes.object,
 }

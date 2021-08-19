@@ -1,10 +1,10 @@
 import React from 'react'
-import { TimeEntryForm } from '../TimeEntryForm/TimeEntryForm'
 import { Header } from '../../_shared/Header/Header'
 import { Layout } from '../../_shared/Layout'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { Container } from '../../_shared/Container'
+import { EditEntryForm } from './EditEntryForm/EditEntryForm'
 
 export const EditEntryPage = ({ timelines, refetchTimelines, entryToEdit }) => {
   let history = useHistory()
@@ -19,7 +19,7 @@ export const EditEntryPage = ({ timelines, refetchTimelines, entryToEdit }) => {
         returnButton={goBack}
       />
       <Container>
-        <TimeEntryForm
+        <EditEntryForm
           timelines={timelines}
           refetchTimelines={refetchTimelines}
           entryToEdit={entryToEdit}

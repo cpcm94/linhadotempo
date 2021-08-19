@@ -47,9 +47,11 @@ export const TimelinePage = ({
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
   const displayEntryDate =
     displayEntry &&
-    `timeline=${displayEntry.timeline_id}&year=${displayEntry.year}${
-      displayEntry.month ? `&month=${displayEntry.month}` : ''
-    }${displayEntry.day ? `&day=${displayEntry.day}` : ''}`
+    `${displayEntry.timeline_id ? `timeline=${displayEntry.timeline_id}` : ''}${
+      displayEntry.year ? `&year=${displayEntry.year}` : ''
+    }${displayEntry.month ? `&month=${displayEntry.month}` : ''}${
+      displayEntry.day ? `&day=${displayEntry.day}` : ''
+    }`
 
   const navigateToSelectTimelines = () => {
     history.push({
