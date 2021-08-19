@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { DaySelector } from '../DaySelector/DaySelector'
-import { MonthSelector } from '../MonthSelector/MonthSelector'
-import { YearField } from '../YearField/YearField'
+import { DaySelector } from './DaySelector/DaySelector'
+import { MonthSelector } from './MonthSelector/MonthSelector'
+import { YearField } from './YearField/YearField'
 import PropTypes from 'prop-types'
 import { DateSpan, DateWrapper } from './DateDisplay.styles'
-import { monthNameArray } from '../../../_shared/monthNameArray'
+import { monthNameArray } from '../../_shared/monthNameArray'
 import { ResetFieldButton } from './ResetFieldButton'
 
 export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {

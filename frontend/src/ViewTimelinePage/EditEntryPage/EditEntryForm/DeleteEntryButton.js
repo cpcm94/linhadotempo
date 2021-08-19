@@ -1,5 +1,5 @@
 import React from 'react'
-import { DeleteButton } from '../../_shared/DeleteButton'
+import { DeleteButton } from '../../../_shared/DeleteButton'
 import { DELETE_TIME_ENTRY_MUTATION } from './DELETE_TIME_ENTRY_MUTATION'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
