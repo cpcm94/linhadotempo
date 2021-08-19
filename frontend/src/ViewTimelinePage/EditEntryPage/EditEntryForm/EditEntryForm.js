@@ -16,6 +16,7 @@ import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { SubmitFormButton } from '../../SubmitFormButton/SubmitFormButton'
+import { SectionTitle } from '../../SectionTitle/SectionTitle'
 
 export const EditEntryForm = ({ entryToEdit, timelines, refetchTimelines }) => {
   const [entry, setEntry] = useState({
@@ -82,6 +83,7 @@ export const EditEntryForm = ({ entryToEdit, timelines, refetchTimelines }) => {
   return (
     <Wrapper>
       <InnerWrapper>
+        <SectionTitle title={'Linhas do tempo'} />
         <StyledTextField
           select
           id="timeline_id"

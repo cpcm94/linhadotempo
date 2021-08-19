@@ -41,8 +41,7 @@ export const Wrapper = styled.div`
 `
 export const EditButtonsWrapper = styled.div`
   display: flex;
-  align-items: center;
-  width: calc(100% - 1.5rem);
+  width: calc(100vw - 1.5rem);
   position: fixed;
   bottom: 5%;
 `

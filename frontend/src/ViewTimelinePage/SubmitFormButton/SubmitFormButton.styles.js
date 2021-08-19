@@ -11,3 +11,12 @@ export const StyledButton = styled(Button)`
     background-color: ${colors.brown};
   }
 `
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`
+
+export const ErrorText = styled.span`
+  color: ${colors.red};
+`

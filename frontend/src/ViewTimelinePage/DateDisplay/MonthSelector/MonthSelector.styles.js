@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
 `
 
 export const MonthWrapper = styled.div`
+  text-align: center;
   padding: 0.5rem 0.25rem;
   min-width: 25%;
   border-radius: 5px;

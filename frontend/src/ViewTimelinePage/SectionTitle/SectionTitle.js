@@ -8,9 +8,11 @@ export const SectionTitle = ({ title, resetSection }) => {
     <>
       <TitleWrapper>
         <span>{title}</span>
-        <XIconWrapper onClick={resetSection}>
-          <XIcon />
-        </XIconWrapper>
+        {resetSection && (
+          <XIconWrapper onClick={resetSection}>
+            <XIcon />
+          </XIconWrapper>
+        )}
       </TitleWrapper>
     </>
   )

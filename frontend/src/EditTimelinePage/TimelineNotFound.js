@@ -15,7 +15,7 @@ export const TimelineNotFound = () => {
   let history = useHistory()
 
   const goToPreviousPage = () => {
-    history.goBack()
+    history.push('/timelines')
   }
   return (
     <Layout>

@@ -15,10 +15,6 @@ export const NewTimelinePage = () => {
   })
   let history = useHistory()
 
-  const goBack = () => {
-    history.goBack()
-  }
-
   const navigateToTimelinesPage = () => {
     history.push('/timelines')
   }
@@ -33,7 +29,7 @@ export const NewTimelinePage = () => {
       <Header
         title={'Criar linha do tempo'}
         loading={loading}
-        returnButton={goBack}
+        returnButton={navigateToTimelinesPage}
       />
       <Container>
         <TimelineForm
