@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
 `
 
 export const DayWrapper = styled.div`
+  text-align: center;
   padding: 0.5rem 0.25rem;
   min-width: 10%;
   border-radius: 5px;

@@ -1,5 +1,5 @@
 import React from 'react'
-import { XIcon } from '../../../_shared/XIcon'
+import { XIcon } from '../../_shared/XIcon'
 import PropTypes from 'prop-types'
 import { TitleWrapper, XIconWrapper } from './SectionTitle.styles'
 
@@ -8,9 +8,11 @@ export const SectionTitle = ({ title, resetSection }) => {
     <>
       <TitleWrapper>
         <span>{title}</span>
-        <XIconWrapper onClick={resetSection}>
-          <XIcon />
-        </XIconWrapper>
+        {resetSection && (
+          <XIconWrapper onClick={resetSection}>
+            <XIcon />
+          </XIconWrapper>
+        )}
       </TitleWrapper>
     </>
   )

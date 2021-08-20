@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { DaySelector } from '../DaySelector/DaySelector'
-import { MonthSelector } from '../MonthSelector/MonthSelector'
-import { YearField } from '../YearField/YearField'
+import { DaySelector } from './DaySelector/DaySelector'
+import { MonthSelector } from './MonthSelector/MonthSelector'
+import { YearField } from './YearField/YearField'
 import PropTypes from 'prop-types'
 import { DateSpan, DateWrapper } from './DateDisplay.styles'
-import { monthNameArray } from '../../../_shared/monthNameArray'
+import { monthNameArray } from '../../_shared/monthNameArray'
 import { ResetFieldButton } from './ResetFieldButton'
+import { SectionTitle } from '../SectionTitle/SectionTitle'
 
 export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
   const [showDayPicker, setShowDayPicker] = useState(false)
@@ -46,6 +47,7 @@ export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
     const newEntry = { ...entry }
     newEntry.month = month
     setEntry(newEntry)
+    displayDatePicker('month')
   }
 
   const handleDayChange = (day) => (e) => {
@@ -53,6 +55,7 @@ export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
     const newEntry = { ...entry }
     newEntry.day = day
     setEntry(newEntry)
+    displayDatePicker('day')
   }
 
   const resetFieldValue = (fieldName) => () => {
@@ -60,15 +63,24 @@ export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
     newEntry[fieldName] = ''
     setEntry(newEntry)
   }
+  const resetAllDateFieldValues = () => {
+    const newEntry = { ...entry }
+    newEntry.day = ''
+    newEntry.month = ''
+    newEntry.year = ''
+    setEntry(newEntry)
+  }
   const checkIfEmptyString = (string) => string.toString().trim() === ''
   return (
     <>
+      <SectionTitle title={'Data'} resetSection={resetAllDateFieldValues} />
       <DateWrapper>
         <DateSpan
           selected={showDayPicker}
+          isEmpty={checkIfEmptyString(entry.day)}
           onClick={() => displayDatePicker('day')}
         >
-          {checkIfEmptyString(entry.day) ? 'Dia' : entry.day}
+          {checkIfEmptyString(entry.day) ? 'dia' : entry.day}
           {showDayPicker && (
             <ResetFieldButton resetField={resetFieldValue('day')} />
           )}
@@ -76,10 +88,11 @@ export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
         /
         <DateSpan
           selected={showMonthPicker}
+          isEmpty={checkIfEmptyString(entry.month)}
           onClick={() => displayDatePicker('month')}
         >
           {checkIfEmptyString(entry.month)
-            ? 'Mês'
+            ? 'mês'
             : monthNameArray[entry.month]}
           {showMonthPicker && (
             <ResetFieldButton resetField={resetFieldValue('month')} />
@@ -88,9 +101,10 @@ export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
         /
         <DateSpan
           selected={showYearPicker}
+          isEmpty={checkIfEmptyString(entry.year)}
           onClick={() => displayDatePicker('year')}
         >
-          {checkIfEmptyString(entry.year) ? 'Ano' : entry.year}
+          {checkIfEmptyString(entry.year) ? 'ano' : entry.year}
           {showYearPicker && (
             <ResetFieldButton resetField={resetFieldValue('year')} />
           )}

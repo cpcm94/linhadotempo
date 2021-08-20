@@ -44,9 +44,9 @@ export const Entries = ({
   const yearAC = year.toString().startsWith('-')
     ? `${year.toString().substr(1)} a.c.`
     : year.toString()
-
+  const isNotFirstEntry = displayEntry && !displayEntry.firstEntry
   const isDisplayEntryDay =
-    displayEntry &&
+    isNotFirstEntry &&
     displayEntry.day === day &&
     displayEntry.month === month &&
     displayEntry.year === year

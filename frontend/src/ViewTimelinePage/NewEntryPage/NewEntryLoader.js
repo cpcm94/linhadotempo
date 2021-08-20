@@ -2,34 +2,23 @@ import React, { useContext } from 'react'
 import { NewEntryPage } from './NewEntryPage'
 import qs from 'query-string'
 import { TimelinesContext } from '../TimelinesContextProvider'
-import { filterTimelines } from '../filterTimelines'
+
+const urlQueryTimelineIds = () => qs.parse(location.search).timelines.split(',')
 
 export const NewEntryLoader = () => {
-  const { timelines, loading, refetchTimelines } = useContext(TimelinesContext)
-  const queriedTimelines = qs.parse(location.search, {
-    arrayFormat: 'comma',
-  }).timelines
+  const { loading, refetchTimelines, getTimelines } =
+    useContext(TimelinesContext)
+  const defaultEntryData = qs.parse(location.hash)
 
-  const hash =
-    location.hash === ''
-      ? null
-      : qs.parse(location.hash).timeline === 'null'
-      ? null
-      : qs.parse(location.hash)
-
-  const timelinesArray = Array.isArray(queriedTimelines)
-    ? queriedTimelines
-    : queriedTimelines.split()
-
-  const filteredTimelines = filterTimelines(timelines, timelinesArray)
+  const selectedTimelines = getTimelines(urlQueryTimelineIds())
 
   return loading ? (
     <span>Loading...</span>
-  ) : timelines ? (
+  ) : (
     <NewEntryPage
-      timelines={filteredTimelines}
+      timelines={selectedTimelines}
       refetchTimelines={refetchTimelines}
-      defaultDateForNewEntry={hash}
+      defaultEntryData={defaultEntryData}
     />
-  ) : null
+  )
 }

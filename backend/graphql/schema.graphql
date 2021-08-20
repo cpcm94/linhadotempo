@@ -28,6 +28,7 @@ type Timeline {
 type TimeEntry {
     id: ID!
     name: String!
+    description: String
     year: Int
     month: Int
     day: Int
@@ -54,6 +55,7 @@ type DeleteUserResponse {
 
 input CreateTimeEntryInput {
     name: String!
+    description: String
     year: Int
     month: Int
     day: Int
@@ -63,6 +65,7 @@ input CreateTimeEntryInput {
 
 input UpdateTimeEntryInput {
     name: String
+    description: String
     year: Int
     month: Int
     day: Int
