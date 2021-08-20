@@ -15,7 +15,6 @@ export const TIMELINES_QUERY = gql`
         day
         annual_importance
         monthly_importance
-        timeline_id
       }
     }
   }

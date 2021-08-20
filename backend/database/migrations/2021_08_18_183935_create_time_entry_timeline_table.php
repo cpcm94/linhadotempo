@@ -15,8 +15,17 @@ class CreateTimeEntryTimelineTable extends Migration
     {
         Schema::create('time_entry_timeline', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('time_entry_id');
-            $table->bigInteger('timeline_id');
+            $table->foreignId('time_entry_id')->references('id')->on('time_entries');
+            $table->foreignId('timeline_id')->references('id')->on('timelines');
+        });
+        $timelines = Timeline::get();
+        foreach ($timelines as $timeline) {
+            $id = $timeline->id;
+            $entries = TimeEntry::where('timeline_id', $id)->get();
+            $timeline->time_entries()->attach($entries);
+        }
+        Schema::table('time_entries', function (Blueprint $table) {
+            $table->dropColumn('timeline_id');
         });
     }
 
@@ -27,6 +36,9 @@ class CreateTimeEntryTimelineTable extends Migration
      */
     public function down()
     {
+        Schema::table('time_entries', function (Blueprint $table) {
+            $table->foreignId('timeline_id');
+        });
         Schema::dropIfExists('time_entry_timeline');
     }
 }
