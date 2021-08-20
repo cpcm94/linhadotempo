@@ -26,7 +26,7 @@ class CreateOneToManyRelationshipUserToTimelines extends Migration
     public function down()
     {
         Schema::table('timelines', function (Blueprint $table) {
-            $table->dropForeign('user_id');
+            $table->dropForeign('user_id_foreign');
         });
     }
 }
