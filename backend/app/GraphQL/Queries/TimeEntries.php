@@ -1,6 +1,7 @@
 <?php
 
 namespace App\GraphQL\Queries;
+use Illuminate\Support\Facades\DB;
 
 class TimeEntries
 {

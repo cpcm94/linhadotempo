@@ -109,7 +109,7 @@ type Query {
     me: User @auth
     timelines: [Timeline!]! @all @whereAuth(relation: "user")
     timeline(id: ID @eq): Timeline @find @whereAuth(relation: "user")
-    time_entries: [TimeEntry]
+    time_entries(timeline_id: [ID]): [TimeEntry]
     time_entry(id: ID! @eq): TimeEntry @find
 }
 
