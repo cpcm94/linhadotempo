@@ -1,7 +1,7 @@
 <?php
 
 namespace App\GraphQL\Queries;
-use Illuminate\Support\Facades\DB;
+use App\Models\TimeEntry;
 
 class TimeEntries
 {
@@ -11,14 +11,29 @@ class TimeEntries
      */
     public function __invoke($_, array $args)
     {
-        // $entries = TimeEntry::leftJoin('time_entry_timeline', 'time_entries.id', 'time_entry_id')->
-        // whereIn('timeline_id', $args)->whereColumn('time_entries.id', '=', 'time_entry_timeline.time_entry_id')->get();       
-        $entriesIdCollection = DB::table('time_entry_timeline')->whereIn('timeline_id', $args)->distinct()->get('time_entry_id');
-        $entriesId = array();
-        foreach ($entriesIdCollection as $entry) {
-            $entriesId[] = $entry->time_entry_id;
+        function array_flatten($array = null) {
+            $result = array();
+        
+            if (!is_array($array)) {
+                $array = func_get_args();
+            }
+        
+            foreach ($array as $key => $value) {
+                if (is_array($value)) {
+                    $result = array_merge($result, array_flatten($value));
+                } else {
+                    $result = array_merge($result, array($key => $value));
+                }
+            }
+        
+            return $result;
         }
-        $entries = DB::table('time_entries')->whereIn('id', $entriesId)->get();
+        
+        $res = array_flatten($args);
+        $entries = TimeEntry::leftJoin('time_entry_timeline', 'time_entries.id','time_entry_timeline.time_entry_id')->whereIn('timeline_id', $res)->get()->unique('time_entry_id');
+        foreach ($entries as $entry) {
+            $entry['id'] = $entry['time_entry_id'];
+        }
         return $entries;
     }
 }

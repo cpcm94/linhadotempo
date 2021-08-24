@@ -27,7 +27,6 @@ export const TimelinePage = ({
   previousTimelines,
   hasInvalidTimelines,
 }) => {
-  console.log('timelines', timelines)
   const alreadyRan = useRef(false)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
