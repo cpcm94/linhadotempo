@@ -11,10 +11,6 @@ export const SelectTimelines = ({ timelines, currentSelectedTimelines }) => {
   const filteredSelectedTimelines = timelines.filter((timeline) =>
     currentSelectedTimelines.includes(timeline.id)
   )
-  console.log('timelines', timelines)
-  console.log('currentSelectedTimelines', currentSelectedTimelines)
-
-  console.log('filteredSelectedTimelines', filteredSelectedTimelines)
   const [selectedTimelines, setSelectedTimelines] = useState(
     filteredSelectedTimelines
   )
@@ -51,5 +47,5 @@ export const SelectTimelines = ({ timelines, currentSelectedTimelines }) => {
 
 SelectTimelines.propTypes = {
   timelines: PropTypes.array,
-  currentSelectedTimelines: PropTypes.string,
+  currentSelectedTimelines: PropTypes.array,
 }

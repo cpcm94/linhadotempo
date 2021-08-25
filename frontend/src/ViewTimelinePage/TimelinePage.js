@@ -33,11 +33,8 @@ export const TimelinePage = ({
   const hash = useRef(window.location.hash)
   const oldEntryIds =
     previousEntries && previousEntries.map((entry) => entry.id)
-  console.log('entries', entries)
-  console.log('previousEntries', previousEntries)
 
   const newEntryIds = entries && entries.map((entry) => entry.id)
-  console.log('newEntryIds', newEntryIds)
 
   const brandNewEntry =
     oldEntryIds &&
