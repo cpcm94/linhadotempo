@@ -1,12 +1,10 @@
 import React, { useContext } from 'react'
 import { TimelinePage } from './TimelinePage'
 import { TimelinesContext } from './TimelinesContextProvider'
-import qs from 'query-string'
 import { NoValidTimelinesPage } from './NoValidTimelinesPage'
 import { useQuery } from '@apollo/client'
 import { TIME_ENTRIES_QUERY } from './TIME_ENTRIES_QUERY'
-
-const urlQueryTimelineIds = () => qs.parse(location.search).timelines.split(',')
+import { urlQueryTimelineIds } from './urlQueryTimelineIds'
 
 export const ViewTimelinesLoader = () => {
   const { timelines, loading, getTimelines } = useContext(TimelinesContext)

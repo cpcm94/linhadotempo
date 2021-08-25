@@ -4,7 +4,6 @@ export const CREATE_TIME_ENTRY_MUTATION = gql`
   mutation CreateTimeEntry($input: CreateTimeEntryInput!) {
     createTimeEntry(input: $input) {
       id
-      timeline_id
       name
       year
       month

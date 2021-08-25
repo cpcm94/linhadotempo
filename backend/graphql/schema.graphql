@@ -61,6 +61,11 @@ input CreateTimeEntryInput {
     day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
+    timelines: CreateTimelineBelongsToMany!
+}
+
+input CreateTimelineBelongsToMany {
+    sync: [ID!]
 }
 
 input UpdateTimeEntryInput {
@@ -71,6 +76,11 @@ input UpdateTimeEntryInput {
     day: Int
     annual_importance: Boolean
     monthly_importance: Boolean
+    timelines: UpdateTimelineBelongsToMany!
+}
+
+input UpdateTimelineBelongsToMany {
+    sync: [ID!]
 }
 
 input CreateUserInput {

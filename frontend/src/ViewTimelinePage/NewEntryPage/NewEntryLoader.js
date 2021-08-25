@@ -2,8 +2,7 @@ import React, { useContext } from 'react'
 import { NewEntryPage } from './NewEntryPage'
 import qs from 'query-string'
 import { TimelinesContext } from '../TimelinesContextProvider'
-
-const urlQueryTimelineIds = () => qs.parse(location.search).timelines.split(',')
+import { urlQueryTimelineIds } from '../urlQueryTimelineIds'
 
 export const NewEntryLoader = () => {
   const { loading, refetchTimelines, getTimelines } =

@@ -18,9 +18,9 @@ import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { SubmitFormButton } from '../../SubmitFormButton/SubmitFormButton'
 import { SectionTitle } from '../../SectionTitle/SectionTitle'
 
-export const EditEntryForm = ({ entryToEdit, timelines, refetchTimelines }) => {
+export const EditEntryForm = ({ entryToEdit, timelines }) => {
   const [entry, setEntry] = useState({
-    timeline_id: entryToEdit.timeline_id,
+    timelines: { sync: timelines.map((timeline) => timeline.id) },
     name: entryToEdit.name,
     year: yearWithoutNegativeSign(entryToEdit),
     month: entryToEdit.month ? entryToEdit.month : '',
@@ -36,6 +36,21 @@ export const EditEntryForm = ({ entryToEdit, timelines, refetchTimelines }) => {
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
     newEntry[entryPropName] = e.target.value
+    setEntry(newEntry)
+  }
+
+  const handleTimelinesChange = (e) => {
+    const newEntry = { ...entry }
+    if (newEntry.timelines.connect.includes(e.target.value)) {
+      newEntry.timelines.connect = newEntry.timelines.connect.filter(
+        (timeline_id) => timeline_id !== e.target.value
+      )
+    } else {
+      newEntry.timelines.connect = [
+        ...newEntry.timelines.connect,
+        e.target.value,
+      ]
+    }
     setEntry(newEntry)
   }
 
@@ -69,15 +84,13 @@ export const EditEntryForm = ({ entryToEdit, timelines, refetchTimelines }) => {
   const submitUpdateEntry = (e) => {
     e.preventDefault()
     updateEntry().then((res) => {
-      refetchTimelines().then(() => {
-        goBack(res.data.updateTimeEntry)
-      })
+      goBack(res.data.updateTimeEntry)
     })
   }
 
   const singleTimeline = timelines.length === 1
-  const showSingleTimeline = entry.timeline_id
-    ? entry.timeline_id
+  const showSingleTimeline = entry.timelines[0].id
+    ? entry.timelines[0].id
     : timelines[0].id
 
   return (
@@ -86,12 +99,12 @@ export const EditEntryForm = ({ entryToEdit, timelines, refetchTimelines }) => {
         <SectionTitle title={'Linhas do tempo'} />
         <StyledTextField
           select
-          id="timeline_id"
+          id="timeline_ids"
           variant="outlined"
           disabled={singleTimeline}
           label="Linha do tempo"
           value={showSingleTimeline}
-          onChange={handleChange('timeline_id')}
+          onChange={handleTimelinesChange}
         >
           {timelines.map((timeline) => (
             <MenuItem key={timeline.id} value={timeline.id}>

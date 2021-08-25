@@ -7,10 +7,14 @@ import { useHistory } from 'react-router-dom'
 import { TimelinesIconRow } from './TimelinesIconRow'
 import { SelectTimelinesContainer } from './SelectTimelinesContainer'
 
-export const SelectTimelines = ({ timelines, queriedTimelines }) => {
+export const SelectTimelines = ({ timelines, currentSelectedTimelines }) => {
   const filteredSelectedTimelines = timelines.filter((timeline) =>
-    queriedTimelines.includes(timeline.id)
+    currentSelectedTimelines.includes(timeline.id)
   )
+  console.log('timelines', timelines)
+  console.log('currentSelectedTimelines', currentSelectedTimelines)
+
+  console.log('filteredSelectedTimelines', filteredSelectedTimelines)
   const [selectedTimelines, setSelectedTimelines] = useState(
     filteredSelectedTimelines
   )
@@ -47,5 +51,5 @@ export const SelectTimelines = ({ timelines, queriedTimelines }) => {
 
 SelectTimelines.propTypes = {
   timelines: PropTypes.array,
-  queriedTimelines: PropTypes.string,
+  currentSelectedTimelines: PropTypes.string,
 }

@@ -3,32 +3,31 @@ import { EditEntryPage } from './EditEntryPage'
 import qs from 'query-string'
 import { TimelinesContext } from '../TimelinesContextProvider'
 import { NotValidEntry } from './NotValidEntry'
+import { urlQueryTimelineIds } from '../urlQueryTimelineIds'
+import { useQuery } from '@apollo/client'
+import { TIME_ENTRY_QUERY } from './TIME_ENTRY_QUERY'
 
-const urlQueryTimelineIds = () => qs.parse(location.search).timelines.split(',')
+const entryId = qs.parse(location.hash).entry
 
 export const EditEntryLoader = () => {
-  const { timelines, loading, refetchTimelines, getTimelines } =
-    useContext(TimelinesContext)
-
-  const entryId = qs.parse(location.hash).entry
-
-  const filteredEntryById =
-    entryId &&
-    timelines &&
-    timelines
-      .map((timeline) => timeline.time_entries)
-      .flat()
-      .filter((entry) => entry.id === entryId)[0]
+  const { timelines, loading, getTimelines } = useContext(TimelinesContext)
+  const { data: entryData, loading: entryLoading } = useQuery(
+    TIME_ENTRY_QUERY,
+    {
+      variables: {
+        id: entryId,
+      },
+    }
+  )
 
   const selectedTimelines = getTimelines(urlQueryTimelineIds())
 
-  return loading ? (
+  return loading || entryLoading ? (
     <span>Loading...</span>
-  ) : timelines && filteredEntryById ? (
+  ) : timelines && entryData ? (
     <EditEntryPage
       timelines={selectedTimelines}
-      refetchTimelines={refetchTimelines}
-      entryToEdit={filteredEntryById}
+      entryToEdit={entryData.time_entry}
     />
   ) : (
     <NotValidEntry />

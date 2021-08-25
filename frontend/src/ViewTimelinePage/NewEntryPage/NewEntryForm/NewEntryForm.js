@@ -20,10 +20,9 @@ export const NewEntryForm = ({
   const [entry, setEntry] = useState(
     defaultEntryData
       ? {
-          timeline_id:
-            defaultEntryData.timeline !== 'undefined'
-              ? defaultEntryData.timeline
-              : timelines[0].id,
+          timelines: defaultEntryData.timeline
+            ? { sync: timelines.map((timeline) => timeline.id) }
+            : { sync: [timelines[0].id] },
           name: '',
           year: yearWithoutNegativeSign(defaultEntryData),
           month: defaultEntryData.month ? parseInt(defaultEntryData.month) : '',
@@ -32,7 +31,7 @@ export const NewEntryForm = ({
           monthly_importance: false,
         }
       : {
-          timeline_id: timelines[0].id,
+          timelines: { connect: [timelines[0].id] },
           name: '',
           year: '',
           month: '',
@@ -74,6 +73,21 @@ export const NewEntryForm = ({
     setEntry(newEntry)
   }
 
+  const handleTimelinesChange = (e) => {
+    const newEntry = { ...entry }
+    if (newEntry.timelines.connect.includes(e.target.value)) {
+      newEntry.timelines.connect = newEntry.timelines.connect.filter(
+        (timeline_id) => timeline_id !== e.target.value
+      )
+    } else {
+      newEntry.timelines.connect = [
+        ...newEntry.timelines.connect,
+        e.target.value,
+      ]
+    }
+    setEntry(newEntry)
+  }
+
   const resetFieldValue = (fieldName) => () => {
     const newEntry = { ...entry }
     newEntry[fieldName] = ''
@@ -99,12 +113,12 @@ export const NewEntryForm = ({
         <SectionTitle title={'Linhas do tempo'} />
         <StyledTextField
           select
-          id="timeline_id"
+          id="timeline_ids"
           variant="outlined"
           disabled={singleTimeline}
           label="Linha do tempo"
           value={showSingleTimeline}
-          onChange={handleChange('timeline_id')}
+          onChange={handleTimelinesChange}
         >
           {timelines.map((timeline) => (
             <MenuItem key={timeline.id} value={timeline.id}>
