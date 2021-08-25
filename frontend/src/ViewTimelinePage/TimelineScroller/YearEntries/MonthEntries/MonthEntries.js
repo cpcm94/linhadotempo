@@ -19,11 +19,9 @@ import PropTypes from 'prop-types'
 
 export const MonthEntries = ({
   timeEntriesByMonth,
-  timelines,
   newEntryId,
   forwardedRef,
   displayEntry,
-  hasYear,
 }) => {
   const month = monthNameArray[timeEntriesByMonth[0].month]
   const year = timeEntriesByMonth[0].year
@@ -55,7 +53,7 @@ export const MonthEntries = ({
       <MonthAndEntryWrapper>
         {atLeastOneEntryWithoutDay && (
           <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
-            <MonthSpanWrapper hasYear={hasYear}>
+            <MonthSpanWrapper>
               <span>{month}</span>
             </MonthSpanWrapper>
             <YearWrapper>
@@ -67,20 +65,16 @@ export const MonthEntries = ({
         <EntryWithoutDayWrapper>
           <EntriesWithoutDay
             timeEntriesWithoutDay={entriesWithoutDay}
-            timelines={timelines}
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
           />
         </EntryWithoutDayWrapper>
       </MonthAndEntryWrapper>
       <DayEntries
-        timelines={timelines}
         timeEntriesByDay={entriesSortedByDay}
         newEntryId={newEntryId}
         forwardedRef={forwardedRef}
         displayEntry={displayEntry}
-        hasMonth={atLeastOneEntryWithoutDay}
-        hasYear={hasYear}
       />
     </MonthEntriesWrapper>
   )
@@ -88,9 +82,7 @@ export const MonthEntries = ({
 
 MonthEntries.propTypes = {
   timeEntriesByMonth: PropTypes.array,
-  timelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
-  hasYear: PropTypes.bool,
 }

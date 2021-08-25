@@ -11,7 +11,7 @@ class Timeline extends Model
     use HasFactory;
     protected $fillable = ['name'];
 
-    public function time_entries() {
+    public function time_entries(): BelongsToMany {
         return $this->belongsToMany(TimeEntry::class);
     }
     public function user() {

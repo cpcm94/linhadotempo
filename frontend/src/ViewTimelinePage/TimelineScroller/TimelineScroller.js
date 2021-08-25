@@ -18,27 +18,14 @@ import { EntriesWithoutYear } from './EntriesWithoutYear'
 
 export const TimelineScroller = ({
   visibleTimelines,
+  entries,
   newEntryId,
   forwardedRef,
   displayEntry,
 }) => {
-  const timeEntries = visibleTimelines
-    .map((timeline) => timeline.time_entries)
-    .flat()
+  const entriesWithoutYear = filterEntriesWithValue(entries, 'year')
 
-  const visibleTimelinesColorInitialsAndId = visibleTimelines.map(
-    (timeline) => {
-      return {
-        id: timeline.id,
-        color: timeline.color,
-        initials: timeline.initials,
-      }
-    }
-  )
-
-  const entriesWithoutYear = filterEntriesWithValue(timeEntries, 'year')
-
-  const entriesWithYear = filterEntriesWithoutValue(timeEntries, 'year')
+  const entriesWithYear = filterEntriesWithoutValue(entries, 'year')
 
   const entriesGroupedByYear = groupBy(entriesWithYear, 'year')
 
@@ -55,7 +42,6 @@ export const TimelineScroller = ({
           {entriesSortedByYear.map((timeEntriesByYear, index) => (
             <YearEntries
               timeEntriesByYear={timeEntriesByYear}
-              timelines={visibleTimelinesColorInitialsAndId}
               key={index}
               newEntryId={newEntryId}
               forwardedRef={forwardedRef}
@@ -73,7 +59,6 @@ export const TimelineScroller = ({
                 entriesWithoutYear={entriesWithoutYear}
                 newEntryId={newEntryId}
                 forwardedRef={forwardedRef}
-                timelines={visibleTimelinesColorInitialsAndId}
               />
             </>
           )}
@@ -91,8 +76,8 @@ export const TimelineScroller = ({
 }
 
 TimelineScroller.propTypes = {
-  timelines: PropTypes.array,
   visibleTimelines: PropTypes.array,
+  entries: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
