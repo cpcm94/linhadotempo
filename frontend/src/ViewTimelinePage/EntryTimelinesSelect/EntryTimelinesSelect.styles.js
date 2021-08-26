@@ -1,21 +1,14 @@
 import styled from 'styled-components'
-import { colors } from '../../../_shared/colors'
+import { colors } from '../../_shared/colors'
 
-export const TimelinesListWrapper = styled.div`
-  height: 100%;
-`
+export const ClosedDisplayWrapper = styled.div``
+export const OpenDisplayWrapper = styled.div``
 
 export const TimelineNameWrapper = styled.div`
   flex: 1;
 `
-export const EditButtonWrapper = styled.div`
-  align-self: center;
-  :hover {
-    background-color: ${colors.lightBrown};
-  }
-`
 
-export const SelectedIconAndNameWrapper = styled.div`
+export const IconAndNameWrapper = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
@@ -48,7 +41,7 @@ export const IconWrapper = styled.div`
   align-items: center;
 `
 
-export const TimelinesWrapper = styled.div`
+export const TimelineWrapper = styled.div`
   display: flex;
   cursor: pointer;
 `

@@ -78,6 +78,10 @@ export const EntryIcon = styled.div`
   justify-content: center;
   align-items: center;
 `
+
+export const IconsWrapper = styled.div`
+  display: flex;
+`
 export const EntriesWrapper = styled.div`
   display: flex;
   flex-direction: column;

@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { DateDisplay } from '../../DateDisplay/DateDisplay'
-import { EntryNameInput } from '../../EntryNameInput/EntryNameInput'
+import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
 import {
-  StyledTextField,
   InnerWrapper,
   Wrapper,
   EditButtonsWrapper,
 } from './EditEntryForm.styles'
-import { MenuItem } from '@material-ui/core'
 import { DeleteEntryButton } from './DeleteEntryButton'
 import { yearWithoutNegativeSign } from '../../../_shared/yearWithoutNegativeSign'
 import { UPDATE_TIME_ENTRY_MUTATION } from './UPDATE_TIME_ENTRY_MUTATION'
@@ -16,12 +14,13 @@ import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { SubmitFormButton } from '../../SubmitFormButton/SubmitFormButton'
-import { SectionTitle } from '../../SectionTitle/SectionTitle'
+import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 
 export const EditEntryForm = ({ entryToEdit, timelines }) => {
   const [entry, setEntry] = useState({
-    timelines: { sync: timelines.map((timeline) => timeline.id) },
+    timelines: { sync: entryToEdit.timelines.map((timeline) => timeline.id) },
     name: entryToEdit.name,
+    description: entryToEdit.description,
     year: yearWithoutNegativeSign(entryToEdit),
     month: entryToEdit.month ? entryToEdit.month : '',
     day: entryToEdit.day ? entryToEdit.day : '',
@@ -39,24 +38,14 @@ export const EditEntryForm = ({ entryToEdit, timelines }) => {
     setEntry(newEntry)
   }
 
-  const handleTimelinesChange = (e) => {
-    const newEntry = { ...entry }
-    if (newEntry.timelines.connect.includes(e.target.value)) {
-      newEntry.timelines.connect = newEntry.timelines.connect.filter(
-        (timeline_id) => timeline_id !== e.target.value
-      )
-    } else {
-      newEntry.timelines.connect = [
-        ...newEntry.timelines.connect,
-        e.target.value,
-      ]
-    }
-    setEntry(newEntry)
-  }
-
   const resetFieldValue = (fieldName) => () => {
     const newEntry = { ...entry }
     newEntry[fieldName] = ''
+    setEntry(newEntry)
+  }
+  const resetSelectedTimelines = () => {
+    const newEntry = { ...entry }
+    newEntry.timelines.sync = []
     setEntry(newEntry)
   }
   const [updateEntry, { loading }] = useMutation(UPDATE_TIME_ENTRY_MUTATION, {
@@ -88,40 +77,34 @@ export const EditEntryForm = ({ entryToEdit, timelines }) => {
     })
   }
 
-  const singleTimeline = timelines.length === 1
-  const showSingleTimeline = entry.timelines[0].id
-    ? entry.timelines[0].id
-    : timelines[0].id
-
   return (
     <Wrapper>
       <InnerWrapper>
-        <SectionTitle title={'Linhas do tempo'} />
-        <StyledTextField
-          select
-          id="timeline_ids"
-          variant="outlined"
-          disabled={singleTimeline}
-          label="Linha do tempo"
-          value={showSingleTimeline}
-          onChange={handleTimelinesChange}
-        >
-          {timelines.map((timeline) => (
-            <MenuItem key={timeline.id} value={timeline.id}>
-              {timeline.name}
-            </MenuItem>
-          ))}
-        </StyledTextField>
+        <EntryTimelinesSelect
+          timelines={timelines}
+          resetField={resetSelectedTimelines}
+          entry={entry}
+          setEntry={setEntry}
+        />
         <DateDisplay
           entry={entry}
           setEntry={setEntry}
           radioValue={radioValue}
           setRadioValue={setRadioValue}
         />
-        <EntryNameInput
-          entryName={entry.name}
-          changeEntryName={handleChange}
-          resetName={resetFieldValue}
+        <EntryTextInput
+          entry={entry}
+          changeEntry={handleChange}
+          resetField={resetFieldValue}
+          title={'Acontecimento'}
+          field={'name'}
+        />
+        <EntryTextInput
+          entry={entry}
+          changeEntry={handleChange}
+          resetField={resetFieldValue}
+          title={'Descrição'}
+          field={'description'}
         />
         <EditButtonsWrapper>
           <DeleteEntryButton

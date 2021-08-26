@@ -23,9 +23,22 @@ export const TimelineScroller = ({
   forwardedRef,
   displayEntry,
 }) => {
-  const entriesWithoutYear = filterEntriesWithValue(entries, 'year')
+  const visibleTimelinesIds = visibleTimelines.map((timeline) => timeline.id)
+  const filteredEntriesByVisibleTimelines = entries.filter((entry) =>
+    entry.timelines
+      .map((timeline) => timeline.id)
+      .some((id) => visibleTimelinesIds.includes(id))
+  )
 
-  const entriesWithYear = filterEntriesWithoutValue(entries, 'year')
+  const entriesWithoutYear = filterEntriesWithValue(
+    filteredEntriesByVisibleTimelines,
+    'year'
+  )
+
+  const entriesWithYear = filterEntriesWithoutValue(
+    filteredEntriesByVisibleTimelines,
+    'year'
+  )
 
   const entriesGroupedByYear = groupBy(entriesWithYear, 'year')
 
@@ -34,7 +47,6 @@ export const TimelineScroller = ({
   const entriesSortedByYear = arrayOfGroupedEntries.sort(
     (a, b) => b[0].year - a[0].year
   )
-
   return (
     <Wrapper>
       {visibleTimelines[0] ? (
@@ -46,6 +58,7 @@ export const TimelineScroller = ({
               newEntryId={newEntryId}
               forwardedRef={forwardedRef}
               displayEntry={displayEntry}
+              visibleTimelines={visibleTimelines}
             />
           ))}
           {entriesWithoutYear[0] && (
@@ -59,6 +72,7 @@ export const TimelineScroller = ({
                 entriesWithoutYear={entriesWithoutYear}
                 newEntryId={newEntryId}
                 forwardedRef={forwardedRef}
+                visibleTimelines={visibleTimelines}
               />
             </>
           )}

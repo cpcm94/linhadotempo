@@ -22,6 +22,7 @@ export const MonthEntries = ({
   newEntryId,
   forwardedRef,
   displayEntry,
+  visibleTimelines,
 }) => {
   const month = monthNameArray[timeEntriesByMonth[0].month]
   const year = timeEntriesByMonth[0].year
@@ -67,6 +68,7 @@ export const MonthEntries = ({
             timeEntriesWithoutDay={entriesWithoutDay}
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
+            visibleTimelines={visibleTimelines}
           />
         </EntryWithoutDayWrapper>
       </MonthAndEntryWrapper>
@@ -75,6 +77,7 @@ export const MonthEntries = ({
         newEntryId={newEntryId}
         forwardedRef={forwardedRef}
         displayEntry={displayEntry}
+        visibleTimelines={visibleTimelines}
       />
     </MonthEntriesWrapper>
   )
@@ -82,6 +85,7 @@ export const MonthEntries = ({
 
 MonthEntries.propTypes = {
   timeEntriesByMonth: PropTypes.array,
+  visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,

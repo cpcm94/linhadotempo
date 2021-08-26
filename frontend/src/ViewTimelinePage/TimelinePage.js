@@ -47,13 +47,18 @@ export const TimelinePage = ({
 
   let history = useHistory()
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
+
   const displayEntryDate =
     displayEntry &&
-    `${displayEntry.timeline_id ? `timeline=${displayEntry.timeline_id}` : ''}${
-      displayEntry.year ? `&year=${displayEntry.year}` : ''
-    }${displayEntry.month ? `&month=${displayEntry.month}` : ''}${
-      displayEntry.day ? `&day=${displayEntry.day}` : ''
-    }`
+    `${
+      displayEntry.timelines
+        ? `timeline=${displayEntry.timelines
+            .map((timeline) => timeline.id)
+            .join()}`
+        : ''
+    }${displayEntry.year ? `&year=${displayEntry.year}` : ''}${
+      displayEntry.month ? `&month=${displayEntry.month}` : ''
+    }${displayEntry.day ? `&day=${displayEntry.day}` : ''}`
 
   const navigateToSelectTimelines = () => {
     history.push({

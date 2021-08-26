@@ -19,6 +19,7 @@ export const YearEntries = ({
   newEntryId,
   forwardedRef,
   displayEntry,
+  visibleTimelines,
 }) => {
   const year = timeEntriesByYear[0].year.toString().startsWith('-')
     ? `${timeEntriesByYear[0].year.toString().substr(1)} a.c.`
@@ -59,6 +60,7 @@ export const YearEntries = ({
                 entriesWithoutMonth={entriesWithoutMonth}
                 newEntryId={newEntryId}
                 forwardedRef={forwardedRef}
+                visibleTimelines={visibleTimelines}
               />
             </EntriesWithoutMonthsWrapper>
           </>
@@ -70,6 +72,7 @@ export const YearEntries = ({
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
             displayEntry={displayEntry}
+            visibleTimelines={visibleTimelines}
           />
         ))}
       </EntriesWrapper>
@@ -79,6 +82,7 @@ export const YearEntries = ({
 
 YearEntries.propTypes = {
   timeEntriesByYear: PropTypes.array,
+  visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,

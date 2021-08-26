@@ -8,6 +8,7 @@ export const DayEntries = ({
   newEntryId,
   forwardedRef,
   displayEntry,
+  visibleTimelines,
 }) => {
   return (
     <DayEntriesWrapper>
@@ -19,6 +20,7 @@ export const DayEntries = ({
               newEntryId={newEntryId}
               forwardedRef={forwardedRef}
               displayEntry={displayEntry}
+              visibleTimelines={visibleTimelines}
             />
           ))
         : null}
@@ -28,7 +30,7 @@ export const DayEntries = ({
 
 DayEntries.propTypes = {
   timeEntriesByDay: PropTypes.array,
-  timelines: PropTypes.array,
+  visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,

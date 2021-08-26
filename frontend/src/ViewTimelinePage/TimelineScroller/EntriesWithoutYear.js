@@ -3,14 +3,17 @@ import {
   EntryIcon,
   EntryNameWrapper,
   EntryAndIconWrapper,
+  IconsWrapper,
 } from './YearEntries/YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+import { filterEntryTimelinesByVisibleTimelines } from './filterEntryTimelinesByVisibleTimelines'
 
 export const EntriesWithoutYear = ({
   entriesWithoutYear,
   newEntryId,
   forwardedRef,
+  visibleTimelines,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -33,9 +36,16 @@ export const EntriesWithoutYear = ({
             onClick={() => navigateToEditEntry(entry)}
           >
             <EntryNameWrapper>{entry.name}</EntryNameWrapper>
-            <EntryIcon color={entry.timelines[0].color}>
-              {entry.timelines[0].initials}
-            </EntryIcon>
+            <IconsWrapper>
+              {filterEntryTimelinesByVisibleTimelines(
+                visibleTimelines,
+                entry
+              ).map((timeline) => (
+                <EntryIcon key={timeline.id} color={timeline.color}>
+                  {timeline.initials}
+                </EntryIcon>
+              ))}
+            </IconsWrapper>
           </EntryAndIconWrapper>
         )
       })}
@@ -47,4 +57,5 @@ EntriesWithoutYear.propTypes = {
   entriesWithoutYear: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
+  visibleTimelines: PropTypes.array,
 }

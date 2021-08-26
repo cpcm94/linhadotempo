@@ -5,6 +5,7 @@ export const TIME_ENTRY_QUERY = gql`
     time_entry(id: $id) {
       id
       name
+      description
       year
       month
       day
