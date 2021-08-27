@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { TextareaAutosize } from '@material-ui/core'
+import { colors } from '../../_shared/colors'
 
 export const Input = styled(TextareaAutosize)`
   display: flex;
@@ -8,6 +9,7 @@ export const Input = styled(TextareaAutosize)`
   width: calc(100vw - 2rem);
   padding: 0;
   margin: 1rem 0 1rem 0.5rem;
+  background-color: ${colors.white};
   &:focus {
     outline: none;
   }

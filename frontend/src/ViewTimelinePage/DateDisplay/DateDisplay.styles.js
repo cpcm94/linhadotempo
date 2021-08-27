@@ -19,4 +19,5 @@ export const DateSpan = styled.div`
   background-color: ${({ selected }) =>
     selected ? colors.lightBrown : colors.white};
   color: ${({ isEmpty }) => (isEmpty ? colors.grey : colors.black)};
+  cursor: pointer;
 `

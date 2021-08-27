@@ -47,7 +47,6 @@ export const TimelinePage = ({
 
   let history = useHistory()
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
-
   const displayEntryDate =
     displayEntry &&
     `${

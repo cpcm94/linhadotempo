@@ -8,6 +8,8 @@ import {
   IconWrapper,
   TimelineWrapper,
   OpenDisplayWrapper,
+  ButtonWrapper,
+  StyledButton,
 } from './EntryTimelinesSelect.styles'
 
 export const EntryTimelinesSelect = ({
@@ -72,6 +74,11 @@ export const EntryTimelinesSelect = ({
               </TimelineWrapper>
             )
           })}
+          <ButtonWrapper>
+            <StyledButton onClick={toggleDisplaySelect} variant="contained">
+              Ok
+            </StyledButton>
+          </ButtonWrapper>
         </OpenDisplayWrapper>
       )}
     </>

@@ -18,8 +18,8 @@ class CreateTimeEntryTimelineTable extends Migration
     {
         Schema::create('time_entry_timeline', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('time_entry_id')->references('id')->on('time_entries');
-            $table->foreignId('timeline_id')->references('id')->on('timelines');
+            $table->foreignId('time_entry_id')->references('id')->on('time_entries')->onDelete('cascade');
+            $table->foreignId('timeline_id')->references('id')->on('timelines')->onDelete('cascade');
         });
         $timelines = Timeline::get();
         foreach ($timelines as $timeline) {

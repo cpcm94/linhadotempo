@@ -20,6 +20,7 @@ export const EntryAndIconWrapper = styled.div`
           ${newBackgroundColor} 3s
         `
       : null};
+  cursor: pointer;
 `
 
 export const EntryYearWrapper = styled.div`

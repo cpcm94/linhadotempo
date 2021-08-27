@@ -34,6 +34,9 @@ export const StyledButton = styled(Button)`
   &.MuiButton-contained {
     background-color: ${colors.brown};
   }
+  &&:hover {
+    background-color: ${colors.wine};
+  }
 `
 export const Form = styled.form`
   display: flex;

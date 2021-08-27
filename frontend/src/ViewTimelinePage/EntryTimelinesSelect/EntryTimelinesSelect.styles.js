@@ -1,6 +1,24 @@
 import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
+import { Button } from '@material-ui/core'
 
+export const StyledButton = styled(Button)`
+  height: 2.5rem;
+  && {
+    color: ${colors.white};
+  }
+  &.MuiButton-contained {
+    background-color: ${colors.brown};
+  }
+  &&:hover {
+    background-color: ${colors.wine};
+  }
+`
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+`
 export const ClosedDisplayWrapper = styled.div``
 export const OpenDisplayWrapper = styled.div``
 
