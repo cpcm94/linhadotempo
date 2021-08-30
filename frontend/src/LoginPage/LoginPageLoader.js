@@ -4,14 +4,12 @@ import { CurrentUserContext } from '../_shared/CurrentUserContextProvider'
 import { Redirect } from 'react-router-dom'
 
 export const LoginPageLoader = () => {
-  const { user, userLoading, refetchUser } = useContext(CurrentUserContext)
-  const checkBeforeRedirect = user ? true : false
-
+  const { user, userDataLoading, refetchUser } = useContext(CurrentUserContext)
   return (
     <>
-      {userLoading ? (
+      {userDataLoading ? (
         <span>Loading...</span>
-      ) : checkBeforeRedirect ? (
+      ) : user ? (
         <Redirect to="/timelines" />
       ) : (
         <LoginPage refetchUser={refetchUser} />

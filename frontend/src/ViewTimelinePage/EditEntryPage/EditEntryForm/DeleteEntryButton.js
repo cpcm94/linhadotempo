@@ -15,7 +15,9 @@ export const DeleteEntryButton = ({ entryId, afterDelete }) => {
   })
 
   const confirmAndDelete = () => {
-    var response = window.confirm('Apagar esse acontecimento?')
+    var response = window.confirm(
+      'Ao apagar esse acontecimento, ele vai ser apagado de todas as linhas do tempo. Tem certeza que deseja apagar?'
+    )
     response &&
       deleteEntry().then((res) => afterDelete(res.data.deleteTimeEntry))
   }
