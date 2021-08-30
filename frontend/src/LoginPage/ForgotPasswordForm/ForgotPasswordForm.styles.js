@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
-import { colors } from '../_shared/colors'
+import { colors } from '../../_shared/colors'
 import { Button } from '@material-ui/core'
 
 export const StyledTextField = styled(TextField)`
@@ -48,13 +48,4 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-
-export const FormText = styled.div`
-  min-width: 160px;
-
-  :hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
 `
