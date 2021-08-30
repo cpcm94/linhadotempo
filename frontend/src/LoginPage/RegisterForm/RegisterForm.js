@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client'
 import React, { useState } from 'react'
 import { CREATE_USER_MUTATION } from './CREATE_USER_MUTATION'
+import { LOGIN_MUTATION } from '../LOGIN_MUTATION'
 import {
   StyledTextField,
   StyledButton,
@@ -9,9 +10,30 @@ import {
 } from './RegisterForm.styles'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useHistory } from 'react-router-dom'
+import { saveToken } from '../../_shared/AuthToken/saveToken'
 import PropTypes from 'prop-types'
 
-export const RegisterForm = ({ setShowLoginForm }) => {
+const toastConfig = {
+  position: 'top-center',
+  hideProgressBar: true,
+  transition: Slide,
+}
+export const RegisterForm = ({ refetchUser }) => {
+  let history = useHistory()
+  const navigateToTimelines = () => {
+    history.push('/timelines')
+  }
+  const saveTokenAndGoToTimelines = (data) => {
+    if (data.login.success) {
+      saveToken(data.login.token)
+      refetchUser()
+      navigateToTimelines()
+    } else {
+      toast.error(data.login.message, toastConfig)
+    }
+  }
+
   const [user, setUser] = useState({
     name: '',
     password: '',
@@ -35,18 +57,24 @@ export const RegisterForm = ({ setShowLoginForm }) => {
       error
     },
   })
+  const [login] = useMutation(LOGIN_MUTATION, {
+    variables: { input: { email: user.email, password: user.password } },
+    onError: (error) => {
+      console.error(error.message)
+      toast.error('Erro inesperado ao se comunicar com o servidor', toastConfig)
+    },
+  })
   const handleSubmit = () => {
     if (confirmPassword !== user.password) {
-      toast.error('Os dois campos de senha precisam ser iguais!', {
-        position: 'top-center',
-        hideProgressBar: true,
-        transition: Slide,
-      })
+      toast.error('Os dois campos de senha precisam ser iguais!', toastConfig)
     }
     createUser().then((res) => {
       if (res.data) {
-        window.alert('Usuário criado com sucesso!')
-        setShowLoginForm(true)
+        toast.success('Usuário criado com sucesso!', toastConfig)
+        login().then((response) => {
+          saveTokenAndGoToTimelines(response.data)
+        })
+        // setShowLoginForm(true)
       } else if (res.errors.message.startsWith('Validation')) {
         toast.error('Esse email já está cadastrado', {
           position: 'top-center',
@@ -105,5 +133,5 @@ export const RegisterForm = ({ setShowLoginForm }) => {
 }
 
 RegisterForm.propTypes = {
-  setShowLoginForm: PropTypes.func,
+  refetchUser: PropTypes.func,
 }
