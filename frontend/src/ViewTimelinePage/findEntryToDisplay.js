@@ -25,8 +25,7 @@ const insertDatesInArray = (array, entries) =>
       year: entry[0] && entry[0].year ? entry[0].year : null,
       month: entry[0] && entry[0].month ? entry[0].month : null,
       day: entry[0] && entry[0].day ? entry[0].day : null,
-      timeline_id:
-        entry[0] && entry[0].timeline_id ? entry[0].timeline_id : null,
+      timelines: entry[0] && entry[0].timelines[0] ? entry[0].timelines : null,
     }
   })
 

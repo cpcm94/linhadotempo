@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { DateDisplay } from '../../DateDisplay/DateDisplay'
-import { EntryNameInput } from '../../EntryNameInput/EntryNameInput'
-import { StyledTextField, InnerWrapper, Wrapper } from './NewEntryForm.styles'
-import { MenuItem } from '@material-ui/core'
+import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
+import { InnerWrapper, Wrapper } from './NewEntryForm.styles'
 import { yearWithoutNegativeSign } from '../../../_shared/yearWithoutNegativeSign'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { CREATE_TIME_ENTRY_MUTATION } from '../../../_shared/CREATE_TIME_ENTRY_MUTATION'
 import { SubmitFormButton } from '../../SubmitFormButton/SubmitFormButton'
-import { SectionTitle } from '../../SectionTitle/SectionTitle'
+import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 
 export const NewEntryForm = ({
   timelines,
@@ -20,11 +19,11 @@ export const NewEntryForm = ({
   const [entry, setEntry] = useState(
     defaultEntryData
       ? {
-          timeline_id:
-            defaultEntryData.timeline !== 'undefined'
-              ? defaultEntryData.timeline
-              : timelines[0].id,
+          timelines: defaultEntryData.timeline
+            ? { sync: defaultEntryData.timeline.split(',') }
+            : { sync: [timelines[0].id] },
           name: '',
+          description: '',
           year: yearWithoutNegativeSign(defaultEntryData),
           month: defaultEntryData.month ? parseInt(defaultEntryData.month) : '',
           day: defaultEntryData.day ? parseInt(defaultEntryData.day) : '',
@@ -32,8 +31,9 @@ export const NewEntryForm = ({
           monthly_importance: false,
         }
       : {
-          timeline_id: timelines[0].id,
+          timelines: { connect: [timelines[0].id] },
           name: '',
+          description: '',
           year: '',
           month: '',
           day: '',
@@ -74,6 +74,12 @@ export const NewEntryForm = ({
     setEntry(newEntry)
   }
 
+  const resetSelectedTimelines = () => {
+    const newEntry = { ...entry }
+    newEntry.timelines.sync = []
+    setEntry(newEntry)
+  }
+
   const resetFieldValue = (fieldName) => () => {
     const newEntry = { ...entry }
     newEntry[fieldName] = ''
@@ -88,40 +94,34 @@ export const NewEntryForm = ({
     })
   }
 
-  const singleTimeline = timelines.length === 1
-  const showSingleTimeline = entry.timeline_id
-    ? entry.timeline_id
-    : timelines[0].id
-
   return (
     <Wrapper>
       <InnerWrapper>
-        <SectionTitle title={'Linhas do tempo'} />
-        <StyledTextField
-          select
-          id="timeline_id"
-          variant="outlined"
-          disabled={singleTimeline}
-          label="Linha do tempo"
-          value={showSingleTimeline}
-          onChange={handleChange('timeline_id')}
-        >
-          {timelines.map((timeline) => (
-            <MenuItem key={timeline.id} value={timeline.id}>
-              {timeline.name}
-            </MenuItem>
-          ))}
-        </StyledTextField>
+        <EntryTimelinesSelect
+          timelines={timelines}
+          resetField={resetSelectedTimelines}
+          entry={entry}
+          setEntry={setEntry}
+        />
         <DateDisplay
           entry={entry}
           setEntry={setEntry}
           radioValue={radioValue}
           setRadioValue={setRadioValue}
         />
-        <EntryNameInput
-          entryName={entry.name}
-          changeEntryName={handleChange}
-          resetName={resetFieldValue}
+        <EntryTextInput
+          entry={entry}
+          changeEntry={handleChange}
+          resetField={resetFieldValue}
+          title={'Acontecimento'}
+          field={'name'}
+        />
+        <EntryTextInput
+          entry={entry}
+          changeEntry={handleChange}
+          resetField={resetFieldValue}
+          title={'Descrição'}
+          field={'description'}
         />
         <SubmitFormButton
           onClick={submitCreateEntry}

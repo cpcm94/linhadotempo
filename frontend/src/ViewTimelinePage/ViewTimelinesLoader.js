@@ -1,40 +1,38 @@
 import React, { useContext } from 'react'
 import { TimelinePage } from './TimelinePage'
 import { TimelinesContext } from './TimelinesContextProvider'
-import { filterTimelines } from './filterTimelines'
-import qs from 'query-string'
 import { NoValidTimelinesPage } from './NoValidTimelinesPage'
+import { useQuery } from '@apollo/client'
+import { TIME_ENTRIES_QUERY } from './TIME_ENTRIES_QUERY'
+import { urlQueryTimelineIds } from './urlQueryTimelineIds'
 
 export const ViewTimelinesLoader = () => {
-  const { timelines, previousTimelines, loading } = useContext(TimelinesContext)
+  const { timelines, loading, getTimelines } = useContext(TimelinesContext)
+  const selectedTimelines = getTimelines(urlQueryTimelineIds())
+  const {
+    data: entriesData,
+    previousData: previousEntries,
+    loading: entriesLoading,
+  } = useQuery(TIME_ENTRIES_QUERY, {
+    fetchPolicy: 'cache-and-network',
+    variables: { timeline_ids: urlQueryTimelineIds() },
+  })
 
-  const queriedTimelines = qs.parse(location.search, {
-    arrayFormat: 'comma',
-  }).timelines
-
-  const timelinesArray = Array.isArray(queriedTimelines)
-    ? queriedTimelines
-    : queriedTimelines.split()
-
-  const filteredTimelines = filterTimelines(timelines, timelinesArray)
-  const filteredPreviousTimelines = filterTimelines(
-    previousTimelines,
-    timelinesArray
-  )
   const noValidTimelines =
-    timelinesArray.length > 0 && filteredTimelines.length === 0
+    urlQueryTimelineIds().length > 0 && selectedTimelines.length === 0
 
   const containsInvalidTimelines =
-    timelinesArray.length !== filteredTimelines.length
+    urlQueryTimelineIds().length !== selectedTimelines.length
 
-  return loading ? (
+  return loading || entriesLoading ? (
     <span>Loading...</span>
   ) : noValidTimelines ? (
     <NoValidTimelinesPage />
-  ) : timelines ? (
+  ) : timelines && entriesData ? (
     <TimelinePage
-      timelines={filteredTimelines}
-      previousTimelines={filteredPreviousTimelines}
+      timelines={selectedTimelines}
+      entries={entriesData.time_entries}
+      previousEntries={previousEntries && previousEntries.time_entries}
       hasInvalidTimelines={containsInvalidTimelines}
     />
   ) : null

@@ -20,6 +20,7 @@ export const EntryAndIconWrapper = styled.div`
           ${newBackgroundColor} 3s
         `
       : null};
+  cursor: pointer;
 `
 
 export const EntryYearWrapper = styled.div`
@@ -77,6 +78,10 @@ export const EntryIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+export const IconsWrapper = styled.div`
+  display: flex;
 `
 export const EntriesWrapper = styled.div`
   display: flex;

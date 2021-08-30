@@ -1,25 +1,36 @@
 import styled from 'styled-components'
-import { colors } from '../../../_shared/colors'
+import { colors } from '../../_shared/colors'
+import { Button } from '@material-ui/core'
 
-export const TimelinesListWrapper = styled.div`
-  height: 100%;
+export const StyledButton = styled(Button)`
+  height: 2.5rem;
+  && {
+    color: ${colors.white};
+  }
+  &.MuiButton-contained {
+    background-color: ${colors.brown};
+  }
+  &&:hover {
+    background-color: ${colors.wine};
+  }
 `
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+`
+export const ClosedDisplayWrapper = styled.div``
+export const OpenDisplayWrapper = styled.div``
 
 export const TimelineNameWrapper = styled.div`
   flex: 1;
 `
-export const EditButtonWrapper = styled.div`
-  align-self: center;
-  :hover {
-    background-color: ${colors.lightBrown};
-  }
-`
 
-export const SelectedIconAndNameWrapper = styled.div`
+export const IconAndNameWrapper = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
-  padding: 1rem 0 1rem 1.25rem;
+  padding: 1rem 0 1rem 0.5rem;
   height: ${({ timelinesIconRow }) => (timelinesIconRow ? '3.5rem' : '3rem')};
   transition: background-color 0.5s ease-out;
 
@@ -48,7 +59,7 @@ export const IconWrapper = styled.div`
   align-items: center;
 `
 
-export const TimelinesWrapper = styled.div`
+export const TimelineWrapper = styled.div`
   display: flex;
   cursor: pointer;
 `

@@ -1,16 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { EntryNameWrapper } from './MonthEntries.styles'
-import { EntryAndIconWrapper, EntryIcon } from '../YearEntries.styles'
+import {
+  EntryAndIconWrapper,
+  EntryIcon,
+  IconsWrapper,
+} from '../YearEntries.styles'
 import { useHistory } from 'react-router-dom'
-import { timelineColor } from '../../../../_shared/timelineColor'
-import { filterTimelineInitials } from '../filterTimelineInitials'
+import { filterEntryTimelinesByVisibleTimelines } from '../../filterEntryTimelinesByVisibleTimelines'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
-  timelines,
   newEntryId,
   forwardedRef,
+  visibleTimelines,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -32,9 +35,16 @@ export const EntriesWithoutDay = ({
               onClick={() => navigateToEditEntry(entry)}
             >
               <EntryNameWrapper>{entry.name}</EntryNameWrapper>
-              <EntryIcon color={timelineColor(timelines, entry.timeline_id)}>
-                {filterTimelineInitials(timelines, entry)}
-              </EntryIcon>
+              <IconsWrapper>
+                {filterEntryTimelinesByVisibleTimelines(
+                  visibleTimelines,
+                  entry
+                ).map((timeline) => (
+                  <EntryIcon key={timeline.id} color={timeline.color}>
+                    {timeline.initials}
+                  </EntryIcon>
+                ))}
+              </IconsWrapper>
             </EntryAndIconWrapper>
           ))
         : null}
@@ -44,7 +54,7 @@ export const EntriesWithoutDay = ({
 
 EntriesWithoutDay.propTypes = {
   timeEntriesWithoutDay: PropTypes.array,
-  timelines: PropTypes.array,
+  visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
 }

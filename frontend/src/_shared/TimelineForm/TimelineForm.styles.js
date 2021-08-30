@@ -76,5 +76,10 @@ export const StyledButton = styled(Button)`
   && {
     color: ${colors.white};
   }
-  background-color: ${colors.brown} !important;
+  &.MuiButton-contained {
+    background-color: ${colors.brown};
+  }
+  &&:hover {
+    background-color: ${colors.wine};
+  }
 `

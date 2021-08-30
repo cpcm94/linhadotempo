@@ -20,7 +20,7 @@ type Timeline {
     name: String!
     color: String
     initials: String
-    time_entries: [TimeEntry] @hasMany
+    time_entries: [TimeEntry] @belongsToMany
     user_id: String
     user: User @belongsTo
 }
@@ -34,8 +34,7 @@ type TimeEntry {
     day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
-    timeline_id: String
-    timeline: Timeline @belongsTo
+    timelines: [Timeline] @belongsToMany
 }
 
 type LoginResponse {
@@ -62,7 +61,11 @@ input CreateTimeEntryInput {
     day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
-    timeline_id: String
+    timelines: CreateTimelineBelongsToMany!
+}
+
+input CreateTimelineBelongsToMany {
+    sync: [ID!]
 }
 
 input UpdateTimeEntryInput {
@@ -73,7 +76,11 @@ input UpdateTimeEntryInput {
     day: Int
     annual_importance: Boolean
     monthly_importance: Boolean
-    timeline_id: String
+    timelines: UpdateTimelineBelongsToMany!
+}
+
+input UpdateTimelineBelongsToMany {
+    sync: [ID!]
 }
 
 input CreateUserInput {
@@ -112,7 +119,7 @@ type Query {
     me: User @auth
     timelines: [Timeline!]! @all @whereAuth(relation: "user")
     timeline(id: ID @eq): Timeline @find @whereAuth(relation: "user")
-    time_entries: [TimeEntry] @all
+    time_entries(timeline_ids: [ID]): [TimeEntry]
     time_entry(id: ID! @eq): TimeEntry @find
 }
 

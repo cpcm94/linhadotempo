@@ -9,7 +9,6 @@ import { colors } from '../_shared/colors'
 import { useHistory } from 'react-router-dom'
 import { TimelinesButtonsRow } from './TimelinesButtonsRow'
 import { AddButtonWrapper, EllipsisButtonsWrapper } from './TimelinePage.styles'
-import { mapTimeEntriesId } from './mapTimeEntriesId'
 import { findEntryToDisplay } from './findEntryToDisplay'
 import { findClosestNextEntryToHash } from './findClosestNextEntryToHash'
 import { getScrollPosition } from './getScrollPosition'
@@ -24,21 +23,24 @@ let timeoutId = null
 
 export const TimelinePage = ({
   timelines,
-  previousTimelines,
+  entries,
+  previousEntries,
   hasInvalidTimelines,
 }) => {
   const alreadyRan = useRef(false)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
   const hash = useRef(window.location.hash)
-  const oldEntry = mapTimeEntriesId(previousTimelines)
+  const oldEntryIds =
+    previousEntries && previousEntries.map((entry) => entry.id)
 
-  const newEntry = mapTimeEntriesId(timelines)
+  const newEntryIds = entries && entries.map((entry) => entry.id)
 
   const brandNewEntry =
-    oldEntry[0] && newEntry.filter((entry) => !oldEntry.includes(entry))[0]
+    oldEntryIds &&
+    newEntryIds.filter((entry) => !oldEntryIds.includes(entry))[0]
 
-  const objectRefs = newEntry.reduce((accumulator, curr) => {
+  const objectRefs = newEntryIds.reduce((accumulator, curr) => {
     accumulator[curr] = useRef(null)
     return accumulator
   }, {})
@@ -47,11 +49,15 @@ export const TimelinePage = ({
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
   const displayEntryDate =
     displayEntry &&
-    `${displayEntry.timeline_id ? `timeline=${displayEntry.timeline_id}` : ''}${
-      displayEntry.year ? `&year=${displayEntry.year}` : ''
-    }${displayEntry.month ? `&month=${displayEntry.month}` : ''}${
-      displayEntry.day ? `&day=${displayEntry.day}` : ''
-    }`
+    `${
+      displayEntry.timelines
+        ? `timeline=${displayEntry.timelines
+            .map((timeline) => timeline.id)
+            .join()}`
+        : ''
+    }${displayEntry.year ? `&year=${displayEntry.year}` : ''}${
+      displayEntry.month ? `&month=${displayEntry.month}` : ''
+    }${displayEntry.day ? `&day=${displayEntry.day}` : ''}`
 
   const navigateToSelectTimelines = () => {
     history.push({
@@ -66,9 +72,6 @@ export const TimelinePage = ({
       hash: `#${displayEntryDate ? displayEntryDate : ''}`,
     })
   }
-  const entries = timelines
-    .map((timeline) => timeline.time_entries.map((entry) => entry))
-    .flat()
 
   const isTheRightYear = (entry, hash) =>
     entry.year
@@ -187,6 +190,7 @@ export const TimelinePage = ({
         {entries[0] ? (
           <TimelineScroller
             visibleTimelines={visibleTimelines}
+            entries={entries}
             newEntryId={brandNewEntry}
             forwardedRef={objectRefs}
             displayEntry={displayEntry}
@@ -222,6 +226,7 @@ export const TimelinePage = ({
 
 TimelinePage.propTypes = {
   timelines: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  previousTimelines: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  entries: PropTypes.array,
+  previousEntries: PropTypes.array,
   hasInvalidTimelines: PropTypes.bool,
 }

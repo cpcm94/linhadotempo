@@ -30,4 +30,8 @@ export const StyledButton = styled(Button)`
   && {
     color: ${colors.white};
   }
+
+  &&:hover {
+    background-color: ${colors.wine};
+  }
 `

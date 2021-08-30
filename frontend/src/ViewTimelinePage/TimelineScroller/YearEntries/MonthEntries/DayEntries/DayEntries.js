@@ -5,12 +5,10 @@ import PropTypes from 'prop-types'
 
 export const DayEntries = ({
   timeEntriesByDay,
-  timelines,
   newEntryId,
   forwardedRef,
   displayEntry,
-  hasMonth,
-  hasYear,
+  visibleTimelines,
 }) => {
   return (
     <DayEntriesWrapper>
@@ -18,13 +16,11 @@ export const DayEntries = ({
         ? timeEntriesByDay.map((entry, index) => (
             <Entries
               entries={entry}
-              timelines={timelines}
               key={index}
               newEntryId={newEntryId}
               forwardedRef={forwardedRef}
               displayEntry={displayEntry}
-              hasMonth={hasMonth}
-              hasYear={hasYear}
+              visibleTimelines={visibleTimelines}
             />
           ))
         : null}
@@ -34,10 +30,8 @@ export const DayEntries = ({
 
 DayEntries.propTypes = {
   timeEntriesByDay: PropTypes.array,
-  timelines: PropTypes.array,
+  visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
-  hasMonth: PropTypes.bool,
-  hasYear: PropTypes.bool,
 }

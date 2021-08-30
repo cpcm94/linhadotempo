@@ -7,29 +7,25 @@ import {
   YearWrapper,
   MonthWrapper,
   DayWrapper,
-  // YearSpan,
-  // MonthSpan,
-  // DaySpan,
   DateSpan,
   DateText,
-  // DateInnerWrapper,
-  // DayInnerWrapper,
 } from './Entries.styles'
-import { EntryAndIconWrapper, EntryIcon } from '../../../YearEntries.styles'
+import {
+  EntryAndIconWrapper,
+  EntryIcon,
+  IconsWrapper,
+} from '../../../YearEntries.styles'
 import PropTypes from 'prop-types'
 import { monthNameArray } from '../../../../../../_shared/monthNameArray'
 import { useHistory } from 'react-router-dom'
-import { timelineColor } from '../../../../../../_shared/timelineColor'
-import { filterTimelineInitials } from '../../../filterTimelineInitials'
+import { filterEntryTimelinesByVisibleTimelines } from '../../../../filterEntryTimelinesByVisibleTimelines'
 
 export const Entries = ({
   entries,
-  timelines,
   newEntryId,
   forwardedRef,
   displayEntry,
-  // hasMonth,
-  // hasYear,
+  visibleTimelines,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -80,9 +76,16 @@ export const Entries = ({
             onClick={() => navigateToEditEntry(entry)}
           >
             <EntryWrapper key={index}>{entry.name}</EntryWrapper>
-            <EntryIcon color={timelineColor(timelines, entry.timeline_id)}>
-              {filterTimelineInitials(timelines, entry)}
-            </EntryIcon>
+            <IconsWrapper>
+              {filterEntryTimelinesByVisibleTimelines(
+                visibleTimelines,
+                entry
+              ).map((timeline) => (
+                <EntryIcon key={timeline.id} color={timeline.color}>
+                  {timeline.initials}
+                </EntryIcon>
+              ))}
+            </IconsWrapper>
           </EntryAndIconWrapper>
         ))}
       </EntriesWrapper>
@@ -92,10 +95,8 @@ export const Entries = ({
 
 Entries.propTypes = {
   entries: PropTypes.array,
-  timelines: PropTypes.array,
+  visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
-  hasMonth: PropTypes.bool,
-  hasYear: PropTypes.bool,
 }

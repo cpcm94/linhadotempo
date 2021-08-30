@@ -4,6 +4,7 @@ import {
   YearAndRadiosWrapper,
   StyledYearTextField,
   YearFieldAndButtons,
+  StyledButton,
 } from './YearField.styles'
 import { YearOptionSelect } from '../../../_shared/YearOptionSelect'
 import { PlusIcon } from '../../../_shared/PlusIcon'
@@ -15,6 +16,7 @@ export const YearField = ({
   radioValue,
   setRadioValue,
   setYear,
+  displayDatePicker,
 }) => {
   const incrementByOne = (year) => {
     if (year === '') {
@@ -54,6 +56,9 @@ export const YearField = ({
           setRadioValue={setRadioValue}
           radioValue={radioValue}
         />
+        <StyledButton onClick={displayDatePicker} variant="contained">
+          Ok
+        </StyledButton>
       </YearAndRadiosWrapper>
     </>
   )
@@ -64,5 +69,6 @@ YearField.propTypes = {
   changeYear: PropTypes.func,
   radioValue: PropTypes.string,
   setRadioValue: PropTypes.func,
+  displayDatePicker: PropTypes.func,
   setYear: PropTypes.func,
 }

@@ -3,18 +3,11 @@ import PropTypes from 'prop-types'
 import { GlobalStyle } from './GlobalStyle'
 import { MainWrapper } from './MainWrapper'
 
-export const Layout = ({
-  children,
-  backgroundColor = '#f3fffc',
-  backgroundImage,
-}) => {
+export const Layout = ({ children }) => {
   return (
     <>
       <GlobalStyle />
-      <MainWrapper
-        backgroundColor={backgroundColor}
-        backgroundImage={backgroundImage}
-      >
+      <MainWrapper>
         <main>{children}</main>
       </MainWrapper>
     </>
@@ -23,6 +16,4 @@ export const Layout = ({
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  backgroundColor: PropTypes.string,
-  backgroundImage: PropTypes.string,
 }

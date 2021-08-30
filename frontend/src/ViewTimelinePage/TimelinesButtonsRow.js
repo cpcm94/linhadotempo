@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { colors } from '../_shared/colors'
 import PropTypes from 'prop-types'
-import { isSelected } from '../_shared/isSelected'
 import { timelineColor } from '../_shared/timelineColor'
 
 const Button = styled.div`
@@ -70,7 +69,7 @@ export const TimelinesButtonsRow = ({
           <Button
             key={timeline.id}
             onClick={onTimelineButtonClick}
-            isSelected={isSelected(timeline.id, arrayVisibleTimelinesId)}
+            isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
             color={timelineColor(timelines, timeline.id)}
           >
             {timeline.initials}
