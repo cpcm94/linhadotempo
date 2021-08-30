@@ -1,6 +1,24 @@
 import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
+import { Button } from '@material-ui/core'
 
+export const StyledButton = styled(Button)`
+  height: 2.5rem;
+  && {
+    color: ${colors.white};
+  }
+  &.MuiButton-contained {
+    background-color: ${colors.brown};
+  }
+  &&:hover {
+    background-color: ${colors.wine};
+  }
+`
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+`
 export const ClosedDisplayWrapper = styled.div``
 export const OpenDisplayWrapper = styled.div``
 
@@ -12,7 +30,7 @@ export const IconAndNameWrapper = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
-  padding: 1rem 0 1rem 1.25rem;
+  padding: 1rem 0 1rem 0.5rem;
   height: ${({ timelinesIconRow }) => (timelinesIconRow ? '3.5rem' : '3rem')};
   transition: background-color 0.5s ease-out;
 

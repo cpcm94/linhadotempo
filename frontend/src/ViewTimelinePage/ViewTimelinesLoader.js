@@ -14,6 +14,7 @@ export const ViewTimelinesLoader = () => {
     previousData: previousEntries,
     loading: entriesLoading,
   } = useQuery(TIME_ENTRIES_QUERY, {
+    fetchPolicy: 'cache-and-network',
     variables: { timeline_ids: urlQueryTimelineIds() },
   })
 

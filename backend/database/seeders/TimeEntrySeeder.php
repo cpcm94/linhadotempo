@@ -31,7 +31,7 @@ class TimeEntrySeeder extends Seeder
         }
         $timelines = Timeline::all();
         TimeEntry::all()->each(function ($time_entry) use($timelines) {
-            $time_entry->timelines()->attach($timelines->random(rand(1,3))->pluck('id')-> toArray());
+            $time_entry->timelines()->attach($timelines->random(rand(1))->pluck('id')-> toArray());
         });
     }
 }

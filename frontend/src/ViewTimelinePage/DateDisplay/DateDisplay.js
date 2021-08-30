@@ -117,6 +117,7 @@ export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
           year={entry.year}
           radioValue={radioValue}
           setRadioValue={setRadioValue}
+          displayDatePicker={() => displayDatePicker('year')}
         />
       )}
       {showMonthPicker && (

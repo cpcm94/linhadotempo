@@ -8,9 +8,14 @@ export const SubmitFormButton = ({ onClick, buttonText, entry }) => {
   const dayWithoutYearOrMonth =
     entry.day !== '' && (entry.month === '' || entry.year === '')
   const monthWithoutYear = entry.month !== '' && entry.year === ''
+  const entryWithoutTimeline = !entry.timelines.sync[0]
 
   const disableSubmitButton =
-    aboveMaxNameLength || dayWithoutYearOrMonth || monthWithoutYear || emptyName
+    aboveMaxNameLength ||
+    dayWithoutYearOrMonth ||
+    monthWithoutYear ||
+    emptyName ||
+    entryWithoutTimeline
 
   const errorMessage = () => {
     if (aboveMaxNameLength) {
@@ -21,6 +26,8 @@ export const SubmitFormButton = ({ onClick, buttonText, entry }) => {
       return 'Não é possível criar acontecimento com mês sem possuir ano'
     } else if (emptyName) {
       return 'Não é possível criar acontecimento sem nome'
+    } else if (entryWithoutTimeline) {
+      return 'Não é possível criar acontecimento sem linha do tempo'
     }
   }
   return (
