@@ -10,11 +10,20 @@ import {
   Wrapper,
   Form,
   StyledButton,
-  RegisterText,
+  FormText,
 } from './LoginForm.styles'
 import PropTypes from 'prop-types'
+const toastConfig = {
+  position: 'top-center',
+  hideProgressBar: true,
+  transition: Slide,
+}
 
-export const LoginForm = ({ refetchUser, setShowLoginForm }) => {
+export const LoginForm = ({
+  refetchUser,
+  toggleShowRegisterForm,
+  toggleShowForgotPasswordForm,
+}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -30,11 +39,7 @@ export const LoginForm = ({ refetchUser, setShowLoginForm }) => {
       refetchUser()
       navigateToHome()
     } else {
-      toast.error(data.login.message, {
-        position: 'top-center',
-        hideProgressBar: true,
-        transition: Slide,
-      })
+      toast.error(data.login.message, toastConfig)
     }
   }
 
@@ -42,11 +47,7 @@ export const LoginForm = ({ refetchUser, setShowLoginForm }) => {
     variables: { input: { email: email, password: password } },
     onError: (error) => {
       console.error(error.message)
-      toast.error('Erro inesperado ao se comunicar com o servidor', {
-        position: 'top-center',
-        hideProgressBar: true,
-        transition: Slide,
-      })
+      toast.error('Erro inesperado ao se comunicar com o servidor', toastConfig)
     },
   })
 
@@ -90,13 +91,17 @@ export const LoginForm = ({ refetchUser, setShowLoginForm }) => {
         </StyledButton>
         <ToastContainer />
       </Form>
-      <RegisterText onClick={() => setShowLoginForm(false)}>
+      <FormText onClick={toggleShowRegisterForm}>
         Não possui uma conta? Registre-se
-      </RegisterText>
+      </FormText>
+      <FormText onClick={toggleShowForgotPasswordForm}>
+        Esqueceu sua senha?
+      </FormText>
     </Wrapper>
   )
 }
 LoginForm.propTypes = {
   refetchUser: PropTypes.func,
-  setShowLoginForm: PropTypes.func,
+  toggleShowRegisterForm: PropTypes.func,
+  toggleShowForgotPasswordForm: PropTypes.func,
 }
