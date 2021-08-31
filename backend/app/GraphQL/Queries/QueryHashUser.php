@@ -12,7 +12,7 @@ class QueryHashUser
     public function __invoke($_, array $args)
     {
         $hashUser = HashUser::where('hash_id', $args)->first();
-        $currentDate = gmdate('Y-m-d h:i:s');
+        $currentDate = gmdate('Y-m-d H:i:s');
         if($hashUser->expiry_date > $currentDate) {
             return $hashUser;
         } else {
