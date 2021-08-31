@@ -18,6 +18,7 @@ import { CurrentUserContextProvider } from './_shared/CurrentUserContextProvider
 import { UserPageLoader } from './UserPage/UserPageLoader'
 import { UsersLoader } from './UsersPage/UsersLoader'
 import { EditUserPage } from './EditUserPage/EditUserPage'
+import { ViewRecoverPasswordPage } from './RecoverPasswordPage/ViewRecoverPasswordPage'
 
 const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
   const token = getToken()
@@ -76,6 +77,9 @@ const Wrapped = () => {
           </Route>
           <Route path="/editUser">
             <EditUserPage />
+          </Route>
+          <Route path="/recoverPassword">
+            <ViewRecoverPasswordPage />
           </Route>
           <Route path="/">
             <LoginPageLoader />

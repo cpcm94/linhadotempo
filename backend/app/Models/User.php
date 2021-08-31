@@ -44,4 +44,8 @@ class User extends Authenticatable
     public function timelines() {
         return $this->hasMany(Timeline::class);
     }
+    
+    public function hash_users() {
+        return $this->hasMany(HashUser::class);
+    }
 }
