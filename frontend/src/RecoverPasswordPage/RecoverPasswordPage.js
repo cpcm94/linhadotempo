@@ -3,6 +3,7 @@ import { ChangePasswordForm } from '../_shared/ChangePasswordForm/ChangePassword
 import { Layout } from '../_shared/Layout'
 import { Header } from '../_shared/Header/Header'
 import { Container } from '../_shared/Container'
+import { ToastContainer } from 'react-toastify'
 import PropTypes from 'prop-types'
 import { UserInfoFields } from './UserInfoFields'
 
@@ -13,6 +14,7 @@ export const RecoverPasswordPage = ({ user }) => {
       <Container>
         <UserInfoFields user={user} />
         <ChangePasswordForm user={user} />
+        <ToastContainer />
       </Container>
     </Layout>
   )
