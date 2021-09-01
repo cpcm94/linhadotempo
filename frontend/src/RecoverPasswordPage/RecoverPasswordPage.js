@@ -6,11 +6,16 @@ import { Container } from '../_shared/Container'
 import { ToastContainer } from 'react-toastify'
 import PropTypes from 'prop-types'
 import { UserInfoFields } from './UserInfoFields'
+import { useHistory } from 'react-router-dom'
 
 export const RecoverPasswordPage = ({ user }) => {
+  let history = useHistory()
+  const navigateToHome = () => {
+    history.push('/')
+  }
   return (
     <Layout>
-      <Header title={'Recuperação de senha'} />
+      <Header title={'Recuperação de senha'} returnButton={navigateToHome} />
       <Container>
         <UserInfoFields user={user} />
         <ChangePasswordForm user={user} />
