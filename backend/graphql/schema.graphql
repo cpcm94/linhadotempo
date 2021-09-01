@@ -64,7 +64,7 @@ type DeleteUserResponse {
 
 type AddHashUserResponse {
     message: String!
-    hash_id: String
+    success: Boolean!
 }
 
 input CreateTimeEntryInput {

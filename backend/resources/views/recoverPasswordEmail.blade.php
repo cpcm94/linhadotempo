@@ -14,7 +14,7 @@
     <br />
     <br />
     <br />
-    <a href="http://localhost:8888/recoverPassword/{{ $data['hash_id'] }}"> Clique aqui para redefinir sua senha </a>
+    <a href="https://www.stage.alinhadotempo.com.br/recoverPassword/{{ $data['hash_id'] }}"> Clique aqui para redefinir sua senha </a>
     <br />
     <br />
     <br />
