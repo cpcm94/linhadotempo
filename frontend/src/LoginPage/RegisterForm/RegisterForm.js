@@ -67,22 +67,27 @@ export const RegisterForm = ({ refetchUser }) => {
   const handleSubmit = () => {
     if (confirmPassword !== user.password) {
       toast.error('Os dois campos de senha precisam ser iguais!', toastConfig)
+    } else if (
+      !user.email.includes('@') &&
+      (!user.email.includes('.com') || !user.email.includes('.gov'))
+    ) {
+      toast.error('Email precisa ser válido', toastConfig)
+    } else {
+      createUser().then((res) => {
+        if (res.data) {
+          toast.success('Usuário criado com sucesso!', toastConfig)
+          login().then((response) => {
+            saveTokenAndGoToTimelines(response.data)
+          })
+        } else if (res.errors.message.startsWith('Validation')) {
+          toast.error('Esse email já está cadastrado', {
+            position: 'top-center',
+            hideProgressBar: true,
+            transition: Slide,
+          })
+        }
+      })
     }
-    createUser().then((res) => {
-      if (res.data) {
-        toast.success('Usuário criado com sucesso!', toastConfig)
-        login().then((response) => {
-          saveTokenAndGoToTimelines(response.data)
-        })
-        // setShowLoginForm(true)
-      } else if (res.errors.message.startsWith('Validation')) {
-        toast.error('Esse email já está cadastrado', {
-          position: 'top-center',
-          hideProgressBar: true,
-          transition: Slide,
-        })
-      }
-    })
   }
 
   const disableSubmitButton =

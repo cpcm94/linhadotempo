@@ -26,16 +26,30 @@ export const TimelineNameWrapper = styled.div`
   flex: 1;
 `
 
-export const IconAndNameWrapper = styled.div`
+export const ClosedIconAndNameWrapper = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
   padding: 1rem 0 1rem 0.5rem;
-  height: ${({ timelinesIconRow }) => (timelinesIconRow ? '3.5rem' : '3rem')};
   transition: background-color 0.5s ease-out;
 
   background-color: ${({ isSelected }) =>
     isSelected ? colors.lightBrown : colors.white};
+  :hover {
+    filter: brightness(0.95);
+  }
+`
+
+export const OpenIconAndNameWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 1rem 0 1rem 0.5rem;
+  margin: 0.25rem 0 0 0;
+  transition: background-color 0.5s ease-out;
+  border-radius: 5px;
+  background-color: ${({ isSelected }) =>
+    isSelected ? colors.brown : colors.lightBrown};
   :hover {
     filter: brightness(0.95);
   }

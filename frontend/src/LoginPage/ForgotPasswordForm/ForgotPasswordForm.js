@@ -30,16 +30,15 @@ export const ForgotPasswordForm = ({ email, setEmail }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     addHashUser().then((res) => {
-      if (res.data.addHashUser.success) {
-        toast.success(res.data.addHashUser.message, toastConfig)
-      } else {
+      if (!res.data.addHashUser.success) {
         toast.error(res.data.addHashUser.message, toastConfig)
       }
     })
   }
+  const success = data && data.addHashUser.success
   return (
     <Wrapper>
-      {!data ? (
+      {!success ? (
         <Form>
           <StyledTextField
             type="text"
