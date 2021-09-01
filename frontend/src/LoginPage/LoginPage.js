@@ -9,6 +9,7 @@ import { ForgotPasswordForm } from './ForgotPasswordForm/ForgotPasswordForm'
 
 export const LoginPage = ({ refetchUser }) => {
   const [showRegisterForm, setShowRegisterForm] = useState(false)
+  const [email, setEmail] = useState('')
   const [showForgotPasswordForm, setShowForgotPasswordForm] = useState(false)
   const toggleShowRegisterForm = () => {
     setShowRegisterForm(!showRegisterForm)
@@ -28,12 +29,14 @@ export const LoginPage = ({ refetchUser }) => {
         {showRegisterForm ? (
           <RegisterForm refetchUser={refetchUser} />
         ) : showForgotPasswordForm ? (
-          <ForgotPasswordForm />
+          <ForgotPasswordForm email={email} setEmail={setEmail} />
         ) : (
           <LoginForm
             refetchUser={refetchUser}
             toggleShowRegisterForm={toggleShowRegisterForm}
             toggleShowForgotPasswordForm={toggleShowForgotPasswordForm}
+            email={email}
+            setEmail={setEmail}
           />
         )}
       </Container>

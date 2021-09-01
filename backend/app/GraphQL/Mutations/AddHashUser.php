@@ -16,7 +16,7 @@ class AddHashUser
     {
         $user = User::where('email', $args)->first();
         if (! $user) {
-            return ['message' => 'Email não existe'];
+            return ['message' => 'Email não existe', 'success' => false];
         }
         $expiryDate = date_add(date_create(), date_interval_create_from_date_string('30 minutes'));
 
@@ -32,9 +32,9 @@ class AddHashUser
         Mail::to($user->email)->send(new RecoverPassword($data));
 
         if (count(Mail::failures())> 0) {
-            return ['message' => 'Hash user criado, falha ao enviar email', 'hash_id' => $hash_user->hash_id];
+            return ['message' => 'Falha ao enviar email', 'success' => false];
         } else {
-            return ['message' => 'Hash user criado e email enviado com sucesso', 'hash_id' => $hash_user->hash_id];
+            return ['message' => 'Email enviado com sucesso', 'success' => true];
         }
 
     }
