@@ -3,7 +3,8 @@
 namespace App\GraphQL\Mutations;
 use App\Models\User;
 use App\Models\HashUser;
-
+use App\Mail\RecoverPassword;
+use Illuminate\Support\Facades\Mail;
 
 class AddHashUser
 {
@@ -24,7 +25,17 @@ class AddHashUser
             'expiry_date' => $expiryDate,
             'user_id' => $user->id,
         ]);
+        $data = array(
+            'hash_id' => $hash_user->hash_id,
+            'user_name' => $user->name,
+        );
+        Mail::to($user->email)->send(new RecoverPassword($data));
 
-        return ['message' => 'Hash user criado', 'hash_id' => $hash_user->hash_id];
+        if (count(Mail::failures())> 0) {
+            return ['message' => 'Hash user criado, falha ao enviar email', 'hash_id' => $hash_user->hash_id];
+        } else {
+            return ['message' => 'Hash user criado e email enviado com sucesso', 'hash_id' => $hash_user->hash_id];
+        }
+
     }
 }
