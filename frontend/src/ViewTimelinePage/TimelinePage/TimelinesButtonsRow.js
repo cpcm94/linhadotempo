@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { colors } from '../_shared/colors'
+import { colors } from '../../_shared/colors'
 import PropTypes from 'prop-types'
-import { timelineColor } from '../_shared/timelineColor'
+import { timelineColor } from '../../_shared/timelineColor'
 
 const Button = styled.div`
   margin-right: 0.5rem;

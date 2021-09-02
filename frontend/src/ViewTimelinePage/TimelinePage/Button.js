@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../_shared/colors'
+import { colors } from '../../_shared/colors'
 
 export const Button = styled.div`
   background-color: ${colors.white};

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Layout } from '../_shared/Layout'
 import { Footer } from '../_shared/Footer/Footer'
-import { TimelinePageHeader } from './TimelinePageHeader/TimelinePageHeader'
+import { TimelinePageHeader } from './TimelinePage/TimelinePageHeader/TimelinePageHeader'
 import { MessageWrapper } from '../_shared/MessageWrapper'
-import { TimelineScrollerContainer } from './TimelineScrollerContainer'
+import { TimelineScrollerContainer } from './TimelinePage/TimelineScrollerContainer'
 
 export const NoValidTimelinesPage = () => {
   return (

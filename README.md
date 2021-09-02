@@ -214,7 +214,7 @@ or checking your app environment variables on the [heroku dashboard](https://das
 
 Go to your heroku application and access the Graphql Playground, through the address: `<your-app-name>.herokuapp.com/graphql-playground`
 
-## Setting up the forgot my password feature
+## Setting up the email server
 
 If you wish to make use of the forgot my password feature, you need to choose a SMTP or email sender service to help you.
 
@@ -250,6 +250,7 @@ MAIL_USERNAME= the Login info
 MAIL_PASSWORD= the Password info
 MAIL_FROM_ADDRESS= the Login info
 MAIL_FROM_NAME= name you wish your sender has
+APP_URL= the localhost for the frontend / i.e. `http://localhost:8888`
 
 ### Step 3b - Configuring your heroku config vars
 
@@ -258,7 +259,7 @@ When deploying with heroku you'll need to provide the same vars from the Step 3a
 You can with a single command executed **inside the backend folder** set up all the vars from your console, switching `variableValue` for the appropriate value:
 
 ```
-heroku config:set MAIL_MAILER=smtp MAIL_HOST=variableValue MAIL_PORT=variableValue MAIL_USERNAME=variableValue MAIL_PASSWORD=variableValue MAIL_FROM_ADDRESS=variableValue MAIL_FROM_NAME=variableValue
+heroku config:set MAIL_MAILER=smtp MAIL_HOST=variableValue MAIL_PORT=variableValue MAIL_USERNAME=variableValue MAIL_PASSWORD=variableValue MAIL_FROM_ADDRESS=variableValue MAIL_FROM_NAME=variableValue APP_URL= url for the frontend of the app
 ```
 
 or through the [heroku dashboard](https://dashboard.heroku.com/).

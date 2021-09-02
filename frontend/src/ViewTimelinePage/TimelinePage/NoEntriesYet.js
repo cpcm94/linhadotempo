@@ -1,5 +1,5 @@
 import React from 'react'
-import { MessageWrapper } from '../_shared/MessageWrapper'
+import { MessageWrapper } from '../../_shared/MessageWrapper'
 import PropTypes from 'prop-types'
 
 export const NoEntriesYet = ({ visibleTimelines }) => {

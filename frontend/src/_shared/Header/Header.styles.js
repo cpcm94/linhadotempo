@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { colors } from '../colors'
 
 export const Title = styled.div`
   font-size: 1.1rem;
@@ -21,10 +22,27 @@ export const TitlesWrapper = styled.div`
 
 export const IconRow = styled.div`
   padding: 0.25rem 0 0 0;
+  width: 100%;
 `
 
 export const UserButtonWrapper = styled.div`
   position: absolute;
-  top: 0.9rem;
+  top: 0.5rem;
   right: 1.25rem;
+`
+
+export const UpperHeader = styled.div`
+  display: flex;
+  padding: 5px 20px;
+  flex: 1;
+  align-items: center;
+`
+
+export const LowerHeader = styled.div`
+  display: flex;
+  width: 100%;
+  background-color: ${colors.grey};
+  height: 100%;
+  flex: 1;
+  align-items: center;
 `
