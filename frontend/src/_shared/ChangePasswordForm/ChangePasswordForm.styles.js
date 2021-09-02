@@ -6,9 +6,6 @@ import { Button } from '@material-ui/core'
 export const StyledTextField = styled(TextField)`
   margin: 0.75rem 0 !important;
 
-  label {
-    color: ${colors.brown};
-  }
   label.Mui-focused {
     color: ${colors.brown};
   }

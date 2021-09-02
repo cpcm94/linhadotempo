@@ -49,3 +49,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `
+
+export const ConfirmationText = styled.span`
+  margin: 1.25rem;
+`

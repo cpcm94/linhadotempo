@@ -13,6 +13,15 @@ type User {
     created_at: DateTime!
     updated_at: DateTime!
     timelines: [Timeline] @hasMany
+    hash_users: [HashUser] @hasMany
+}
+
+type HashUser {
+    id: ID!
+    hash_id: String!
+    expiry_date: DateTime!
+    user_id: String!
+    user: User @belongsTo
 }
 
 type Timeline {
@@ -53,6 +62,11 @@ type DeleteUserResponse {
     message: String!
 }
 
+type AddHashUserResponse {
+    message: String!
+    success: Boolean!
+}
+
 input CreateTimeEntryInput {
     name: String!
     description: String
@@ -66,6 +80,10 @@ input CreateTimeEntryInput {
 
 input CreateTimelineBelongsToMany {
     sync: [ID!]
+}
+
+input AddHashUserInput {
+    email: String!
 }
 
 input UpdateTimeEntryInput {
@@ -116,6 +134,8 @@ input UpdatePasswordInput {
 type Query {
     users: [User!]! @all
     user(id: ID! @eq): User @find
+    hashUser(hash_id: String!): HashUser
+        @field(resolver: "App\\GraphQL\\Queries\\QueryHashUser")
     me: User @auth
     timelines: [Timeline!]! @all @whereAuth(relation: "user")
     timeline(id: ID @eq): Timeline @find @whereAuth(relation: "user")
@@ -137,6 +157,7 @@ type Mutation {
     updateTimeEntry(id: ID!, input: UpdateTimeEntryInput! @spread): TimeEntry
         @update
     createUser(input: CreateUserInput! @spread): User! @create
+    addHashUser(input: AddHashUserInput! @spread): AddHashUserResponse!
     updateUser(id: ID!, input: UpdateUserInput! @spread): User! @update
     updatePassword(id: ID!, input: UpdatePasswordInput! @spread): User! @update
     deleteUser(id: ID!): DeleteUserResponse!

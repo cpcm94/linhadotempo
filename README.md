@@ -214,6 +214,55 @@ or checking your app environment variables on the [heroku dashboard](https://das
 
 Go to your heroku application and access the Graphql Playground, through the address: `<your-app-name>.herokuapp.com/graphql-playground`
 
+## Setting up the forgot my password feature
+
+If you wish to make use of the forgot my password feature, you need to choose a SMTP or email sender service to help you.
+
+On this section we will be guiding you through our SMTP of choice [SendInBlue](https://app.sendinblue.com/account/login). Which provides 300 free emails daily.
+
+### Step 1 - Create account and fill up your profile form
+
+First you need to create your [SendInBlue](https://app.sendinblue.com/account/login) account and complete your profile form, those are the pre-requisites to be able to use their transactional email service.
+
+### Step 2 - Gather your SMTP information
+
+Under your account options - on the top right corner of the dashboard - choose the [SMTP & API](https://account.sendinblue.com/advanced/api) option.
+
+After that click on the SMTP tab to check your SMTP settings.
+
+It should have the following information:
+
+- SMTP Server
+- Port
+- Login
+- Password
+
+In case you have trouble finding the SMTP & API section, the first time you enter the Transactional tab it should display this information.
+
+### Step 3a - Configuring your .env file
+
+For your local testing you'll need to use the SMTP information gathered above and use it on the following variables:
+
+MAIL_MAILER=smtp
+MAIL_HOST= the SMTP Server info
+MAIL_PORT= the Port info
+MAIL_USERNAME= the Login info
+MAIL_PASSWORD= the Password info
+MAIL_FROM_ADDRESS= the Login info
+MAIL_FROM_NAME= name you wish your sender has
+
+### Step 3b - Configuring your heroku config vars
+
+When deploying with heroku you'll need to provide the same vars from the Step 3a
+
+You can with a single command executed **inside the backend folder** set up all the vars from your console, switching `variableValue` for the appropriate value:
+
+```
+heroku config:set MAIL_MAILER=smtp MAIL_HOST=variableValue MAIL_PORT=variableValue MAIL_USERNAME=variableValue MAIL_PASSWORD=variableValue MAIL_FROM_ADDRESS=variableValue MAIL_FROM_NAME=variableValue
+```
+
+or through the [heroku dashboard](https://dashboard.heroku.com/).
+
 ## Heroku Environment Variables
 
 You can set heroku environment variables through the command:

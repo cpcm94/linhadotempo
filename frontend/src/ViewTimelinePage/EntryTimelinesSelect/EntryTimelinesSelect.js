@@ -4,7 +4,8 @@ import { SectionTitle } from '../SectionTitle/SectionTitle'
 import {
   ClosedDisplayWrapper,
   TimelineNameWrapper,
-  IconAndNameWrapper,
+  ClosedIconAndNameWrapper,
+  OpenIconAndNameWrapper,
   IconWrapper,
   TimelineWrapper,
   OpenDisplayWrapper,
@@ -44,16 +45,20 @@ export const EntryTimelinesSelect = ({
       <SectionTitle title={'Linhas do Tempo'} resetSection={resetField} />
       {!displayTimelineSelect && (
         <ClosedDisplayWrapper onClick={toggleDisplaySelect}>
-          {selectedTimelines.map((timeline) => (
-            <TimelineWrapper key={timeline.id} id={timeline.id}>
-              <IconAndNameWrapper>
-                <IconWrapper color={timeline.color}>
-                  {timeline.initials}
-                </IconWrapper>
-                <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
-              </IconAndNameWrapper>
-            </TimelineWrapper>
-          ))}
+          {selectedTimelines[0] ? (
+            selectedTimelines.map((timeline) => (
+              <TimelineWrapper key={timeline.id} id={timeline.id}>
+                <ClosedIconAndNameWrapper>
+                  <IconWrapper color={timeline.color}>
+                    {timeline.initials}
+                  </IconWrapper>
+                  <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
+                </ClosedIconAndNameWrapper>
+              </TimelineWrapper>
+            ))
+          ) : (
+            <span>Nenhuma linha do tempo selecionada</span>
+          )}
         </ClosedDisplayWrapper>
       )}
       {displayTimelineSelect && (
@@ -62,7 +67,7 @@ export const EntryTimelinesSelect = ({
             const onTimelineClick = (event) => toggleTimelines(event, timeline)
             return (
               <TimelineWrapper key={timeline.id} id={timeline.id}>
-                <IconAndNameWrapper
+                <OpenIconAndNameWrapper
                   isSelected={selectedTimelineIds.includes(timeline.id)}
                   onClick={onTimelineClick}
                 >
@@ -70,7 +75,7 @@ export const EntryTimelinesSelect = ({
                     {timeline.initials}
                   </IconWrapper>
                   <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
-                </IconAndNameWrapper>
+                </OpenIconAndNameWrapper>
               </TimelineWrapper>
             )
           })}

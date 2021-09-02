@@ -23,8 +23,9 @@ export const LoginForm = ({
   refetchUser,
   toggleShowRegisterForm,
   toggleShowForgotPasswordForm,
+  email,
+  setEmail,
 }) => {
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   let history = useHistory()
@@ -104,4 +105,6 @@ LoginForm.propTypes = {
   refetchUser: PropTypes.func,
   toggleShowRegisterForm: PropTypes.func,
   toggleShowForgotPasswordForm: PropTypes.func,
+  email: PropTypes.string,
+  setEmail: PropTypes.func,
 }
