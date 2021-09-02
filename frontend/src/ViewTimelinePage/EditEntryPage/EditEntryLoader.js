@@ -3,7 +3,7 @@ import { EditEntryPage } from './EditEntryPage'
 import qs from 'query-string'
 import { TimelinesContext } from '../TimelinesContextProvider'
 import { NotValidEntry } from './NotValidEntry'
-import { urlQueryTimelineIds } from '../urlQueryTimelineIds'
+import { urlQueryTimelineIds } from '../../_shared/urlQueryTimelineIds'
 import { useQuery } from '@apollo/client'
 import { TIME_ENTRY_QUERY } from './TIME_ENTRY_QUERY'
 

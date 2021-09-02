@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
-import { Layout } from '../_shared/Layout'
-import { Footer } from '../_shared/Footer/Footer'
+import { Layout } from '../../_shared/Layout'
+import { Footer } from '../../_shared/Footer/Footer'
 import { Button } from './Button'
-import { EllipsisButton } from '../_shared/EllipsisButton'
 import PropTypes from 'prop-types'
-import { TimelineScroller } from './TimelineScroller/TimelineScroller'
-import { colors } from '../_shared/colors'
+import { TimelineScroller } from '../TimelineScroller/TimelineScroller'
 import { useHistory } from 'react-router-dom'
 import { TimelinesButtonsRow } from './TimelinesButtonsRow'
-import { AddButtonWrapper, EllipsisButtonsWrapper } from './TimelinePage.styles'
+import { AddButtonWrapper } from './TimelinePage.styles'
 import { findEntryToDisplay } from './findEntryToDisplay'
 import { findClosestNextEntryToHash } from './findClosestNextEntryToHash'
 import { getScrollPosition } from './getScrollPosition'
@@ -59,12 +57,6 @@ export const TimelinePage = ({
       displayEntry.month ? `&month=${displayEntry.month}` : ''
     }${displayEntry.day ? `&day=${displayEntry.day}` : ''}`
 
-  const navigateToSelectTimelines = () => {
-    history.push({
-      pathname: '/viewTimeline/select/',
-      search: `?timelines=${timelinesString}`,
-    })
-  }
   const navigateToNewEntryPage = () => {
     history.push({
       pathname: '/viewTimeline/newEntry/',
@@ -185,7 +177,7 @@ export const TimelinePage = ({
   })
   return (
     <Layout>
-      <TimelinePageHeader displayEntry={displayEntry} />
+      <TimelinePageHeader displayEntry={displayEntry} timelines={timelines} />
       <TimelineScrollerContainer>
         {entries[0] ? (
           <TimelineScroller
@@ -202,12 +194,6 @@ export const TimelinePage = ({
       <Footer
         pageActions={
           <>
-            <EllipsisButtonsWrapper>
-              <EllipsisButton
-                color={colors.white}
-                onClick={navigateToSelectTimelines}
-              />
-            </EllipsisButtonsWrapper>
             <AddButtonWrapper>
               <Button onClick={navigateToNewEntryPage}>+</Button>
             </AddButtonWrapper>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   HeaderWrapper,
@@ -8,13 +8,16 @@ import {
   DayWrapper,
   TextWrapper,
 } from './TimelinePageHeader.styles'
-import { monthNameArray } from '../../_shared/monthNameArray'
-import { CurrentUserContext } from '../../_shared/CurrentUserContextProvider'
-import { MenuDrawer } from '../../_shared/MenuDrawer/MenuDrawer'
+import { monthNameArray } from '../../../_shared/monthNameArray'
+import { ReturnButton } from '../../../_shared/ReturnButton'
+import { useHistory } from 'react-router'
 
-export const TimelinePageHeader = ({ displayEntry }) => {
-  const { user } = useContext(CurrentUserContext)
-
+export const TimelinePageHeader = ({ displayEntry, timelines }) => {
+  let history = useHistory()
+  const timelinesId = timelines.map((timeline) => timeline.id)
+  const navigateToTimelinesList = () => {
+    history.push(`/timelines?timelines=${timelinesId.join()}`)
+  }
   const monthName =
     displayEntry && displayEntry.month
       ? monthNameArray[displayEntry.month]
@@ -28,7 +31,7 @@ export const TimelinePageHeader = ({ displayEntry }) => {
 
   return (
     <HeaderWrapper>
-      <MenuDrawer user={user} />
+      <ReturnButton onClick={navigateToTimelinesList} />
       <EntryWrapper>
         {yearAC ? (
           <>
@@ -58,4 +61,5 @@ export const TimelinePageHeader = ({ displayEntry }) => {
 
 TimelinePageHeader.propTypes = {
   displayEntry: PropTypes.object,
+  timelines: PropTypes.array,
 }

@@ -20,7 +20,7 @@ export const EditableTimeline = ({ timeline }) => {
   let history = useHistory()
 
   const goBackToPreviousPage = () => {
-    history.push('/timelines')
+    history.push('/timelines?timelines')
   }
 
   const isFirstRun = useRef(true)
