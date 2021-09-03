@@ -8,6 +8,8 @@ import {
   TitlesWrapper,
   IconRow,
   UserButtonWrapper,
+  UpperHeader,
+  LowerHeader,
 } from './Header.styles.js'
 import { ReturnButton } from '../ReturnButton'
 import { CurrentUserContext } from '../CurrentUserContextProvider'
@@ -27,6 +29,12 @@ export const Header = ({
   const { user, userLoading } = useContext(CurrentUserContext)
   let history = useHistory()
 
+  const hideMenuButtonOnTimelinesForBasicUser =
+    user && user.type === 'basic' && location.pathname === '/timelines'
+
+  const displayMenuButton =
+    showMenuButton && !hideMenuButtonOnTimelinesForBasicUser
+
   const navigateToUserPage = () => {
     history.push('/user')
   }
@@ -36,22 +44,28 @@ export const Header = ({
     <span>Loading...</span>
   ) : (
     <HeaderWrapper timelinesIconRow={timelinesIconRow}>
-      {showMenuButton && <MenuDrawer user={user} />}
-      {returnButton && <ReturnButton onClick={returnButton} />}
-      {subTitle || timelinesIconRow ? (
-        <TitlesWrapper>
-          <SubTitle>{subTitle}</SubTitle>
-          <Title hasMenuButton={showMenuButton}>{title}</Title>
-          {timelinesIconRow && <IconRow>{timelinesIconRow}</IconRow>}
-        </TitlesWrapper>
-      ) : null}
-      {onlyTitle && <Title hasMenuButton={showMenuButton}>{title}</Title>}
-      {pageActions && <PageActions>{pageActions}</PageActions>}
-      {loading && <span>Loading...</span>}
-      {user && !userLoading && (
-        <UserButtonWrapper>
-          <UserButton initial={user.initial} onClick={navigateToUserPage} />
-        </UserButtonWrapper>
+      <UpperHeader>
+        {displayMenuButton ? <MenuDrawer user={user} /> : null}
+        {returnButton && <ReturnButton onClick={returnButton} />}
+        {subTitle || timelinesIconRow ? (
+          <TitlesWrapper>
+            <SubTitle>{subTitle}</SubTitle>
+            <Title hasMenuButton={displayMenuButton}>{title}</Title>
+          </TitlesWrapper>
+        ) : null}
+        {onlyTitle && <Title hasMenuButton={displayMenuButton}>{title}</Title>}
+        {pageActions && <PageActions>{pageActions}</PageActions>}
+        {loading && <span>Loading...</span>}
+        {user && !userLoading && (
+          <UserButtonWrapper>
+            <UserButton initial={user.initial} onClick={navigateToUserPage} />
+          </UserButtonWrapper>
+        )}
+      </UpperHeader>
+      {timelinesIconRow && (
+        <LowerHeader>
+          <IconRow>{timelinesIconRow}</IconRow>
+        </LowerHeader>
       )}
     </HeaderWrapper>
   )
