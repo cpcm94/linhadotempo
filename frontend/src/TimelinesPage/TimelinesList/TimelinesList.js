@@ -18,14 +18,20 @@ export const TimelinesList = ({
   setSelectedTimelines,
   selectedTimelines,
 }) => {
-  let history = useHistory()
-  const navigateToEditTimelinePage = (history, timelineId) => (e) => {
-    e.stopPropagation()
-    history.push(`/editTimeline/${timelineId}`)
-  }
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
+  let history = useHistory()
+  const navigateToEditTimelinePage = (history, timelineId) => (e) => {
+    e.stopPropagation()
+    history.push(
+      `/editTimeline/${timelineId}${
+        arraySelectedTimelinesId[0]
+          ? `?timelines=${arraySelectedTimelinesId.toString()}`
+          : ''
+      }`
+    )
+  }
 
   const toggleTimelines = (_, timeline) => {
     if (arraySelectedTimelinesId.includes(timeline.id)) {

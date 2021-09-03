@@ -1,12 +1,11 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import { ButtonWrapper } from './AddTimelineButton.styles'
+import PropTypes from 'prop-types'
 
-export const AddTimelineButton = () => {
-  let history = useHistory()
+export const AddTimelineButton = ({ onClick }) => {
+  return <ButtonWrapper onClick={onClick}>+</ButtonWrapper>
+}
 
-  const navigateToAddTimelinePage = () => {
-    history.push('/newTimeline')
-  }
-  return <ButtonWrapper onClick={navigateToAddTimelinePage}>+</ButtonWrapper>
+AddTimelineButton.propTypes = {
+  onClick: PropTypes.func,
 }

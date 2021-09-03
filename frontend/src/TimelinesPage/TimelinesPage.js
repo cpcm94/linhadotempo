@@ -24,6 +24,14 @@ export const TimelinesPage = ({ timelines, currentSelectedTimelinesIds }) => {
 
   let history = useHistory()
 
+  const navigateToNewTimelinePage = () => {
+    history.push(
+      `/newTimeline${
+        selectedTimelines[0] ? `?timelines=${stringOfSelectedTimelines}` : ''
+      }`
+    )
+  }
+
   const navigateToViewTimelines = () => {
     history.push({
       pathname: '/viewTimeline/',
@@ -34,7 +42,7 @@ export const TimelinesPage = ({ timelines, currentSelectedTimelinesIds }) => {
     <Layout>
       <Header
         title={'Linhas do Tempo'}
-        pageActions={<AddTimelineButton />}
+        pageActions={<AddTimelineButton onClick={navigateToNewTimelinePage} />}
         timelinesIconRow={
           <TimelinesIconRow
             timelines={selectedTimelines}

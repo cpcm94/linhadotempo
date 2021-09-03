@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client'
 import { CREATE_TIMELINE_MUTATION } from './CREATE_TIMELINE_MUTATION'
 import { useHistory } from 'react-router-dom'
 import { Container } from '../_shared/Container'
+import qs from 'query-string'
 
 export const NewTimelinePage = () => {
   const [timeline, setTimeline] = useState({
@@ -15,8 +16,14 @@ export const NewTimelinePage = () => {
   })
   let history = useHistory()
 
+  const selectedTimelinesFromUrl = qs.parse(location.search).timelines
+
   const navigateToTimelinesPage = () => {
-    history.push('/timelines')
+    history.push(
+      `/timelines${
+        selectedTimelinesFromUrl ? `?timelines=${selectedTimelinesFromUrl}` : ''
+      }`
+    )
   }
 
   const [saveTimeline, { loading }] = useMutation(CREATE_TIMELINE_MUTATION, {

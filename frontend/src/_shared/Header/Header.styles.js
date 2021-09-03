@@ -27,7 +27,7 @@ export const IconRow = styled.div`
 
 export const UserButtonWrapper = styled.div`
   position: absolute;
-  top: 0.5rem;
+  top: ${({ hasTimelinesIcons }) => (hasTimelinesIcons ? '0.5rem' : '0.75rem')};
   right: 1.25rem;
 `
 
