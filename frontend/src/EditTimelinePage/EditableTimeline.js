@@ -7,6 +7,7 @@ import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { Container } from '../_shared/Container'
+import qs from 'query-string'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -19,8 +20,14 @@ export const EditableTimeline = ({ timeline }) => {
   })
   let history = useHistory()
 
+  const selectedTimelinesFromUrl = qs.parse(location.search).timelines
+
   const goBackToPreviousPage = () => {
-    history.push('/timelines?timelines')
+    history.push(
+      `/timelines${
+        selectedTimelinesFromUrl ? `?timelines=${selectedTimelinesFromUrl}` : ''
+      }`
+    )
   }
 
   const isFirstRun = useRef(true)

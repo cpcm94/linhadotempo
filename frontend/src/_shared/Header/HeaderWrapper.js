@@ -11,6 +11,4 @@ export const HeaderWrapper = styled.div`
   height: ${({ timelinesIconRow }) => (timelinesIconRow ? '4.25rem' : '3rem')};
   z-index: 2;
   overflow-x: hidden;
-  align-items: ${({ timelinesIconRow }) =>
-    timelinesIconRow ? 'flex-start' : 'center'}; ;
 `

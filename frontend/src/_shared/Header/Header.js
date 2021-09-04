@@ -57,7 +57,7 @@ export const Header = ({
         {pageActions && <PageActions>{pageActions}</PageActions>}
         {loading && <span>Loading...</span>}
         {user && !userLoading && (
-          <UserButtonWrapper>
+          <UserButtonWrapper hasTimelinesIcons={timelinesIconRow}>
             <UserButton initial={user.initial} onClick={navigateToUserPage} />
           </UserButtonWrapper>
         )}
