@@ -28,8 +28,19 @@ export const NewTimelinePage = () => {
 
   const [saveTimeline, { loading }] = useMutation(CREATE_TIMELINE_MUTATION, {
     variables: { input: timeline },
-    onCompleted: navigateToTimelinesPage,
   })
+
+  const saveAndReturn = () => {
+    saveTimeline().then((res) => {
+      history.push(
+        `/timelines${
+          selectedTimelinesFromUrl
+            ? `?timelines=${selectedTimelinesFromUrl},${res.data.createTimeline.id}`
+            : `?timelines=${res.data.createTimeline.id}`
+        }`
+      )
+    })
+  }
 
   return (
     <Layout>
@@ -42,7 +53,7 @@ export const NewTimelinePage = () => {
         <TimelineForm
           timeline={timeline}
           setTimeline={setTimeline}
-          onClick={saveTimeline}
+          onClick={saveAndReturn}
           buttonMessage={'Criar linha do tempo'}
         />
       </Container>

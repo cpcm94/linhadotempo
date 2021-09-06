@@ -13,6 +13,9 @@ export const TIMELINE_QUERY = gql`
         year
         month
         day
+        timelines {
+          id
+        }
       }
     }
   }
