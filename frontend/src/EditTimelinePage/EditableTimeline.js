@@ -4,10 +4,14 @@ import { Layout } from '../_shared/Layout'
 import { Header } from '../_shared/Header/Header'
 import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
+import { DELETE_TIMELINE_MUTATION } from './DELETE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { Container } from '../_shared/Container'
 import qs from 'query-string'
+import { toast, Slide } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -39,8 +43,34 @@ export const EditableTimeline = ({ timeline }) => {
     initials: timeline.initials ? timeline.initials : '',
   })
 
-  const [updateTimeline, { loading }] = useMutation(UPDATE_TIMELINE_MUTATION)
+  const numberOfToBeDeletedEntries = timeline.time_entries.filter(
+    (time_entry) => time_entry.timelines.length === 1
+  ).length
+  const numberOfNotToBeDeletedEntries = timeline.time_entries.filter(
+    (time_entry) => time_entry.timelines.length > 1
+  ).length
 
+  const [updateTimeline, { loading }] = useMutation(UPDATE_TIMELINE_MUTATION)
+  const [deleteTimeline, { loading: deleteLoading }] = useMutation(
+    DELETE_TIMELINE_MUTATION,
+    { variables: { id: timeline.id } }
+  )
+  const deleteConfirmationMessage = `Tem certeza que deseja deletar essa linha do tempo? Você vai deletar todos os ${numberOfToBeDeletedEntries} acontecimentos que estão associados APENAS a essa linha do tempo! Existem ainda ${numberOfNotToBeDeletedEntries} outros acontecimentos que também estão associados com outras linhas do tempo que não serão deletados! Essa ação é IRREVERSÍVEL, deseja prosseguir?`
+  const onDelete = () => {
+    const response = window.confirm(deleteConfirmationMessage)
+    response &&
+      deleteTimeline().then((res) => {
+        if (res.data.deleteTimeline.success) {
+          goBackToPreviousPage()
+        } else {
+          toast.error(res.data.deleteTimeline.message, {
+            position: 'top-center',
+            hideProgressBar: true,
+            transition: Slide,
+          })
+        }
+      })
+  }
   useEffect(() => {
     if (!isFirstRun.current) {
       if (timeoutId) {
@@ -77,7 +107,10 @@ export const EditableTimeline = ({ timeline }) => {
           timeline={timelineObject}
           setTimeline={setTimelineObject}
           entriesStringInfo={entriesInfo}
+          deleteTimeline={onDelete}
+          deleteLoading={deleteLoading}
         />
+        <ToastContainer />
       </Container>
     </Layout>
   )

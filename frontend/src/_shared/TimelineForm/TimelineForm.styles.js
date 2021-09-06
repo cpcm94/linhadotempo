@@ -21,6 +21,15 @@ export const Icon = styled.div`
   margin-top: 1rem;
 `
 
+export const IconAndDeleteButton = styled.div`
+  display: flex;
+`
+export const DeleteButtonWrapper = styled.div`
+  margin: 1rem 0 0 1rem;
+  border-left: solid 1px ${colors.brown};
+  padding-left: 0.5rem;
+`
+
 export const ImportExportButtons = styled.div`
   display: flex;
   margin: 1rem 0;
