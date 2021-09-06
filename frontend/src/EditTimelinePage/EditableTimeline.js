@@ -51,10 +51,9 @@ export const EditableTimeline = ({ timeline }) => {
   ).length
 
   const [updateTimeline, { loading }] = useMutation(UPDATE_TIMELINE_MUTATION)
-  const [deleteTimeline, { loading: deleteLoading }] = useMutation(
-    DELETE_TIMELINE_MUTATION,
-    { variables: { id: timeline.id } }
-  )
+  const [deleteTimeline] = useMutation(DELETE_TIMELINE_MUTATION, {
+    variables: { id: timeline.id },
+  })
   const deleteConfirmationMessage = `Tem certeza que deseja deletar essa linha do tempo? Você vai deletar todos os ${numberOfToBeDeletedEntries} acontecimentos que estão associados APENAS a essa linha do tempo! Existem ainda ${numberOfNotToBeDeletedEntries} outros acontecimentos que também estão associados com outras linhas do tempo que não serão deletados! Essa ação é IRREVERSÍVEL, deseja prosseguir?`
   const onDelete = () => {
     const response = window.confirm(deleteConfirmationMessage)
@@ -108,7 +107,6 @@ export const EditableTimeline = ({ timeline }) => {
           setTimeline={setTimelineObject}
           entriesStringInfo={entriesInfo}
           deleteTimeline={onDelete}
-          deleteLoading={deleteLoading}
         />
         <ToastContainer />
       </Container>

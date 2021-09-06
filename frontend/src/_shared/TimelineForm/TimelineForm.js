@@ -19,6 +19,11 @@ import 'react-toastify/dist/ReactToastify.css'
 import { copyTextToClipboard } from './copyTextToClipboard'
 import { DeleteButton } from '../DeleteButton'
 
+const inputProps = {
+  maxLength: 3,
+  list: 'preset',
+}
+
 export const TimelineForm = ({
   timeline,
   setTimeline,
@@ -26,7 +31,6 @@ export const TimelineForm = ({
   buttonMessage,
   entriesStringInfo,
   deleteTimeline,
-  deleteLoading,
 }) => {
   const [showExportText, setShowExportText] = useState(false)
   const [showImportTextArea, setShowImportTextArea] = useState(false)
@@ -49,10 +53,6 @@ export const TimelineForm = ({
       )
       .join('')
 
-  const inputProps = {
-    maxLength: 3,
-    list: 'preset',
-  }
   const handleChange = (timelinePropName) => (e) => {
     const newTimeline = { ...timeline }
     newTimeline[timelinePropName] = e.target.value
@@ -93,9 +93,7 @@ export const TimelineForm = ({
           />
           <IconAndDeleteButton>
             <Icon color={timeline.color}>{timeline.initials}</Icon>
-            {deleteLoading ? (
-              <span>Loading...</span>
-            ) : (
+            {deleteTimeline && (
               <DeleteButtonWrapper>
                 <DeleteButton onClick={deleteTimeline} />
               </DeleteButtonWrapper>
@@ -150,5 +148,4 @@ TimelineForm.propTypes = {
   buttonMessage: PropTypes.string,
   entriesStringInfo: PropTypes.array,
   deleteTimeline: PropTypes.func,
-  deleteLoading: PropTypes.bool,
 }
