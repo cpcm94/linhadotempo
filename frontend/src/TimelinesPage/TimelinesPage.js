@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TimelinesList } from './TimelinesList/TimelinesList'
 import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
@@ -23,6 +23,14 @@ export const TimelinesPage = ({ timelines, currentSelectedTimelinesIds }) => {
     .toString()
 
   let history = useHistory()
+
+  useEffect(() => {
+    history.push(
+      `/timelines${
+        selectedTimelines[0] ? `?timelines=${stringOfSelectedTimelines}` : ''
+      }`
+    )
+  }, [history, selectedTimelines, stringOfSelectedTimelines])
 
   const navigateToNewTimelinePage = () => {
     history.push(

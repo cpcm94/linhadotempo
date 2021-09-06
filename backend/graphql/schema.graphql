@@ -67,6 +67,11 @@ type AddHashUserResponse {
     success: Boolean!
 }
 
+type DeleteTimelineResponse {
+    message: String!
+    success: Boolean!
+}
+
 input CreateTimeEntryInput {
     name: String!
     description: String
@@ -151,7 +156,7 @@ type Mutation {
         @inject(context: "user.id", name: "user_id")
     updateTimeline(id: ID!, input: UpdateTimelineInput! @spread): Timeline
         @update
-    deleteTimeline(id: ID!): Timeline @delete
+    deleteTimeline(id: ID!): DeleteTimelineResponse!
     createTimeEntry(input: CreateTimeEntryInput! @spread): TimeEntry @create
     deleteTimeEntry(id: ID!): TimeEntry @delete
     updateTimeEntry(id: ID!, input: UpdateTimeEntryInput! @spread): TimeEntry
