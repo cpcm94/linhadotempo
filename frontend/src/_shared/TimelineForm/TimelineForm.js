@@ -8,8 +8,9 @@ import {
   Icon,
   ImportExportButtons,
   ExportText,
-  DeleteButtonWrapper,
-  IconAndDeleteButton,
+  ConfirmButton,
+  ConfirmationWrapper,
+  ConfirmButtonsWrapper,
 } from './TimelineForm.styles'
 import { GithubPicker } from 'react-color'
 import { colorsArray } from './colorsArray'
@@ -31,18 +32,23 @@ export const TimelineForm = ({
   buttonMessage,
   entriesStringInfo,
   deleteTimeline,
+  deleteMessage,
+  skipDeleteMessage,
 }) => {
   const [showExportText, setShowExportText] = useState(false)
   const [showImportTextArea, setShowImportTextArea] = useState(false)
+  const [showDeleteMessage, setShowDeleteMessage] = useState(false)
 
   const toggleImportTextArea = () => {
     setShowImportTextArea(!showImportTextArea)
     if (showExportText) setShowExportText(false)
+    if (showDeleteMessage) setShowDeleteMessage(false)
   }
 
   const toggleExportText = () => {
     setShowExportText(!showExportText)
     if (showImportTextArea) setShowImportTextArea(false)
+    if (showDeleteMessage) setShowDeleteMessage(false)
   }
   const entriesString =
     entriesStringInfo &&
@@ -62,6 +68,14 @@ export const TimelineForm = ({
     const newTimeline = { ...timeline }
     newTimeline.color = color.hex
     setTimeline(newTimeline)
+  }
+
+  const handleFirstDeleteClick = () => {
+    if (!skipDeleteMessage) {
+      setShowDeleteMessage(true)
+    } else {
+      deleteTimeline()
+    }
   }
 
   return (
@@ -91,14 +105,7 @@ export const TimelineForm = ({
             onChange={handleChangeColor}
             colors={colorsArray}
           />
-          <IconAndDeleteButton>
-            <Icon color={timeline.color}>{timeline.initials}</Icon>
-            {deleteTimeline && (
-              <DeleteButtonWrapper>
-                <DeleteButton onClick={deleteTimeline} />
-              </DeleteButtonWrapper>
-            )}
-          </IconAndDeleteButton>
+          <Icon color={timeline.color}>{timeline.initials}</Icon>
         </Form>
         {entriesStringInfo && (
           <ImportExportButtons>
@@ -117,6 +124,28 @@ export const TimelineForm = ({
               Importar
             </StyledButton>
           </ImportExportButtons>
+        )}
+        {deleteTimeline && (
+          <>
+            {!showDeleteMessage ? (
+              <DeleteButton onClick={handleFirstDeleteClick} />
+            ) : (
+              <ConfirmationWrapper>
+                <span>{deleteMessage}</span>
+                <ConfirmButtonsWrapper>
+                  <ConfirmButton onClick={deleteTimeline} variant="contained">
+                    SIM
+                  </ConfirmButton>
+                  <ConfirmButton
+                    onClick={() => setShowDeleteMessage(false)}
+                    variant="contained"
+                  >
+                    NÃO
+                  </ConfirmButton>
+                </ConfirmButtonsWrapper>
+              </ConfirmationWrapper>
+            )}
+          </>
         )}
         {showExportText && (
           <ExportText onClick={() => copyTextToClipboard(entriesString)}>
@@ -148,4 +177,6 @@ TimelineForm.propTypes = {
   buttonMessage: PropTypes.string,
   entriesStringInfo: PropTypes.array,
   deleteTimeline: PropTypes.func,
+  deleteMessage: PropTypes.string,
+  skipDeleteMessage: PropTypes.bool,
 }

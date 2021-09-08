@@ -54,21 +54,29 @@ export const EditableTimeline = ({ timeline }) => {
   const [deleteTimeline] = useMutation(DELETE_TIMELINE_MUTATION, {
     variables: { id: timeline.id },
   })
-  const deleteConfirmationMessage = `Tem certeza que deseja deletar essa linha do tempo? Você vai deletar todos os ${numberOfToBeDeletedEntries} acontecimentos que estão associados APENAS a essa linha do tempo! Existem ainda ${numberOfNotToBeDeletedEntries} outros acontecimentos que também estão associados com outras linhas do tempo mas que NÃO serão deletados! Essa ação é IRREVERSÍVEL, deseja prosseguir?`
+  const deleteConfirmationMessage = `Tem certeza que deseja deletar essa linha do tempo? ${
+    numberOfToBeDeletedEntries
+      ? `Você vai deletar os ${numberOfToBeDeletedEntries} acontecimentos que estão associados APENAS a essa linha do tempo!`
+      : `Não há acontecimentos relacionados à essa linha do tempo.`
+  }  ${
+    numberOfNotToBeDeletedEntries
+      ? `Existem ${numberOfNotToBeDeletedEntries} outros acontecimentos que também estão associados com outras linhas do tempo mas que NÃO serão deletados!`
+      : `Nenhum acontecimento nessa linha do tempo está associado à outras linhas do tempo.`
+  } Essa ação é IRREVERSÍVEL, deseja prosseguir?`
+  const skipDeleteMessage =
+    !numberOfNotToBeDeletedEntries && !numberOfToBeDeletedEntries
   const onDelete = () => {
-    const response = window.confirm(deleteConfirmationMessage)
-    response &&
-      deleteTimeline().then((res) => {
-        if (res.data.deleteTimeline.success) {
-          goBackToPreviousPage()
-        } else {
-          toast.error(res.data.deleteTimeline.message, {
-            position: 'top-center',
-            hideProgressBar: true,
-            transition: Slide,
-          })
-        }
-      })
+    deleteTimeline().then((res) => {
+      if (res.data.deleteTimeline.success) {
+        goBackToPreviousPage()
+      } else {
+        toast.error(res.data.deleteTimeline.message, {
+          position: 'top-center',
+          hideProgressBar: true,
+          transition: Slide,
+        })
+      }
+    })
   }
   useEffect(() => {
     if (!isFirstRun.current) {
@@ -107,6 +115,8 @@ export const EditableTimeline = ({ timeline }) => {
           setTimeline={setTimelineObject}
           entriesStringInfo={entriesInfo}
           deleteTimeline={onDelete}
+          deleteMessage={deleteConfirmationMessage}
+          skipDeleteMessage={skipDeleteMessage}
         />
         <ToastContainer />
       </Container>

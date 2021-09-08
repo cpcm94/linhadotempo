@@ -18,16 +18,7 @@ export const Icon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
-`
-
-export const IconAndDeleteButton = styled.div`
-  display: flex;
-`
-export const DeleteButtonWrapper = styled.div`
-  margin: 1rem 0 0 1rem;
-  border-left: solid 1px ${colors.brown};
-  padding-left: 0.5rem;
+  margin: 1rem 0;
 `
 
 export const ImportExportButtons = styled.div`
@@ -35,6 +26,39 @@ export const ImportExportButtons = styled.div`
   margin: 1rem 0;
   justify-content: space-between;
   width: calc(100% - 2.5rem);
+  border-bottom: solid 1px ${colors.brown};
+  padding: 0 0 1rem 0;
+`
+
+export const ConfirmButton = styled.div`
+  display: flex;
+  height: 2rem;
+  padding: 0.75rem;
+  align-items: center;
+  color: ${colors.white};
+  background-color: ${colors.brown};
+  border-radius: 5px;
+  margin: 0 1.25rem 0.25rem 0;
+  cursor: pointer;
+  &:hover {
+    background-color: ${colors.wine};
+  }
+
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  pointer-events: ${({ disabled }) => disabled && 'none'};
+`
+
+export const ConfirmationWrapper = styled.div`
+  border-radius: 5px;
+  border: 1px solid ${colors.brown};
+  margin: 0 1.25rem;
+  padding: 0.5rem;
+`
+
+export const ConfirmButtonsWrapper = styled.div`
+  margin: 0.5rem 0 0 0;
+  display: flex;
+  justify-content: space-evenly;
 `
 
 export const Wrapper = styled.div`
@@ -49,6 +73,7 @@ export const Form = styled.div`
   display: flex;
   flex-direction: column;
   width: calc(100% - 2.5rem);
+  border-bottom: 1px solid ${colors.brown};
 `
 
 export const ExportText = styled.pre`
