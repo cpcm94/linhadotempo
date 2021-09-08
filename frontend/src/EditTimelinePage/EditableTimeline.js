@@ -57,7 +57,7 @@ export const EditableTimeline = ({ timeline }) => {
   const deleteConfirmationMessage = `Tem certeza que deseja deletar essa linha do tempo? ${
     numberOfToBeDeletedEntries
       ? `Você vai deletar os ${numberOfToBeDeletedEntries} acontecimentos que estão associados APENAS a essa linha do tempo!`
-      : `Não há acontecimentos relacionados à essa linha do tempo.`
+      : `Não há acontecimentos relacionados apenas à essa linha do tempo.`
   }  ${
     numberOfNotToBeDeletedEntries
       ? `Existem ${numberOfNotToBeDeletedEntries} outros acontecimentos que também estão associados com outras linhas do tempo mas que NÃO serão deletados!`
