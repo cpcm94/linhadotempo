@@ -92,6 +92,7 @@ export const EditableTimeline = ({ timeline }) => {
               name: timelineObject.name,
               color: timelineObject.color,
               initials: timelineObject.initials,
+              imageUrl: timelineObject.imageUrl,
             },
           },
         }

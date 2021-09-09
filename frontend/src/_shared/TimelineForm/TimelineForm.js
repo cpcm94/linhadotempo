@@ -39,6 +39,7 @@ export const TimelineForm = ({
   const [showExportText, setShowExportText] = useState(false)
   const [showImportTextArea, setShowImportTextArea] = useState(false)
   const [showDeleteMessage, setShowDeleteMessage] = useState(false)
+  const [uploadLoading, setUploadLoading] = useState(false)
 
   const toggleImportTextArea = () => {
     setShowImportTextArea(!showImportTextArea)
@@ -174,6 +175,8 @@ export const TimelineForm = ({
         <FileUploader
           updateImageUrl={updateImageUrl}
           imageFilePrefix={`${timeline.id}__`}
+          loading={uploadLoading}
+          setLoading={setUploadLoading}
         />
         <ToastContainer />
       </Wrapper>
