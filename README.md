@@ -308,7 +308,9 @@ On your Netlify you'll need to configure the following variable on your dashboar
 
 - REACT_APP_UPLOAD_TOKEN_ENDPOINT
 
-With its value being the endpoint of the uploadToken API. That being, for remote: https://yourHerokuApp.com/api/uploadToken. For local, when you serve with php just add the path `/api/uploadToken` to the address that is provided.
+With its value being the endpoint of the uploadToken API. That being, for remote: https://yourHerokuApp.com/api/uploadToken. 
+
+For local, when you serve with php just add the path `/api/uploadToken` to the backend local url.
 
 ### Step 3b - Environment Variables Heroku
 
