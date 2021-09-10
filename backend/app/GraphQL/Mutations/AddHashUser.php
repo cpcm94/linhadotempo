@@ -25,7 +25,8 @@ class AddHashUser
             'expiry_date' => $expiryDate,
             'user_id' => $user->id,
         ]);
-        $app_url = config('app.url');
+        $app_url = config('app.url') ?? env('APP_URL');;
+
 
 
             $data = array(
