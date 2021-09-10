@@ -28,7 +28,7 @@ class AddHashUser
         $data = array(
             'hash_id' => $hash_user->hash_id,
             'user_name' => $user->name,
-            'link_path' => env(APP_URL),
+            'link_path' => env('APP_URL'),
         );
         Mail::to($user->email)->send(new RecoverPassword($data));
 
