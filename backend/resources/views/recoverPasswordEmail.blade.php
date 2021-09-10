@@ -14,7 +14,7 @@
     <br />
     <br />
     <br />
-    <a href="{{ $data['link_path'] }}/recoverPassword/{{ $data['hash_id'] }}"> Clique aqui para redefinir sua senha </a>
+    <a href="{{ $data['link_path'] }}"> Clique aqui para redefinir sua senha </a>
     <br />
     <br />
     <br />

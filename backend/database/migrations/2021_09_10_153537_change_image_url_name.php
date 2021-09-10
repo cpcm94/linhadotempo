@@ -14,8 +14,7 @@ class ChangeImageUrlName extends Migration
     public function up()
     {
         Schema::table('timelines', function (Blueprint $table) {
-            $table->dropColumn('imageUrl');
-            $table->string('timelineIconImageUrl',255)->nullable();
+            $table->renameColumn('imageUrl', 'timelineIconImageUrl');
         });
     }
 
@@ -27,8 +26,8 @@ class ChangeImageUrlName extends Migration
     public function down()
     {
         Schema::table('timelines', function (Blueprint $table) {
-            $table->string('imageUrl',255)->change();
-            $table->dropColumn('timelineIconImageUrl');
+            $table->renameColumn('timelineIconImageUrl', 'imageUrl');
 
-        });    }
+        });
+        }
 }

@@ -25,18 +25,21 @@ class AddHashUser
             'expiry_date' => $expiryDate,
             'user_id' => $user->id,
         ]);
-        $data = array(
-            'hash_id' => $hash_user->hash_id,
-            'user_name' => $user->name,
-            'link_path' => env('APP_URL'),
-        );
-        Mail::to($user->email)->send(new RecoverPassword($data));
+      
+        $app_url = config('app.url') ?? env('APP_URL');
 
-        if (count(Mail::failures())> 0) {
-            return ['message' => 'Falha ao enviar email', 'success' => false];
-        } else {
-            return ['message' => 'Email enviado com sucesso', 'success' => true];
-        }
+        $data = array(
+             'user_name' => $user->name,
+                'link_path' => "{$app_url}/recoverPassword/{$hash_user->hash_id}",
+         );
+         Mail::to($user->email)->send(new RecoverPassword($data));
+            
+        
+         if (count(Mail::failures())> 0) {
+             return ['message' => 'Falha ao enviar email', 'success' => false];
+         } else {
+             return ['message' => 'Email enviado com sucesso', 'success' => true];
+         }
 
     }
 }

@@ -6,20 +6,14 @@ import {
   StyledButton,
   Form,
   Icon,
-  ImportExportButtons,
-  ExportText,
-  ConfirmButton,
-  ConfirmationWrapper,
-  ConfirmButtonsWrapper,
 } from './TimelineForm.styles'
 import { GithubPicker } from 'react-color'
 import { colorsArray } from './colorsArray'
-import { ImportInput } from './ImportInput/ImportInput'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { copyTextToClipboard } from './copyTextToClipboard'
-import { DeleteButton } from '../DeleteButton'
-import { FileUploader } from '../FileUploader'
+import { DeleteButtonAndConfirmation } from './DeleteButtonAndConfirmation'
+import { ImportAndExport } from './ImportAndExport'
+import { ImageAndUploader } from './ImageAndUploader'
 
 const inputProps = {
   maxLength: 3,
@@ -39,7 +33,6 @@ export const TimelineForm = ({
   const [showExportText, setShowExportText] = useState(false)
   const [showImportTextArea, setShowImportTextArea] = useState(false)
   const [showDeleteMessage, setShowDeleteMessage] = useState(false)
-  const [uploadLoading, setUploadLoading] = useState(false)
 
   const toggleImportTextArea = () => {
     setShowImportTextArea(!showImportTextArea)
@@ -52,20 +45,13 @@ export const TimelineForm = ({
     if (showImportTextArea) setShowImportTextArea(false)
     if (showDeleteMessage) setShowDeleteMessage(false)
   }
-  const entriesString =
-    entriesStringInfo &&
-    entriesStringInfo
-      .map(
-        (entryString) => `${entryString}
-`
-      )
-      .join('')
 
   const handleChange = (timelinePropName) => (e) => {
     const newTimeline = { ...timeline }
     newTimeline[timelinePropName] = e.target.value
     setTimeline(newTimeline)
   }
+
   const handleChangeColor = (color) => {
     const newTimeline = { ...timeline }
     newTimeline.color = color.hex
@@ -76,14 +62,6 @@ export const TimelineForm = ({
     const newTimeline = { ...timeline }
     newTimeline.timelineIconImageUrl = url
     setTimeline(newTimeline)
-  }
-
-  const handleFirstDeleteClick = () => {
-    if (!skipDeleteMessage) {
-      setShowDeleteMessage(true)
-    } else {
-      deleteTimeline()
-    }
   }
 
   return (
@@ -114,57 +92,26 @@ export const TimelineForm = ({
             colors={colorsArray}
           />
           <Icon color={timeline.color}>{timeline.initials}</Icon>
+          <ImageAndUploader
+            timeline={timeline}
+            updateTimelineIconImageUrl={updateTimelineIconImageUrl}
+          />
         </Form>
         {entriesStringInfo && (
-          <ImportExportButtons>
-            <StyledButton
-              id="exportButton"
-              variant="contained"
-              onClick={toggleExportText}
-            >
-              Exportar
-            </StyledButton>
-            <StyledButton
-              id="importButton"
-              variant="contained"
-              onClick={toggleImportTextArea}
-            >
-              Importar
-            </StyledButton>
-          </ImportExportButtons>
+          <ImportAndExport
+            toggleExportText={toggleExportText}
+            toggleImportTextArea={toggleImportTextArea}
+            entriesStringInfo={entriesStringInfo}
+            showExportText={showExportText}
+            showImportTextArea={showImportTextArea}
+          />
         )}
         {deleteTimeline && (
-          <>
-            {!showDeleteMessage ? (
-              <DeleteButton onClick={handleFirstDeleteClick} />
-            ) : (
-              <ConfirmationWrapper>
-                <span>{deleteMessage}</span>
-                <ConfirmButtonsWrapper>
-                  <ConfirmButton onClick={deleteTimeline} variant="contained">
-                    SIM
-                  </ConfirmButton>
-                  <ConfirmButton
-                    onClick={() => setShowDeleteMessage(false)}
-                    variant="contained"
-                  >
-                    NÃO
-                  </ConfirmButton>
-                </ConfirmButtonsWrapper>
-              </ConfirmationWrapper>
-            )}
-          </>
-        )}
-        {showExportText && (
-          <ExportText onClick={() => copyTextToClipboard(entriesString)}>
-            {entriesString}
-          </ExportText>
-        )}
-        {showImportTextArea && (
-          <ImportInput
-            timeline={timeline}
-            showImportTextArea={showImportTextArea}
-            setShowImportTextArea={setShowImportTextArea}
+          <DeleteButtonAndConfirmation
+            deleteMessage={deleteMessage}
+            skipDeleteMessage={skipDeleteMessage}
+            showDeleteMessage={showDeleteMessage}
+            setShowDeleteMessage={setShowDeleteMessage}
           />
         )}
         {buttonMessage && (
@@ -172,12 +119,6 @@ export const TimelineForm = ({
             {buttonMessage}
           </StyledButton>
         )}
-        <FileUploader
-          updateTimelineIconImageUrl={updateTimelineIconImageUrl}
-          imageFilePrefix={`${timeline.id}__`}
-          loading={uploadLoading}
-          setLoading={setUploadLoading}
-        />
         <ToastContainer />
       </Wrapper>
     </>

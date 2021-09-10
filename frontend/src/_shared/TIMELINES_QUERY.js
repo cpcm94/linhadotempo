@@ -7,6 +7,7 @@ export const TIMELINES_QUERY = gql`
       name
       initials
       color
+      timelineIconImageUrl
     }
   }
 `
