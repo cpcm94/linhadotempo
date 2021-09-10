@@ -42,7 +42,7 @@ const buildGetUploadTokenAndPostToAws =
   }
 
 export const FileUploader = ({
-  updateImageUrl,
+  updateTimelineIconImageUrl,
   imageFilePrefix,
   color,
   loading,
@@ -67,7 +67,7 @@ export const FileUploader = ({
 
       var reader = new FileReader()
       const onComplete = () => {
-        if (updateImageUrl) updateImageUrl(filename)
+        if (updateTimelineIconImageUrl) updateTimelineIconImageUrl(filename)
       }
       reader.addEventListener(
         'loadend',
@@ -81,7 +81,7 @@ export const FileUploader = ({
       )
       reader.readAsArrayBuffer(file)
     },
-    [imageFilePrefix, setLoading, updateImageUrl]
+    [imageFilePrefix, setLoading, updateTimelineIconImageUrl]
   )
   return (
     <>
@@ -106,7 +106,7 @@ export const FileUploader = ({
 }
 
 FileUploader.propTypes = {
-  updateImageUrl: PropTypes.func,
+  updateTimelineIconImageUrl: PropTypes.func,
   imageFilePrefix: PropTypes.string,
   color: PropTypes.string,
   loading: PropTypes.bool,

@@ -72,9 +72,9 @@ export const TimelineForm = ({
     setTimeline(newTimeline)
   }
 
-  const updateImageUrl = (url) => {
+  const updateTimelineIconImageUrl = (url) => {
     const newTimeline = { ...timeline }
-    newTimeline.imageUrl = url
+    newTimeline.timelineIconImageUrl = url
     setTimeline(newTimeline)
   }
 
@@ -173,7 +173,7 @@ export const TimelineForm = ({
           </StyledButton>
         )}
         <FileUploader
-          updateImageUrl={updateImageUrl}
+          updateTimelineIconImageUrl={updateTimelineIconImageUrl}
           imageFilePrefix={`${timeline.id}__`}
           loading={uploadLoading}
           setLoading={setUploadLoading}

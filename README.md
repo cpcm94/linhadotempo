@@ -91,8 +91,8 @@ It will create a admin user with the following information:
 ```
 {
     name: admin
-    password: admin
-    email: adminExample@email.com
+    password: 123
+    email: admin@email.com
 }
 ```
 
@@ -263,6 +263,67 @@ heroku config:set MAIL_MAILER=smtp MAIL_HOST=variableValue MAIL_PORT=variableVal
 ```
 
 or through the [heroku dashboard](https://dashboard.heroku.com/).
+
+## Setting up the storage service
+
+### Step 1 - Creating your s3 Bucket
+
+We chose to store our images for the app on the Amazon s3.
+
+You'll need to create an s3 bucket, which can easily be achieved by entering the S3 option on the Services tab on the AWS website.
+
+### Step 2 - Configure your bucket
+
+You'll need to set up the objects in your bucket to be publicly accessible, in order for the frontend client to access and load the images from s3.
+
+You can do that by acessing your bucket, going to Permissions tab and configuring the public access policy.
+
+You'll also need to configure a CORS policy, which is also on the Permissions tab, we recommend the following:
+
+```
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "PUT",
+            "POST",
+            "DELETE"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
+]
+```
+
+### Step 3a - Environment Variables Netlify
+
+You'll need to setup a couple of environment variables in order for the uploading and reading of files to and from s3 to work correctly.
+
+On your Netlify you'll need to configure the following variable on your dashboard:
+
+- REACT_APP_UPLOAD_TOKEN_ENDPOINT
+
+With its value being the endpoint of the uploadToken API. That being, for remote: https://yourHerokuApp.com/api/uploadToken. For local, when you serve with php just add the path `/api/uploadToken` to the address that is provided.
+
+### Step 3b - Environment Variables Heroku
+
+On your heroku you'll need to configure the following variables, these configs are also needed in your .env file for local uploading:
+
+- AWS_ACCESS_KEY_ID= Your AWS ACCESS KEY
+- AWS_SECRET_ACCESS_KEY= Your AWS SECRET ACCESS KEY
+- AWS_DEFAULT_REGION= Your region for example sa-east-1 for South America
+- AWS_BUCKET= The name of your bucket
+
+You can configure these either in the heroku dashboard or through the console command:
+
+```
+heroku config:set AWS_ACCESS_KEY_ID= Your AWS ACCESS KEY AWS_SECRET_ACCESS_KEY= Your AWS SECRET ACCESS KEY AWS_DEFAULT_REGION= Your region for example sa-east-1 for South America AWS_BUCKET= The name of your bucket
+```
 
 ## Heroku Environment Variables
 
