@@ -41,7 +41,9 @@ export const EditableTimeline = ({ timeline }) => {
     name: timeline.name,
     color: timeline.color ? timeline.color : '',
     initials: timeline.initials ? timeline.initials : '',
-    imageUrl: timeline.imageUrl ? timeline.imageUrl : '',
+    timelineIconImageUrl: timeline.timelineIconImageUrl
+      ? timeline.timelineIconImageUrl
+      : '',
   })
 
   const numberOfToBeDeletedEntries = timeline.time_entries.filter(
@@ -92,7 +94,7 @@ export const EditableTimeline = ({ timeline }) => {
               name: timelineObject.name,
               color: timelineObject.color,
               initials: timelineObject.initials,
-              imageUrl: timelineObject.imageUrl,
+              timelineIconImageUrl: timelineObject.timelineIconImageUrl,
             },
           },
         }
