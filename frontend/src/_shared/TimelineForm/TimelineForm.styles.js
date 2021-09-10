@@ -48,6 +48,24 @@ export const ConfirmButton = styled.div`
   pointer-events: ${({ disabled }) => disabled && 'none'};
 `
 
+export const ImageWrapper = styled.div`
+  margin: 0.5rem 0.5rem 0.5rem 0px;
+  border: solid 1px #999;
+  color: #655;
+  border-radius: 5px;
+  min-width: 2rem;
+  min-height: 2rem;
+  width: 2rem;
+  height: 2rem;
+`
+export const Img = styled.img`
+  border-radius: 5px;
+  width: 1.9rem;
+  height: 1.9rem;
+  object-fit: cover;
+  margin: 0;
+`
+
 export const ConfirmationWrapper = styled.div`
   border-radius: 5px;
   border: 1px solid ${colors.brown};
@@ -67,6 +85,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
   min-height: calc(100vh - 3rem);
   padding: 1rem 0 1rem 0;
+`
+
+export const ImageAndButtonWrapper = styled.div`
+  display: flex;
 `
 
 export const Form = styled.div`

@@ -6,6 +6,7 @@ export const UPDATE_TIMELINE_MUTATION = gql`
       name
       color
       initials
+      timelineIconImageUrl
     }
   }
 `

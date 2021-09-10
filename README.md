@@ -278,6 +278,22 @@ You'll need to set up the objects in your bucket to be publicly accessible, in o
 
 You can do that by acessing your bucket, going to Permissions tab and configuring the public access policy.
 
+You'll need to configure the buckets policy to allow read access to objects, you can use the following:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::YourBucketName/*"
+        }
+    ]
+}
+```
+
 You'll also need to configure a CORS policy, which is also on the Permissions tab, we recommend the following:
 
 ```
@@ -304,11 +320,12 @@ You'll also need to configure a CORS policy, which is also on the Permissions ta
 
 You'll need to setup a couple of environment variables in order for the uploading and reading of files to and from s3 to work correctly.
 
-On your Netlify you'll need to configure the following variable on your dashboard:
+On your Netlify you'll need to configure the following variables on your dashboard:
 
 - REACT_APP_UPLOAD_TOKEN_ENDPOINT
+- REACT_APP_S3_BUCKET_NAME
 
-With its value being the endpoint of the uploadToken API. That being, for remote: https://yourHerokuApp.com/api/uploadToken. For local, when you serve with php just add the path `/api/uploadToken` to the address that is provided.
+With `REACT_APP_UPLOAD_TOKEN_ENDPOINT` value being the endpoint of the uploadToken API. That being, for remote: https://yourHerokuApp.com/api/uploadToken. For local, when you serve with php just add the path `/api/uploadToken` to the address that is provided, for example `127.0.0.1:6000/api/uploadToken` if your php served at the address `127.0.0.1:6000`.
 
 ### Step 3b - Environment Variables Heroku
 

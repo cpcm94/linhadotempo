@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { colors } from './colors'
 
 const Wrapper = styled.div`
   padding-left: 5px;
@@ -27,7 +28,7 @@ const UploadButtonBuilder = (size, color) => (
   >
     <g
       transform="translate(0.000000,676.000000) scale(0.100000,-0.100000)"
-      color={color}
+      color={color ? color : colors.brown}
       stroke="none"
       fill="currentcolor"
     >
@@ -56,9 +57,9 @@ const UploadButtonBuilder = (size, color) => (
 export const UploadButton = ({ color, onClick }) => {
   return (
     <>
-      <Wrapper onClick={onClick}>{UploadButtonBuilder('20', color)}</Wrapper>
+      <Wrapper onClick={onClick}>{UploadButtonBuilder('23', color)}</Wrapper>
       <MobileWrapper onClick={onClick}>
-        {UploadButtonBuilder('17', color)}
+        {UploadButtonBuilder('20', color)}
       </MobileWrapper>
     </>
   )
