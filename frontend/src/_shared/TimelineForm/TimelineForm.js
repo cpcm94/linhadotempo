@@ -19,6 +19,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { copyTextToClipboard } from './copyTextToClipboard'
 import { DeleteButton } from '../DeleteButton'
+import { FileUploader } from '../FileUploader'
 
 const inputProps = {
   maxLength: 3,
@@ -38,6 +39,7 @@ export const TimelineForm = ({
   const [showExportText, setShowExportText] = useState(false)
   const [showImportTextArea, setShowImportTextArea] = useState(false)
   const [showDeleteMessage, setShowDeleteMessage] = useState(false)
+  const [uploadLoading, setUploadLoading] = useState(false)
 
   const toggleImportTextArea = () => {
     setShowImportTextArea(!showImportTextArea)
@@ -67,6 +69,12 @@ export const TimelineForm = ({
   const handleChangeColor = (color) => {
     const newTimeline = { ...timeline }
     newTimeline.color = color.hex
+    setTimeline(newTimeline)
+  }
+
+  const updateImageUrl = (url) => {
+    const newTimeline = { ...timeline }
+    newTimeline.imageUrl = url
     setTimeline(newTimeline)
   }
 
@@ -164,6 +172,12 @@ export const TimelineForm = ({
             {buttonMessage}
           </StyledButton>
         )}
+        <FileUploader
+          updateImageUrl={updateImageUrl}
+          imageFilePrefix={`${timeline.id}__`}
+          loading={uploadLoading}
+          setLoading={setUploadLoading}
+        />
         <ToastContainer />
       </Wrapper>
     </>

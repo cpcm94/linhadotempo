@@ -29,6 +29,7 @@ type Timeline {
     name: String!
     color: String
     initials: String
+    imageUrl: String
     time_entries: [TimeEntry] @belongsToMany
     user_id: String
     user: User @belongsTo
@@ -131,6 +132,7 @@ input UpdateTimelineInput {
     name: String
     color: String
     initials: String
+    imageUrl: String
 }
 input UpdatePasswordInput {
     password: String! @hash
