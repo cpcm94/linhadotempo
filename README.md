@@ -319,7 +319,7 @@ On your heroku you'll need to configure the following variables, these configs a
 - AWS_DEFAULT_REGION= Your region for example sa-east-1 for South America
 - AWS_BUCKET= The name of your bucket
 
-You can configure these either in the heroku dashboard or through the console command:
+You can configure these either in the [heroku dashboard](https://dashboard.heroku.com/) or through the console command:
 
 ```
 heroku config:set AWS_ACCESS_KEY_ID= Your AWS ACCESS KEY AWS_SECRET_ACCESS_KEY= Your AWS SECRET ACCESS KEY AWS_DEFAULT_REGION= Your region for example sa-east-1 for South America AWS_BUCKET= The name of your bucket
