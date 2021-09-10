@@ -80,6 +80,14 @@ export const EntryIcon = styled.div`
   align-items: center;
 `
 
+export const Img = styled.img`
+  border-radius: 5px;
+  width: 1.2rem;
+  height: 1.2rem;
+  object-fit: cover;
+  margin: 0;
+`
+
 export const IconsWrapper = styled.div`
   display: flex;
 `

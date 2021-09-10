@@ -5,6 +5,7 @@ import {
   EntryAndIconWrapper,
   EntryIcon,
   IconsWrapper,
+  Img,
 } from '../YearEntries.styles'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../filterEntryTimelinesByVisibleTimelines'
@@ -40,9 +41,20 @@ export const EntriesWithoutDay = ({
                   visibleTimelines,
                   entry
                 ).map((timeline) => (
-                  <EntryIcon key={timeline.id} color={timeline.color}>
-                    {timeline.initials}
-                  </EntryIcon>
+                  <>
+                    {timeline.timelineIconImageUrl ? (
+                      <EntryIcon key={timeline.id}>
+                        <Img
+                          src={`https://${process.env.REACT_APP_S3_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                          alt="Icone"
+                        />
+                      </EntryIcon>
+                    ) : (
+                      <EntryIcon key={timeline.id} color={timeline.color}>
+                        {timeline.initials}
+                      </EntryIcon>
+                    )}
+                  </>
                 ))}
               </IconsWrapper>
             </EntryAndIconWrapper>
