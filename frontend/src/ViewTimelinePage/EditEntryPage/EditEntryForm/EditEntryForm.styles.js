@@ -21,4 +21,5 @@ export const EditButtonsWrapper = styled.div`
   padding: 0 0.75rem;
   margin-bottom: 0.5rem;
   height: 5rem;
+  align-items: flex-end;
 `
