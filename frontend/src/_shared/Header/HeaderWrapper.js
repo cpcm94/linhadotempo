@@ -8,7 +8,8 @@ export const HeaderWrapper = styled.div`
   color: #fff;
   position: fixed;
   top: 0;
-  height: ${({ timelinesIconRow }) => (timelinesIconRow ? '4.25rem' : '3rem')};
+  height: ${({ timelinesIconRow, subTitle }) =>
+    timelinesIconRow ? '4.25rem' : subTitle ? '3rem' : '2.5rem'};
   z-index: 2;
   overflow-x: hidden;
 `

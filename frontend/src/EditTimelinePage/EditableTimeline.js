@@ -36,7 +36,6 @@ export const EditableTimeline = ({ timeline }) => {
 
   const isFirstRun = useRef(true)
 
-  console.log('timeline1 ', timeline)
   const [timelineObject, setTimelineObject] = useState({
     id: timeline.id,
     name: timeline.name,

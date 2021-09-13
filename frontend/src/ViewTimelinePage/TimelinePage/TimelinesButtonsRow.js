@@ -25,6 +25,14 @@ const Button = styled.div`
     cursor: pointer;
   }
 `
+
+const Img = styled.img`
+  border-radius: 5px;
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: cover;
+  margin: 0;
+`
 const Wrapper = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -66,14 +74,26 @@ export const TimelinesButtonsRow = ({
       {timelines.map((timeline) => {
         const onTimelineButtonClick = (event) => handleClick(event, timeline)
         return (
-          <Button
-            key={timeline.id}
-            onClick={onTimelineButtonClick}
-            isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
-            color={timelineColor(timelines, timeline.id)}
-          >
-            {timeline.initials}
-          </Button>
+          <>
+            {timeline.timelineIconImageUrl ? (
+              <Button
+                key={timeline.id}
+                onClick={onTimelineButtonClick}
+                isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
+              >
+                <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+              </Button>
+            ) : (
+              <Button
+                key={timeline.id}
+                onClick={onTimelineButtonClick}
+                isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
+                color={timelineColor(timelines, timeline.id)}
+              >
+                {timeline.initials}
+              </Button>
+            )}
+          </>
         )
       })}
     </Wrapper>

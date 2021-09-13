@@ -5,15 +5,17 @@ import PropTypes from 'prop-types'
 
 const Wrapper = styled.div`
   cursor: pointer;
+  padding: 0 0.25rem;
 `
 
-export const PlusIcon = ({ onClick }) => {
+export const PlusIcon = ({ onClick, size }) => {
   return (
     <Wrapper onClick={onClick}>
       <svg
-        width="40"
-        height="40"
-        viewBox="0 0 50 50"
+        width={size}
+        height={size}
+        viewBox="10 10 30 30"
+        preserveAspectRatio="xMidYMid meet"
         xmlns="http://www.w3.org/2000/svg"
       >
         <g id="Layer_1">
@@ -41,4 +43,5 @@ export const PlusIcon = ({ onClick }) => {
 
 PlusIcon.propTypes = {
   onClick: PropTypes.func,
+  size: PropTypes.string,
 }

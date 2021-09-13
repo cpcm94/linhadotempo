@@ -2,6 +2,7 @@ import React from 'react'
 import { XIcon } from '../../_shared/XIcon'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { colors } from '../../_shared/colors'
 
 const ButtonWrapper = styled.div`
   margin-top: -2px;
@@ -11,7 +12,7 @@ const ButtonWrapper = styled.div`
 export const ResetFieldButton = ({ resetField }) => {
   return (
     <ButtonWrapper onClick={resetField}>
-      <XIcon />
+      <XIcon color={colors.grey} />
     </ButtonWrapper>
   )
 }

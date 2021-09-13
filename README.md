@@ -320,10 +320,9 @@ You'll also need to configure a CORS policy, which is also on the Permissions ta
 
 You'll need to setup a couple of environment variables in order for the uploading and reading of files to and from s3 to work correctly.
 
-On your Netlify you'll need to configure the following variables on your dashboard:
+On your Netlify you'll need to configure the following variable on your dashboard:
 
 - REACT_APP_UPLOAD_TOKEN_ENDPOINT
-- REACT_APP_S3_BUCKET_NAME
 
 With `REACT_APP_UPLOAD_TOKEN_ENDPOINT` value being the endpoint of the uploadToken API. That being, for remote: https://yourHerokuApp.com/api/uploadToken.
 

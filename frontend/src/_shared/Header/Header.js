@@ -43,7 +43,7 @@ export const Header = ({
   return userLoading ? (
     <span>Loading...</span>
   ) : (
-    <HeaderWrapper timelinesIconRow={timelinesIconRow}>
+    <HeaderWrapper timelinesIconRow={timelinesIconRow} subTitle={subTitle}>
       <UpperHeader>
         {displayMenuButton ? <MenuDrawer user={user} /> : null}
         {returnButton && <ReturnButton onClick={returnButton} />}
@@ -57,7 +57,10 @@ export const Header = ({
         {pageActions && <PageActions>{pageActions}</PageActions>}
         {loading && <span>Loading...</span>}
         {user && !userLoading && (
-          <UserButtonWrapper hasTimelinesIcons={timelinesIconRow}>
+          <UserButtonWrapper
+            hasTimelinesIcons={timelinesIconRow}
+            subTitle={subTitle}
+          >
             <UserButton initial={user.initial} onClick={navigateToUserPage} />
           </UserButtonWrapper>
         )}

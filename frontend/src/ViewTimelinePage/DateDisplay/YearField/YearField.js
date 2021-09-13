@@ -18,21 +18,22 @@ export const YearField = ({
   setYear,
   displayDatePicker,
 }) => {
-  const incrementByOne = (year) => {
+  const incrementByNumber = (year, number) => {
     if (year === '') {
-      return setYear('1')
+      return setYear(number.toString())
     }
-    const newYear = parseInt(year) + 1
+    const newYear = parseInt(year) + number
     const stringNewYear = newYear.toString()
     setYear(stringNewYear)
   }
-  const decreaseByOne = (year) => {
+  const decreaseByNumber = (year, number) => {
     if (parseInt(year) === 0) return
     if (year === '') {
       return setYear('0')
     }
-    const newYear = parseInt(year) - 1
-    const stringNewYear = newYear.toString()
+    const newYear = parseInt(year) - number
+    const nonNegativeNewYear = newYear < 0 ? 0 : newYear
+    const stringNewYear = nonNegativeNewYear.toString()
     setYear(stringNewYear)
   }
 
@@ -40,7 +41,9 @@ export const YearField = ({
     <>
       <YearAndRadiosWrapper>
         <YearFieldAndButtons>
-          <MinusIcon onClick={() => decreaseByOne(year)} />
+          <MinusIcon size={'30'} onClick={() => decreaseByNumber(year, 100)} />
+          <MinusIcon size={'25'} onClick={() => decreaseByNumber(year, 10)} />
+          <MinusIcon size={'20'} onClick={() => decreaseByNumber(year, 1)} />
           <StyledYearTextField
             type="number"
             id="entryYear"
@@ -49,7 +52,9 @@ export const YearField = ({
             value={year}
             onChange={changeYear('year')}
           />
-          <PlusIcon onClick={() => incrementByOne(year)} />
+          <PlusIcon size={'20'} onClick={() => incrementByNumber(year, 1)} />
+          <PlusIcon size={'25'} onClick={() => incrementByNumber(year, 10)} />
+          <PlusIcon size={'30'} onClick={() => incrementByNumber(year, 100)} />
         </YearFieldAndButtons>
 
         <YearOptionSelect

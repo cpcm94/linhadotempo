@@ -13,6 +13,7 @@ export const TIME_ENTRIES_QUERY = gql`
         id
         color
         initials
+        timelineIconImageUrl
       }
     }
   }

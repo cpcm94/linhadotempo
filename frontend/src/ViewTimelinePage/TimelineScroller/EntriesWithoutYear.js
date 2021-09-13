@@ -4,6 +4,7 @@ import {
   EntryNameWrapper,
   EntryAndIconWrapper,
   IconsWrapper,
+  Img,
 } from './YearEntries/YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
@@ -41,9 +42,17 @@ export const EntriesWithoutYear = ({
                 visibleTimelines,
                 entry
               ).map((timeline) => (
-                <EntryIcon key={timeline.id} color={timeline.color}>
-                  {timeline.initials}
-                </EntryIcon>
+                <>
+                  {timeline.timelineIconImageUrl ? (
+                    <EntryIcon key={timeline.id}>
+                      <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                    </EntryIcon>
+                  ) : (
+                    <EntryIcon key={timeline.id} color={timeline.color}>
+                      {timeline.initials}
+                    </EntryIcon>
+                  )}
+                </>
               ))}
             </IconsWrapper>
           </EntryAndIconWrapper>
