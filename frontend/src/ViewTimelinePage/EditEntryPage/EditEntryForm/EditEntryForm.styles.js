@@ -5,7 +5,7 @@ export const InnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: calc(100vh - 2rem);
+  min-height: calc(100vh - 7.5rem);
   padding: 0.75rem;
   margin-bottom: 5rem;
 `
@@ -14,9 +14,10 @@ export const Wrapper = styled.div`
 `
 export const EditButtonsWrapper = styled.div`
   display: flex;
-  width: calc(100vw - 1.5rem);
+  width: 100%;
   position: fixed;
-  bottom: 5%;
+  bottom: 0;
   background-color: ${colors.white};
   padding: 0 0.75rem;
+  height: 5rem;
 `

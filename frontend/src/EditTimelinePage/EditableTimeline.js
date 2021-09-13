@@ -113,7 +113,7 @@ export const EditableTimeline = ({ timeline }) => {
         title={timelineObject.name}
         loading={loading}
       />
-      <Container>
+      <Container subTitle={true}>
         <TimelineForm
           timeline={timelineObject}
           setTimeline={setTimelineObject}
