@@ -15,10 +15,10 @@ export const TitleWrapper = styled.div`
     margin: 0 auto;
     position: absolute;
     top: 50%;
-    left: -4%;
+    left: -8%;
     right: 0%;
     bottom: 0;
-    width: 108%;
+    width: 116%;
     z-index: -1;
   }
   span {

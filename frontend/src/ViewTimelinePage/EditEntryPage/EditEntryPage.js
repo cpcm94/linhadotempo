@@ -13,11 +13,7 @@ export const EditEntryPage = ({ timelines, entryToEdit }) => {
   }
   return (
     <Layout>
-      <Header
-        title={'Acontecimento'}
-        subTitle={'Editar Acontecimento'}
-        returnButton={goBack}
-      />
+      <Header title={'Acontecimento'} returnButton={goBack} />
       <Container>
         <EditEntryForm timelines={timelines} entryToEdit={entryToEdit} />
       </Container>

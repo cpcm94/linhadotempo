@@ -12,6 +12,7 @@ export const DeleteButtonAndConfirmation = ({
   skipDeleteMessage,
   showDeleteMessage,
   setShowDeleteMessage,
+  deleteTimeline,
 }) => {
   const handleFirstDeleteClick = () => {
     if (!skipDeleteMessage) {
@@ -50,4 +51,5 @@ DeleteButtonAndConfirmation.propTypes = {
   skipDeleteMessage: PropTypes.bool,
   showDeleteMessage: PropTypes.bool,
   setShowDeleteMessage: PropTypes.func,
+  deleteTimeline: PropTypes.func,
 }

@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client'
 
 const Wrapper = styled.div`
   align-self: flex-end;
-  margin-bottom: 0.5rem;
+  margin: 0 1.5rem 0.25rem 0;
 `
 export const DeleteEntryButton = ({ entryId, afterDelete }) => {
   const [deleteEntry, { loading }] = useMutation(DELETE_TIME_ENTRY_MUTATION, {

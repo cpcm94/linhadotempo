@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { SectionTitle } from '../SectionTitle/SectionTitle'
+import { SectionTitle } from '../../_shared/SectionTitle/SectionTitle'
 import {
   ClosedDisplayWrapper,
   TimelineNameWrapper,

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { DateSpan, DateWrapper } from './DateDisplay.styles'
 import { monthNameArray } from '../../_shared/monthNameArray'
 import { ResetFieldButton } from './ResetFieldButton'
-import { SectionTitle } from '../SectionTitle/SectionTitle'
+import { SectionTitle } from '../../_shared/SectionTitle/SectionTitle'
 
 export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
   const [showDayPicker, setShowDayPicker] = useState(false)

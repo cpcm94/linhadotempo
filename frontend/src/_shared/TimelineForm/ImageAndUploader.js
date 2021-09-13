@@ -8,10 +8,7 @@ export const ImageAndUploader = ({ timeline, updateTimelineIconImageUrl }) => {
   return (
     <ImageAndButtonWrapper>
       <ImageWrapper>
-        <Img
-          src={`https://${process.env.REACT_APP_S3_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-          alt="Icone"
-        />
+        <Img src={timeline.timelineIconImageUrl} alt="Icone" />
       </ImageWrapper>
       <FileUploader
         updateTimelineIconImageUrl={updateTimelineIconImageUrl}

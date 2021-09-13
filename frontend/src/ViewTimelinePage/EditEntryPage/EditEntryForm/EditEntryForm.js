@@ -106,26 +106,26 @@ export const EditEntryForm = ({ entryToEdit, timelines }) => {
           title={'Descrição'}
           field={'description'}
         />
-        <EditButtonsWrapper>
-          <DeleteEntryButton
-            entryId={entryToEdit.id}
-            afterDelete={(deletedEntry) =>
-              refetchTimelines().then(() => {
-                goBack(deletedEntry)
-              })
-            }
-          />
-          {loading ? (
-            <span>Loading...</span>
-          ) : (
-            <SubmitFormButton
-              onClick={submitUpdateEntry}
-              entry={entry}
-              buttonText={'Editar Acontecimento'}
-            />
-          )}
-        </EditButtonsWrapper>
       </InnerWrapper>
+      <EditButtonsWrapper>
+        <DeleteEntryButton
+          entryId={entryToEdit.id}
+          afterDelete={(deletedEntry) =>
+            refetchTimelines().then(() => {
+              goBack(deletedEntry)
+            })
+          }
+        />
+        {loading ? (
+          <span>Loading...</span>
+        ) : (
+          <SubmitFormButton
+            onClick={submitUpdateEntry}
+            entry={entry}
+            buttonText={'Editar Acontecimento'}
+          />
+        )}
+      </EditButtonsWrapper>
     </Wrapper>
   )
 }

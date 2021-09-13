@@ -5,20 +5,12 @@ import {
   TextFieldColor,
   StyledButton,
   Form,
-  Icon,
 } from './TimelineForm.styles'
-import { GithubPicker } from 'react-color'
-import { colorsArray } from './colorsArray'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { DeleteButtonAndConfirmation } from './DeleteButtonAndConfirmation'
 import { ImportAndExport } from './ImportAndExport'
-import { ImageAndUploader } from './ImageAndUploader'
-
-const inputProps = {
-  maxLength: 3,
-  list: 'preset',
-}
+import { IconDisplay } from './IconDisplay'
 
 export const TimelineForm = ({
   timeline,
@@ -76,24 +68,10 @@ export const TimelineForm = ({
             value={timeline.name}
             onChange={handleChange('name')}
           />
-          <TextFieldColor
-            type="text"
-            id="timelineInitial"
-            variant="outlined"
-            label="Sigla"
-            inputProps={inputProps}
-            value={timeline.initials}
-            onChange={handleChange('initials')}
-          />
-          <GithubPicker
-            triangle="hide"
-            color={timeline.color}
-            onChange={handleChangeColor}
-            colors={colorsArray}
-          />
-          <Icon color={timeline.color}>{timeline.initials}</Icon>
-          <ImageAndUploader
+          <IconDisplay
             timeline={timeline}
+            handleChange={handleChange}
+            handleChangeColor={handleChangeColor}
             updateTimelineIconImageUrl={updateTimelineIconImageUrl}
           />
         </Form>
@@ -108,6 +86,7 @@ export const TimelineForm = ({
         )}
         {deleteTimeline && (
           <DeleteButtonAndConfirmation
+            deleteTimeline={deleteTimeline}
             deleteMessage={deleteMessage}
             skipDeleteMessage={skipDeleteMessage}
             showDeleteMessage={showDeleteMessage}
