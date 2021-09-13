@@ -22,7 +22,7 @@ export const NewEntryPage = ({
         subTitle={'Criar Acontecimento'}
         returnButton={goBack}
       />
-      <Container>
+      <Container subTitle={true}>
         <NewEntryForm
           timelines={timelines}
           refetchTimelines={refetchTimelines}
