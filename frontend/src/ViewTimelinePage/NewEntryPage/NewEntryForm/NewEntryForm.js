@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { DateDisplay } from '../../DateDisplay/DateDisplay'
 import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
-import { InnerWrapper, Wrapper } from './NewEntryForm.styles'
+import {
+  InnerWrapper,
+  SubmitButtonWrapper,
+  Wrapper,
+} from './NewEntryForm.styles'
 import { yearWithoutNegativeSign } from '../../../_shared/yearWithoutNegativeSign'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
@@ -123,11 +127,13 @@ export const NewEntryForm = ({
           title={'Descrição'}
           field={'description'}
         />
-        <SubmitFormButton
-          onClick={submitCreateEntry}
-          entry={entry}
-          buttonText={'Criar Acontecimento'}
-        />
+        <SubmitButtonWrapper>
+          <SubmitFormButton
+            onClick={submitCreateEntry}
+            entry={entry}
+            buttonText={'Criar Acontecimento'}
+          />
+        </SubmitButtonWrapper>
       </InnerWrapper>
     </Wrapper>
   )

@@ -19,5 +19,6 @@ export const EditButtonsWrapper = styled.div`
   bottom: 0;
   background-color: ${colors.white};
   padding: 0 0.75rem;
+  margin-bottom: 0.5rem;
   height: 5rem;
 `
