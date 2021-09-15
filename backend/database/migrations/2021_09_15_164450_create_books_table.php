@@ -16,6 +16,7 @@ class CreateBooksTable extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('book_name', 255);
+            $table->string('author', 255)->nullable();
             $table->string('edition', 255)->nullable();
             $table->string('publisher', 255)->nullable();
             $table->date('publishing_date')->nullable();
