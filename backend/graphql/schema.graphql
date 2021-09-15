@@ -94,6 +94,9 @@ input CreateTimeEntryInput {
     day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
+    source_url: String
+    book_page: Int
+    book_id: String
     timelines: CreateTimelineBelongsToMany!
 }
 
@@ -113,6 +116,9 @@ input UpdateTimeEntryInput {
     day: Int
     annual_importance: Boolean
     monthly_importance: Boolean
+    source_url: String
+    book_page: Int
+    book_id: String
     timelines: UpdateTimelineBelongsToMany!
 }
 
