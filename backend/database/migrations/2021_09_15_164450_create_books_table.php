@@ -25,7 +25,7 @@ class CreateBooksTable extends Migration
         Schema::table('time_entries', function (Blueprint $table) {
             $table->integer('book_page');
             $table->string('source_url', 255);
-            $table->foreignId('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->foreignId('book_id')->references('id')->on('books');
         });
     }
 
