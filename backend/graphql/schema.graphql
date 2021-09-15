@@ -57,7 +57,7 @@ type Book {
     edition: String
     publisher: String
     publishing_date: Date
-    time_entry: [TimeEntry] @hasMany
+    time_entries: [TimeEntry] @hasMany
 }
 
 type LoginResponse {
@@ -86,6 +86,11 @@ type DeleteTimelineResponse {
     success: Boolean!
 }
 
+type DeleteBookResponse {
+    message: String!
+    success: Boolean!
+}
+
 input CreateTimeEntryInput {
     name: String!
     description: String
@@ -98,6 +103,20 @@ input CreateTimeEntryInput {
     book_page: Int
     book_id: String
     timelines: CreateTimelineBelongsToMany!
+}
+
+input CreateBookInput {
+    book_name: String!
+    edition: String
+    publisher: String
+    publishing_date: Date
+}
+
+input UpdateBookInput {
+    book_name: String
+    edition: String
+    publisher: String
+    publishing_date: Date
 }
 
 input CreateTimelineBelongsToMany {
@@ -158,6 +177,7 @@ input UpdatePasswordInput {
 }
 
 type Query {
+    books: [Book!]! @all
     users: [User!]! @all
     user(id: ID! @eq): User @find
     hashUser(hash_id: String!): HashUser
@@ -172,6 +192,9 @@ type Query {
 type Mutation {
     login(input: LoginInput! @spread): LoginResponse!
     logout: LogoutResponse! @guard
+    createBook(input: CreateBookInput! @spread): Book! @create
+    updateBook(input: UpdateBookInput! @spread): Book! @update
+    deleteBook(id: ID!): DeleteBookResponse!
     createTimeline(input: CreateTimeLineInput! @spread): Timeline!
         @create
         @inject(context: "user.id", name: "user_id")

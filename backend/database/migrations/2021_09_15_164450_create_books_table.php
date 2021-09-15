@@ -21,12 +21,12 @@ class CreateBooksTable extends Migration
             $table->date('publishing_date')->nullable();
             $table->timestamps();
         });
-
         Schema::table('time_entries', function (Blueprint $table) {
-            $table->integer('book_page');
-            $table->string('source_url', 255);
-            $table->foreignId('book_id')->references('id')->on('books');
+            $table->foreignId('book_id')->nullable()->references('id')->on('books');
+            $table->integer('book_page')->nullable();
+            $table->string('source_url', 255)->nullable();
         });
+
     }
 
     /**
@@ -37,10 +37,10 @@ class CreateBooksTable extends Migration
     public function down()
     {
         Schema::table('time_entries', function (Blueprint $table) {
-            $table->dropForeign(['book_id']);
-            $table->dropColumn('book_id');
             $table->dropColumn('source_url');
             $table->dropColumn('page');
+            $table->dropForeign(['book_id']);
+            $table->dropColumn('book_id');
         });
         Schema::dropIfExists('books');
     }
