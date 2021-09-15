@@ -1,15 +1,13 @@
 import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
 
-export const DateWrapper = styled.div`
+export const SourceTabs = styled.div`
   display: flex;
   font-size: 1.25rem;
-  margin-bottom: -2px;
 `
 
-export const DateSpan = styled.div`
-  display: flex;
-  padding: 0 0.5rem;
+export const TabSpan = styled.span`
+  padding: 0 0.25rem;
   border-style: ${({ selected }) =>
     selected ? `solid solid none solid` : 'solid'};
   border-width: 1px;
@@ -18,6 +16,4 @@ export const DateSpan = styled.div`
     selected ? colors.lightBrown : colors.white};
   background-color: ${({ selected }) =>
     selected ? colors.lightBrown : colors.white};
-  color: ${({ isEmpty }) => (isEmpty ? colors.grey : colors.black)};
-  cursor: pointer;
 `

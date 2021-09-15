@@ -11,11 +11,21 @@ export const TIME_ENTRY_QUERY = gql`
       day
       monthly_importance
       annual_importance
+      source_url
+      book_page
       timelines {
         id
         name
         color
         initials
+      }
+      book {
+        id
+        book_name
+        author
+        publisher
+        publishing_date
+        edition
       }
     }
   }

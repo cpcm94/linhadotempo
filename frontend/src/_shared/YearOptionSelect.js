@@ -34,7 +34,9 @@ export const YearOptionSelect = ({ setRadioValue, radioValue }) => {
 
   const handleClick = (e) => {
     e.preventDefault()
-    setIsDC(!isDC)
+    if (!isDC) {
+      setIsDC(true)
+    }
   }
   useEffect(() => {
     setRadioValue(newRadioValue)
