@@ -18,7 +18,7 @@ class RemoveCascadeOnTimeEntries extends Migration
             $table->dropColumn('book_id');
             $table->foreignId('book_id')->references('id')->on('books');
         });
-        }
+    }
 
     /**
      * Reverse the migrations.
@@ -27,9 +27,10 @@ class RemoveCascadeOnTimeEntries extends Migration
      */
     public function down()
     {
+        Schema::table('time_entries', function (Blueprint $table) {
         $table->dropForeign(['book_id']);
         $table->dropColumn('book_id');
         $table->foreignId('book_id')->references('id')->on('books')->onDelete('cascade');
-
-        }
+        });
+    }
 }
