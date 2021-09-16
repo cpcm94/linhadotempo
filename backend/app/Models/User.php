@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function hash_users() {
         return $this->hasMany(HashUser::class);
     }
+
+    public function books() {
+        return $this->hasMany(Book::class);
+    }
 }

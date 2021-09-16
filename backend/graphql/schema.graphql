@@ -59,6 +59,8 @@ type Book {
     publisher: String
     publishing_date: Date
     time_entries: [TimeEntry] @hasMany
+    user_id: String
+    user: User @belongsTo
 }
 
 type LoginResponse {
@@ -180,7 +182,7 @@ input UpdatePasswordInput {
 }
 
 type Query {
-    books: [Book!]! @all
+    books: [Book!]! @all @whereAuth(relation: "user")
     users: [User!]! @all
     user(id: ID! @eq): User @find
     hashUser(hash_id: String!): HashUser
