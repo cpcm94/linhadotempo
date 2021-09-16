@@ -17,11 +17,7 @@ export const NewEntryPage = ({
   }
   return (
     <Layout>
-      <Header
-        title={'Acontecimento'}
-        subTitle={'Criar Acontecimento'}
-        returnButton={goBack}
-      />
+      <Header title={'Acontecimento'} returnButton={goBack} />
       <Container>
         <NewEntryForm
           timelines={timelines}

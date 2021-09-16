@@ -26,6 +26,14 @@ export const TimelineNameWrapper = styled.div`
   flex: 1;
 `
 
+export const Img = styled.img`
+  border-radius: 5px;
+  width: 0.9rem;
+  height: 0.9rem;
+  object-fit: cover;
+  margin: 0;
+`
+
 export const ClosedIconAndNameWrapper = styled.div`
   display: flex;
   align-items: center;
