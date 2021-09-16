@@ -13,6 +13,7 @@ export const TIME_ENTRY_QUERY = gql`
       annual_importance
       source_url
       book_page
+      book_id
       timelines {
         id
         name

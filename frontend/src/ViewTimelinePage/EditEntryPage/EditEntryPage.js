@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { Container } from '../../_shared/Container'
 import { EditEntryForm } from './EditEntryForm/EditEntryForm'
 
-export const EditEntryPage = ({ timelines, entryToEdit }) => {
+export const EditEntryPage = ({ timelines, entryToEdit, books }) => {
   let history = useHistory()
   const goBack = () => {
     history.push(`/viewTimeline/${location.search}`)
@@ -15,7 +15,11 @@ export const EditEntryPage = ({ timelines, entryToEdit }) => {
     <Layout>
       <Header title={'Acontecimento'} returnButton={goBack} />
       <Container>
-        <EditEntryForm timelines={timelines} entryToEdit={entryToEdit} />
+        <EditEntryForm
+          timelines={timelines}
+          entryToEdit={entryToEdit}
+          books={books}
+        />
       </Container>
     </Layout>
   )
@@ -24,4 +28,5 @@ export const EditEntryPage = ({ timelines, entryToEdit }) => {
 EditEntryPage.propTypes = {
   timelines: PropTypes.array,
   entryToEdit: PropTypes.object,
+  books: PropTypes.array,
 }
