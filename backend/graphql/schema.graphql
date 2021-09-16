@@ -197,7 +197,9 @@ type Query {
 type Mutation {
     login(input: LoginInput! @spread): LoginResponse!
     logout: LogoutResponse! @guard
-    createBook(input: CreateBookInput! @spread): Book! @create
+    createBook(input: CreateBookInput! @spread): Book!
+        @create
+        @inject(context: "user.id", name: "user_id")
     updateBook(input: UpdateBookInput! @spread): Book! @update
     deleteBook(id: ID!): DeleteBookResponse!
     createTimeline(input: CreateTimeLineInput! @spread): Timeline!
