@@ -20,6 +20,7 @@ class CreateBooksTable extends Migration
             $table->string('edition', 255)->nullable();
             $table->string('publisher', 255)->nullable();
             $table->date('publishing_date')->nullable();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
         Schema::table('time_entries', function (Blueprint $table) {
