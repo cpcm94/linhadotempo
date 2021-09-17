@@ -201,7 +201,7 @@ type Mutation {
     createBook(input: CreateBookInput! @spread): Book!
         @create
         @inject(context: "user.id", name: "user_id")
-    updateBook(input: UpdateBookInput! @spread): Book! @update
+    updateBook(id: ID!, input: UpdateBookInput! @spread): Book! @update
     deleteBook(id: ID!): DeleteBookResponse!
     createTimeline(input: CreateTimeLineInput! @spread): Timeline!
         @create

@@ -1,16 +1,17 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
-import { colors } from '../_shared/colors'
-// import { Button } from '@material-ui/core'
+import { colors } from '../../_shared/colors'
 
-export const Wrapper = styled.div``
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 export const StyledTextField = styled(TextField)`
-  label {
+  margin-top: 1rem !important;
+  label.Mui-focused {
     color: ${colors.brown};
-  }
-  .MuiSelect-root {
-    min-width: 30px;
   }
 
   .MuiOutlinedInput-root {
