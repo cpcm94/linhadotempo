@@ -9,6 +9,9 @@ export const BOOK_QUERY = gql`
       publishing_date
       edition
       author
+      time_entries {
+        id
+      }
     }
   }
 `

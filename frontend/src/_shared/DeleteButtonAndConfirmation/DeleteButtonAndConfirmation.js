@@ -4,7 +4,7 @@ import {
   ConfirmationWrapper,
   ConfirmButton,
   ConfirmButtonsWrapper,
-} from './TimelineForm.styles'
+} from './DeleteButtonAndConfirmation.styles'
 import PropTypes from 'prop-types'
 
 export const DeleteButtonAndConfirmation = ({
@@ -12,25 +12,28 @@ export const DeleteButtonAndConfirmation = ({
   skipDeleteMessage,
   showDeleteMessage,
   setShowDeleteMessage,
-  deleteTimeline,
+  deleteFunction,
+  loading,
 }) => {
   const handleFirstDeleteClick = () => {
     if (!skipDeleteMessage) {
       setShowDeleteMessage(true)
     } else {
-      deleteTimeline()
+      deleteFunction()
     }
   }
 
   return (
     <>
-      {!showDeleteMessage ? (
+      {loading ? (
+        <span>Loading...</span>
+      ) : !showDeleteMessage ? (
         <DeleteButton onClick={handleFirstDeleteClick} />
       ) : (
         <ConfirmationWrapper>
           <span>{deleteMessage}</span>
           <ConfirmButtonsWrapper>
-            <ConfirmButton onClick={deleteTimeline} variant="contained">
+            <ConfirmButton onClick={deleteFunction} variant="contained">
               SIM
             </ConfirmButton>
             <ConfirmButton
@@ -51,5 +54,6 @@ DeleteButtonAndConfirmation.propTypes = {
   skipDeleteMessage: PropTypes.bool,
   showDeleteMessage: PropTypes.bool,
   setShowDeleteMessage: PropTypes.func,
-  deleteTimeline: PropTypes.func,
+  deleteFunction: PropTypes.func,
+  loading: PropTypes.bool,
 }

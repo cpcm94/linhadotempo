@@ -8,7 +8,7 @@ import {
 } from './TimelineForm.styles'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { DeleteButtonAndConfirmation } from './DeleteButtonAndConfirmation'
+import { DeleteButtonAndConfirmation } from '../DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 import { ImportAndExport } from './ImportAndExport'
 import { IconDisplay } from './IconDisplay'
 
@@ -86,7 +86,7 @@ export const TimelineForm = ({
         )}
         {deleteTimeline && (
           <DeleteButtonAndConfirmation
-            deleteTimeline={deleteTimeline}
+            deleteFunction={deleteTimeline}
             deleteMessage={deleteMessage}
             skipDeleteMessage={skipDeleteMessage}
             showDeleteMessage={showDeleteMessage}
