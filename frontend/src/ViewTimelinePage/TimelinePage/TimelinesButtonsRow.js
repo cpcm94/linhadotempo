@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
 import PropTypes from 'prop-types'
@@ -74,10 +74,9 @@ export const TimelinesButtonsRow = ({
       {timelines.map((timeline) => {
         const onTimelineButtonClick = (event) => handleClick(event, timeline)
         return (
-          <>
+          <Fragment key={timeline.id}>
             {timeline.timelineIconImageUrl ? (
               <Button
-                key={timeline.id}
                 onClick={onTimelineButtonClick}
                 isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
               >
@@ -85,7 +84,6 @@ export const TimelinesButtonsRow = ({
               </Button>
             ) : (
               <Button
-                key={timeline.id}
                 onClick={onTimelineButtonClick}
                 isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
                 color={timelineColor(timelines, timeline.id)}
@@ -93,7 +91,7 @@ export const TimelinesButtonsRow = ({
                 {timeline.initials}
               </Button>
             )}
-          </>
+          </Fragment>
         )
       })}
     </Wrapper>

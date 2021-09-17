@@ -33,12 +33,9 @@ export const MenuDrawer = ({ user }) => {
   }
 
   let history = useHistory()
-  const navigateToTimelines = () => {
-    history.push('/timelines')
-    setDrawer(!drawer)
-  }
-  const navigateToUsers = () => {
-    history.push('/users')
+
+  const navigateTo = (path) => {
+    history.push(path)
     setDrawer(!drawer)
   }
 
@@ -46,11 +43,14 @@ export const MenuDrawer = ({ user }) => {
     <div>
       <Drawer open={drawer} onClose={toggleDrawer}>
         <ListWrapper>
-          <ListItemWrapper onClick={navigateToTimelines}>
+          <ListItemWrapper onClick={() => navigateTo('/timelines')}>
             Linhas do Tempo
           </ListItemWrapper>
+          <ListItemWrapper onClick={() => navigateTo('/books')}>
+            Livros
+          </ListItemWrapper>
           {user && user.type === 'admin' && (
-            <ListItemWrapper onClick={navigateToUsers}>
+            <ListItemWrapper onClick={() => navigateTo('/users')}>
               Usuários
             </ListItemWrapper>
           )}

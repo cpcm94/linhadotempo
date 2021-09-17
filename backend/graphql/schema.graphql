@@ -183,6 +183,7 @@ input UpdatePasswordInput {
 
 type Query {
     books: [Book!]! @all @whereAuth(relation: "user")
+    book: Book! @find @whereAuth(relation: "user")
     users: [User!]! @all
     user(id: ID! @eq): User @find
     hashUser(hash_id: String!): HashUser

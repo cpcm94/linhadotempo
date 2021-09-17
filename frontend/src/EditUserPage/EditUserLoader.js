@@ -14,7 +14,5 @@ export const EditUserLoader = () => {
   if (error) {
     return console.log(error)
   }
-  return (
-    <>{loading ? <span>Loading...</span> : <EditableUser user={data.user} />}</>
-  )
+  return loading ? <span>Loading...</span> : <EditableUser user={data.user} />
 }

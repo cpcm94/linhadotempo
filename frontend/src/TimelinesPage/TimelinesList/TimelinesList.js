@@ -8,6 +8,7 @@ import {
   EditButtonWrapper,
   IconAndNameWrapper,
   CheckMarkerWrapper,
+  Img,
 } from './TimelinesList.styles'
 import { EditButton } from '../../_shared/EditButton'
 import { timelineColor } from '../../_shared/timelineColor'
@@ -61,9 +62,15 @@ export const TimelinesList = ({
               ) : (
                 <CheckMarkerWrapper />
               )}
-              <IconWrapper color={timelineColor(timelines, timeline.id)}>
-                {timeline.initials}
-              </IconWrapper>
+              {timeline.timelineIconImageUrl ? (
+                <IconWrapper>
+                  <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                </IconWrapper>
+              ) : (
+                <IconWrapper color={timelineColor(timelines, timeline.id)}>
+                  {timeline.initials}
+                </IconWrapper>
+              )}
               <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
             </IconAndNameWrapper>
             <EditButtonWrapper

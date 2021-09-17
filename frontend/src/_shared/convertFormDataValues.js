@@ -8,7 +8,7 @@ export const convertFormDataValues = (entry, radioValue) => {
   if (newEntry.book_page === '') {
     newEntry.book_page = null
   } else {
-    newEntry.book_page = parseInt(newEntry.year)
+    newEntry.book_page = parseInt(newEntry.book_page)
   }
   if (newEntry.month === '') {
     newEntry.month = null
@@ -18,6 +18,9 @@ export const convertFormDataValues = (entry, radioValue) => {
   }
   if (radioValue === 'AC') {
     newEntry.year = -Math.abs(newEntry.year)
+  }
+  if (newEntry.book_id === '') {
+    newEntry.book_id = null
   }
   return newEntry
 }

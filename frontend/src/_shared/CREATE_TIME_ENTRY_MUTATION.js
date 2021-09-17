@@ -10,6 +10,9 @@ export const CREATE_TIME_ENTRY_MUTATION = gql`
       day
       monthly_importance
       annual_importance
+      source_url
+      book_page
+      book_id
     }
   }
 `

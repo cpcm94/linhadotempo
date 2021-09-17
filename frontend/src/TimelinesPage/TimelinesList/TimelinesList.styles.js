@@ -70,3 +70,11 @@ export const TimelinesWrapper = styled.div`
   display: flex;
   cursor: pointer;
 `
+
+export const Img = styled.img`
+  border-radius: 5px;
+  width: 1.2rem;
+  height: 1.2rem;
+  object-fit: cover;
+  margin: 0;
+`
