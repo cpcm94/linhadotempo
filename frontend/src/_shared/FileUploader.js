@@ -56,7 +56,6 @@ export const FileUploader = ({
 
   const upload = useCallback(
     (files) => {
-      console.log('upload', files)
       if (files.length > 1) {
         alert('Por favor envie apenas um arquivo')
         return null

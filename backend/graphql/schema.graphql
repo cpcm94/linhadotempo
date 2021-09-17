@@ -44,7 +44,23 @@ type TimeEntry {
     day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
+    source_url: String
+    book_page: Int
+    book_id: String
     timelines: [Timeline] @belongsToMany
+    book: Book @belongsTo
+}
+
+type Book {
+    id: ID!
+    book_name: String!
+    author: String
+    edition: String
+    publisher: String
+    publishing_date: Date
+    time_entries: [TimeEntry] @hasMany
+    user_id: String
+    user: User @belongsTo
 }
 
 type LoginResponse {
@@ -73,6 +89,11 @@ type DeleteTimelineResponse {
     success: Boolean!
 }
 
+type DeleteBookResponse {
+    message: String!
+    success: Boolean!
+}
+
 input CreateTimeEntryInput {
     name: String!
     description: String
@@ -81,7 +102,26 @@ input CreateTimeEntryInput {
     day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
+    source_url: String
+    book_page: Int
+    book_id: String
     timelines: CreateTimelineBelongsToMany!
+}
+
+input CreateBookInput {
+    book_name: String!
+    author: String
+    edition: String
+    publisher: String
+    publishing_date: Date
+}
+
+input UpdateBookInput {
+    book_name: String
+    author: String
+    edition: String
+    publisher: String
+    publishing_date: Date
 }
 
 input CreateTimelineBelongsToMany {
@@ -100,6 +140,9 @@ input UpdateTimeEntryInput {
     day: Int
     annual_importance: Boolean
     monthly_importance: Boolean
+    source_url: String
+    book_page: Int
+    book_id: String
     timelines: UpdateTimelineBelongsToMany!
 }
 
@@ -139,6 +182,7 @@ input UpdatePasswordInput {
 }
 
 type Query {
+    books: [Book!]! @all @whereAuth(relation: "user")
     users: [User!]! @all
     user(id: ID! @eq): User @find
     hashUser(hash_id: String!): HashUser
@@ -153,6 +197,11 @@ type Query {
 type Mutation {
     login(input: LoginInput! @spread): LoginResponse!
     logout: LogoutResponse! @guard
+    createBook(input: CreateBookInput! @spread): Book!
+        @create
+        @inject(context: "user.id", name: "user_id")
+    updateBook(input: UpdateBookInput! @spread): Book! @update
+    deleteBook(id: ID!): DeleteBookResponse!
     createTimeline(input: CreateTimeLineInput! @spread): Timeline!
         @create
         @inject(context: "user.id", name: "user_id")

@@ -15,8 +15,9 @@ import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { SubmitFormButton } from '../../SubmitFormButton/SubmitFormButton'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
+import { EntrySource } from '../../EntrySource/EntrySource'
 
-export const EditEntryForm = ({ entryToEdit, timelines }) => {
+export const EditEntryForm = ({ entryToEdit, timelines, books }) => {
   const [entry, setEntry] = useState({
     timelines: { sync: entryToEdit.timelines.map((timeline) => timeline.id) },
     name: entryToEdit.name,
@@ -26,6 +27,9 @@ export const EditEntryForm = ({ entryToEdit, timelines }) => {
     day: entryToEdit.day ? entryToEdit.day : '',
     annual_importance: false,
     monthly_importance: false,
+    source_url: entryToEdit.source_url ? entryToEdit.source_url : '',
+    book_page: entryToEdit.book_page ? entryToEdit.book_page : '',
+    book_id: entryToEdit.book_id ? entryToEdit.book_id : '',
   })
   const [radioValue, setRadioValue] = useState(
     entryToEdit.year && entryToEdit.year.toString().startsWith('-')
@@ -106,6 +110,7 @@ export const EditEntryForm = ({ entryToEdit, timelines }) => {
           title={'Descrição'}
           field={'description'}
         />
+        <EntrySource entry={entry} books={books} changeEntry={handleChange} />
       </InnerWrapper>
       <EditButtonsWrapper>
         <DeleteEntryButton
@@ -134,4 +139,5 @@ EditEntryForm.propTypes = {
   entryToEdit: PropTypes.object,
   timelines: PropTypes.array,
   refetchTimelines: PropTypes.func,
+  books: PropTypes.array,
 }

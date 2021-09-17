@@ -11,7 +11,7 @@ export const DateSpan = styled.div`
   display: flex;
   padding: 0 0.5rem;
   border-style: ${({ selected }) =>
-    selected ? `solid solid none solid` : 'none'};
+    selected ? `solid solid none solid` : 'solid'};
   border-width: 1px;
   border-radius: 5px 5px 0 0;
   border-color: ${({ selected }) =>

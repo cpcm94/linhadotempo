@@ -18,8 +18,8 @@ export const EditButtonsWrapper = styled.div`
   position: fixed;
   bottom: 0;
   background-color: ${colors.white};
-  padding: 0 0.75rem;
-  margin-bottom: 0.5rem;
+  padding: 0 0.75rem 0.5rem 0.75rem;
   height: 5rem;
   align-items: flex-end;
+  z-index: 2;
 `

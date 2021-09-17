@@ -14,4 +14,8 @@ class TimeEntry extends Model
     public function timelines(): BelongsToMany {
         return $this->belongsToMany(Timeline::class);
     }
+
+    public function book() {
+        return $this->belongsTo(Book::class);
+    }
 }
