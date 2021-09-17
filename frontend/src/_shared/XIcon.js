@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   cursor: pointer;
 `
 
-export const XIcon = ({ onClick }) => {
+export const XIcon = ({ onClick, color }) => {
   return (
     <Wrapper onClick={onClick}>
       <svg
@@ -20,8 +20,8 @@ export const XIcon = ({ onClick }) => {
           <path
             id="svg_1"
             d="m9.57692,17.06594l6.99372,-6.52747l7.42932,6.93398l7.42932,-6.93398l6.99379,6.52747l-7.42932,6.93403l7.42932,6.93403l-6.99379,6.52754l-7.42932,-6.93404l-7.42932,6.93404l-6.99372,-6.52754l7.42926,-6.93403l-7.42926,-6.93403z"
-            stroke={colors.brown}
-            fill={colors.brown}
+            stroke={color ? color : colors.lightGrey}
+            fill={color ? color : colors.lightGrey}
           />
         </g>
       </svg>
@@ -31,4 +31,5 @@ export const XIcon = ({ onClick }) => {
 
 XIcon.propTypes = {
   onClick: PropTypes.func,
+  color: PropTypes.string,
 }

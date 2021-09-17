@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { SectionTitle } from '../SectionTitle/SectionTitle'
+import { SectionTitle } from '../../_shared/SectionTitle/SectionTitle'
 import {
   ClosedDisplayWrapper,
   TimelineNameWrapper,
@@ -11,6 +11,7 @@ import {
   OpenDisplayWrapper,
   ButtonWrapper,
   StyledButton,
+  Img,
 } from './EntryTimelinesSelect.styles'
 
 export const EntryTimelinesSelect = ({
@@ -49,9 +50,15 @@ export const EntryTimelinesSelect = ({
             selectedTimelines.map((timeline) => (
               <TimelineWrapper key={timeline.id} id={timeline.id}>
                 <ClosedIconAndNameWrapper>
-                  <IconWrapper color={timeline.color}>
-                    {timeline.initials}
-                  </IconWrapper>
+                  {timeline.timelineIconImageUrl ? (
+                    <IconWrapper>
+                      <Img src={timeline.timelineIconImageUrl} />
+                    </IconWrapper>
+                  ) : (
+                    <IconWrapper color={timeline.color}>
+                      {timeline.initials}
+                    </IconWrapper>
+                  )}
                   <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
                 </ClosedIconAndNameWrapper>
               </TimelineWrapper>
@@ -70,10 +77,17 @@ export const EntryTimelinesSelect = ({
                 <OpenIconAndNameWrapper
                   isSelected={selectedTimelineIds.includes(timeline.id)}
                   onClick={onTimelineClick}
+                  img={timeline.timelineIconImageUrl}
                 >
-                  <IconWrapper color={timeline.color}>
-                    {timeline.initials}
-                  </IconWrapper>
+                  {timeline.timelineIconImageUrl ? (
+                    <IconWrapper>
+                      <Img src={timeline.timelineIconImageUrl} />
+                    </IconWrapper>
+                  ) : (
+                    <IconWrapper color={timeline.color}>
+                      {timeline.initials}
+                    </IconWrapper>
+                  )}
                   <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
                 </OpenIconAndNameWrapper>
               </TimelineWrapper>

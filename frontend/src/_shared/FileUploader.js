@@ -35,9 +35,9 @@ const buildGetUploadTokenAndPostToAws =
           body: new Blob([reader.result], { type: file.type }),
         })
       })
-      .then(function () {
+      .then(function (json) {
         setLoading(false)
-        onComplete()
+        onComplete(json.url)
       })
   }
 
@@ -66,8 +66,9 @@ export const FileUploader = ({
       const filename = `${imageFilePrefix}${uuidv4()}.jpg`
 
       var reader = new FileReader()
-      const onComplete = () => {
-        if (updateTimelineIconImageUrl) updateTimelineIconImageUrl(filename)
+      const onComplete = (url) => {
+        const cleanUrl = url.substr(0, url.indexOf('?'))
+        if (updateTimelineIconImageUrl) updateTimelineIconImageUrl(cleanUrl)
       }
       reader.addEventListener(
         'loadend',

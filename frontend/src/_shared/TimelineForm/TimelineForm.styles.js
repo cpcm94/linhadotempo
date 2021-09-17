@@ -26,7 +26,7 @@ export const ImportExportButtons = styled.div`
   margin: 1rem 0;
   justify-content: space-between;
   width: calc(100% - 2.5rem);
-  border-bottom: solid 1px ${colors.brown};
+  border-bottom: solid 1px ${colors.lightGrey};
   padding: 0 0 1rem 0;
 `
 
@@ -49,6 +49,7 @@ export const ConfirmButton = styled.div`
 `
 
 export const ImageWrapper = styled.div`
+  background-color: ${colors.white};
   margin: 0.5rem 0.5rem 0.5rem 0px;
   border: solid 1px #999;
   color: #655;
@@ -57,6 +58,7 @@ export const ImageWrapper = styled.div`
   min-height: 2rem;
   width: 2rem;
   height: 2rem;
+  margin-left: 1rem;
 `
 export const Img = styled.img`
   border-radius: 5px;
@@ -89,13 +91,18 @@ export const Wrapper = styled.div`
 
 export const ImageAndButtonWrapper = styled.div`
   display: flex;
+  background-color: ${colors.lightBrown};
+  border-radius: 5px;
+  height: 4rem;
+  align-items: center;
 `
 
 export const Form = styled.div`
   display: flex;
   flex-direction: column;
   width: calc(100% - 2.5rem);
-  border-bottom: 1px solid ${colors.brown};
+  border-bottom: 1px solid ${colors.lightGrey};
+  padding-bottom: 1rem;
 `
 
 export const ExportText = styled.pre`
