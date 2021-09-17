@@ -127,6 +127,7 @@ export const BookForm = ({ bookData, setLoading }) => {
         variant="outlined"
         value={book.publishing_date}
         onChange={handleChange('publishing_date')}
+        date={true}
       />
       <DeleteButtonAndConfirmation
         deleteMessage={deleteMessage}

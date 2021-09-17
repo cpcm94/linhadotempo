@@ -20,7 +20,7 @@ export const ConfirmButton = styled.div`
 export const ConfirmationWrapper = styled.div`
   border-radius: 5px;
   border: 1px solid ${colors.brown};
-  margin: 1rem 1.25rem 0 1.25rem;
+  margin: 0 1.25rem 0 1.25rem;
   padding: 0.5rem;
 `
 
