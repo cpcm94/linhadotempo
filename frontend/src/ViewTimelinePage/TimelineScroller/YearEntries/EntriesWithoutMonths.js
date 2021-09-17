@@ -42,17 +42,17 @@ export const EntriesWithoutMonths = ({
                 visibleTimelines,
                 entry
               ).map((timeline) => (
-                <>
+                <div key={timeline.id}>
                   {timeline.timelineIconImageUrl ? (
-                    <EntryIcon key={timeline.id}>
+                    <EntryIcon>
                       <Img src={timeline.timelineIconImageUrl} alt="Icone" />
                     </EntryIcon>
                   ) : (
-                    <EntryIcon key={timeline.id} color={timeline.color}>
+                    <EntryIcon color={timeline.color}>
                       {timeline.initials}
                     </EntryIcon>
                   )}
-                </>
+                </div>
               ))}
             </IconsWrapper>
           </EntryAndIconWrapper>

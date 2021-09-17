@@ -1,9 +1,9 @@
 import React from 'react'
 import { ViewTimelinesLoader } from './ViewTimelinesLoader'
 import { TimelinesContextProvider } from './TimelinesContextProvider'
-import { NewEntryLoader } from './NewEntryPage/NewEntryLoader'
+import { NewEntryLoader } from './EntryPages/NewEntryPage/NewEntryLoader'
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
-import { EditEntryLoader } from './EditEntryPage/EditEntryLoader'
+import { EditEntryLoader } from './EntryPages/EditEntryPage/EditEntryLoader'
 
 export const ViewTimelinesPage = () => {
   let { path } = useRouteMatch()

@@ -19,6 +19,9 @@ import { UserPageLoader } from './UserPage/UserPageLoader'
 import { UsersLoader } from './UsersPage/UsersLoader'
 import { EditUserPage } from './EditUserPage/EditUserPage'
 import { ViewRecoverPasswordPage } from './RecoverPasswordPage/ViewRecoverPasswordPage'
+import { BooksLoader } from './BooksPage/BooksLoader'
+import { ViewEditBookPage } from './EditBookPage/ViewEditBookPage'
+import { NewBookLoader } from './NewBookPage/NewBookLoader'
 
 const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
   const token = getToken()
@@ -80,6 +83,15 @@ const Wrapped = () => {
           </Route>
           <Route path="/recoverPassword">
             <ViewRecoverPasswordPage />
+          </Route>
+          <Route path="/books">
+            <BooksLoader />
+          </Route>
+          <Route path="/newBook">
+            <NewBookLoader />
+          </Route>
+          <Route path="/editBook">
+            <ViewEditBookPage />
           </Route>
           <Route path="/">
             <LoginPageLoader />
