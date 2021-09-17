@@ -7,7 +7,7 @@ import { UPDATE_BOOK_MUTATION } from './UPDATE_BOOK_MUTATION'
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
-export const BookForm = ({ bookData }) => {
+export const BookForm = ({ bookData, setLoading }) => {
   const isFirstRun = useRef(true)
   const [book, setBook] = useState({
     book_name: bookData.book_name,
@@ -16,7 +16,7 @@ export const BookForm = ({ bookData }) => {
     edition: bookData.edition,
     author: bookData.author,
   })
-  const [updateBook] = useMutation(UPDATE_BOOK_MUTATION, {
+  const [updateBook, { loading }] = useMutation(UPDATE_BOOK_MUTATION, {
     variables: {
       id: bookData.id,
       input: book,
@@ -27,9 +27,12 @@ export const BookForm = ({ bookData }) => {
     newBook[bookPropName] = e.target.value
     setBook(newBook)
   }
+  useEffect(() => {
+    setLoading(loading)
+  }, [loading, setLoading])
 
   useEffect(() => {
-    if (!isFirstRun.current) {
+    if (!isFirstRun.current && book.publishing_date !== '') {
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
@@ -91,4 +94,5 @@ export const BookForm = ({ bookData }) => {
 
 BookForm.propTypes = {
   bookData: PropTypes.object,
+  setLoading: PropTypes.func,
 }
