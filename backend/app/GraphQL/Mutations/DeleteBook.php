@@ -19,7 +19,7 @@ class DeleteBook
             $time_entry->book_id = null;
             $time_entry->save();
         }
-        if (!$time_entries[0]) {
+        if (sizeof($time_entries) === 0) {
 
             $book->delete();
 
