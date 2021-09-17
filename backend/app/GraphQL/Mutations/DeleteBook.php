@@ -12,7 +12,7 @@ class DeleteBook
      */
     public function __invoke($_, array $args)
     {
-        $book = Book::find($args);
+        $book = Book::find($args)[0];
         // $time_entries = $book->time_entries()->get();
         $time_entries = TimeEntry::where('book_id', $args)->get();
         foreach ($time_entries as $time_entry) {
