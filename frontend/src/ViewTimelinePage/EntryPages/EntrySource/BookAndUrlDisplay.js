@@ -8,25 +8,26 @@ export const BookAndUrlDisplay = ({
   showBookDisplay,
   showSiteDisplay,
 }) => {
+  const book = chosenBook
+    ? chosenBook
+    : { book_name: '', author: '', publisher: '' }
   const noTabsOpen = !showBookDisplay && !showSiteDisplay
-  const showPageNumber = chosenBook.book_name !== '' && entry.book_page !== ''
+  const showPageNumber = book.book_name !== '' && entry.book_page !== ''
   return (
     <>
       {noTabsOpen && (
         <>
-          {chosenBook.book_name !== '' && (
-            <SourceTextInfo>
-              Nome do Livro: {chosenBook.book_name}
-            </SourceTextInfo>
+          {book.book_name !== '' && (
+            <SourceTextInfo>Nome do Livro: {book.book_name}</SourceTextInfo>
           )}
           {showPageNumber && (
             <SourceTextInfo>Página: {entry.book_page}</SourceTextInfo>
           )}
-          {chosenBook.author !== '' && (
-            <SourceTextInfo>Autor: {chosenBook.author}</SourceTextInfo>
+          {book.author !== '' && (
+            <SourceTextInfo>Autor: {book.author}</SourceTextInfo>
           )}
-          {chosenBook.publisher !== '' && (
-            <SourceTextInfo>Editora: {chosenBook.publisher}</SourceTextInfo>
+          {book.publisher !== '' && (
+            <SourceTextInfo>Editora: {book.publisher}</SourceTextInfo>
           )}
           {entry.source_url !== '' && (
             <SourceTextInfo>Url: {entry.source_url}</SourceTextInfo>
