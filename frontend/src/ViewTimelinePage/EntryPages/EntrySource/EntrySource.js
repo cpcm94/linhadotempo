@@ -27,7 +27,6 @@ export const EntrySource = ({ entry, books, changeEntry, setEntry }) => {
   }
 
   const chosenBook = books.filter((book) => entry.book_id === book.id)[0]
-  console.log('chosenBook', chosenBook)
   return (
     <>
       <SectionTitle title={'Fonte'} resetSection={resetSources} />
