@@ -8,7 +8,7 @@ import {
   DayWrapper,
   TextWrapper,
 } from './TimelinePageHeader.styles'
-import { monthNameArray } from '../../../_shared/monthNameArray'
+import { abvMonthNameArray } from '../../../_shared/monthNameArray'
 import { ReturnButton } from '../../../_shared/ReturnButton'
 import { useHistory } from 'react-router'
 
@@ -20,7 +20,7 @@ export const TimelinePageHeader = ({ displayEntry, timelines }) => {
   }
   const monthName =
     displayEntry && displayEntry.month
-      ? monthNameArray[displayEntry.month]
+      ? abvMonthNameArray[displayEntry.month]
       : null
   const yearAC =
     displayEntry && displayEntry.year
@@ -46,7 +46,7 @@ export const TimelinePageHeader = ({ displayEntry, timelines }) => {
               {displayEntry && displayEntry.day ? ` de ` : null}
               {monthName}
             </MonthWrapper>
-            <YearWrapper>
+            <YearWrapper hasPrefix={!monthName}>
               {monthName && 'de '}
               {yearAC}
             </YearWrapper>
