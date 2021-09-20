@@ -31,7 +31,9 @@ export const BookSelector = ({
             </MenuItem>
             {books.map((book) => (
               <MenuItem key={book.id} value={book.id}>
-                {book.book_name}
+                {`${book.book_name}${book.author && `, ${book.author}`}${
+                  book.publisher && `, ${book.publisher}`
+                }`}
               </MenuItem>
             ))}
           </StyledSelectTextField>

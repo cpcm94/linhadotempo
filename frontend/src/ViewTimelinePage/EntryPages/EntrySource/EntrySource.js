@@ -4,6 +4,7 @@ import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import { SourceTabs, TabSpan, InnerWrapper } from './EntrySource.styles'
 import { SourceUrlDisplay } from './SourceUrlDisplay'
 import { BookSelector } from './BookSelector'
+import { BookAndUrlDisplay } from './BookAndUrlDisplay'
 
 export const EntrySource = ({ entry, books, changeEntry, setEntry }) => {
   const [showBookDisplay, setShowBookDisplay] = useState(false)
@@ -24,6 +25,9 @@ export const EntrySource = ({ entry, books, changeEntry, setEntry }) => {
     setShowSiteDisplay(!showSiteDisplay)
     if (showBookDisplay) setShowBookDisplay(false)
   }
+
+  const chosenBook = books.filter((book) => entry.book_id === book.id)[0]
+  console.log('chosenBook', chosenBook)
   return (
     <>
       <SectionTitle title={'Fonte'} resetSection={resetSources} />
@@ -37,6 +41,12 @@ export const EntrySource = ({ entry, books, changeEntry, setEntry }) => {
             {'Site'}
           </TabSpan>
         </SourceTabs>
+        <BookAndUrlDisplay
+          entry={entry}
+          chosenBook={chosenBook}
+          showSiteDisplay={showSiteDisplay}
+          showBookDisplay={showBookDisplay}
+        />
         <SourceUrlDisplay
           entry={entry}
           changeEntry={changeEntry}
