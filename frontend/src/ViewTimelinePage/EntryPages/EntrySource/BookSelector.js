@@ -14,7 +14,6 @@ export const BookSelector = ({
   changeEntry,
   showBookSelector,
 }) => {
-  console.log('entry', entry)
   return (
     <>
       {showBookSelector && (
