@@ -9,12 +9,14 @@ import {
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../filterEntryTimelinesByVisibleTimelines'
+import { hideEntryIconsIfSameAsDisplay } from '../hideEntryIconIfSameAsDisplay'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,
   newEntryId,
   forwardedRef,
   visibleTimelines,
+  displayEntry,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -37,24 +39,30 @@ export const EntriesWithoutMonths = ({
             onClick={() => navigateToEditEntry(entry)}
           >
             <EntryNameWrapper>{entry.name}</EntryNameWrapper>
-            <IconsWrapper>
-              {filterEntryTimelinesByVisibleTimelines(
-                visibleTimelines,
-                entry
-              ).map((timeline) => (
-                <div key={timeline.id}>
-                  {timeline.timelineIconImageUrl ? (
-                    <EntryIcon>
-                      <Img src={timeline.timelineIconImageUrl} alt="Icone" />
-                    </EntryIcon>
-                  ) : (
-                    <EntryIcon color={timeline.color}>
-                      {timeline.initials}
-                    </EntryIcon>
-                  )}
-                </div>
-              ))}
-            </IconsWrapper>
+            {hideEntryIconsIfSameAsDisplay(
+              entry,
+              displayEntry,
+              visibleTimelines
+            ) && (
+              <IconsWrapper>
+                {filterEntryTimelinesByVisibleTimelines(
+                  visibleTimelines,
+                  entry
+                ).map((timeline) => (
+                  <div key={timeline.id}>
+                    {timeline.timelineIconImageUrl ? (
+                      <EntryIcon>
+                        <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                      </EntryIcon>
+                    ) : (
+                      <EntryIcon color={timeline.color}>
+                        {timeline.initials}
+                      </EntryIcon>
+                    )}
+                  </div>
+                ))}
+              </IconsWrapper>
+            )}
           </EntryAndIconWrapper>
         )
       })}
@@ -67,4 +75,5 @@ EntriesWithoutMonths.propTypes = {
   visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
+  displayEntry: PropTypes.object,
 }

@@ -177,7 +177,11 @@ export const TimelinePage = ({
   })
   return (
     <Layout>
-      <TimelinePageHeader displayEntry={displayEntry} timelines={timelines} />
+      <TimelinePageHeader
+        displayEntry={displayEntry}
+        timelines={timelines}
+        visibleTimelines={visibleTimelines}
+      />
       <TimelineScrollerContainer>
         {entries[0] ? (
           <TimelineScroller

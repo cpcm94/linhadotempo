@@ -61,6 +61,7 @@ export const YearEntries = ({
                 newEntryId={newEntryId}
                 forwardedRef={forwardedRef}
                 visibleTimelines={visibleTimelines}
+                displayEntry={displayEntry}
               />
             </EntriesWithoutMonthsWrapper>
           </>
