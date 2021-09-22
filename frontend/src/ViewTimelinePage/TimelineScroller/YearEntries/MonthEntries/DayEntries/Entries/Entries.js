@@ -17,9 +17,10 @@ import {
   Img,
 } from '../../../YearEntries.styles'
 import PropTypes from 'prop-types'
-import { monthNameArray } from '../../../../../../_shared/monthNameArray'
+import { abvMonthNameArray } from '../../../../../../_shared/monthNameArray'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../../filterEntryTimelinesByVisibleTimelines'
+import { hideEntryIconsIfSameAsDisplay } from '../../../../hideEntryIconIfSameAsDisplay'
 
 export const Entries = ({
   entries,
@@ -37,7 +38,7 @@ export const Entries = ({
     })
   }
   const { day, month, year } = entries[0]
-  const monthName = monthNameArray[month]
+  const monthName = abvMonthNameArray[month]
   const yearAC = year.toString().startsWith('-')
     ? `${year.toString().substr(1)} a.c.`
     : year.toString()
@@ -61,7 +62,7 @@ export const Entries = ({
           }
           {
             <YearWrapper>
-              <DateText> de</DateText>
+              <DateText>de</DateText>
               {yearAC}
             </YearWrapper>
           }
@@ -77,24 +78,30 @@ export const Entries = ({
             onClick={() => navigateToEditEntry(entry)}
           >
             <EntryWrapper key={index}>{entry.name}</EntryWrapper>
-            <IconsWrapper>
-              {filterEntryTimelinesByVisibleTimelines(
-                visibleTimelines,
-                entry
-              ).map((timeline) => (
-                <div key={timeline.id}>
-                  {timeline.timelineIconImageUrl ? (
-                    <EntryIcon>
-                      <Img src={timeline.timelineIconImageUrl} alt="Icone" />
-                    </EntryIcon>
-                  ) : (
-                    <EntryIcon color={timeline.color}>
-                      {timeline.initials}
-                    </EntryIcon>
-                  )}
-                </div>
-              ))}
-            </IconsWrapper>
+            {hideEntryIconsIfSameAsDisplay(
+              entry,
+              displayEntry,
+              visibleTimelines
+            ) && (
+              <IconsWrapper>
+                {filterEntryTimelinesByVisibleTimelines(
+                  visibleTimelines,
+                  entry
+                ).map((timeline) => (
+                  <div key={timeline.id}>
+                    {timeline.timelineIconImageUrl ? (
+                      <EntryIcon>
+                        <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                      </EntryIcon>
+                    ) : (
+                      <EntryIcon color={timeline.color}>
+                        {timeline.initials}
+                      </EntryIcon>
+                    )}
+                  </div>
+                ))}
+              </IconsWrapper>
+            )}
           </EntryAndIconWrapper>
         ))}
       </EntriesWrapper>

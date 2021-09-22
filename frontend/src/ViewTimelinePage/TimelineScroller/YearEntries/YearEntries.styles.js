@@ -26,8 +26,6 @@ export const EntryAndIconWrapper = styled.div`
 export const EntryYearWrapper = styled.div`
   display: flex;
   position: relative;
-  justify-content: center;
-  flex-direction: row-reverse;
   z-index: 1;
   padding: 0.5rem;
   color: ${colors.lightGrey};
@@ -49,7 +47,7 @@ export const EntryYearWrapper = styled.div`
     background: ${colors.white};
     padding: 0 0.25rem;
   }
-  font-size: 0.85em;
+  font-size: 0.9em;
   color: ${colors.grey};
 `
 export const Wrapper = styled.div`
@@ -98,4 +96,6 @@ export const EntriesWrapper = styled.div`
 
 export const EntriesWithoutMonthsWrapper = styled.div``
 
-export const YearWrapper = styled.div``
+export const YearWrapper = styled.div`
+  margin-left: 7.75rem;
+`

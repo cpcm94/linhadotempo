@@ -4,7 +4,6 @@ import { colors } from '../../../../../../_shared/colors'
 export const EntryDateWrapper = styled.div`
   display: flex;
   position: relative;
-  justify-content: center;
   z-index: 1;
   padding: 0.5rem;
 
@@ -22,24 +21,24 @@ export const EntryDateWrapper = styled.div`
     width: 100%;
     z-index: -1;
   }
-  font-size: 0.85em;
+  font-size: 0.9em;
   color: ${colors.grey};
 `
 
-export const YearSpan = styled.span`
-  background: ${colors.white};
-  padding: 0 0.5rem 0 0.25rem;
-`
+// export const YearSpan = styled.span`
+//   background: ${colors.white};
+//   padding: 0 0.5rem 0 0.25rem;
+// `
 
-export const DaySpan = styled.span`
-  background: ${colors.white};
-  padding: 0 0.5rem 0 0.5rem;
-`
+// export const DaySpan = styled.span`
+//   background: ${colors.white};
+//   padding: 0 0.5rem 0 0.5rem;
+// `
 
-export const MonthSpan = styled.span`
-  background: ${colors.white};
-  padding: 0 0.6rem 0 0.3rem;
-`
+// export const MonthSpan = styled.span`
+//   background: ${colors.white};
+//   padding: 0 0.6rem 0 0.3rem;
+// `
 
 export const EntriesWrapper = styled.div`
   display: flex;
@@ -56,17 +55,15 @@ export const EntryWrapper = styled.div`
   flex: 1;
 `
 
-export const YearWrapper = styled.div`
-  flex: 4;
-`
+export const YearWrapper = styled.div``
 
 export const MonthWrapper = styled.div`
-  flex: 1;
-  padding-right: 0.25rem;
+  min-width: 3.3rem;
+  padding: 0 0.25rem;
 `
 
 export const DayWrapper = styled.div`
-  flex: 0.2;
+  min-width: 1.1rem;
 `
 
 export const DateInnerWrapper = styled.div`
@@ -80,11 +77,12 @@ export const DayInnerWrapper = styled.div`
 `
 export const DateText = styled.span`
   background: ${colors.white};
-  padding: 0 0.25rem;
+  padding: 0 0.25rem 0 0;
   color: ${colors.grey};
 `
 export const DateSpan = styled.div`
   display: flex;
   padding: 0 0.5rem;
   background: ${colors.white};
+  margin: 0 0 0 1.85rem;
 `

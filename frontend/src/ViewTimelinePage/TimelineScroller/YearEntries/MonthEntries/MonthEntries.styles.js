@@ -3,7 +3,6 @@ import { colors } from '../../../../_shared/colors'
 
 export const MonthWrapper = styled.div`
   display: flex;
-  justify-content: center;
   position: relative;
   z-index: 1;
   padding: 0.5rem;
@@ -25,7 +24,7 @@ export const MonthWrapper = styled.div`
     background: ${colors.white};
     padding: 0 0.25rem;
   }
-  font-size: 0.85em;
+  font-size: 0.9em;
   color: ${colors.grey};
 `
 
@@ -44,14 +43,16 @@ export const EntryWithoutDayWrapper = styled.div``
 export const EntryNameWrapper = styled.div`
   flex: 1;
 `
-export const YearWrapper = styled.div``
 
-export const MonthSpanWrapper = styled.div`
-  display: flex;
-  justify-content: center;
+export const MonthDateWrapper = styled.div`
+  min-width: 2rem;
 `
-export const DateText = styled.span`
+export const DateWrapper = styled.div`
+  display: flex;
+  margin-left: 4.75rem;
   background: ${colors.white};
-  padding-right: 0.25rem;
+`
+export const DateText = styled.div`
+  background: ${colors.white};
   color: ${colors.grey};
 `

@@ -18,10 +18,10 @@ export const TextWrapper = styled.div``
 
 export const EntryWrapper = styled.div`
   display: flex;
-  justify-content: center;
   padding: 0.2rem 1.5rem 0 0;
   flex: 1;
   color: ${colors.white};
+  font-size: 0.9rem;
 `
 
 export const HeaderWrapper = styled.div`
@@ -35,6 +35,7 @@ export const HeaderWrapper = styled.div`
   height: 2rem;
   z-index: 2;
   overflow-x: hidden;
+  align-items: center;
   @media (min-width: 540px) {
     padding: 5px 20%;
   }
@@ -48,10 +49,14 @@ export const HeaderWrapper = styled.div`
 
 export const YearWrapper = styled.div`
   animation: ${fadeIn} 1s forwards;
+  min-width: 1rem;
+  margin-left: ${({ hasPrefix }) => hasPrefix && '1.2rem'};
 `
 
 export const MonthWrapper = styled.div`
   padding: 0 0.25rem;
+  min-width: 3.3rem;
+
   animation: ${({ isDisplayEntryMonth }) =>
     isDisplayEntryMonth &&
     css`
@@ -60,6 +65,7 @@ export const MonthWrapper = styled.div`
 `
 
 export const DayWrapper = styled.div`
+  min-width: 1.1rem;
   animation: ${({ isDisplayEntryDay }) =>
     isDisplayEntryDay &&
     css`

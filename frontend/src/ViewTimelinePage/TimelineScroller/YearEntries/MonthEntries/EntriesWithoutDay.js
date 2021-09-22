@@ -9,12 +9,14 @@ import {
 } from '../YearEntries.styles'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../filterEntryTimelinesByVisibleTimelines'
+import { hideEntryIconsIfSameAsDisplay } from '../../hideEntryIconIfSameAsDisplay'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
   newEntryId,
   forwardedRef,
   visibleTimelines,
+  displayEntry,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -36,24 +38,33 @@ export const EntriesWithoutDay = ({
               onClick={() => navigateToEditEntry(entry)}
             >
               <EntryNameWrapper>{entry.name}</EntryNameWrapper>
-              <IconsWrapper>
-                {filterEntryTimelinesByVisibleTimelines(
-                  visibleTimelines,
-                  entry
-                ).map((timeline) => (
-                  <div key={timeline.id}>
-                    {timeline.timelineIconImageUrl ? (
-                      <EntryIcon>
-                        <Img src={timeline.timelineIconImageUrl} alt="Icone" />
-                      </EntryIcon>
-                    ) : (
-                      <EntryIcon color={timeline.color}>
-                        {timeline.initials}
-                      </EntryIcon>
-                    )}
-                  </div>
-                ))}
-              </IconsWrapper>
+              {hideEntryIconsIfSameAsDisplay(
+                entry,
+                displayEntry,
+                visibleTimelines
+              ) && (
+                <IconsWrapper>
+                  {filterEntryTimelinesByVisibleTimelines(
+                    visibleTimelines,
+                    entry
+                  ).map((timeline) => (
+                    <div key={timeline.id}>
+                      {timeline.timelineIconImageUrl ? (
+                        <EntryIcon>
+                          <Img
+                            src={timeline.timelineIconImageUrl}
+                            alt="Icone"
+                          />
+                        </EntryIcon>
+                      ) : (
+                        <EntryIcon color={timeline.color}>
+                          {timeline.initials}
+                        </EntryIcon>
+                      )}
+                    </div>
+                  ))}
+                </IconsWrapper>
+              )}
             </EntryAndIconWrapper>
           ))
         : null}
@@ -66,4 +77,5 @@ EntriesWithoutDay.propTypes = {
   visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
+  displayEntry: PropTypes.object,
 }
