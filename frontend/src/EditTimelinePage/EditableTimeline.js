@@ -12,6 +12,7 @@ import qs from 'query-string'
 import { toast, Slide } from 'react-toastify'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Icon, ImageWrapper, Img } from './EditableTimeline.styles'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -109,9 +110,17 @@ export const EditableTimeline = ({ timeline }) => {
     <Layout>
       <Header
         returnButton={goBackToPreviousPage}
-        subTitle={'Editar linha do tempo'}
         title={timelineObject.name}
         loading={loading}
+        icon={
+          timeline.timelineIconImageUrl ? (
+            <ImageWrapper>
+              <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+            </ImageWrapper>
+          ) : (
+            <Icon color={timeline.color}>{timeline.initials}</Icon>
+          )
+        }
       />
       <Container subTitle={true}>
         <TimelineForm

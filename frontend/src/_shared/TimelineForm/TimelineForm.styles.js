@@ -40,7 +40,6 @@ export const ImageWrapper = styled.div`
   min-height: 2rem;
   width: 2rem;
   height: 2rem;
-  margin-left: 1rem;
 `
 export const Img = styled.img`
   border-radius: 5px;
@@ -57,10 +56,9 @@ export const Wrapper = styled.div`
   min-height: calc(100vh - 3rem);
   padding: 1rem 0 1rem 0;
 `
-
+export const UploaderAndButtonWrapper = styled.div``
 export const ImageAndButtonWrapper = styled.div`
   display: flex;
-  background-color: ${colors.lightBrown};
   border-radius: 5px;
   height: 4rem;
   align-items: center;
@@ -104,7 +102,7 @@ export const TextFieldColor = styled(TextField)`
 
 export const StyledButton = styled(Button)`
   height: 56px;
-
+  margin-top: ${({ marginTop }) => marginTop && '1rem'} !important;
   && {
     color: ${colors.white};
   }
