@@ -30,6 +30,8 @@ export const InitialsAndColorWrapper = styled.div`
 export const Icon = styled.div`
   background-color: ${({ color }) => (color ? color : colors.white)};
   color: #655;
+  border: ${({ color }) =>
+    color ? `solid 1px ${color}` : `solid 1px ${colors.white}`};
   border-radius: 5px;
   min-width: 2rem;
   min-height: 2rem;

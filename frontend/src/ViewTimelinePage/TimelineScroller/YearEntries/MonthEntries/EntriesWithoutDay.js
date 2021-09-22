@@ -50,7 +50,7 @@ export const EntriesWithoutDay = ({
                   ).map((timeline) => (
                     <div key={timeline.id}>
                       {timeline.timelineIconImageUrl ? (
-                        <EntryIcon timelineColor={timeline.color}>
+                        <EntryIcon color={timeline.color}>
                           <Img
                             src={timeline.timelineIconImageUrl}
                             alt="Icone"

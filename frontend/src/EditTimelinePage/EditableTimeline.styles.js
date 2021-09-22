@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import { colors } from '../_shared/colors'
 export const Icon = styled.div`
   background-color: ${({ color }) => (color ? color : colors.white)};
+  border: ${({ color }) =>
+    color ? `solid 1px ${color}` : `solid 1px ${colors.white}`};
   color: #655;
   border-radius: 5px;
   min-width: 1.5rem;

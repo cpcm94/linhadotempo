@@ -59,7 +59,7 @@ export const EntryTimelinesSelect = ({
               <TimelineWrapper key={timeline.id} id={timeline.id}>
                 <ClosedIconAndNameWrapper>
                   {timeline.timelineIconImageUrl ? (
-                    <IconWrapper timelineColor={timeline.color}>
+                    <IconWrapper color={timeline.color}>
                       <Img src={timeline.timelineIconImageUrl} />
                     </IconWrapper>
                   ) : (
@@ -88,7 +88,7 @@ export const EntryTimelinesSelect = ({
                   img={timeline.timelineIconImageUrl}
                 >
                   {timeline.timelineIconImageUrl ? (
-                    <IconWrapper timelineColor={timeline.color}>
+                    <IconWrapper color={timeline.color}>
                       <Img src={timeline.timelineIconImageUrl} />
                     </IconWrapper>
                   ) : (

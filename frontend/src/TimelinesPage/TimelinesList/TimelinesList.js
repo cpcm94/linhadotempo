@@ -11,7 +11,6 @@ import {
   Img,
 } from './TimelinesList.styles'
 import { EditButton } from '../../_shared/EditButton'
-import { timelineColor } from '../../_shared/timelineColor'
 import { useHistory } from 'react-router'
 
 export const TimelinesList = ({
@@ -67,7 +66,7 @@ export const TimelinesList = ({
                   <Img src={timeline.timelineIconImageUrl} alt="Icone" />
                 </IconWrapper>
               ) : (
-                <IconWrapper color={timelineColor(timelines, timeline.id)}>
+                <IconWrapper color={timeline.color}>
                   {timeline.initials}
                 </IconWrapper>
               )}
