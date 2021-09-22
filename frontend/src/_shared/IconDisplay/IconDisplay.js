@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { colorsArray } from './colorsArray'
+import { colorsArray } from '../colorsArray'
 import { GithubPicker } from 'react-color'
-import { Icon } from './TimelineForm.styles'
 import { ImageAndUploader } from './ImageAndUploader'
 import PropTypes from 'prop-types'
 import { SectionTitle } from '../SectionTitle/SectionTitle'
@@ -10,6 +9,7 @@ import {
   InitialsAndColorWrapper,
   StyledButton,
   TextFieldColor,
+  Icon,
 } from './IconDisplay.styles'
 
 const inputProps = {
@@ -23,8 +23,11 @@ export const IconDisplay = ({
   handleChangeColor,
   updateTimelineIconImageUrl,
 }) => {
-  const [showColorInitialsDisplay, setShowColorInitialsDisplay] = useState(true)
-  const [showImageDisplay, setShowImageDisplay] = useState(false)
+  const timelineHasImage = !!timeline.timelineIconImageUrl
+  const [showColorInitialsDisplay, setShowColorInitialsDisplay] = useState(
+    !timelineHasImage
+  )
+  const [showImageDisplay, setShowImageDisplay] = useState(timelineHasImage)
 
   const toggleImageDisplay = () => {
     setShowImageDisplay(!showImageDisplay)
@@ -67,6 +70,7 @@ export const IconDisplay = ({
           timeline={timeline}
           updateTimelineIconImageUrl={updateTimelineIconImageUrl}
           toggleColorInitialsDisplay={toggleColorInitialsDisplay}
+          handleChangeColor={handleChangeColor}
         />
       )}
     </>

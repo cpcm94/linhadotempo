@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Button } from '@material-ui/core'
-import { colors } from '../../../colors'
+import { colors } from '../../../../_shared/colors'
 
 export const Wrapper = styled.div`
   display: flex;

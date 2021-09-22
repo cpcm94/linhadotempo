@@ -7,7 +7,8 @@ import { timelineColor } from '../../_shared/timelineColor'
 const Button = styled.div`
   margin-right: 0.5rem;
   background-color: ${({ color }) => (color ? color : colors.white)};
-  border: solid 1px #999;
+  border: ${({ timelineColor }) =>
+    timelineColor ? `solid 1px ${timelineColor}` : `solid 1px ${colors.white}`};
   color: #655;
   border-radius: 5px;
   min-width: 1.8rem;
@@ -79,6 +80,7 @@ export const TimelinesButtonsRow = ({
               <Button
                 onClick={onTimelineButtonClick}
                 isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
+                timelineColor={timeline.color}
               >
                 <Img src={timeline.timelineIconImageUrl} alt="Icone" />
               </Button>

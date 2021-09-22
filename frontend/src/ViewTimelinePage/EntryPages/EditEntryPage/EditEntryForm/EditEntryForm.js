@@ -1,41 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { DateDisplay } from '../../DateDisplay/DateDisplay'
 import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
-import {
-  InnerWrapper,
-  Wrapper,
-  EditButtonsWrapper,
-} from './EditEntryForm.styles'
+import { Wrapper, EditButtonsWrapper } from './EditEntryForm.styles'
 import { DeleteEntryButton } from './DeleteEntryButton'
-import { yearWithoutNegativeSign } from '../../../../_shared/yearWithoutNegativeSign'
-import { UPDATE_TIME_ENTRY_MUTATION } from './UPDATE_TIME_ENTRY_MUTATION'
-import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from '../../../../_shared/convertFormDataValues'
-import { SubmitFormButton } from '../../SubmitFormButton/SubmitFormButton'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
 
-export const EditEntryForm = ({ entryToEdit, timelines, books }) => {
-  const [entry, setEntry] = useState({
-    timelines: { sync: entryToEdit.timelines.map((timeline) => timeline.id) },
-    name: entryToEdit.name,
-    description: entryToEdit.description,
-    year: yearWithoutNegativeSign(entryToEdit),
-    month: entryToEdit.month ? entryToEdit.month : '',
-    day: entryToEdit.day ? entryToEdit.day : '',
-    annual_importance: false,
-    monthly_importance: false,
-    source_url: entryToEdit.source_url ? entryToEdit.source_url : '',
-    book_page: entryToEdit.book_page ? entryToEdit.book_page : '',
-    book_id: entryToEdit.book_id ? entryToEdit.book_id : '',
-  })
+const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
+let timeoutId = null
+
+export const EditEntryForm = ({
+  entry,
+  setEntry,
+  entryId,
+  timelines,
+  books,
+  entryError,
+  updateEntry,
+}) => {
   const [radioValue, setRadioValue] = useState(
-    entryToEdit.year && entryToEdit.year.toString().startsWith('-')
-      ? 'AC'
-      : 'DC'
+    entry.year && entry.year.toString().startsWith('-') ? 'AC' : 'DC'
   )
+  const isFirstRun = useRef(true)
+
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
     newEntry[entryPropName] = e.target.value
@@ -52,12 +42,6 @@ export const EditEntryForm = ({ entryToEdit, timelines, books }) => {
     newEntry.timelines.sync = []
     setEntry(newEntry)
   }
-  const [updateEntry, { loading }] = useMutation(UPDATE_TIME_ENTRY_MUTATION, {
-    variables: {
-      id: entryToEdit.id,
-      input: convertFormDataValues(entry, radioValue),
-    },
-  })
 
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
 
@@ -74,75 +58,87 @@ export const EditEntryForm = ({ entryToEdit, timelines, books }) => {
         : null,
     })
   }
-  const submitUpdateEntry = (e) => {
-    e.preventDefault()
-    updateEntry().then((res) => {
-      goBack(res.data.updateTimeEntry)
-    })
-  }
+
+  useEffect(() => {
+    if (!isFirstRun.current) {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+      if (!entryError)
+        timeoutId = setTimeout(() => {
+          const payload = {
+            variables: {
+              id: entryId,
+              input: convertFormDataValues(entry, radioValue),
+            },
+          }
+          updateEntry(payload)
+        }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+    } else {
+      isFirstRun.current = false
+    }
+  }, [entry, entryError, radioValue, entryId, updateEntry])
 
   return (
     <Wrapper>
-      <InnerWrapper>
-        <EntryTimelinesSelect
-          timelines={timelines}
-          resetField={resetSelectedTimelines}
-          entry={entry}
-          setEntry={setEntry}
-        />
-        <DateDisplay
-          entry={entry}
-          setEntry={setEntry}
-          radioValue={radioValue}
-          setRadioValue={setRadioValue}
-        />
-        <EntryTextInput
-          entry={entry}
-          changeEntry={handleChange}
-          resetField={resetFieldValue}
-          title={'Acontecimento'}
-          field={'name'}
-        />
-        <EntryTextInput
-          entry={entry}
-          changeEntry={handleChange}
-          resetField={resetFieldValue}
-          title={'Descrição'}
-          field={'description'}
-        />
-        <EntrySource
-          entry={entry}
-          books={books}
-          changeEntry={handleChange}
-          setEntry={setEntry}
-        />
-      </InnerWrapper>
+      <EntryTimelinesSelect
+        fieldId={'timelines'}
+        entryError={entryError}
+        timelines={timelines}
+        resetField={resetSelectedTimelines}
+        entry={entry}
+        setEntry={setEntry}
+      />
+      <DateDisplay
+        fieldId={'date'}
+        entryError={entryError}
+        entry={entry}
+        setEntry={setEntry}
+        radioValue={radioValue}
+        setRadioValue={setRadioValue}
+      />
+      <EntryTextInput
+        entry={entry}
+        entryError={entryError}
+        changeEntry={handleChange}
+        resetField={resetFieldValue}
+        title={'Acontecimento'}
+        field={'name'}
+      />
+      <EntryTextInput
+        entry={entry}
+        changeEntry={handleChange}
+        resetField={resetFieldValue}
+        title={'Descrição'}
+        field={'description'}
+      />
+      <EntrySource
+        entry={entry}
+        books={books}
+        changeEntry={handleChange}
+        setEntry={setEntry}
+      />
       <EditButtonsWrapper>
         <DeleteEntryButton
-          entryId={entryToEdit.id}
+          entryId={entry.id}
           afterDelete={(deletedEntry) =>
             refetchTimelines().then(() => {
               goBack(deletedEntry)
             })
           }
         />
-        {loading ? (
-          <span>Loading...</span>
-        ) : (
-          <SubmitFormButton
-            onClick={submitUpdateEntry}
-            entry={entry}
-            buttonText={'Editar Acontecimento'}
-          />
-        )}
       </EditButtonsWrapper>
     </Wrapper>
   )
 }
 
 EditEntryForm.propTypes = {
-  entryToEdit: PropTypes.object,
+  entry: PropTypes.object,
   timelines: PropTypes.array,
   refetchTimelines: PropTypes.func,
   books: PropTypes.array,
+  setEntry: PropTypes.func,
+  entryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  entryId: PropTypes.string,
+  updateEntry: PropTypes.func,
 }

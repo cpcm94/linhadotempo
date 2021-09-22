@@ -63,7 +63,7 @@ export const TimelinesList = ({
                 <CheckMarkerWrapper />
               )}
               {timeline.timelineIconImageUrl ? (
-                <IconWrapper>
+                <IconWrapper timelineColor={timeline.color}>
                   <Img src={timeline.timelineIconImageUrl} alt="Icone" />
                 </IconWrapper>
               ) : (

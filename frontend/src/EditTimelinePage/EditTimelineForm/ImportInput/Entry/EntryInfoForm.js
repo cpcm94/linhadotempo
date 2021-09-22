@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { monthNameArray } from '../../../monthNameArray'
+import { monthNameArray } from '../../../../_shared/monthNameArray'
 import {
   StyledTextField,
   StyledYearTextField,
@@ -8,10 +8,10 @@ import {
   MonthWrapper,
   DayWrapper,
 } from './EntryInfoForm.styles'
-import { YearOptionSelect } from '../../../YearOptionSelect'
+import { YearOptionSelect } from '../../../../_shared/YearOptionSelect'
 import MenuItem from '@material-ui/core/MenuItem'
-import { XIcon } from '../../../XIcon'
-import { Months, Days } from '../../../DateArrays'
+import { XIcon } from '../../../../_shared/XIcon'
+import { Months, Days } from '../../../../_shared/DateArrays'
 
 const handleChange = (entryPropName, entry, setEntry) => (e) => {
   const newEntry = { ...entry }

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
-import { colors } from '../../../colors'
+import { colors } from '../../../../_shared/colors'
 
 export const StyledTextField = styled(TextField)`
   /* align-self: center; */

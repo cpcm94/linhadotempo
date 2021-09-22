@@ -51,7 +51,7 @@ export const EntriesWithoutYear = ({
                 ).map((timeline) => (
                   <div key={timeline.id}>
                     {timeline.timelineIconImageUrl ? (
-                      <EntryIcon>
+                      <EntryIcon timelineColor={timeline.color}>
                         <Img src={timeline.timelineIconImageUrl} alt="Icone" />
                       </EntryIcon>
                     ) : (
