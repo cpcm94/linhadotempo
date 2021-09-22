@@ -25,6 +25,10 @@ export const StyledTextField = styled(TextField)`
   }
 `
 
+export const SourceTextInfo = styled.div`
+  padding: 0.25rem 0 0.25rem 0.25rem;
+`
+
 export const BookPageWrapper = styled.div`
   margin: 1rem 0 0 0;
   width: 5.5rem;
