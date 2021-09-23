@@ -7,6 +7,7 @@ import { useHistory } from 'react-router'
 import { toast, Slide } from 'react-toastify'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { convertBookFormData } from '../../_shared/convertBookFormDataValues'
 
 export const NewBookForm = () => {
   let history = useHistory()
@@ -18,13 +19,6 @@ export const NewBookForm = () => {
     edition: '',
     author: '',
   })
-  const convertBookFormData = (book) => {
-    const newBook = { ...book }
-    if (newBook.publishing_year === '') {
-      newBook.publishing_year = null
-    }
-    return newBook
-  }
 
   const [createBook, { loading }] = useMutation(CREATE_BOOK_MUTATION, {
     variables: {
