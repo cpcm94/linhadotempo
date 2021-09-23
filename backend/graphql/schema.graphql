@@ -57,7 +57,7 @@ type Book {
     author: String
     edition: String
     publisher: String
-    publishing_date: Date
+    publishing_year: Int
     time_entries: [TimeEntry] @hasMany
     user_id: String
     user: User @belongsTo
@@ -113,7 +113,7 @@ input CreateBookInput {
     author: String
     edition: String
     publisher: String
-    publishing_date: Date
+    publishing_year: Int
 }
 
 input UpdateBookInput {
@@ -121,7 +121,7 @@ input UpdateBookInput {
     author: String
     edition: String
     publisher: String
-    publishing_date: Date
+    publishing_year: Int
 }
 
 input CreateTimelineBelongsToMany {

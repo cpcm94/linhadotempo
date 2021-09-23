@@ -14,13 +14,21 @@ export const NewBookForm = () => {
   const [book, setBook] = useState({
     book_name: '',
     publisher: '',
-    publishing_date: '2000-12-31',
+    publishing_year: '',
     edition: '',
     author: '',
   })
+  const convertBookFormData = (book) => {
+    const newBook = { ...book }
+    if (newBook.publishing_year === '') {
+      newBook.publishing_year = null
+    }
+    return newBook
+  }
+
   const [createBook, { loading }] = useMutation(CREATE_BOOK_MUTATION, {
     variables: {
-      input: book,
+      input: convertBookFormData(book),
     },
   })
   const handleChange = (bookPropName) => (e) => {
@@ -79,11 +87,11 @@ export const NewBookForm = () => {
       />
       <StyledTextField
         id="date"
-        label="Data de publicação"
-        type="date"
+        label="Ano de publicação"
+        type="number"
         variant="outlined"
-        value={book.publishing_date}
-        onChange={handleChange('publishing_date')}
+        value={book.publishing_year}
+        onChange={handleChange('publishing_year')}
       />
       <SubmitFormButton
         book={book}

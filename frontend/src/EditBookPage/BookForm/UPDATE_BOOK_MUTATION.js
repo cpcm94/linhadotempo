@@ -5,7 +5,7 @@ export const UPDATE_BOOK_MUTATION = gql`
     updateBook(id: $id, input: $input) {
       book_name
       publisher
-      publishing_date
+      publishing_year
       edition
       author
     }

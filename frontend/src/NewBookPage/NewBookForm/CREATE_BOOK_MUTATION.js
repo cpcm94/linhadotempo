@@ -5,7 +5,7 @@ export const CREATE_BOOK_MUTATION = gql`
     createBook(input: $input) {
       book_name
       publisher
-      publishing_date
+      publishing_year
       edition
       author
     }

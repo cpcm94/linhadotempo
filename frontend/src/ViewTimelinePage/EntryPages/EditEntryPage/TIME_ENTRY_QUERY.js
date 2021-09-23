@@ -25,7 +25,7 @@ export const TIME_ENTRY_QUERY = gql`
         book_name
         author
         publisher
-        publishing_date
+        publishing_year
         edition
       }
     }
