@@ -78,6 +78,7 @@ export const EntryIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 1px;
 `
 
 export const Img = styled.img`

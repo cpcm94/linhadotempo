@@ -8,10 +8,19 @@ import {
   IconWrapper,
   IconsRow,
 } from './TimelinesIconRow.styles'
+import { TimelinesCheckbox } from './TimelinesCheckbox'
 
-export const TimelinesIconRow = ({ timelines, onClick }) => {
+export const TimelinesIconRow = ({
+  timelines,
+  onClick,
+  setSelectedTimelines,
+}) => {
   return (
     <Wrapper>
+      <TimelinesCheckbox
+        selectedTimelines={timelines}
+        setSelectedTimelines={setSelectedTimelines}
+      />
       <IconsRow>
         {timelines.map((timeline, index) => (
           <Link
@@ -41,4 +50,5 @@ export const TimelinesIconRow = ({ timelines, onClick }) => {
 TimelinesIconRow.propTypes = {
   timelines: PropTypes.array,
   onClick: PropTypes.func,
+  setSelectedTimelines: PropTypes.func,
 }

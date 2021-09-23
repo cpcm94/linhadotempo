@@ -45,9 +45,13 @@ export const TimelinesList = ({
     }
   }
 
+  const sortedTimelinesAlphabetically = [...timelines].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
+
   return (
     <TimelinesListWrapper>
-      {timelines.map((timeline) => {
+      {sortedTimelinesAlphabetically.map((timeline) => {
         const onTimelineClick = (event) => toggleTimelines(event, timeline)
 
         return (

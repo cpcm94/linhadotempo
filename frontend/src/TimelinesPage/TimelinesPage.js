@@ -55,6 +55,7 @@ export const TimelinesPage = ({ timelines, currentSelectedTimelinesIds }) => {
           <TimelinesIconRow
             timelines={selectedTimelines}
             onClick={navigateToViewTimelines}
+            setSelectedTimelines={setSelectedTimelines}
           />
         }
         showMenuButton={true}
