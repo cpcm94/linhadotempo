@@ -19,7 +19,7 @@ export const BookForm = ({ bookData, setLoading }) => {
   const [book, setBook] = useState({
     book_name: bookData.book_name,
     publisher: bookData.publisher,
-    publishing_date: bookData.publishing_date,
+    publishing_year: bookData.publishing_year,
     edition: bookData.edition,
     author: bookData.author,
   })
@@ -64,7 +64,7 @@ export const BookForm = ({ bookData, setLoading }) => {
   }, [loading, setLoading])
 
   useEffect(() => {
-    if (!isFirstRun.current && book.publishing_date !== '') {
+    if (!isFirstRun.current && book.publishing_year !== '') {
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
@@ -122,11 +122,11 @@ export const BookForm = ({ bookData, setLoading }) => {
       />
       <StyledTextField
         id="date"
-        label="Data de publicação"
-        type="date"
+        type="number"
+        label="Ano de publicação"
         variant="outlined"
-        value={book.publishing_date}
-        onChange={handleChange('publishing_date')}
+        value={book.publishing_year}
+        onChange={handleChange('publishing_year')}
         date={true}
       />
       <DeleteButtonAndConfirmation

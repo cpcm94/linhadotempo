@@ -6,7 +6,7 @@ export const BOOKS_QUERY = gql`
       id
       book_name
       publisher
-      publishing_date
+      publishing_year
       author
     }
   }

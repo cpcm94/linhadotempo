@@ -6,7 +6,7 @@ export const BOOK_QUERY = gql`
       id
       book_name
       publisher
-      publishing_date
+      publishing_year
       edition
       author
       time_entries {
