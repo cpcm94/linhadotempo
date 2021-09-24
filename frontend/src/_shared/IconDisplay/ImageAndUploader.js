@@ -6,10 +6,10 @@ import {
   ImageAndButtonWrapper,
   StyledButton,
   UploaderAndButtonWrapper,
-} from './TimelineForm.styles'
+} from './IconDisplay.styles'
 import PropTypes from 'prop-types'
 import { GithubPicker } from 'react-color'
-import { colorsArray } from './colorsArray'
+import { colorsArray } from '../colorsArray'
 import { DeleteButton } from '../DeleteButton'
 
 export const ImageAndUploader = ({
@@ -22,7 +22,7 @@ export const ImageAndUploader = ({
   return (
     <UploaderAndButtonWrapper>
       <ImageAndButtonWrapper>
-        <ImageWrapper>
+        <ImageWrapper timelineColor={timeline.color}>
           <Img src={timeline.timelineIconImageUrl} alt="Icone" />
         </ImageWrapper>
         <FileUploader

@@ -2,12 +2,12 @@ import React, { Fragment } from 'react'
 import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
 import PropTypes from 'prop-types'
-import { timelineColor } from '../../_shared/timelineColor'
 
 const Button = styled.div`
   margin-right: 0.5rem;
   background-color: ${({ color }) => (color ? color : colors.white)};
-  border: solid 1px #999;
+  border: ${({ color }) =>
+    color ? `solid 1px ${color}` : `solid 1px ${colors.white}`};
   color: #655;
   border-radius: 5px;
   min-width: 1.8rem;
@@ -79,6 +79,7 @@ export const TimelinesButtonsRow = ({
               <Button
                 onClick={onTimelineButtonClick}
                 isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
+                color={timeline.color}
               >
                 <Img src={timeline.timelineIconImageUrl} alt="Icone" />
               </Button>
@@ -86,7 +87,7 @@ export const TimelinesButtonsRow = ({
               <Button
                 onClick={onTimelineButtonClick}
                 isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
-                color={timelineColor(timelines, timeline.id)}
+                color={timeline.color}
               >
                 {timeline.initials}
               </Button>

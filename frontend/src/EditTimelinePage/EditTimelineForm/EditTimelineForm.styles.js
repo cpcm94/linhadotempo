@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
-import { colors } from '../colors'
 import { Button } from '@material-ui/core'
+import { colors } from '../../_shared/colors'
 
 export const Icon = styled.div`
   background-color: ${({ color }) => (color ? color : colors.white)};
@@ -21,19 +21,11 @@ export const Icon = styled.div`
   margin: 1rem 0;
 `
 
-export const ImportExportButtons = styled.div`
-  display: flex;
-  margin: 1rem 0;
-  justify-content: space-between;
-  width: calc(100% - 2.5rem);
-  border-bottom: solid 1px ${colors.lightGrey};
-  padding: 0 0 1rem 0;
-`
-
 export const ImageWrapper = styled.div`
   background-color: ${colors.white};
   margin: 0.5rem 0.5rem 0.5rem 0px;
-  border: solid 1px #999;
+  border: ${({ timelineColor }) =>
+    timelineColor ? `solid 1px ${timelineColor}` : `solid 1px ${colors.white}`};
   color: #655;
   border-radius: 5px;
   min-width: 2rem;
@@ -56,13 +48,6 @@ export const Wrapper = styled.div`
   min-height: calc(100vh - 3rem);
   padding: 1rem 0 1rem 0;
 `
-export const UploaderAndButtonWrapper = styled.div``
-export const ImageAndButtonWrapper = styled.div`
-  display: flex;
-  border-radius: 5px;
-  height: 4rem;
-  align-items: center;
-`
 
 export const Form = styled.div`
   display: flex;
@@ -70,14 +55,6 @@ export const Form = styled.div`
   width: calc(100% - 2.5rem);
   border-bottom: 1px solid ${colors.lightGrey};
   padding-bottom: 1rem;
-`
-
-export const ExportText = styled.pre`
-  margin: 0;
-  padding: 1rem;
-  width: calc(100% - 2.5rem);
-  border: solid 1px ${colors.brown};
-  border-radius: 5px;
 `
 
 export const TextFieldColor = styled(TextField)`

@@ -5,10 +5,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/client'
 
-const Wrapper = styled.div`
-  align-self: flex-end;
-  margin: 0 1rem 0.25rem 0.5rem;
-`
+const Wrapper = styled.div``
 export const DeleteEntryButton = ({ entryId, afterDelete }) => {
   const [deleteEntry, { loading }] = useMutation(DELETE_TIME_ENTRY_MUTATION, {
     variables: { id: entryId },

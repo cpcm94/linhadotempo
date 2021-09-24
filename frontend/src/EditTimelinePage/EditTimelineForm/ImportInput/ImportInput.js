@@ -3,7 +3,7 @@ import { TextareaAutosize } from '@material-ui/core'
 import { Entry } from './Entry/Entry'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { colors } from '../../colors'
+import { colors } from '../../../_shared/colors'
 import { splitArrayIntoChunksOfLength } from './splitArrayIntoChunksOfLength'
 
 const Wrapper = styled.div`

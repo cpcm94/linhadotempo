@@ -14,7 +14,6 @@ export const EditEntryLoader = () => {
   const { data: entryData, loading: entryLoading } = useQuery(
     TIME_ENTRY_QUERY,
     {
-      fetchPolicy: 'cache-and-network',
       variables: {
         id: entryId,
       },

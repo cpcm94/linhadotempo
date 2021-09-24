@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import { colors } from '../_shared/colors'
 export const Icon = styled.div`
   background-color: ${({ color }) => (color ? color : colors.white)};
+  border: ${({ color }) =>
+    color ? `solid 1px ${color}` : `solid 1px ${colors.white}`};
   color: #655;
   border-radius: 5px;
   min-width: 1.5rem;
@@ -20,7 +22,8 @@ export const Icon = styled.div`
 export const ImageWrapper = styled.div`
   background-color: ${colors.white};
   margin-right: 0.5rem;
-  border: solid 1px #999;
+  border: ${({ timelineColor }) =>
+    timelineColor ? `solid 1px ${timelineColor}` : `solid 1px ${colors.white}`};
   color: #655;
   border-radius: 5px;
   min-width: 1.5rem;

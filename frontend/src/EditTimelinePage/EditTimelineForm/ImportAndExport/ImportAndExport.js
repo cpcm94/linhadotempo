@@ -1,11 +1,11 @@
 import React from 'react'
-import { copyTextToClipboard } from './copyTextToClipboard'
-import { ImportInput } from './ImportInput/ImportInput'
+import { copyTextToClipboard } from '../../../_shared/copyTextToClipboard'
+import { ImportInput } from '../ImportInput/ImportInput'
 import {
   ExportText,
   ImportExportButtons,
   StyledButton,
-} from './TimelineForm.styles'
+} from './ImportAndExport.styles'
 import PropTypes from 'prop-types'
 
 export const ImportAndExport = ({

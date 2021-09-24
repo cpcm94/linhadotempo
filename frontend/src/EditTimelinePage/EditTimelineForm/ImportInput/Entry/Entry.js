@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Wrapper, InnerWrapper, StyledButton } from './Entry.styles'
 import { useMutation } from '@apollo/client'
-import { CREATE_TIME_ENTRY_MUTATION } from '../../../CREATE_TIME_ENTRY_MUTATION'
+import { CREATE_TIME_ENTRY_MUTATION } from '../../../../_shared/CREATE_TIME_ENTRY_MUTATION'
 import { EntryInfoForm } from './EntryInfoForm'
-import { convertFormDataValues } from '../../../convertFormDataValues'
-import { yearWithoutNegativeSign } from '../../../yearWithoutNegativeSign'
+import { convertFormDataValues } from '../../../../_shared/convertFormDataValues'
+import { yearWithoutNegativeSign } from '../../../../_shared/yearWithoutNegativeSign'
 
 export const Entry = ({ entry, timeline }) => {
   const [entryInfo, setEntryInfo] = useState({

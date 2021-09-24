@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Layout } from '../_shared/Layout'
 import { Header } from '../_shared/Header/Header'
-import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
 import { DELETE_TIMELINE_MUTATION } from './DELETE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
@@ -13,6 +12,7 @@ import { toast, Slide } from 'react-toastify'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Icon, ImageWrapper, Img } from './EditableTimeline.styles'
+import { EditTimelineForm } from './EditTimelineForm/EditTimelineForm'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -114,7 +114,7 @@ export const EditableTimeline = ({ timeline }) => {
         loading={loading}
         icon={
           timeline.timelineIconImageUrl ? (
-            <ImageWrapper>
+            <ImageWrapper timelineColor={timeline.color}>
               <Img src={timeline.timelineIconImageUrl} alt="Icone" />
             </ImageWrapper>
           ) : (
@@ -123,7 +123,7 @@ export const EditableTimeline = ({ timeline }) => {
         }
       />
       <Container subTitle={true}>
-        <TimelineForm
+        <EditTimelineForm
           timeline={timelineObject}
           setTimeline={setTimelineObject}
           entriesStringInfo={entriesInfo}

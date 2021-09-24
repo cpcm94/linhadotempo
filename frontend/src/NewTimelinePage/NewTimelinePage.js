@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
 import { useMutation } from '@apollo/client'
@@ -7,6 +6,7 @@ import { CREATE_TIMELINE_MUTATION } from './CREATE_TIMELINE_MUTATION'
 import { useHistory } from 'react-router-dom'
 import { Container } from '../_shared/Container'
 import qs from 'query-string'
+import { NewTimelineForm } from './NewTimelineForm/NewTimelineForm'
 
 export const NewTimelinePage = () => {
   const [timeline, setTimeline] = useState({
@@ -50,7 +50,7 @@ export const NewTimelinePage = () => {
         returnButton={navigateToTimelinesPage}
       />
       <Container>
-        <TimelineForm
+        <NewTimelineForm
           timeline={timeline}
           setTimeline={setTimeline}
           onClick={saveAndReturn}

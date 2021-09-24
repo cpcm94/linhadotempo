@@ -7,8 +7,16 @@ import { DateSpan, DateWrapper } from './DateDisplay.styles'
 import { monthNameArray } from '../../../_shared/monthNameArray'
 import { ResetFieldButton } from './ResetFieldButton'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
+import { ErrorMessage } from '../EntryTextInput/EntryTextInput.styles'
 
-export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
+export const DateDisplay = ({
+  entry,
+  setEntry,
+  radioValue,
+  setRadioValue,
+  fieldId,
+  entryError,
+}) => {
   const [showDayPicker, setShowDayPicker] = useState(false)
   const [showMonthPicker, setShowMonthPicker] = useState(false)
   const [showYearPicker, setShowYearPicker] = useState(false)
@@ -71,10 +79,19 @@ export const DateDisplay = ({ entry, setEntry, radioValue, setRadioValue }) => {
     setEntry(newEntry)
   }
   const checkIfEmptyString = (string) => string.toString().trim() === ''
+
+  const showErrorMessage = entryError && entryError.field === 'date'
   return (
     <>
       <SectionTitle title={'Data'} resetSection={resetAllDateFieldValues} />
-      <DateWrapper>
+      {showErrorMessage && (
+        <ErrorMessage>
+          {entryError.error === 'dayWithoutYearOrMonth'
+            ? 'Não é possível criar acontecimento com dia sem possuir mês e ano'
+            : 'Não é possível criar acontecimento com mês sem possuir ano'}
+        </ErrorMessage>
+      )}
+      <DateWrapper id={fieldId}>
         <DateSpan
           selected={showDayPicker}
           isEmpty={checkIfEmptyString(entry.day)}
@@ -138,4 +155,6 @@ DateDisplay.propTypes = {
   setEntry: PropTypes.func,
   radioValue: PropTypes.string,
   setRadioValue: PropTypes.func,
+  fieldId: PropTypes.string,
+  entryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
 }
