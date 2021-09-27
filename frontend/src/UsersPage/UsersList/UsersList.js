@@ -4,10 +4,8 @@ import {
   UsersWrapper,
   UsersListWrapper,
   UserNameWrapper,
-  EditButtonWrapper,
   NameWrapper,
 } from './UsersList.styles'
-import { EditButton } from '../../_shared/EditButton'
 import { useHistory } from 'react-router-dom'
 
 export const UsersList = ({ users }) => {
@@ -19,13 +17,10 @@ export const UsersList = ({ users }) => {
   return (
     <UsersListWrapper>
       {users.map((user) => (
-        <UsersWrapper key={user.id}>
+        <UsersWrapper key={user.id} onClick={navigateToEditUserPage(user.id)}>
           <NameWrapper>
             <UserNameWrapper>{user.name}</UserNameWrapper>
           </NameWrapper>
-          <EditButtonWrapper onClick={navigateToEditUserPage(user.id)}>
-            <EditButton />
-          </EditButtonWrapper>
         </UsersWrapper>
       ))}
     </UsersListWrapper>

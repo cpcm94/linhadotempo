@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-scroll'
-import { timelineColor } from '../../_shared/timelineColor'
 import {
   StyledButton,
   Wrapper,
   IconWrapper,
   IconsRow,
+  Img,
 } from './TimelinesIconRow.styles'
 import { TimelinesCheckbox } from './TimelinesCheckbox'
 
@@ -14,6 +14,7 @@ export const TimelinesIconRow = ({
   timelines,
   onClick,
   setSelectedTimelines,
+  bucketName,
 }) => {
   return (
     <Wrapper>
@@ -30,9 +31,17 @@ export const TimelinesIconRow = ({
             duration={500}
             offset={-50}
           >
-            <IconWrapper color={timelineColor(timelines, timeline.id)}>
-              {timeline.initials}
-            </IconWrapper>
+            {timeline.timelineIconImageUrl ? (
+              <IconWrapper color={timeline.color}>
+                <Img
+                  src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                />
+              </IconWrapper>
+            ) : (
+              <IconWrapper color={timeline.color}>
+                {timeline.initials}
+              </IconWrapper>
+            )}
           </Link>
         ))}
       </IconsRow>
@@ -51,4 +60,5 @@ TimelinesIconRow.propTypes = {
   timelines: PropTypes.array,
   onClick: PropTypes.func,
   setSelectedTimelines: PropTypes.func,
+  bucketName: PropTypes.string,
 }

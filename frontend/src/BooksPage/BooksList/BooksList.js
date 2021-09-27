@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { EditButton } from '../../_shared/EditButton'
 import {
   BookNameWrapper,
   BooksListWrapper,
   BooksWrapper,
-  EditButtonWrapper,
   NameWrapper,
 } from './BooksList.styles'
 import { useHistory } from 'react-router'
@@ -19,13 +17,10 @@ export const BooksList = ({ books }) => {
   return (
     <BooksListWrapper>
       {books.map((book) => (
-        <BooksWrapper key={book.id}>
+        <BooksWrapper key={book.id} onClick={navigateToEditUserPage(book.id)}>
           <NameWrapper>
             <BookNameWrapper>{book.book_name}</BookNameWrapper>
           </NameWrapper>
-          <EditButtonWrapper onClick={navigateToEditUserPage(book.id)}>
-            <EditButton />
-          </EditButtonWrapper>
         </BooksWrapper>
       ))}
     </BooksListWrapper>

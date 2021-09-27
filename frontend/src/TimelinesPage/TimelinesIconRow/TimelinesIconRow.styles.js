@@ -24,9 +24,18 @@ export const Wrapper = styled.div`
   width: 100%;
 `
 
+export const Img = styled.img`
+  border-radius: 5px;
+  width: 0.9rem;
+  height: 0.9rem;
+  object-fit: cover;
+  margin: 0;
+`
 export const IconWrapper = styled.div`
   margin: 0 0.25rem 0.25rem 0.25rem;
   background-color: ${({ color }) => (color ? color : colors.white)};
+  border: ${({ timelineColor }) =>
+    timelineColor ? `1px solid ${timelineColor}` : `1px solid ${colors.white}`};
   color: #655;
   border-radius: 3px;
   min-width: 1rem;

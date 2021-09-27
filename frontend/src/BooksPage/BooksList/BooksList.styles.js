@@ -8,12 +8,6 @@ export const BooksListWrapper = styled.div`
 export const BookNameWrapper = styled.div`
   flex: 1;
 `
-export const EditButtonWrapper = styled.div`
-  align-self: center;
-  :hover {
-    background-color: ${colors.lightBrown};
-  }
-`
 
 export const NameWrapper = styled.div`
   display: flex;

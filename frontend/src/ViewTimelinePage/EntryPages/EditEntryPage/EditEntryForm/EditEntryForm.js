@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from '../../../../_shared/convertFormDataValues'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
+import { ImageUploader } from '../../ImageUploader/ImageUploader'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -106,6 +107,11 @@ export const EditEntryForm = ({
         resetField={resetFieldValue}
         title={'Acontecimento'}
         field={'name'}
+      />
+      <ImageUploader
+        entry={entry}
+        setEntry={setEntry}
+        bucketName={bucketName}
       />
       <EntryTextInput
         entry={entry}
