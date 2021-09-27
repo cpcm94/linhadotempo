@@ -8,7 +8,11 @@ import { useHistory } from 'react-router'
 import { TimelinesIconRow } from './TimelinesIconRow/TimelinesIconRow'
 import { TimelinesContainer } from './TimelinesContainer'
 
-export const TimelinesPage = ({ timelines, currentSelectedTimelinesIds }) => {
+export const TimelinesPage = ({
+  timelines,
+  currentSelectedTimelinesIds,
+  bucketName,
+}) => {
   const filteredSelectedTimelines = timelines.filter((timeline) =>
     currentSelectedTimelinesIds
       ? currentSelectedTimelinesIds.includes(timeline.id)
@@ -55,6 +59,7 @@ export const TimelinesPage = ({ timelines, currentSelectedTimelinesIds }) => {
           <TimelinesIconRow
             timelines={selectedTimelines}
             onClick={navigateToViewTimelines}
+            bucketName={bucketName}
           />
         }
         showMenuButton={true}
@@ -64,6 +69,7 @@ export const TimelinesPage = ({ timelines, currentSelectedTimelinesIds }) => {
           timelines={timelines}
           selectedTimelines={selectedTimelines}
           setSelectedTimelines={setSelectedTimelines}
+          bucketName={bucketName}
         />
       </TimelinesContainer>
     </Layout>
@@ -73,4 +79,5 @@ export const TimelinesPage = ({ timelines, currentSelectedTimelinesIds }) => {
 TimelinesPage.propTypes = {
   timelines: PropTypes.array,
   currentSelectedTimelinesIds: PropTypes.array,
+  bucketName: PropTypes.string,
 }

@@ -11,6 +11,7 @@ export const TIME_ENTRY_QUERY = gql`
       day
       monthly_importance
       annual_importance
+      image_url
       source_url
       book_page
       book_id

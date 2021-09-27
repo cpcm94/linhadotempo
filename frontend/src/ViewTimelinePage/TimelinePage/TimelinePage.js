@@ -24,6 +24,7 @@ export const TimelinePage = ({
   entries,
   previousEntries,
   hasInvalidTimelines,
+  bucketName,
 }) => {
   const alreadyRan = useRef(false)
   const [displayEntry, setDisplayEntry] = useState({})
@@ -186,6 +187,7 @@ export const TimelinePage = ({
             newEntryId={brandNewEntry}
             forwardedRef={objectRefs}
             displayEntry={displayEntry}
+            bucketName={bucketName}
           />
         ) : (
           <NoEntriesYet visibleTimelines={visibleTimelines} />
@@ -201,6 +203,7 @@ export const TimelinePage = ({
               timelines={timelines}
               visibleTimelines={visibleTimelines}
               setVisibleTimelines={setVisibleTimelines}
+              bucketName={bucketName}
             />
           </>
         }
@@ -215,4 +218,5 @@ TimelinePage.propTypes = {
   entries: PropTypes.array,
   previousEntries: PropTypes.array,
   hasInvalidTimelines: PropTypes.bool,
+  bucketName: PropTypes.string,
 }

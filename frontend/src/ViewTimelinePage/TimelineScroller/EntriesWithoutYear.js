@@ -15,6 +15,7 @@ export const EntriesWithoutYear = ({
   newEntryId,
   forwardedRef,
   visibleTimelines,
+  bucketName,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -45,7 +46,10 @@ export const EntriesWithoutYear = ({
                 <div key={timeline.id}>
                   {timeline.timelineIconImageUrl ? (
                     <EntryIcon>
-                      <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                      <Img
+                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                        alt="Icone"
+                      />
                     </EntryIcon>
                   ) : (
                     <EntryIcon color={timeline.color}>
@@ -67,4 +71,5 @@ EntriesWithoutYear.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   visibleTimelines: PropTypes.array,
+  bucketName: PropTypes.string,
 }

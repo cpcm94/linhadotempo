@@ -27,6 +27,7 @@ export const EditEntryForm = ({ entryToEdit, timelines, books }) => {
     day: entryToEdit.day ? entryToEdit.day : '',
     annual_importance: false,
     monthly_importance: false,
+    image_url: entryToEdit.image_url ? entryToEdit.image_url : '',
     source_url: entryToEdit.source_url ? entryToEdit.source_url : '',
     book_page: entryToEdit.book_page ? entryToEdit.book_page : '',
     book_id: entryToEdit.book_id ? entryToEdit.book_id : '',

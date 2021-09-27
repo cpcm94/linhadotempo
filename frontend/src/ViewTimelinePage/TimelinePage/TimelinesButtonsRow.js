@@ -53,6 +53,7 @@ export const TimelinesButtonsRow = ({
   timelines,
   visibleTimelines,
   setVisibleTimelines,
+  bucketName,
 }) => {
   const arrayVisibleTimelinesId = visibleTimelines.map(
     (timeline) => timeline.id
@@ -80,7 +81,10 @@ export const TimelinesButtonsRow = ({
                 onClick={onTimelineButtonClick}
                 isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
               >
-                <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                <Img
+                  src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                  alt="Icone"
+                />
               </Button>
             ) : (
               <Button
@@ -102,4 +106,5 @@ TimelinesButtonsRow.propTypes = {
   timelines: PropTypes.array,
   visibleTimelines: PropTypes.array,
   setVisibleTimelines: PropTypes.func,
+  bucketName: PropTypes.string,
 }

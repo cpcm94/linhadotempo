@@ -15,6 +15,7 @@ export const EntriesWithoutDay = ({
   newEntryId,
   forwardedRef,
   visibleTimelines,
+  bucketName,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -44,7 +45,10 @@ export const EntriesWithoutDay = ({
                   <div key={timeline.id}>
                     {timeline.timelineIconImageUrl ? (
                       <EntryIcon>
-                        <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                        <Img
+                          src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                          alt="Icone"
+                        />
                       </EntryIcon>
                     ) : (
                       <EntryIcon color={timeline.color}>
@@ -66,4 +70,5 @@ EntriesWithoutDay.propTypes = {
   visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
+  bucketName: PropTypes.string,
 }

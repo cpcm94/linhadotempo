@@ -23,6 +23,7 @@ export const MonthEntries = ({
   forwardedRef,
   displayEntry,
   visibleTimelines,
+  bucketName,
 }) => {
   const month = abvMonthNameArray[timeEntriesByMonth[0].month]
   const year = timeEntriesByMonth[0].year
@@ -69,6 +70,7 @@ export const MonthEntries = ({
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
             visibleTimelines={visibleTimelines}
+            bucketName={bucketName}
           />
         </EntryWithoutDayWrapper>
       </MonthAndEntryWrapper>
@@ -78,6 +80,7 @@ export const MonthEntries = ({
         forwardedRef={forwardedRef}
         displayEntry={displayEntry}
         visibleTimelines={visibleTimelines}
+        bucketName={bucketName}
       />
     </MonthEntriesWrapper>
   )
@@ -89,4 +92,5 @@ MonthEntries.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
+  bucketName: PropTypes.string,
 }

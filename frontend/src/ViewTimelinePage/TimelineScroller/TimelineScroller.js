@@ -22,6 +22,7 @@ export const TimelineScroller = ({
   newEntryId,
   forwardedRef,
   displayEntry,
+  bucketName,
 }) => {
   const visibleTimelinesIds = visibleTimelines.map((timeline) => timeline.id)
   const filteredEntriesByVisibleTimelines = entries.filter((entry) =>
@@ -59,6 +60,7 @@ export const TimelineScroller = ({
               forwardedRef={forwardedRef}
               displayEntry={displayEntry}
               visibleTimelines={visibleTimelines}
+              bucketName={bucketName}
             />
           ))}
           {entriesWithoutYear[0] && (
@@ -73,6 +75,7 @@ export const TimelineScroller = ({
                 newEntryId={newEntryId}
                 forwardedRef={forwardedRef}
                 visibleTimelines={visibleTimelines}
+                bucketName={bucketName}
               />
             </>
           )}
@@ -95,4 +98,5 @@ TimelineScroller.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
+  bucketName: PropTypes.string,
 }

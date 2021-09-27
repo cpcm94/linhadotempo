@@ -35,6 +35,9 @@ export const NewEntryForm = ({
           day: defaultEntryData.day ? parseInt(defaultEntryData.day) : '',
           annual_importance: false,
           monthly_importance: false,
+          image_url: defaultEntryData.image_url
+            ? defaultEntryData.image_url
+            : '',
           source_url: defaultEntryData.source_url
             ? defaultEntryData.source_url
             : '',
@@ -52,6 +55,7 @@ export const NewEntryForm = ({
           day: '',
           annual_importance: false,
           monthly_importance: false,
+          image_url: '',
           source_url: '',
           book_page: '',
           book_id: '',

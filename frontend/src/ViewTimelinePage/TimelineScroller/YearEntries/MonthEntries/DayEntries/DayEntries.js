@@ -9,6 +9,7 @@ export const DayEntries = ({
   forwardedRef,
   displayEntry,
   visibleTimelines,
+  bucketName,
 }) => {
   return (
     <DayEntriesWrapper>
@@ -21,6 +22,7 @@ export const DayEntries = ({
               forwardedRef={forwardedRef}
               displayEntry={displayEntry}
               visibleTimelines={visibleTimelines}
+              bucketName={bucketName}
             />
           ))
         : null}
@@ -34,4 +36,5 @@ DayEntries.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
+  bucketName: PropTypes.string,
 }

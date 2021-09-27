@@ -44,6 +44,7 @@ type TimeEntry {
     day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
+    image_url: String
     source_url: String
     book_page: Int
     book_id: String
@@ -61,6 +62,10 @@ type Book {
     time_entries: [TimeEntry] @hasMany
     user_id: String
     user: User @belongsTo
+}
+
+type Settings {
+    bucket_name: String
 }
 
 type LoginResponse {
@@ -102,6 +107,7 @@ input CreateTimeEntryInput {
     day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
+    image_url: String
     source_url: String
     book_page: Int
     book_id: String
@@ -140,6 +146,7 @@ input UpdateTimeEntryInput {
     day: Int
     annual_importance: Boolean
     monthly_importance: Boolean
+    image_url: String
     source_url: String
     book_page: Int
     book_id: String
@@ -193,6 +200,7 @@ type Query {
     timeline(id: ID @eq): Timeline @find @whereAuth(relation: "user")
     time_entries(timeline_ids: [ID]): [TimeEntry]
     time_entry(id: ID! @eq): TimeEntry @find
+    settings: Settings!
 }
 
 type Mutation {
