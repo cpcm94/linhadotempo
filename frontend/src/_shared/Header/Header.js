@@ -25,6 +25,7 @@ export const Header = ({
   returnButton,
   timelinesIconRow,
   showMenuButton,
+  icon,
 }) => {
   const { user, userLoading } = useContext(CurrentUserContext)
   let history = useHistory()
@@ -38,7 +39,6 @@ export const Header = ({
   const navigateToUserPage = () => {
     history.push('/user')
   }
-
   const onlyTitle = title && !subTitle && !timelinesIconRow
   return userLoading ? (
     <span>Loading...</span>
@@ -47,6 +47,7 @@ export const Header = ({
       <UpperHeader>
         {displayMenuButton ? <MenuDrawer user={user} /> : null}
         {returnButton && <ReturnButton onClick={returnButton} />}
+        {icon && <div>{icon}</div>}
         {subTitle || timelinesIconRow ? (
           <TitlesWrapper>
             <SubTitle>{subTitle}</SubTitle>
@@ -82,4 +83,5 @@ Header.propTypes = {
   returnButton: PropTypes.func,
   timelinesIconRow: PropTypes.element,
   showMenuButton: PropTypes.bool,
+  icon: PropTypes.element,
 }

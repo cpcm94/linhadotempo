@@ -11,7 +11,6 @@ import {
   Img,
 } from './TimelinesList.styles'
 import { EditButton } from '../../_shared/EditButton'
-import { timelineColor } from '../../_shared/timelineColor'
 import { useHistory } from 'react-router'
 
 export const TimelinesList = ({
@@ -47,9 +46,13 @@ export const TimelinesList = ({
     }
   }
 
+  const sortedTimelinesAlphabetically = [...timelines].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
+
   return (
     <TimelinesListWrapper>
-      {timelines.map((timeline) => {
+      {sortedTimelinesAlphabetically.map((timeline) => {
         const onTimelineClick = (event) => toggleTimelines(event, timeline)
 
         return (
@@ -71,7 +74,7 @@ export const TimelinesList = ({
                   />
                 </IconWrapper>
               ) : (
-                <IconWrapper color={timelineColor(timelines, timeline.id)}>
+                <IconWrapper color={timeline.color}>
                   {timeline.initials}
                 </IconWrapper>
               )}

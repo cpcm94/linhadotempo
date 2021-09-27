@@ -9,6 +9,7 @@ import {
 } from '../YearEntries.styles'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../filterEntryTimelinesByVisibleTimelines'
+import { hideEntryIconsIfSameAsDisplay } from '../../hideEntryIconIfSameAsDisplay'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
@@ -16,6 +17,7 @@ export const EntriesWithoutDay = ({
   forwardedRef,
   visibleTimelines,
   bucketName,
+  displayEntry,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -37,27 +39,33 @@ export const EntriesWithoutDay = ({
               onClick={() => navigateToEditEntry(entry)}
             >
               <EntryNameWrapper>{entry.name}</EntryNameWrapper>
-              <IconsWrapper>
-                {filterEntryTimelinesByVisibleTimelines(
-                  visibleTimelines,
-                  entry
-                ).map((timeline) => (
-                  <div key={timeline.id}>
-                    {timeline.timelineIconImageUrl ? (
-                      <EntryIcon>
-                        <Img
-                          src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-                          alt="Icone"
-                        />
-                      </EntryIcon>
-                    ) : (
-                      <EntryIcon color={timeline.color}>
-                        {timeline.initials}
-                      </EntryIcon>
-                    )}
-                  </div>
-                ))}
-              </IconsWrapper>
+              {hideEntryIconsIfSameAsDisplay(
+                entry,
+                displayEntry,
+                visibleTimelines
+              ) && (
+                <IconsWrapper>
+                  {filterEntryTimelinesByVisibleTimelines(
+                    visibleTimelines,
+                    entry
+                  ).map((timeline) => (
+                    <div key={timeline.id}>
+                      {timeline.timelineIconImageUrl ? (
+                        <EntryIcon color={timeline.color}>
+                          <Img
+                            src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                            alt="Icone"
+                          />
+                        </EntryIcon>
+                      ) : (
+                        <EntryIcon color={timeline.color}>
+                          {timeline.initials}
+                        </EntryIcon>
+                      )}
+                    </div>
+                  ))}
+                </IconsWrapper>
+              )}
             </EntryAndIconWrapper>
           ))
         : null}
@@ -71,4 +79,5 @@ EntriesWithoutDay.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   bucketName: PropTypes.string,
+  displayEntry: PropTypes.object,
 }

@@ -60,6 +60,7 @@ export const TimelinesPage = ({
             timelines={selectedTimelines}
             onClick={navigateToViewTimelines}
             bucketName={bucketName}
+            setSelectedTimelines={setSelectedTimelines}
           />
         }
         showMenuButton={true}

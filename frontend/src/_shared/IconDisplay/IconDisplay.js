@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import { colorsArray } from './colorsArray'
+import { colorsArray } from '../colorsArray'
 import { GithubPicker } from 'react-color'
-import { Icon } from './TimelineForm.styles'
 import { ImageAndUploader } from './ImageAndUploader'
 import PropTypes from 'prop-types'
 import { SectionTitle } from '../SectionTitle/SectionTitle'
 import {
   ColorInitialsDisplay,
-  IconTabs,
   InitialsAndColorWrapper,
-  TabSpan,
+  StyledButton,
   TextFieldColor,
+  Icon,
 } from './IconDisplay.styles'
 
 const inputProps = {
@@ -24,9 +23,11 @@ export const IconDisplay = ({
   handleChangeColor,
   updateTimelineIconImageUrl,
 }) => {
-  const [showColorInitialsDisplay, setShowColorInitialsDisplay] =
-    useState(false)
-  const [showImageDisplay, setShowImageDisplay] = useState(false)
+  const timelineHasImage = !!timeline.timelineIconImageUrl
+  const [showColorInitialsDisplay, setShowColorInitialsDisplay] = useState(
+    !timelineHasImage
+  )
+  const [showImageDisplay, setShowImageDisplay] = useState(timelineHasImage)
 
   const toggleImageDisplay = () => {
     setShowImageDisplay(!showImageDisplay)
@@ -39,18 +40,6 @@ export const IconDisplay = ({
   return (
     <>
       <SectionTitle title={'Ícone'} />
-      <IconTabs>
-        <TabSpan
-          selected={showColorInitialsDisplay}
-          onClick={toggleColorInitialsDisplay}
-        >
-          {'Cor & Sigla'}
-        </TabSpan>
-        <span>|</span>
-        <TabSpan selected={showImageDisplay} onClick={toggleImageDisplay}>
-          {'Imagem'}
-        </TabSpan>
-      </IconTabs>
       {showColorInitialsDisplay && (
         <ColorInitialsDisplay>
           <Icon color={timeline.color}>{timeline.initials}</Icon>
@@ -70,6 +59,9 @@ export const IconDisplay = ({
               value={timeline.initials}
               onChange={handleChange('initials')}
             />
+            <StyledButton variant="contained" onClick={toggleImageDisplay}>
+              Usar Imagem
+            </StyledButton>
           </InitialsAndColorWrapper>
         </ColorInitialsDisplay>
       )}
@@ -77,6 +69,8 @@ export const IconDisplay = ({
         <ImageAndUploader
           timeline={timeline}
           updateTimelineIconImageUrl={updateTimelineIconImageUrl}
+          toggleColorInitialsDisplay={toggleColorInitialsDisplay}
+          handleChangeColor={handleChangeColor}
         />
       )}
     </>

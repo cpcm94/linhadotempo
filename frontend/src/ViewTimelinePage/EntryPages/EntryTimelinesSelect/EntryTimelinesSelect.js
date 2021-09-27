@@ -13,12 +13,15 @@ import {
   StyledButton,
   Img,
 } from './EntryTimelinesSelect.styles'
+import { ErrorMessage } from '../EntryTextInput/EntryTextInput.styles'
 
 export const EntryTimelinesSelect = ({
   entry,
   setEntry,
   resetField,
   timelines,
+  fieldId,
+  entryError,
 }) => {
   const selectedTimelineIds = entry.timelines.sync
 
@@ -40,18 +43,23 @@ export const EntryTimelinesSelect = ({
     }
     setEntry(newEntry)
   }
-
+  const showErrorMessage = entryError && entryError.field === 'timeline'
   return (
     <>
       <SectionTitle title={'Linhas do Tempo'} resetSection={resetField} />
+      {showErrorMessage && (
+        <ErrorMessage>
+          {'Não é possível criar acontecimento sem linha do tempo'}
+        </ErrorMessage>
+      )}
       {!displayTimelineSelect && (
-        <ClosedDisplayWrapper onClick={toggleDisplaySelect}>
+        <ClosedDisplayWrapper onClick={toggleDisplaySelect} id={fieldId}>
           {selectedTimelines[0] ? (
             selectedTimelines.map((timeline) => (
               <TimelineWrapper key={timeline.id} id={timeline.id}>
                 <ClosedIconAndNameWrapper>
                   {timeline.timelineIconImageUrl ? (
-                    <IconWrapper>
+                    <IconWrapper color={timeline.color}>
                       <Img src={timeline.timelineIconImageUrl} />
                     </IconWrapper>
                   ) : (
@@ -69,7 +77,7 @@ export const EntryTimelinesSelect = ({
         </ClosedDisplayWrapper>
       )}
       {displayTimelineSelect && (
-        <OpenDisplayWrapper>
+        <OpenDisplayWrapper id={fieldId}>
           {timelines.map((timeline) => {
             const onTimelineClick = (event) => toggleTimelines(event, timeline)
             return (
@@ -80,7 +88,7 @@ export const EntryTimelinesSelect = ({
                   img={timeline.timelineIconImageUrl}
                 >
                   {timeline.timelineIconImageUrl ? (
-                    <IconWrapper>
+                    <IconWrapper color={timeline.color}>
                       <Img src={timeline.timelineIconImageUrl} />
                     </IconWrapper>
                   ) : (
@@ -109,4 +117,6 @@ EntryTimelinesSelect.propTypes = {
   setEntry: PropTypes.func,
   resetField: PropTypes.func,
   timelines: PropTypes.array,
+  fieldId: PropTypes.string,
+  entryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
 }

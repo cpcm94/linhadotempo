@@ -64,6 +64,8 @@ export const EntryNameWrapper = styled.div`
 export const EntryIcon = styled.div`
   background-color: ${({ color }) => (color ? color : colors.white)};
   color: #655;
+  border: ${({ color }) =>
+    color ? `solid 1px ${color}` : `solid 1px ${colors.white}`};
   border-radius: 5px;
   min-width: 1.25rem;
   min-height: 1.25rem;
@@ -76,6 +78,7 @@ export const EntryIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 1px;
 `
 
 export const Img = styled.img`

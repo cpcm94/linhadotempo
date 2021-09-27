@@ -9,7 +9,7 @@ export const StyledButton = styled.div`
   color: ${colors.white};
   background-color: ${colors.brown};
   border-radius: 5px;
-  margin: 0 1.25rem 0.25rem 0;
+  margin: 0 0.75rem 0.25rem 0;
   cursor: pointer;
   &:hover {
     background-color: ${colors.wine};
@@ -21,7 +21,6 @@ export const StyledButton = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   width: 100%;
 `
 

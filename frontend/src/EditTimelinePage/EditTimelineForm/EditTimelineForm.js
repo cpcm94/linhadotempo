@@ -5,14 +5,14 @@ import {
   TextFieldColor,
   StyledButton,
   Form,
-} from './TimelineForm.styles'
+} from './EditTimelineForm.styles'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { DeleteButtonAndConfirmation } from '../DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
-import { ImportAndExport } from './ImportAndExport'
-import { IconDisplay } from './IconDisplay'
+import { IconDisplay } from '../../_shared/IconDisplay/IconDisplay'
+import { DeleteButtonAndConfirmation } from '../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
+import { ImportAndExport } from './ImportAndExport/ImportAndExport'
 
-export const TimelineForm = ({
+export const EditTimelineForm = ({
   timeline,
   setTimeline,
   onClick,
@@ -75,24 +75,20 @@ export const TimelineForm = ({
             updateTimelineIconImageUrl={updateTimelineIconImageUrl}
           />
         </Form>
-        {entriesStringInfo && (
-          <ImportAndExport
-            toggleExportText={toggleExportText}
-            toggleImportTextArea={toggleImportTextArea}
-            entriesStringInfo={entriesStringInfo}
-            showExportText={showExportText}
-            showImportTextArea={showImportTextArea}
-          />
-        )}
-        {deleteTimeline && (
-          <DeleteButtonAndConfirmation
-            deleteFunction={deleteTimeline}
-            deleteMessage={deleteMessage}
-            skipDeleteMessage={skipDeleteMessage}
-            showDeleteMessage={showDeleteMessage}
-            setShowDeleteMessage={setShowDeleteMessage}
-          />
-        )}
+        <ImportAndExport
+          toggleExportText={toggleExportText}
+          toggleImportTextArea={toggleImportTextArea}
+          entriesStringInfo={entriesStringInfo}
+          showExportText={showExportText}
+          showImportTextArea={showImportTextArea}
+        />
+        <DeleteButtonAndConfirmation
+          deleteFunction={deleteTimeline}
+          deleteMessage={deleteMessage}
+          skipDeleteMessage={skipDeleteMessage}
+          showDeleteMessage={showDeleteMessage}
+          setShowDeleteMessage={setShowDeleteMessage}
+        />
         {buttonMessage && (
           <StyledButton variant="contained" onClick={onClick}>
             {buttonMessage}
@@ -104,7 +100,7 @@ export const TimelineForm = ({
   )
 }
 
-TimelineForm.propTypes = {
+EditTimelineForm.propTypes = {
   timeline: PropTypes.object,
   setTimeline: PropTypes.func,
   onClick: PropTypes.func,

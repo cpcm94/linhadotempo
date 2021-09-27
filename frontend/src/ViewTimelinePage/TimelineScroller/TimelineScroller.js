@@ -76,6 +76,7 @@ export const TimelineScroller = ({
                 forwardedRef={forwardedRef}
                 visibleTimelines={visibleTimelines}
                 bucketName={bucketName}
+                displayEntry={displayEntry}
               />
             </>
           )}

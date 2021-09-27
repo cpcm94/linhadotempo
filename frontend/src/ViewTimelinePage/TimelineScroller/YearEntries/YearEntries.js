@@ -63,6 +63,7 @@ export const YearEntries = ({
                 forwardedRef={forwardedRef}
                 visibleTimelines={visibleTimelines}
                 bucketName={bucketName}
+                displayEntry={displayEntry}
               />
             </EntriesWithoutMonthsWrapper>
           </>

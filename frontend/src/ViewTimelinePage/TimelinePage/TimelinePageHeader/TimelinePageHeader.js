@@ -8,11 +8,21 @@ import {
   DayWrapper,
   TextWrapper,
 } from './TimelinePageHeader.styles'
+import {
+  EntryIcon,
+  Img,
+  IconsWrapper,
+} from '../../TimelineScroller/YearEntries/YearEntries.styles'
 import { abvMonthNameArray } from '../../../_shared/monthNameArray'
 import { ReturnButton } from '../../../_shared/ReturnButton'
 import { useHistory } from 'react-router'
+import { filterEntryTimelinesByVisibleTimelines } from '../../TimelineScroller/filterEntryTimelinesByVisibleTimelines'
 
-export const TimelinePageHeader = ({ displayEntry, timelines }) => {
+export const TimelinePageHeader = ({
+  displayEntry,
+  timelines,
+  visibleTimelines,
+}) => {
   let history = useHistory()
   const timelinesId = timelines.map((timeline) => timeline.id)
   const navigateToTimelinesList = () => {
@@ -55,6 +65,26 @@ export const TimelinePageHeader = ({ displayEntry, timelines }) => {
           <TextWrapper>Sem data definida</TextWrapper>
         ) : null}
       </EntryWrapper>
+      <IconsWrapper>
+        {displayEntry && displayEntry.timelines
+          ? filterEntryTimelinesByVisibleTimelines(
+              visibleTimelines,
+              displayEntry
+            ).map((timeline) => (
+              <div key={timeline.id}>
+                {timeline.timelineIconImageUrl ? (
+                  <EntryIcon color={timeline.color}>
+                    <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                  </EntryIcon>
+                ) : (
+                  <EntryIcon color={timeline.color}>
+                    {timeline.initials}
+                  </EntryIcon>
+                )}
+              </div>
+            ))
+          : null}
+      </IconsWrapper>
     </HeaderWrapper>
   )
 }
@@ -62,4 +92,5 @@ export const TimelinePageHeader = ({ displayEntry, timelines }) => {
 TimelinePageHeader.propTypes = {
   displayEntry: PropTypes.object,
   timelines: PropTypes.array,
+  visibleTimelines: PropTypes.array,
 }

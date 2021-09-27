@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Layout } from '../_shared/Layout'
 import { Header } from '../_shared/Header/Header'
-import { TimelineForm } from '../_shared/TimelineForm/TimelineForm'
 import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
 import { DELETE_TIMELINE_MUTATION } from './DELETE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
@@ -12,6 +11,8 @@ import qs from 'query-string'
 import { toast, Slide } from 'react-toastify'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Icon, ImageWrapper, Img } from './EditableTimeline.styles'
+import { EditTimelineForm } from './EditTimelineForm/EditTimelineForm'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -109,12 +110,20 @@ export const EditableTimeline = ({ timeline }) => {
     <Layout>
       <Header
         returnButton={goBackToPreviousPage}
-        subTitle={'Editar linha do tempo'}
         title={timelineObject.name}
         loading={loading}
+        icon={
+          timeline.timelineIconImageUrl ? (
+            <ImageWrapper timelineColor={timeline.color}>
+              <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+            </ImageWrapper>
+          ) : (
+            <Icon color={timeline.color}>{timeline.initials}</Icon>
+          )
+        }
       />
       <Container subTitle={true}>
-        <TimelineForm
+        <EditTimelineForm
           timeline={timelineObject}
           setTimeline={setTimelineObject}
           entriesStringInfo={entriesInfo}
