@@ -6,7 +6,7 @@ import { urlQueryTimelineIds } from '../_shared/urlQueryTimelineIds'
 import { CurrentUserContext } from '../_shared/CurrentUserContextProvider'
 
 export const TimelinesLoader = () => {
-  const { s3BucketName } = useContext(CurrentUserContext)
+  const { userDataLoading, s3BucketName } = useContext(CurrentUserContext)
   const { data, loading, error } = useQuery(TIMELINES_QUERY, {
     fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
@@ -18,7 +18,7 @@ export const TimelinesLoader = () => {
     console.error(error)
   }
 
-  return loading ? (
+  return loading || userDataLoading ? (
     <div>Loading...</div>
   ) : data ? (
     <TimelinesPage

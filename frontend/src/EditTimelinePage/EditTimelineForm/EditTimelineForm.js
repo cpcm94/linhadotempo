@@ -21,6 +21,7 @@ export const EditTimelineForm = ({
   deleteTimeline,
   deleteMessage,
   skipDeleteMessage,
+  bucketName,
 }) => {
   const [showExportText, setShowExportText] = useState(false)
   const [showImportTextArea, setShowImportTextArea] = useState(false)
@@ -73,6 +74,7 @@ export const EditTimelineForm = ({
             handleChange={handleChange}
             handleChangeColor={handleChangeColor}
             updateTimelineIconImageUrl={updateTimelineIconImageUrl}
+            bucketName={bucketName}
           />
         </Form>
         <ImportAndExport
@@ -109,4 +111,5 @@ EditTimelineForm.propTypes = {
   deleteTimeline: PropTypes.func,
   deleteMessage: PropTypes.string,
   skipDeleteMessage: PropTypes.bool,
+  bucketName: PropTypes.string,
 }

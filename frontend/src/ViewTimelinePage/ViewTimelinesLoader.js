@@ -9,7 +9,7 @@ import { CurrentUserContext } from '../_shared/CurrentUserContextProvider'
 
 export const ViewTimelinesLoader = () => {
   const { timelines, loading, getTimelines } = useContext(TimelinesContext)
-  const { s3BucketName } = useContext(CurrentUserContext)
+  const { userDataLoading, s3BucketName } = useContext(CurrentUserContext)
   const selectedTimelines = getTimelines(urlQueryTimelineIds())
   const {
     data: entriesData,
@@ -26,7 +26,9 @@ export const ViewTimelinesLoader = () => {
   const containsInvalidTimelines =
     urlQueryTimelineIds().length !== selectedTimelines.length
 
-  return loading || entriesLoading ? (
+  const isLoading = userDataLoading || loading || entriesLoading
+
+  return isLoading ? (
     <span>Loading...</span>
   ) : noValidTimelines ? (
     <NoValidTimelinesPage />

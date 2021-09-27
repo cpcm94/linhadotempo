@@ -20,6 +20,7 @@ export const EditEntryForm = ({
   books,
   entryError,
   updateEntry,
+  bucketName,
 }) => {
   const [radioValue, setRadioValue] = useState(
     entry.year && entry.year.toString().startsWith('-') ? 'AC' : 'DC'
@@ -88,6 +89,7 @@ export const EditEntryForm = ({
         resetField={resetSelectedTimelines}
         entry={entry}
         setEntry={setEntry}
+        bucketName={bucketName}
       />
       <DateDisplay
         fieldId={'date'}
@@ -141,4 +143,5 @@ EditEntryForm.propTypes = {
   entryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   entryId: PropTypes.string,
   updateEntry: PropTypes.func,
+  bucketName: PropTypes.string,
 }

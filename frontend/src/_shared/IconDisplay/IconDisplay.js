@@ -22,6 +22,7 @@ export const IconDisplay = ({
   handleChange,
   handleChangeColor,
   updateTimelineIconImageUrl,
+  bucketName,
 }) => {
   const timelineHasImage = !!timeline.timelineIconImageUrl
   const [showColorInitialsDisplay, setShowColorInitialsDisplay] = useState(
@@ -71,6 +72,7 @@ export const IconDisplay = ({
           updateTimelineIconImageUrl={updateTimelineIconImageUrl}
           toggleColorInitialsDisplay={toggleColorInitialsDisplay}
           handleChangeColor={handleChangeColor}
+          bucketName={bucketName}
         />
       )}
     </>
@@ -82,4 +84,5 @@ IconDisplay.propTypes = {
   handleChange: PropTypes.func,
   handleChangeColor: PropTypes.func,
   updateTimelineIconImageUrl: PropTypes.func,
+  bucketName: PropTypes.string,
 }

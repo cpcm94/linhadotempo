@@ -33,7 +33,12 @@ const checkIfEntryError = (entry) => {
   }
 }
 
-export const EditEntryPage = ({ timelines, entryToEdit, books }) => {
+export const EditEntryPage = ({
+  timelines,
+  entryToEdit,
+  books,
+  bucketName,
+}) => {
   const [updateEntry, { loading }] = useMutation(UPDATE_TIME_ENTRY_MUTATION)
 
   const scrollFieldErrorIntoView = () => {
@@ -85,6 +90,7 @@ export const EditEntryPage = ({ timelines, entryToEdit, books }) => {
           books={books}
           entryError={entryError}
           updateEntry={updateEntry}
+          bucketName={bucketName}
         />
         <ToastContainer />
       </Container>
@@ -96,4 +102,5 @@ EditEntryPage.propTypes = {
   timelines: PropTypes.array,
   entryToEdit: PropTypes.object,
   books: PropTypes.array,
+  bucketName: PropTypes.string,
 }

@@ -182,6 +182,7 @@ export const TimelinePage = ({
         displayEntry={displayEntry}
         timelines={timelines}
         visibleTimelines={visibleTimelines}
+        bucketName={bucketName}
       />
       <TimelineScrollerContainer>
         {entries[0] ? (

@@ -17,7 +17,7 @@ import { EditTimelineForm } from './EditTimelineForm/EditTimelineForm'
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
-export const EditableTimeline = ({ timeline }) => {
+export const EditableTimeline = ({ timeline, bucketName }) => {
   const entriesInfo = timeline.time_entries.map((entry) => {
     return `${entry.name}\t${entry.year ? entry.year : ''}\t${
       entry.month ? entry.month : ''
@@ -115,7 +115,10 @@ export const EditableTimeline = ({ timeline }) => {
         icon={
           timeline.timelineIconImageUrl ? (
             <ImageWrapper timelineColor={timeline.color}>
-              <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+              <Img
+                src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                alt="Icone"
+              />
             </ImageWrapper>
           ) : (
             <Icon color={timeline.color}>{timeline.initials}</Icon>
@@ -130,6 +133,7 @@ export const EditableTimeline = ({ timeline }) => {
           deleteTimeline={onDelete}
           deleteMessage={deleteConfirmationMessage}
           skipDeleteMessage={skipDeleteMessage}
+          bucketName={bucketName}
         />
         <ToastContainer />
       </Container>
@@ -139,4 +143,5 @@ export const EditableTimeline = ({ timeline }) => {
 
 EditableTimeline.propTypes = {
   timeline: PropTypes.object,
+  bucketName: PropTypes.string,
 }

@@ -17,13 +17,17 @@ export const ImageAndUploader = ({
   updateTimelineIconImageUrl,
   toggleColorInitialsDisplay,
   handleChangeColor,
+  bucketName,
 }) => {
   const [uploadLoading, setUploadLoading] = useState(false)
   return (
     <UploaderAndButtonWrapper>
       <ImageAndButtonWrapper>
         <ImageWrapper timelineColor={timeline.color}>
-          <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+          <Img
+            src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+            alt="Icone"
+          />
         </ImageWrapper>
         <FileUploader
           updateTimelineIconImageUrl={updateTimelineIconImageUrl}
@@ -55,4 +59,5 @@ ImageAndUploader.propTypes = {
   updateTimelineIconImageUrl: PropTypes.func,
   toggleColorInitialsDisplay: PropTypes.func,
   handleChangeColor: PropTypes.func,
+  bucketName: PropTypes.string,
 }

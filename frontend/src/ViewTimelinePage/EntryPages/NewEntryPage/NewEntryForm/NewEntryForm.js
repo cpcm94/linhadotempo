@@ -21,6 +21,7 @@ export const NewEntryForm = ({
   defaultEntryData,
   refetchTimelines,
   books,
+  bucketName,
 }) => {
   const [entry, setEntry] = useState(
     defaultEntryData
@@ -122,6 +123,7 @@ export const NewEntryForm = ({
           resetField={resetSelectedTimelines}
           entry={entry}
           setEntry={setEntry}
+          bucketName={bucketName}
         />
         <DateDisplay
           entry={entry}
@@ -166,4 +168,5 @@ NewEntryForm.propTypes = {
   defaultEntryData: PropTypes.object,
   refetchTimelines: PropTypes.func,
   books: PropTypes.array,
+  bucketName: PropTypes.string,
 }
