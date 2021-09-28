@@ -14,6 +14,9 @@ class Timeline extends Model
     public function time_entries(): BelongsToMany {
         return $this->belongsToMany(TimeEntry::class);
     }
+    public function timeline_categories(): BelongsToMany {
+        return $this->belongsToMany(TimelineCategory::class);
+    }
     public function user() {
         return $this->belongsTo(User::class);
     }
