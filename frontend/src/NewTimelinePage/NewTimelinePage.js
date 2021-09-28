@@ -7,8 +7,9 @@ import { useHistory } from 'react-router-dom'
 import { Container } from '../_shared/Container'
 import qs from 'query-string'
 import { NewTimelineForm } from './NewTimelineForm/NewTimelineForm'
+import PropTypes from 'prop-types'
 
-export const NewTimelinePage = () => {
+export const NewTimelinePage = ({ bucketName }) => {
   const [timeline, setTimeline] = useState({
     name: '',
     color: '',
@@ -55,8 +56,13 @@ export const NewTimelinePage = () => {
           setTimeline={setTimeline}
           onClick={saveAndReturn}
           buttonMessage={'Criar linha do tempo'}
+          bucketName={bucketName}
         />
       </Container>
     </Layout>
   )
+}
+
+NewTimelinePage.propTypes = {
+  bucketName: PropTypes.string,
 }

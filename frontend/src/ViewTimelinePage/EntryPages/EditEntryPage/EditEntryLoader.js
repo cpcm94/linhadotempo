@@ -7,8 +7,10 @@ import { urlQueryTimelineIds } from '../../../_shared/urlQueryTimelineIds'
 import { useQuery } from '@apollo/client'
 import { TIME_ENTRY_QUERY } from './TIME_ENTRY_QUERY'
 import { BOOKS_QUERY } from '../../../_shared/BOOKS_QUERY'
+import { CurrentUserContext } from '../../../_shared/CurrentUserContextProvider'
 
 export const EditEntryLoader = () => {
+  const { userDataLoading, s3BucketName } = useContext(CurrentUserContext)
   const entryId = qs.parse(location.hash).entry
   const { timelines, loading, getTimelines } = useContext(TimelinesContext)
   const { data: entryData, loading: entryLoading } = useQuery(
@@ -21,15 +23,16 @@ export const EditEntryLoader = () => {
   )
   const { data: booksData, loading: booksLoading } = useQuery(BOOKS_QUERY)
   const selectedTimelines = getTimelines(urlQueryTimelineIds())
-  const anyLoading = loading || entryLoading || booksLoading
+  const isLoading = loading || entryLoading || booksLoading || userDataLoading
 
-  return anyLoading ? (
+  return isLoading ? (
     <span>Loading...</span>
   ) : timelines && entryData ? (
     <EditEntryPage
       timelines={selectedTimelines}
       entryToEdit={entryData.time_entry}
       books={booksData.books}
+      bucketName={s3BucketName}
     />
   ) : (
     <NotValidEntry />

@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom'
 import { convertFormDataValues } from '../../../../_shared/convertFormDataValues'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
+import { ImageUploader } from '../../ImageUploader/ImageUploader'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -20,6 +21,7 @@ export const EditEntryForm = ({
   books,
   entryError,
   updateEntry,
+  bucketName,
 }) => {
   const [radioValue, setRadioValue] = useState(
     entry.year && entry.year.toString().startsWith('-') ? 'AC' : 'DC'
@@ -88,6 +90,7 @@ export const EditEntryForm = ({
         resetField={resetSelectedTimelines}
         entry={entry}
         setEntry={setEntry}
+        bucketName={bucketName}
       />
       <DateDisplay
         fieldId={'date'}
@@ -104,6 +107,11 @@ export const EditEntryForm = ({
         resetField={resetFieldValue}
         title={'Acontecimento'}
         field={'name'}
+      />
+      <ImageUploader
+        entry={entry}
+        setEntry={setEntry}
+        bucketName={bucketName}
       />
       <EntryTextInput
         entry={entry}
@@ -141,4 +149,5 @@ EditEntryForm.propTypes = {
   entryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   entryId: PropTypes.string,
   updateEntry: PropTypes.func,
+  bucketName: PropTypes.string,
 }

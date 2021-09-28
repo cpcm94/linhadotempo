@@ -23,6 +23,29 @@ export const EntryAndIconWrapper = styled.div`
   cursor: pointer;
 `
 
+export const EntryImageWrapper = styled.div`
+  border-radius: 5px;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  max-width: 1.75rem !important;
+  max-height: 1.75rem;
+  font-size: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1px;
+`
+
+export const EntryImage = styled.img`
+  border-radius: 5px;
+  width: 1.7rem;
+  height: 1.7rem;
+  object-fit: cover;
+  margin: 0;
+`
+
 export const EntryYearWrapper = styled.div`
   display: flex;
   position: relative;
@@ -64,8 +87,8 @@ export const EntryNameWrapper = styled.div`
 export const EntryIcon = styled.div`
   background-color: ${({ color }) => (color ? color : colors.white)};
   color: #655;
-  border: ${({ color }) =>
-    color ? `solid 1px ${color}` : `solid 1px ${colors.white}`};
+  border: ${({ borderColor }) =>
+    borderColor ? `solid 1px ${borderColor}` : `solid 1px ${colors.white}`};
   border-radius: 5px;
   min-width: 1.25rem;
   min-height: 1.25rem;

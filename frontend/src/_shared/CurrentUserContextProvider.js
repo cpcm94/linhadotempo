@@ -20,8 +20,12 @@ export const CurrentUserContextProvider = ({ children }) => {
           initial: data.me ? data.me.name.substr(0, 1).toUpperCase() : null,
         }
       : null
+
+  const s3BucketName = data && data.settings.bucket_name
   return (
-    <CurrentUserContext.Provider value={{ userDataLoading, user, refetchUser }}>
+    <CurrentUserContext.Provider
+      value={{ userDataLoading, user, refetchUser, s3BucketName }}
+    >
       {children}
     </CurrentUserContext.Provider>
   )

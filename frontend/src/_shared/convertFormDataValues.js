@@ -22,5 +22,8 @@ export const convertFormDataValues = (entry, radioValue) => {
   if (newEntry.book_id === '') {
     newEntry.book_id = null
   }
+  if (newEntry.image_url === '') {
+    newEntry.image_url = null
+  }
   return newEntry
 }

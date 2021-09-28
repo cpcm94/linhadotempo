@@ -11,6 +11,7 @@ export const NewEntryPage = ({
   refetchTimelines,
   defaultEntryData,
   books,
+  bucketName,
 }) => {
   let history = useHistory()
   const goBack = () => {
@@ -25,6 +26,7 @@ export const NewEntryPage = ({
           refetchTimelines={refetchTimelines}
           defaultEntryData={defaultEntryData}
           books={books}
+          bucketName={bucketName}
         />
       </Container>
     </Layout>
@@ -36,4 +38,5 @@ NewEntryPage.propTypes = {
   refetchTimelines: PropTypes.func,
   defaultEntryData: PropTypes.object,
   books: PropTypes.array,
+  bucketName: PropTypes.string,
 }

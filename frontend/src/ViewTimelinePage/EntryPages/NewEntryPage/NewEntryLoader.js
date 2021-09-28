@@ -5,8 +5,10 @@ import { TimelinesContext } from '../../TimelinesContextProvider'
 import { urlQueryTimelineIds } from '../../../_shared/urlQueryTimelineIds'
 import { BOOKS_QUERY } from '../../../_shared/BOOKS_QUERY'
 import { useQuery } from '@apollo/client'
+import { CurrentUserContext } from '../../../_shared/CurrentUserContextProvider'
 
 export const NewEntryLoader = () => {
+  const { userDataLoading, s3BucketName } = useContext(CurrentUserContext)
   const { loading, refetchTimelines, getTimelines } =
     useContext(TimelinesContext)
   const { data: booksData, loading: booksLoading } = useQuery(BOOKS_QUERY)
@@ -14,9 +16,9 @@ export const NewEntryLoader = () => {
   const defaultEntryData = qs.parse(location.hash)
 
   const selectedTimelines = getTimelines(urlQueryTimelineIds())
-  const anyLoading = loading || booksLoading
+  const isLoading = loading || booksLoading || userDataLoading
 
-  return anyLoading ? (
+  return isLoading ? (
     <span>Loading...</span>
   ) : (
     <NewEntryPage
@@ -24,6 +26,7 @@ export const NewEntryLoader = () => {
       refetchTimelines={refetchTimelines}
       defaultEntryData={defaultEntryData}
       books={booksData.books}
+      bucketName={s3BucketName}
     />
   )
 }

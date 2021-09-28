@@ -13,6 +13,8 @@ import {
 import {
   EntryAndIconWrapper,
   EntryIcon,
+  EntryImage,
+  EntryImageWrapper,
   IconsWrapper,
   Img,
 } from '../../../YearEntries.styles'
@@ -28,6 +30,7 @@ export const Entries = ({
   forwardedRef,
   displayEntry,
   visibleTimelines,
+  bucketName,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -77,6 +80,13 @@ export const Entries = ({
             ref={forwardedRef[entry.id]}
             onClick={() => navigateToEditEntry(entry)}
           >
+            {entry.image_url && (
+              <EntryImageWrapper>
+                <EntryImage
+                  src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
+                />
+              </EntryImageWrapper>
+            )}
             <EntryWrapper key={index}>{entry.name}</EntryWrapper>
             {hideEntryIconsIfSameAsDisplay(
               entry,
@@ -90,8 +100,11 @@ export const Entries = ({
                 ).map((timeline) => (
                   <div key={timeline.id}>
                     {timeline.timelineIconImageUrl ? (
-                      <EntryIcon color={timeline.color}>
-                        <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                      <EntryIcon borderColor={timeline.color}>
+                        <Img
+                          src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                          alt="Icone"
+                        />
                       </EntryIcon>
                     ) : (
                       <EntryIcon color={timeline.color}>
@@ -115,4 +128,5 @@ Entries.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
+  bucketName: PropTypes.string,
 }

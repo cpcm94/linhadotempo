@@ -22,6 +22,7 @@ export const EntryTimelinesSelect = ({
   timelines,
   fieldId,
   entryError,
+  bucketName,
 }) => {
   const selectedTimelineIds = entry.timelines.sync
 
@@ -60,7 +61,9 @@ export const EntryTimelinesSelect = ({
                 <ClosedIconAndNameWrapper>
                   {timeline.timelineIconImageUrl ? (
                     <IconWrapper color={timeline.color}>
-                      <Img src={timeline.timelineIconImageUrl} />
+                      <Img
+                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                      />
                     </IconWrapper>
                   ) : (
                     <IconWrapper color={timeline.color}>
@@ -89,7 +92,9 @@ export const EntryTimelinesSelect = ({
                 >
                   {timeline.timelineIconImageUrl ? (
                     <IconWrapper color={timeline.color}>
-                      <Img src={timeline.timelineIconImageUrl} />
+                      <Img
+                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                      />
                     </IconWrapper>
                   ) : (
                     <IconWrapper color={timeline.color}>
@@ -119,4 +124,5 @@ EntryTimelinesSelect.propTypes = {
   timelines: PropTypes.array,
   fieldId: PropTypes.string,
   entryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  bucketName: PropTypes.string,
 }

@@ -5,9 +5,11 @@ import { NoValidTimelinesPage } from './NoValidTimelinesPage'
 import { useQuery } from '@apollo/client'
 import { TIME_ENTRIES_QUERY } from './TIME_ENTRIES_QUERY'
 import { urlQueryTimelineIds } from '../_shared/urlQueryTimelineIds'
+import { CurrentUserContext } from '../_shared/CurrentUserContextProvider'
 
 export const ViewTimelinesLoader = () => {
   const { timelines, loading, getTimelines } = useContext(TimelinesContext)
+  const { userDataLoading, s3BucketName } = useContext(CurrentUserContext)
   const selectedTimelines = getTimelines(urlQueryTimelineIds())
   const {
     data: entriesData,
@@ -24,7 +26,9 @@ export const ViewTimelinesLoader = () => {
   const containsInvalidTimelines =
     urlQueryTimelineIds().length !== selectedTimelines.length
 
-  return loading || entriesLoading ? (
+  const isLoading = userDataLoading || loading || entriesLoading
+
+  return isLoading ? (
     <span>Loading...</span>
   ) : noValidTimelines ? (
     <NoValidTimelinesPage />
@@ -34,6 +38,7 @@ export const ViewTimelinesLoader = () => {
       entries={entriesData.time_entries}
       previousEntries={previousEntries && previousEntries.time_entries}
       hasInvalidTimelines={containsInvalidTimelines}
+      bucketName={s3BucketName}
     />
   ) : null
 }

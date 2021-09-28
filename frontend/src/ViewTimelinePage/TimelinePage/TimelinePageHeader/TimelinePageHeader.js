@@ -22,6 +22,7 @@ export const TimelinePageHeader = ({
   displayEntry,
   timelines,
   visibleTimelines,
+  bucketName,
 }) => {
   let history = useHistory()
   const timelinesId = timelines.map((timeline) => timeline.id)
@@ -74,7 +75,10 @@ export const TimelinePageHeader = ({
               <div key={timeline.id}>
                 {timeline.timelineIconImageUrl ? (
                   <EntryIcon color={timeline.color}>
-                    <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                    <Img
+                      src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                      alt="Icone"
+                    />
                   </EntryIcon>
                 ) : (
                   <EntryIcon color={timeline.color}>
@@ -93,4 +97,5 @@ TimelinePageHeader.propTypes = {
   displayEntry: PropTypes.object,
   timelines: PropTypes.array,
   visibleTimelines: PropTypes.array,
+  bucketName: PropTypes.string,
 }

@@ -15,12 +15,14 @@ import { CREATE_TIME_ENTRY_MUTATION } from '../../../../_shared/CREATE_TIME_ENTR
 import { SubmitFormButton } from '../../SubmitFormButton/SubmitFormButton'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
+import { ImageUploader } from '../../ImageUploader/ImageUploader'
 
 export const NewEntryForm = ({
   timelines,
   defaultEntryData,
   refetchTimelines,
   books,
+  bucketName,
 }) => {
   const [entry, setEntry] = useState(
     defaultEntryData
@@ -35,6 +37,9 @@ export const NewEntryForm = ({
           day: defaultEntryData.day ? parseInt(defaultEntryData.day) : '',
           annual_importance: false,
           monthly_importance: false,
+          image_url: defaultEntryData.image_url
+            ? defaultEntryData.image_url
+            : '',
           source_url: defaultEntryData.source_url
             ? defaultEntryData.source_url
             : '',
@@ -52,6 +57,7 @@ export const NewEntryForm = ({
           day: '',
           annual_importance: false,
           monthly_importance: false,
+          image_url: '',
           source_url: '',
           book_page: '',
           book_id: '',
@@ -118,6 +124,7 @@ export const NewEntryForm = ({
           resetField={resetSelectedTimelines}
           entry={entry}
           setEntry={setEntry}
+          bucketName={bucketName}
         />
         <DateDisplay
           entry={entry}
@@ -131,6 +138,11 @@ export const NewEntryForm = ({
           resetField={resetFieldValue}
           title={'Acontecimento'}
           field={'name'}
+        />
+        <ImageUploader
+          entry={entry}
+          setEntry={setEntry}
+          bucketName={bucketName}
         />
         <EntryTextInput
           entry={entry}
@@ -162,4 +174,5 @@ NewEntryForm.propTypes = {
   defaultEntryData: PropTypes.object,
   refetchTimelines: PropTypes.func,
   books: PropTypes.array,
+  bucketName: PropTypes.string,
 }

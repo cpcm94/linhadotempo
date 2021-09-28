@@ -8,5 +8,8 @@ export const ME_QUERY = gql`
       type
       email
     }
+    settings {
+      bucket_name
+    }
   }
 `

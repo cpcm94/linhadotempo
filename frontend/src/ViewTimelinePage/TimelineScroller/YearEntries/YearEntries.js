@@ -20,6 +20,7 @@ export const YearEntries = ({
   forwardedRef,
   displayEntry,
   visibleTimelines,
+  bucketName,
 }) => {
   const year = timeEntriesByYear[0].year.toString().startsWith('-')
     ? `${timeEntriesByYear[0].year.toString().substr(1)} a.c.`
@@ -61,6 +62,7 @@ export const YearEntries = ({
                 newEntryId={newEntryId}
                 forwardedRef={forwardedRef}
                 visibleTimelines={visibleTimelines}
+                bucketName={bucketName}
                 displayEntry={displayEntry}
               />
             </EntriesWithoutMonthsWrapper>
@@ -74,6 +76,7 @@ export const YearEntries = ({
             forwardedRef={forwardedRef}
             displayEntry={displayEntry}
             visibleTimelines={visibleTimelines}
+            bucketName={bucketName}
           />
         ))}
       </EntriesWrapper>
@@ -87,4 +90,5 @@ YearEntries.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
+  bucketName: PropTypes.string,
 }

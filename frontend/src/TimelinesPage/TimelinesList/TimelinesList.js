@@ -17,6 +17,7 @@ export const TimelinesList = ({
   timelines,
   setSelectedTimelines,
   selectedTimelines,
+  bucketName,
 }) => {
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
@@ -66,8 +67,11 @@ export const TimelinesList = ({
                 <CheckMarkerWrapper />
               )}
               {timeline.timelineIconImageUrl ? (
-                <IconWrapper timelineColor={timeline.color}>
-                  <Img src={timeline.timelineIconImageUrl} alt="Icone" />
+                <IconWrapper>
+                  <Img
+                    src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                    alt="Icone"
+                  />
                 </IconWrapper>
               ) : (
                 <IconWrapper color={timeline.color}>
@@ -92,4 +96,5 @@ TimelinesList.propTypes = {
   timelines: PropTypes.array,
   selectedTimelines: PropTypes.array,
   setSelectedTimelines: PropTypes.func,
+  bucketName: PropTypes.string,
 }

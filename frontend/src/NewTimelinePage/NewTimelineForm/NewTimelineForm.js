@@ -15,6 +15,7 @@ export const NewTimelineForm = ({
   setTimeline,
   onClick,
   buttonMessage,
+  bucketName,
 }) => {
   const handleChange = (timelinePropName) => (e) => {
     const newTimeline = { ...timeline }
@@ -50,6 +51,7 @@ export const NewTimelineForm = ({
           handleChange={handleChange}
           handleChangeColor={handleChangeColor}
           updateTimelineIconImageUrl={updateTimelineIconImageUrl}
+          bucketName={bucketName}
         />
       </Form>
       {buttonMessage && (
@@ -67,4 +69,5 @@ NewTimelineForm.propTypes = {
   setTimeline: PropTypes.func,
   onClick: PropTypes.func,
   buttonMessage: PropTypes.string,
+  bucketName: PropTypes.string,
 }
