@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\TimelineCategory;
 
 class CreateTimelineCategoriesTableAndRelationTable extends Migration
 {
@@ -25,9 +24,6 @@ class CreateTimelineCategoriesTableAndRelationTable extends Migration
             $table->foreignId('timeline_category_id')->references('id')->on('timeline_categories')->onDelete('cascade');
             $table->foreignId('timeline_id')->references('id')->on('timelines')->onDelete('cascade');
         });
-        TimelineCategory::create(array('category' => 'Pessoa'));
-        TimelineCategory::create(array('category' => 'Lugar'));
-        TimelineCategory::create(array('category' => 'Instituição'));
     }
 
     /**
