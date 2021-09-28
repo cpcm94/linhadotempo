@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\TimelineCategory;
 
-class CreateTimelineCategoriesTable extends Migration
+class CreateTimelineCategoriesAndPivotTable extends Migration
 {
     /**
      * Run the migrations.
