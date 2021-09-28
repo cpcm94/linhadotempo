@@ -31,6 +31,7 @@ type Timeline {
     initials: String
     timelineIconImageUrl: String
     time_entries: [TimeEntry] @belongsToMany
+    timeline_categories: [TimelineCategory] @belongsToMany
     user_id: String
     user: User @belongsTo
 }
@@ -60,6 +61,14 @@ type Book {
     publisher: String
     publishing_year: Int
     time_entries: [TimeEntry] @hasMany
+    user_id: String
+    user: User @belongsTo
+}
+
+type TimelineCategory {
+    id: ID!
+    category: String!
+    timelines: [Timeline] @belongsToMany
     user_id: String
     user: User @belongsTo
 }
@@ -172,7 +181,7 @@ input LoginInput {
     email: String!
     password: String!
 }
-input CreateTimeLineInput {
+input CreateTimelineInput {
     name: String!
     color: String
     initials: String
@@ -191,6 +200,10 @@ input UpdatePasswordInput {
 type Query {
     books: [Book!]! @all @whereAuth(relation: "user")
     book(id: ID! @eq): Book! @find @whereAuth(relation: "user")
+    timeline_categories: [TimelineCategory!]! @all @whereAuth(relation: "user")
+    timeline_category(id: ID! @eq): TimelineCategory
+        @find
+        @whereAuth(relation: "user")
     users: [User!]! @all
     user(id: ID! @eq): User @find
     hashUser(hash_id: String!): HashUser
@@ -211,7 +224,7 @@ type Mutation {
         @inject(context: "user.id", name: "user_id")
     updateBook(id: ID!, input: UpdateBookInput! @spread): Book! @update
     deleteBook(id: ID!): DeleteBookResponse!
-    createTimeline(input: CreateTimeLineInput! @spread): Timeline!
+    createTimeline(input: CreateTimelineInput! @spread): Timeline!
         @create
         @inject(context: "user.id", name: "user_id")
     updateTimeline(id: ID!, input: UpdateTimelineInput! @spread): Timeline
