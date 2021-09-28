@@ -177,6 +177,9 @@ input UpdateUserInput {
     email: String! @rules(apply: ["unique:users,email"])
     type: String!
 }
+input UpdatePasswordInput {
+    password: String! @hash
+}
 input LoginInput {
     email: String!
     password: String!
@@ -185,6 +188,12 @@ input CreateTimelineInput {
     name: String!
     color: String
     initials: String
+    timelineIconImageUrl: String
+    timeline_categories: CreateCategoryBelongsToMany!
+}
+
+input CreateCategoryBelongsToMany {
+    sync: [ID!]
 }
 
 input UpdateTimelineInput {
@@ -192,9 +201,19 @@ input UpdateTimelineInput {
     color: String
     initials: String
     timelineIconImageUrl: String
+    timeline_categories: UpdateCategoryBelongsToMany!
 }
-input UpdatePasswordInput {
-    password: String! @hash
+
+input UpdateCategoryBelongsToMany {
+    sync: [ID!]
+}
+
+input CreateTimelineCategoryInput {
+    category: String!
+}
+
+input UpdateTimelineCategoryInput {
+    category: String!
 }
 
 type Query {
@@ -224,6 +243,14 @@ type Mutation {
         @inject(context: "user.id", name: "user_id")
     updateBook(id: ID!, input: UpdateBookInput! @spread): Book! @update
     deleteBook(id: ID!): DeleteBookResponse!
+    createTimelineCategory(
+        input: CreateTimelineCategoryInput! @spread
+    ): TimelineCategory! @create @inject(context: "user.id", name: "user_id")
+    updateTimelineCategory(
+        id: ID!
+        input: UpdateTimelineCategoryInput! @spread
+    ): TimelineCategory! @update
+    deleteTimelineCategory(id: ID!): TimelineCategory! @delete
     createTimeline(input: CreateTimelineInput! @spread): Timeline!
         @create
         @inject(context: "user.id", name: "user_id")

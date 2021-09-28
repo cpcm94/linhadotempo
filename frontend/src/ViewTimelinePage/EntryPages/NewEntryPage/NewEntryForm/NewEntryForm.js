@@ -48,7 +48,7 @@ export const NewEntryForm = ({
           book_id: defaultEntryData.book_id ? defaultEntryData.book_id : '',
         }
       : {
-          timelines: { connect: [timelines[0].id] },
+          timelines: { sync: [timelines[0].id] },
           name: '',
           description: '',
           year: '',

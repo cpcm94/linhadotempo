@@ -49,6 +49,10 @@ class User extends Authenticatable
         return $this->hasMany(HashUser::class);
     }
 
+    public function timeline_categories() {
+        return $this->hasMany(TimelineCategory::class);
+    }
+
     public function books() {
         return $this->hasMany(Book::class);
     }
