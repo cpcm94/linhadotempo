@@ -4,6 +4,8 @@ import { EntryNameWrapper } from './MonthEntries.styles'
 import {
   EntryAndIconWrapper,
   EntryIcon,
+  EntryImage,
+  EntryImageWrapper,
   IconsWrapper,
   Img,
 } from '../YearEntries.styles'
@@ -38,6 +40,13 @@ export const EntriesWithoutDay = ({
               ref={forwardedRef[entry.id]}
               onClick={() => navigateToEditEntry(entry)}
             >
+              {entry.image_url && (
+                <EntryImageWrapper>
+                  <EntryImage
+                    src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
+                  />
+                </EntryImageWrapper>
+              )}
               <EntryNameWrapper>{entry.name}</EntryNameWrapper>
               {hideEntryIconsIfSameAsDisplay(
                 entry,
@@ -51,7 +60,7 @@ export const EntriesWithoutDay = ({
                   ).map((timeline) => (
                     <div key={timeline.id}>
                       {timeline.timelineIconImageUrl ? (
-                        <EntryIcon color={timeline.color}>
+                        <EntryIcon borderColor={timeline.color}>
                           <Img
                             src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
                             alt="Icone"
