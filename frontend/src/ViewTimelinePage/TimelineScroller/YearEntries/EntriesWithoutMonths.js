@@ -5,6 +5,8 @@ import {
   EntryAndIconWrapper,
   IconsWrapper,
   Img,
+  EntryImage,
+  EntryImageWrapper,
 } from './YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
@@ -39,6 +41,13 @@ export const EntriesWithoutMonths = ({
             ref={forwardedRef[entry.id]}
             onClick={() => navigateToEditEntry(entry)}
           >
+            {entry.image_url && (
+              <EntryImageWrapper>
+                <EntryImage
+                  src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
+                />
+              </EntryImageWrapper>
+            )}
             <EntryNameWrapper>{entry.name}</EntryNameWrapper>
             {hideEntryIconsIfSameAsDisplay(
               entry,
@@ -52,7 +61,7 @@ export const EntriesWithoutMonths = ({
                 ).map((timeline) => (
                   <div key={timeline.id}>
                     {timeline.timelineIconImageUrl ? (
-                      <EntryIcon color={timeline.color}>
+                      <EntryIcon borderColor={timeline.color}>
                         <Img
                           src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
                           alt="Icone"

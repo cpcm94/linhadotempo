@@ -15,6 +15,7 @@ import { CREATE_TIME_ENTRY_MUTATION } from '../../../../_shared/CREATE_TIME_ENTR
 import { SubmitFormButton } from '../../SubmitFormButton/SubmitFormButton'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
+import { ImageUploader } from '../../ImageUploader/ImageUploader'
 
 export const NewEntryForm = ({
   timelines,
@@ -137,6 +138,11 @@ export const NewEntryForm = ({
           resetField={resetFieldValue}
           title={'Acontecimento'}
           field={'name'}
+        />
+        <ImageUploader
+          entry={entry}
+          setEntry={setEntry}
+          bucketName={bucketName}
         />
         <EntryTextInput
           entry={entry}

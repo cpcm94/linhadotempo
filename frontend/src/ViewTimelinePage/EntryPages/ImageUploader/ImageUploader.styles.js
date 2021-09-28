@@ -18,6 +18,7 @@ export const Img = styled.img`
   height: 2.4rem;
   object-fit: cover;
   margin: 0;
+  font-size: 0.9rem;
 `
 
 export const Wrapper = styled.div`
