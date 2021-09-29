@@ -31,10 +31,9 @@ export const NewTimelineCategoryForm = ({
         )}
         <TextFieldColor
           type="text"
-          id="timeline"
           variant="outlined"
           label="Nome"
-          value={timeline.name}
+          value={category.name}
           onChange={handleChange('name')}
         />
       </Form>

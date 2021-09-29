@@ -244,8 +244,9 @@ type Mutation {
     updateBook(id: ID!, input: UpdateBookInput! @spread): Book! @update
     deleteBook(id: ID!): DeleteBookResponse!
     createTimelineCategory(
+        id: ID
         input: CreateTimelineCategoryInput! @spread
-    ): TimelineCategory! @create @inject(context: "user.id", name: "user_id")
+    ): TimelineCategory! @upsert @inject(context: "user.id", name: "user_id")
     updateTimelineCategory(
         id: ID!
         input: UpdateTimelineCategoryInput! @spread

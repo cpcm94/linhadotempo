@@ -20,6 +20,7 @@ export const NewTimelineCategoryPage = () => {
   const [category, setCategory] = useState({
     name: '',
   })
+  const [categoryId, setCategoryId] = useState(null)
   let history = useHistory()
 
   const navigateToCategoriesPage = () => {
@@ -40,15 +41,20 @@ export const NewTimelineCategoryPage = () => {
         timeoutId = setTimeout(() => {
           const payload = {
             variables: {
+              id: categoryId,
               input: category,
             },
           }
-          createTimelineCategory(payload)
+          createTimelineCategory(payload).then((res) => {
+            if (res.data.createTimelineCategory && !categoryId) {
+              setCategoryId(res.data.createTimelineCategory.id)
+            }
+          })
         }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
     } else {
       isFirstRun.current = false
     }
-  }, [category, categoryError, createTimelineCategory])
+  }, [category, categoryError, categoryId, createTimelineCategory])
 
   return (
     <Layout>
