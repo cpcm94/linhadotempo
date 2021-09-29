@@ -15,6 +15,10 @@ export const Form = styled.div`
   width: calc(100% - 2.5rem);
   border-bottom: 1px solid ${colors.lightGrey};
   padding-bottom: 1rem;
+
+  #deleteButton {
+    align-self: center;
+  }
 `
 export const TextFieldColor = styled(TextField)`
   label.Mui-focused {

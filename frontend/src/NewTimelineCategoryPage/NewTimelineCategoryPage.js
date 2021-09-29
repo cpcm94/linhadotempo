@@ -59,7 +59,7 @@ export const NewTimelineCategoryPage = () => {
   return (
     <Layout>
       <Header
-        title={'Criar categoria de linha do tempo'}
+        title={'Criar categoria'}
         loading={loading}
         returnButton={navigateToCategoriesPage}
       />
@@ -68,6 +68,7 @@ export const NewTimelineCategoryPage = () => {
           category={category}
           setCategory={setCategory}
           categoryError={categoryError}
+          categoryId={categoryId}
         />
       </Container>
     </Layout>
