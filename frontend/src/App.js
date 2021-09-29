@@ -22,6 +22,8 @@ import { ViewRecoverPasswordPage } from './RecoverPasswordPage/ViewRecoverPasswo
 import { BooksLoader } from './BooksPage/BooksLoader'
 import { ViewEditBookPage } from './EditBookPage/ViewEditBookPage'
 import { NewBookLoader } from './NewBookPage/NewBookLoader'
+import { CategoriesLoader } from './TimelineCategoriesPage/TimelineCategoriesLoader'
+import { NewTimelineCategoryLoader } from './NewTimelineCategoryPage/NewTimelineCategoryLoader'
 
 const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
   const token = getToken()
@@ -92,6 +94,12 @@ const Wrapped = () => {
           </Route>
           <Route path="/editBook">
             <ViewEditBookPage />
+          </Route>
+          <Route path="/timelineCategories">
+            <CategoriesLoader />
+          </Route>
+          <Route path="/newTimelineCategory">
+            <NewTimelineCategoryLoader />
           </Route>
           <Route path="/">
             <LoginPageLoader />

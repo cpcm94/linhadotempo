@@ -67,7 +67,7 @@ type Book {
 
 type TimelineCategory {
     id: ID!
-    category: String!
+    name: String!
     timelines: [Timeline] @belongsToMany
     user_id: String
     user: User @belongsTo
@@ -209,11 +209,11 @@ input UpdateCategoryBelongsToMany {
 }
 
 input CreateTimelineCategoryInput {
-    category: String!
+    name: String!
 }
 
 input UpdateTimelineCategoryInput {
-    category: String!
+    name: String!
 }
 
 type Query {
