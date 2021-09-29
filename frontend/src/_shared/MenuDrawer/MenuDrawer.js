@@ -49,6 +49,9 @@ export const MenuDrawer = ({ user }) => {
           <ListItemWrapper onClick={() => navigateTo('/books')}>
             Livros
           </ListItemWrapper>
+          <ListItemWrapper onClick={() => navigateTo('/timelineCategories')}>
+            Categorias para Linhas do Tempo
+          </ListItemWrapper>
           {user && user.type === 'admin' && (
             <ListItemWrapper onClick={() => navigateTo('/users')}>
               Usuários
