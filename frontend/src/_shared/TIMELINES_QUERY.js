@@ -10,7 +10,7 @@ export const TIMELINES_QUERY = gql`
       timelineIconImageUrl
       timeline_categories {
         id
-        category
+        name
       }
     }
   }

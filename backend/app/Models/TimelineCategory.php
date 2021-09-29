@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class TimelineCategory extends Model
 {
     use HasFactory;
-    protected $fillable = ['category'];
+    protected $fillable = ['name'];
     public function timelines(): BelongsToMany {
         return $this->belongsToMany(Timeline::class);
     }

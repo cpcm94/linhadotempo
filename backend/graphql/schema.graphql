@@ -67,7 +67,7 @@ type Book {
 
 type TimelineCategory {
     id: ID!
-    category: String!
+    name: String!
     timelines: [Timeline] @belongsToMany
     user_id: String
     user: User @belongsTo
@@ -209,11 +209,11 @@ input UpdateCategoryBelongsToMany {
 }
 
 input CreateTimelineCategoryInput {
-    category: String!
+    name: String!
 }
 
 input UpdateTimelineCategoryInput {
-    category: String!
+    name: String!
 }
 
 type Query {
@@ -244,8 +244,9 @@ type Mutation {
     updateBook(id: ID!, input: UpdateBookInput! @spread): Book! @update
     deleteBook(id: ID!): DeleteBookResponse!
     createTimelineCategory(
+        id: ID
         input: CreateTimelineCategoryInput! @spread
-    ): TimelineCategory! @create @inject(context: "user.id", name: "user_id")
+    ): TimelineCategory! @upsert @inject(context: "user.id", name: "user_id")
     updateTimelineCategory(
         id: ID!
         input: UpdateTimelineCategoryInput! @spread
