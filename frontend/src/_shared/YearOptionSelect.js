@@ -21,6 +21,7 @@ const IconWrapper = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  pointer-events: ${({ selected }) => selected && 'none'};
 `
 const Wrapper = styled.div`
   display: flex;
@@ -34,9 +35,7 @@ export const YearOptionSelect = ({ setRadioValue, radioValue }) => {
 
   const handleClick = (e) => {
     e.preventDefault()
-    if (!isDC) {
-      setIsDC(true)
-    }
+    setIsDC(!isDC)
   }
   useEffect(() => {
     setRadioValue(newRadioValue)

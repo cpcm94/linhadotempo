@@ -8,6 +8,10 @@ export const TIMELINE_QUERY = gql`
       color
       initials
       timelineIconImageUrl
+      timeline_categories {
+        id
+        category
+      }
       time_entries {
         id
         name
