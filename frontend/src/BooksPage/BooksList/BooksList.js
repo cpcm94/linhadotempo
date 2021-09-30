@@ -7,6 +7,7 @@ import {
   NameWrapper,
 } from './BooksList.styles'
 import { useHistory } from 'react-router'
+import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
 
 export const BooksList = ({ books }) => {
   let history = useHistory()
@@ -14,9 +15,13 @@ export const BooksList = ({ books }) => {
     e.preventDefault()
     history.push(`/editBook/${bookId}`)
   }
+  const sortedBooksAlphabetically = sortArrayAlphabeticallyByProp(
+    'book_name',
+    books
+  )
   return (
     <BooksListWrapper>
-      {books.map((book) => (
+      {sortedBooksAlphabetically.map((book) => (
         <BooksWrapper key={book.id} onClick={navigateToEditBookPage(book.id)}>
           <NameWrapper>
             <BookNameWrapper>{book.book_name}</BookNameWrapper>

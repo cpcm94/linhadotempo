@@ -12,6 +12,7 @@ import {
 } from './TimelinesList.styles'
 import { EditButton } from '../../_shared/EditButton'
 import { useHistory } from 'react-router'
+import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
 
 export const TimelinesList = ({
   timelines,
@@ -46,8 +47,9 @@ export const TimelinesList = ({
     }
   }
 
-  const sortedTimelinesAlphabetically = [...timelines].sort((a, b) =>
-    a.name.localeCompare(b.name)
+  const sortedTimelinesAlphabetically = sortArrayAlphabeticallyByProp(
+    'name',
+    timelines
   )
 
   return (

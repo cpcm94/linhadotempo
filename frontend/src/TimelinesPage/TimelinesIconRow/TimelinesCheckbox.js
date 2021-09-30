@@ -46,7 +46,6 @@ export const TimelinesCheckbox = ({
   setSelectedTimelines,
 }) => {
   const countOfSelectedTimelines = selectedTimelines.length
-  console.log('countOfSelectedTimelines', countOfSelectedTimelines)
   return (
     <>
       {selectedTimelines.length ? (

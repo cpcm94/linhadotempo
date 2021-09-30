@@ -5,11 +5,18 @@ import { TIMELINE_QUERY } from './TIMELINE_QUERY'
 import { EditableTimeline } from './EditableTimeline'
 import { TimelineNotFound } from './TimelineNotFound'
 import { CurrentUserContext } from '../_shared/CurrentUserContextProvider'
+import { TIMELINE_CATEGORIES_QUERY } from '../_shared/TIMELINE_CATEGORIES_QUERY'
 
 export const EditTimelineLoader = () => {
   const { userDataLoading, s3BucketName } = useContext(CurrentUserContext)
   let { timelineId } = useParams()
-
+  const { data: categoriesData, loading: categoriesLoading } = useQuery(
+    TIMELINE_CATEGORIES_QUERY,
+    {
+      notifyOnNetworkStatusChange: true,
+      fetchPolicy: 'cache-and-network',
+    }
+  )
   const { data, loading, error } = useQuery(TIMELINE_QUERY, {
     variables: { id: timelineId },
     fetchPolicy: 'cache-and-network',
@@ -17,14 +24,20 @@ export const EditTimelineLoader = () => {
   if (error) {
     return console.log(error)
   }
+  const isLoading = loading || userDataLoading || categoriesLoading
+
   return (
     <>
-      {loading || userDataLoading ? (
+      {isLoading ? (
         <span>Loading...</span>
       ) : data && !data.timeline ? (
         <TimelineNotFound />
       ) : (
-        <EditableTimeline timeline={data.timeline} bucketName={s3BucketName} />
+        <EditableTimeline
+          timeline={data.timeline}
+          bucketName={s3BucketName}
+          timelineCategories={categoriesData.timeline_categories}
+        />
       )}
     </>
   )

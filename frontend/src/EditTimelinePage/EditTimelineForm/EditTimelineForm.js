@@ -1,22 +1,17 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import {
-  Wrapper,
-  TextFieldColor,
-  StyledButton,
-  Form,
-} from './EditTimelineForm.styles'
+import { Wrapper, TextFieldColor, Form } from './EditTimelineForm.styles'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { IconDisplay } from '../../_shared/IconDisplay/IconDisplay'
 import { DeleteButtonAndConfirmation } from '../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 import { ImportAndExport } from './ImportAndExport/ImportAndExport'
+import { TimelineCategorySelect } from '../../_shared/TimelineCategorySelect/TimelineCategorySelect'
 
 export const EditTimelineForm = ({
   timeline,
   setTimeline,
-  onClick,
-  buttonMessage,
+  timelineCategories,
   entriesStringInfo,
   deleteTimeline,
   deleteMessage,
@@ -56,49 +51,52 @@ export const EditTimelineForm = ({
     newTimeline.timelineIconImageUrl = url
     setTimeline(newTimeline)
   }
-
+  const resetSelectedTimelineCategories = () => {
+    const newTimeline = { ...timeline }
+    newTimeline.timeline_categories.sync = []
+    setTimeline(newTimeline)
+  }
   return (
-    <>
-      <Wrapper>
-        <Form>
-          <TextFieldColor
-            type="text"
-            id="timeline"
-            variant="outlined"
-            label="Nome"
-            value={timeline.name}
-            onChange={handleChange('name')}
-          />
-          <IconDisplay
-            timeline={timeline}
-            handleChange={handleChange}
-            handleChangeColor={handleChangeColor}
-            updateTimelineIconImageUrl={updateTimelineIconImageUrl}
-            bucketName={bucketName}
-          />
-        </Form>
-        <ImportAndExport
-          toggleExportText={toggleExportText}
-          toggleImportTextArea={toggleImportTextArea}
-          entriesStringInfo={entriesStringInfo}
-          showExportText={showExportText}
-          showImportTextArea={showImportTextArea}
+    <Wrapper>
+      <Form>
+        <TextFieldColor
+          type="text"
+          id="timeline"
+          variant="outlined"
+          label="Nome"
+          value={timeline.name}
+          onChange={handleChange('name')}
         />
-        <DeleteButtonAndConfirmation
-          deleteFunction={deleteTimeline}
-          deleteMessage={deleteMessage}
-          skipDeleteMessage={skipDeleteMessage}
-          showDeleteMessage={showDeleteMessage}
-          setShowDeleteMessage={setShowDeleteMessage}
+        <IconDisplay
+          timeline={timeline}
+          handleChange={handleChange}
+          handleChangeColor={handleChangeColor}
+          updateTimelineIconImageUrl={updateTimelineIconImageUrl}
+          bucketName={bucketName}
         />
-        {buttonMessage && (
-          <StyledButton variant="contained" onClick={onClick}>
-            {buttonMessage}
-          </StyledButton>
-        )}
-        <ToastContainer />
-      </Wrapper>
-    </>
+        <TimelineCategorySelect
+          timeline={timeline}
+          setTimeline={setTimeline}
+          resetField={resetSelectedTimelineCategories}
+          timelineCategories={timelineCategories}
+        />
+      </Form>
+      <ImportAndExport
+        toggleExportText={toggleExportText}
+        toggleImportTextArea={toggleImportTextArea}
+        entriesStringInfo={entriesStringInfo}
+        showExportText={showExportText}
+        showImportTextArea={showImportTextArea}
+      />
+      <DeleteButtonAndConfirmation
+        deleteFunction={deleteTimeline}
+        deleteMessage={deleteMessage}
+        skipDeleteMessage={skipDeleteMessage}
+        showDeleteMessage={showDeleteMessage}
+        setShowDeleteMessage={setShowDeleteMessage}
+      />
+      <ToastContainer />
+    </Wrapper>
   )
 }
 
@@ -106,6 +104,7 @@ EditTimelineForm.propTypes = {
   timeline: PropTypes.object,
   setTimeline: PropTypes.func,
   onClick: PropTypes.func,
+  timelineCategories: PropTypes.array,
   buttonMessage: PropTypes.string,
   entriesStringInfo: PropTypes.array,
   deleteTimeline: PropTypes.func,

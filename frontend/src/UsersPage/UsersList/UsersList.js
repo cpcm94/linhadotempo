@@ -7,6 +7,7 @@ import {
   NameWrapper,
 } from './UsersList.styles'
 import { useHistory } from 'react-router-dom'
+import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
 
 export const UsersList = ({ users }) => {
   let history = useHistory()
@@ -14,9 +15,10 @@ export const UsersList = ({ users }) => {
     e.preventDefault()
     history.push(`/editUser/${userId}`)
   }
+  const sortedBooksAlphabetically = sortArrayAlphabeticallyByProp('name', users)
   return (
     <UsersListWrapper>
-      {users.map((user) => (
+      {sortedBooksAlphabetically.map((user) => (
         <UsersWrapper key={user.id} onClick={navigateToEditUserPage(user.id)}>
           <NameWrapper>
             <UserNameWrapper>{user.name}</UserNameWrapper>

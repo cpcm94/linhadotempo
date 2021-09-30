@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { TextField } from '@material-ui/core'
-import { Button } from '@material-ui/core'
 import { colors } from '../../_shared/colors'
 
 export const Icon = styled.div`
@@ -74,19 +73,5 @@ export const TextFieldColor = styled(TextField)`
     &.Mui-focused fieldset {
       border-color: ${colors.brown};
     }
-  }
-`
-
-export const StyledButton = styled(Button)`
-  height: 56px;
-  margin-top: ${({ marginTop }) => marginTop && '1rem'} !important;
-  && {
-    color: ${colors.white};
-  }
-  &.MuiButton-contained {
-    background-color: ${colors.brown};
-  }
-  &&:hover {
-    background-color: ${colors.wine};
   }
 `
