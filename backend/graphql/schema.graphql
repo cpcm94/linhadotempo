@@ -189,7 +189,7 @@ input CreateTimelineInput {
     color: String
     initials: String
     timelineIconImageUrl: String
-    timeline_categories: CreateCategoryBelongsToMany!
+    timeline_categories: CreateCategoryBelongsToMany
 }
 
 input CreateCategoryBelongsToMany {
@@ -201,7 +201,7 @@ input UpdateTimelineInput {
     color: String
     initials: String
     timelineIconImageUrl: String
-    timeline_categories: UpdateCategoryBelongsToMany!
+    timeline_categories: UpdateCategoryBelongsToMany
 }
 
 input UpdateCategoryBelongsToMany {

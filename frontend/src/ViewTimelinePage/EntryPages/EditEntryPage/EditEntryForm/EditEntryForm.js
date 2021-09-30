@@ -128,12 +128,8 @@ export const EditEntryForm = ({
       />
       <EditButtonsWrapper>
         <DeleteEntryButton
-          entryId={entry.id}
-          afterDelete={(deletedEntry) =>
-            refetchTimelines().then(() => {
-              goBack(deletedEntry)
-            })
-          }
+          entryId={entryId}
+          afterDelete={(deletedEntry) => goBack(deletedEntry)}
         />
       </EditButtonsWrapper>
     </Wrapper>
