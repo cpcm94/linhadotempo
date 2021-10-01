@@ -13,7 +13,7 @@ import {
   StyledButton,
   Img,
 } from './EntryTimelinesSelect.styles'
-import { ErrorMessage } from '../EntryTextInput/EntryTextInput.styles'
+import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 
 export const EntryTimelinesSelect = ({
   entry,

@@ -7,7 +7,7 @@ import { DateSpan, DateWrapper } from './DateDisplay.styles'
 import { monthNameArray } from '../../../_shared/monthNameArray'
 import { ResetFieldButton } from './ResetFieldButton'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
-import { ErrorMessage } from '../EntryTextInput/EntryTextInput.styles'
+import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 
 export const DateDisplay = ({
   entry,

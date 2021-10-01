@@ -8,54 +8,94 @@ import { Container } from '../_shared/Container'
 import qs from 'query-string'
 import { NewTimelineForm } from './NewTimelineForm/NewTimelineForm'
 import PropTypes from 'prop-types'
+import { UPDATE_TIMELINE_MUTATION } from '../_shared/UPDATE_TIMELINE_MUTATION'
+import { useRef } from 'react'
+import { checkIfTimelineError } from '../_shared/checkIfTimelineError'
+import { useEffect } from 'react'
 
-export const NewTimelinePage = ({ bucketName }) => {
+const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
+let timeoutId = null
+
+const returnToTimelinesPath = (selectedTimelinesFromUrl, timelineId) => {
+  if (selectedTimelinesFromUrl && timelineId) {
+    return `/timelines${`?timelines=${selectedTimelinesFromUrl},${timelineId}`}`
+  } else if (selectedTimelinesFromUrl) {
+    return `/timelines${`?timelines=${selectedTimelinesFromUrl}`}`
+  } else if (timelineId) {
+    return `/timelines${`?timelines=${timelineId}`}`
+  } else {
+    return '/timelines'
+  }
+}
+
+export const NewTimelinePage = ({ bucketName, timelineCategories }) => {
   const [timeline, setTimeline] = useState({
     name: '',
     color: '',
     initials: '',
+    timelineIconImageUrl: '',
+    timeline_categories: { sync: [] },
   })
+  const [timelineId, setTimelineId] = useState(false)
+  const isFirstRun = useRef(true)
   let history = useHistory()
 
   const selectedTimelinesFromUrl = qs.parse(location.search).timelines
 
-  const navigateToTimelinesPage = () => {
-    history.push(
-      `/timelines${
-        selectedTimelinesFromUrl ? `?timelines=${selectedTimelinesFromUrl}` : ''
-      }`
-    )
-  }
-
-  const [saveTimeline, { loading }] = useMutation(CREATE_TIMELINE_MUTATION, {
-    variables: { input: timeline },
-  })
+  const [createTimeline, { loading }] = useMutation(CREATE_TIMELINE_MUTATION)
+  const [updateTimeline, { loading: updateLoading }] = useMutation(
+    UPDATE_TIMELINE_MUTATION
+  )
+  const timelineError = checkIfTimelineError(timeline)
+  useEffect(() => {
+    if (!isFirstRun.current) {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+      if (!timelineError)
+        timeoutId = setTimeout(() => {
+          const payload = {
+            variables: {
+              id: timelineId,
+              input: timeline,
+            },
+          }
+          if (timelineId) {
+            updateTimeline(payload)
+          } else {
+            createTimeline(payload).then((res) => {
+              if (res.data.createTimeline && !timelineId) {
+                setTimelineId(res.data.createTimeline.id)
+              }
+            })
+          }
+        }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+    } else {
+      isFirstRun.current = false
+    }
+  }, [createTimeline, timeline, timelineError, timelineId, updateTimeline])
 
   const saveAndReturn = () => {
-    saveTimeline().then((res) => {
-      history.push(
-        `/timelines${
-          selectedTimelinesFromUrl
-            ? `?timelines=${selectedTimelinesFromUrl},${res.data.createTimeline.id}`
-            : `?timelines=${res.data.createTimeline.id}`
-        }`
-      )
-    })
+    const path = returnToTimelinesPath(selectedTimelinesFromUrl, timelineId)
+    history.push(path)
   }
+  const isLoading = loading || updateLoading
 
   return (
     <Layout>
       <Header
         title={'Criar linha do tempo'}
-        loading={loading}
-        returnButton={navigateToTimelinesPage}
+        loading={isLoading}
+        returnButton={saveAndReturn}
       />
       <Container>
         <NewTimelineForm
           timeline={timeline}
           setTimeline={setTimeline}
-          onClick={saveAndReturn}
-          buttonMessage={'Criar linha do tempo'}
+          timelineError={timelineError}
+          timelineCategories={timelineCategories}
+          timelineId={timelineId}
+          selectedTimelines={selectedTimelinesFromUrl}
           bucketName={bucketName}
         />
       </Container>
@@ -65,4 +105,5 @@ export const NewTimelinePage = ({ bucketName }) => {
 
 NewTimelinePage.propTypes = {
   bucketName: PropTypes.string,
+  timelineCategories: PropTypes.array,
 }

@@ -14,7 +14,3 @@ export const Input = styled(TextareaAutosize)`
     outline: none;
   }
 `
-
-export const ErrorMessage = styled.div`
-  color: ${colors.red};
-`
