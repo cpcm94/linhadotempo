@@ -189,7 +189,7 @@ input CreateTimelineInput {
     color: String
     initials: String
     timelineIconImageUrl: String
-    timeline_categories: CreateCategoryBelongsToMany!
+    timeline_categories: CreateCategoryBelongsToMany
 }
 
 input CreateCategoryBelongsToMany {
@@ -201,7 +201,7 @@ input UpdateTimelineInput {
     color: String
     initials: String
     timelineIconImageUrl: String
-    timeline_categories: UpdateCategoryBelongsToMany!
+    timeline_categories: UpdateCategoryBelongsToMany
 }
 
 input UpdateCategoryBelongsToMany {
@@ -244,14 +244,13 @@ type Mutation {
     updateBook(id: ID!, input: UpdateBookInput! @spread): Book! @update
     deleteBook(id: ID!): DeleteBookResponse!
     createTimelineCategory(
-        id: ID
         input: CreateTimelineCategoryInput! @spread
     ): TimelineCategory! @upsert @inject(context: "user.id", name: "user_id")
     updateTimelineCategory(
         id: ID!
         input: UpdateTimelineCategoryInput! @spread
     ): TimelineCategory! @update
-    deleteTimelineCategory(id: ID!): TimelineCategory! @delete
+    deleteTimelineCategory(id: ID!): TimelineCategory @delete
     createTimeline(input: CreateTimelineInput! @spread): Timeline!
         @create
         @inject(context: "user.id", name: "user_id")
