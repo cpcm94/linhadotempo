@@ -1,33 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { DateDisplay } from '../../DateDisplay/DateDisplay'
 import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
-import { Wrapper, EditButtonsWrapper } from './EditEntryForm.styles'
-import { DeleteEntryButton } from './DeleteEntryButton'
-import { useHistory } from 'react-router-dom'
-import { convertFormDataValues } from '../../../../_shared/convertFormDataValues'
+import { Wrapper } from './EditEntryForm.styles'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
 import { ImageUploader } from '../../ImageUploader/ImageUploader'
-
-const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
-let timeoutId = null
+import { DeleteButtonAndConfirmation } from '../../../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 
 export const EditEntryForm = ({
   entry,
   setEntry,
-  entryId,
+  radioValue,
+  setRadioValue,
   timelines,
   books,
   entryError,
-  updateEntry,
   bucketName,
+  deleteLoading,
+  handleDelete,
 }) => {
-  const [radioValue, setRadioValue] = useState(
-    entry.year && entry.year.toString().startsWith('-') ? 'AC' : 'DC'
-  )
-  const isFirstRun = useRef(true)
-
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
     newEntry[entryPropName] = e.target.value
@@ -44,43 +36,13 @@ export const EditEntryForm = ({
     newEntry.timelines.sync = []
     setEntry(newEntry)
   }
-
-  const timelinesString = timelines.map((timeline) => timeline.id).toString()
-
-  let history = useHistory()
-
-  const goBack = (newEntry) => {
-    history.push({
-      pathname: '/viewTimeline/',
-      search: `?timelines=${timelinesString}`,
-      hash: newEntry
-        ? `#date=${newEntry.year}${newEntry.month ? `/${newEntry.month}` : ''}${
-            newEntry.day ? `/${newEntry.day}` : ''
-          }`
-        : null,
-    })
-  }
-
-  useEffect(() => {
-    if (!isFirstRun.current) {
-      if (timeoutId) {
-        clearTimeout(timeoutId)
-      }
-      if (!entryError)
-        timeoutId = setTimeout(() => {
-          const payload = {
-            variables: {
-              id: entryId,
-              input: convertFormDataValues(entry, radioValue),
-            },
-          }
-          updateEntry(payload)
-        }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
-    } else {
-      isFirstRun.current = false
-    }
-  }, [entry, entryError, radioValue, entryId, updateEntry])
-
+  const numberOfRelatedTimelines = entry.timelines.sync.length
+  const skipDeleteMessage = !numberOfRelatedTimelines
+  const deleteMessage = `Ao deletar esse acontecimento ${
+    numberOfRelatedTimelines > 1
+      ? `${numberOfRelatedTimelines} linhas do tempo perderão esse acontecimento`
+      : `1 linha do tempo irá perder esse acontecimento`
+  }. Tem certeza que deseja deletar esse acontecimento? Essa ação será irreversível.`
   return (
     <Wrapper>
       <EntryTimelinesSelect
@@ -126,12 +88,12 @@ export const EditEntryForm = ({
         changeEntry={handleChange}
         setEntry={setEntry}
       />
-      <EditButtonsWrapper>
-        <DeleteEntryButton
-          entryId={entryId}
-          afterDelete={(deletedEntry) => goBack(deletedEntry)}
-        />
-      </EditButtonsWrapper>
+      <DeleteButtonAndConfirmation
+        deleteFunction={handleDelete}
+        deleteMessage={deleteMessage}
+        skipDeleteMessage={skipDeleteMessage}
+        loading={deleteLoading}
+      />
     </Wrapper>
   )
 }
@@ -146,4 +108,8 @@ EditEntryForm.propTypes = {
   entryId: PropTypes.string,
   updateEntry: PropTypes.func,
   bucketName: PropTypes.string,
+  radioValue: PropTypes.string,
+  setRadioValue: PropTypes.func,
+  deleteLoading: PropTypes.bool,
+  handleDelete: PropTypes.func,
 }

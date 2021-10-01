@@ -23,7 +23,6 @@ export const BookForm = ({ bookData, setLoading }) => {
     edition: bookData.edition,
     author: bookData.author,
   })
-  const [showDeleteMessage, setShowDeleteMessage] = useState(false)
   const [updateBook, { loading }] = useMutation(UPDATE_BOOK_MUTATION, {
     variables: {
       id: bookData.id,
@@ -131,8 +130,6 @@ export const BookForm = ({ bookData, setLoading }) => {
       />
       <DeleteButtonAndConfirmation
         deleteMessage={deleteMessage}
-        showDeleteMessage={showDeleteMessage}
-        setShowDeleteMessage={setShowDeleteMessage}
         skipDeleteMessage={skipDeleteMessage}
         loading={deleteLoading}
         deleteFunction={handleDelete}

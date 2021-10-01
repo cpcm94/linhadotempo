@@ -1,95 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { DateDisplay } from '../../DateDisplay/DateDisplay'
 import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
 import {
+  DeleteButtonWrapper,
   InnerWrapper,
-  SubmitButtonWrapper,
   Wrapper,
 } from './NewEntryForm.styles'
-import { yearWithoutNegativeSign } from '../../../../_shared/yearWithoutNegativeSign'
-import { useMutation } from '@apollo/client'
-import { useHistory } from 'react-router-dom'
-import { convertFormDataValues } from '../../../../_shared/convertFormDataValues'
-import { CREATE_TIME_ENTRY_MUTATION } from '../../../../_shared/CREATE_TIME_ENTRY_MUTATION'
-import { SubmitFormButton } from '../../SubmitFormButton/SubmitFormButton'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
 import { ImageUploader } from '../../ImageUploader/ImageUploader'
+import { DeleteButton } from '../../../../_shared/DeleteButton'
 
 export const NewEntryForm = ({
   timelines,
-  defaultEntryData,
-  refetchTimelines,
+  entry,
+  setEntry,
+  radioValue,
+  setRadioValue,
+  entryError,
   books,
   bucketName,
+  entryId,
+  deleteLoading,
+  handleDelete,
 }) => {
-  const [entry, setEntry] = useState(
-    defaultEntryData
-      ? {
-          timelines: defaultEntryData.timeline
-            ? { sync: defaultEntryData.timeline.split(',') }
-            : { sync: [timelines[0].id] },
-          name: '',
-          description: '',
-          year: yearWithoutNegativeSign(defaultEntryData),
-          month: defaultEntryData.month ? parseInt(defaultEntryData.month) : '',
-          day: defaultEntryData.day ? parseInt(defaultEntryData.day) : '',
-          annual_importance: false,
-          monthly_importance: false,
-          image_url: defaultEntryData.image_url
-            ? defaultEntryData.image_url
-            : '',
-          source_url: defaultEntryData.source_url
-            ? defaultEntryData.source_url
-            : '',
-          book_page: defaultEntryData.book_page
-            ? defaultEntryData.book_page
-            : '',
-          book_id: defaultEntryData.book_id ? defaultEntryData.book_id : '',
-        }
-      : {
-          timelines: { sync: [timelines[0].id] },
-          name: '',
-          description: '',
-          year: '',
-          month: '',
-          day: '',
-          annual_importance: false,
-          monthly_importance: false,
-          image_url: '',
-          source_url: '',
-          book_page: '',
-          book_id: '',
-        }
-  )
-  const hasDefaultEntryDataAndYear = defaultEntryData && defaultEntryData.year
-
-  const [radioValue, setRadioValue] = useState(
-    hasDefaultEntryDataAndYear && defaultEntryData.year.startsWith('-')
-      ? 'AC'
-      : 'DC'
-  )
-
-  const [createEntry] = useMutation(CREATE_TIME_ENTRY_MUTATION, {
-    variables: {
-      input: convertFormDataValues(entry, radioValue),
-    },
-  })
-  let history = useHistory()
-  const timelinesString = timelines.map((timeline) => timeline.id).toString()
-
-  const goBack = (newEntry) => {
-    history.push({
-      pathname: '/viewTimeline/',
-      search: `?timelines=${timelinesString}`,
-      hash: newEntry
-        ? `#date=${newEntry.year}${newEntry.month ? `/${newEntry.month}` : ''}${
-            newEntry.day ? `/${newEntry.day}` : ''
-          }`
-        : null,
-    })
-  }
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
     newEntry[entryPropName] = e.target.value
@@ -107,33 +42,30 @@ export const NewEntryForm = ({
     newEntry[fieldName] = ''
     setEntry(newEntry)
   }
-  const submitCreateEntry = (e) => {
-    e.preventDefault()
-    createEntry().then((res) => {
-      refetchTimelines().then(() => {
-        goBack(res.data.createTimeEntry)
-      })
-    })
-  }
 
   return (
     <Wrapper>
       <InnerWrapper>
         <EntryTimelinesSelect
+          fieldId={'timelines'}
           timelines={timelines}
           resetField={resetSelectedTimelines}
+          entryError={entryError}
           entry={entry}
           setEntry={setEntry}
           bucketName={bucketName}
         />
         <DateDisplay
+          fieldId={'date'}
           entry={entry}
           setEntry={setEntry}
+          entryError={entryError}
           radioValue={radioValue}
           setRadioValue={setRadioValue}
         />
         <EntryTextInput
           entry={entry}
+          entryError={entryError}
           changeEntry={handleChange}
           resetField={resetFieldValue}
           title={'Acontecimento'}
@@ -157,13 +89,14 @@ export const NewEntryForm = ({
           changeEntry={handleChange}
           setEntry={setEntry}
         />
-        <SubmitButtonWrapper>
-          <SubmitFormButton
-            onClick={submitCreateEntry}
-            entry={entry}
-            buttonText={'Criar Acontecimento'}
-          />
-        </SubmitButtonWrapper>
+        <DeleteButtonWrapper showBorder={entryId}>
+          {entryId &&
+            (deleteLoading ? (
+              <span>Loading...</span>
+            ) : (
+              <DeleteButton onClick={handleDelete} />
+            ))}
+        </DeleteButtonWrapper>
       </InnerWrapper>
     </Wrapper>
   )
@@ -171,8 +104,14 @@ export const NewEntryForm = ({
 
 NewEntryForm.propTypes = {
   timelines: PropTypes.array,
-  defaultEntryData: PropTypes.object,
-  refetchTimelines: PropTypes.func,
+  entry: PropTypes.object,
+  setEntry: PropTypes.func,
+  radioValue: PropTypes.string,
+  setRadioValue: PropTypes.func,
+  entryError: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   books: PropTypes.array,
   bucketName: PropTypes.string,
+  entryId: PropTypes.any,
+  deleteLoading: PropTypes.bool,
+  handleDelete: PropTypes.func,
 }

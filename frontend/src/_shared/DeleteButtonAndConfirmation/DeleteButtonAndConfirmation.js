@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DeleteButton } from '../DeleteButton'
 import {
   ConfirmationWrapper,
@@ -11,11 +11,11 @@ import PropTypes from 'prop-types'
 export const DeleteButtonAndConfirmation = ({
   deleteMessage,
   skipDeleteMessage,
-  showDeleteMessage,
-  setShowDeleteMessage,
   deleteFunction,
   loading,
 }) => {
+  const [showDeleteMessage, setShowDeleteMessage] = useState(false)
+
   const handleFirstDeleteClick = () => {
     if (!skipDeleteMessage) {
       setShowDeleteMessage(true)
@@ -33,20 +33,22 @@ export const DeleteButtonAndConfirmation = ({
           <DeleteButton onClick={handleFirstDeleteClick} />
         </DeleteButtonWrapper>
       ) : (
-        <ConfirmationWrapper>
-          <span>{deleteMessage}</span>
-          <ConfirmButtonsWrapper>
-            <ConfirmButton onClick={deleteFunction} variant="contained">
-              SIM
-            </ConfirmButton>
-            <ConfirmButton
-              onClick={() => setShowDeleteMessage(false)}
-              variant="contained"
-            >
-              NÃO
-            </ConfirmButton>
-          </ConfirmButtonsWrapper>
-        </ConfirmationWrapper>
+        <DeleteButtonWrapper showBorder={true}>
+          <ConfirmationWrapper>
+            <span>{deleteMessage}</span>
+            <ConfirmButtonsWrapper>
+              <ConfirmButton onClick={deleteFunction} variant="contained">
+                SIM
+              </ConfirmButton>
+              <ConfirmButton
+                onClick={() => setShowDeleteMessage(false)}
+                variant="contained"
+              >
+                NÃO
+              </ConfirmButton>
+            </ConfirmButtonsWrapper>
+          </ConfirmationWrapper>
+        </DeleteButtonWrapper>
       )}
     </>
   )
@@ -55,8 +57,6 @@ export const DeleteButtonAndConfirmation = ({
 DeleteButtonAndConfirmation.propTypes = {
   deleteMessage: PropTypes.string,
   skipDeleteMessage: PropTypes.bool,
-  showDeleteMessage: PropTypes.bool,
-  setShowDeleteMessage: PropTypes.func,
   deleteFunction: PropTypes.func,
   loading: PropTypes.bool,
 }

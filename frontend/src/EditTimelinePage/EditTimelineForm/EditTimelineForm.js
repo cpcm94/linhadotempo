@@ -19,21 +19,19 @@ export const EditTimelineForm = ({
   deleteMessage,
   skipDeleteMessage,
   bucketName,
+  deleteLoading,
 }) => {
   const [showExportText, setShowExportText] = useState(false)
   const [showImportTextArea, setShowImportTextArea] = useState(false)
-  const [showDeleteMessage, setShowDeleteMessage] = useState(false)
 
   const toggleImportTextArea = () => {
     setShowImportTextArea(!showImportTextArea)
     if (showExportText) setShowExportText(false)
-    if (showDeleteMessage) setShowDeleteMessage(false)
   }
 
   const toggleExportText = () => {
     setShowExportText(!showExportText)
     if (showImportTextArea) setShowImportTextArea(false)
-    if (showDeleteMessage) setShowDeleteMessage(false)
   }
 
   const handleChange = (timelinePropName) => (e) => {
@@ -98,8 +96,7 @@ export const EditTimelineForm = ({
         deleteFunction={deleteTimeline}
         deleteMessage={deleteMessage}
         skipDeleteMessage={skipDeleteMessage}
-        showDeleteMessage={showDeleteMessage}
-        setShowDeleteMessage={setShowDeleteMessage}
+        loading={deleteLoading}
       />
       <ToastContainer />
     </Wrapper>
@@ -109,13 +106,12 @@ export const EditTimelineForm = ({
 EditTimelineForm.propTypes = {
   timeline: PropTypes.object,
   setTimeline: PropTypes.func,
-  onClick: PropTypes.func,
   timelineCategories: PropTypes.array,
-  buttonMessage: PropTypes.string,
   entriesStringInfo: PropTypes.array,
   deleteTimeline: PropTypes.func,
   deleteMessage: PropTypes.string,
   skipDeleteMessage: PropTypes.bool,
   bucketName: PropTypes.string,
   timelineError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  deleteLoading: PropTypes.bool,
 }

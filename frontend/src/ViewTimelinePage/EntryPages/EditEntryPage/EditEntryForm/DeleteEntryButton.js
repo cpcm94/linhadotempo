@@ -1,6 +1,6 @@
 import React from 'react'
 import { DeleteButton } from '../../../../_shared/DeleteButton'
-import { DELETE_TIME_ENTRY_MUTATION } from './DELETE_TIME_ENTRY_MUTATION'
+import { DELETE_TIME_ENTRY_MUTATION } from '../../../../_shared/DELETE_TIME_ENTRY_MUTATION'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/client'
