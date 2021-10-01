@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ErrorMessage, Input } from './EntryTextInput.styles'
+import { Input } from './EntryTextInput.styles'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
+import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 
 export const EntryTextInput = ({
   entry,

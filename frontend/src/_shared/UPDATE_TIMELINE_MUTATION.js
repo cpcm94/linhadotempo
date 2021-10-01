@@ -7,6 +7,10 @@ export const UPDATE_TIMELINE_MUTATION = gql`
       color
       initials
       timelineIconImageUrl
+      timeline_categories {
+        id
+        name
+      }
     }
   }
 `

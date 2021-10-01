@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyledButton, Wrapper, ErrorText } from './SubmitFormButton.styles'
+import { StyledButton, Wrapper } from './SubmitFormButton.styles'
 import PropTypes from 'prop-types'
+import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 
 export const SubmitFormButton = ({ onClick, buttonText, entry }) => {
   const aboveMaxNameLength = entry.name.length > 300
@@ -32,7 +33,7 @@ export const SubmitFormButton = ({ onClick, buttonText, entry }) => {
   }
   return (
     <Wrapper>
-      <ErrorText>{disableSubmitButton ? errorMessage() : ''}</ErrorText>
+      <ErrorMessage>{disableSubmitButton ? errorMessage() : ''}</ErrorMessage>
       <StyledButton
         onClick={onClick}
         disabled={disableSubmitButton}

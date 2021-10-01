@@ -16,9 +16,6 @@ export const StyledButton = styled(Button)`
     background-color: ${colors.wine};
   }
 `
-export const ErrorText = styled.span`
-  color: ${colors.red};
-`
 
 export const Wrapper = styled.div`
   display: flex;

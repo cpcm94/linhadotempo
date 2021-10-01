@@ -3,7 +3,7 @@ import {
   Wrapper,
   Form,
   TextFieldColor,
-  ErrorMessage,
+  DeleteButtonWrapper,
 } from './NewTimelineCategoryForm.styles'
 import PropTypes from 'prop-types'
 import { SectionTitle } from '../../_shared/SectionTitle/SectionTitle'
@@ -11,6 +11,7 @@ import { DeleteButton } from '../../_shared/DeleteButton'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router'
 import { DELETE_TIMELINE_CATEGORY_MUTATION } from '../../_shared/DELETE_TIMELINE_CATEGORY_MUTATION'
+import { ErrorMessage } from '../../_shared/ErrorMessage.styles'
 
 export const NewTimelineCategoryForm = ({
   category,
@@ -55,12 +56,14 @@ export const NewTimelineCategoryForm = ({
           value={category.name}
           onChange={handleChange('name')}
         />
-        {categoryId &&
-          (loading ? (
-            <span>Loading...</span>
-          ) : (
-            <DeleteButton onClick={handleDelete} />
-          ))}
+        <DeleteButtonWrapper showBorder={categoryId}>
+          {categoryId &&
+            (loading ? (
+              <span>Loading...</span>
+            ) : (
+              <DeleteButton onClick={handleDelete} />
+            ))}
+        </DeleteButtonWrapper>
       </Form>
     </Wrapper>
   )

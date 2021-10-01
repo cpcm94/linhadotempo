@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyledButton, ButtonWrapper, ErrorText } from './NewBookForm.styles'
+import { StyledButton, ButtonWrapper } from './NewBookForm.styles'
 import PropTypes from 'prop-types'
+import { ErrorMessage } from '../../_shared/ErrorMessage.styles'
 
 export const SubmitFormButton = ({ onClick, buttonText, book, loading }) => {
   const aboveMaxNameLength = book.book_name.length > 255
@@ -17,7 +18,7 @@ export const SubmitFormButton = ({ onClick, buttonText, book, loading }) => {
   }
   return (
     <ButtonWrapper>
-      <ErrorText>{disableSubmitButton ? errorMessage() : ''}</ErrorText>
+      <ErrorMessage>{disableSubmitButton ? errorMessage() : ''}</ErrorMessage>
       <StyledButton
         onClick={onClick}
         disabled={disableSubmitButton}
