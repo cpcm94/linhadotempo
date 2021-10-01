@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import { TextField } from '@material-ui/core'
-import { Button } from '@material-ui/core'
 import { colors } from '../../_shared/colors'
 
 export const Icon = styled.div`
@@ -55,7 +53,7 @@ export const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   min-height: calc(100vh - 3rem);
-  padding: 1rem 0 1rem 0;
+  padding: 0 0 1rem 0;
 `
 export const UploaderAndButtonWrapper = styled.div``
 export const ImageAndButtonWrapper = styled.div`
@@ -69,48 +67,22 @@ export const Form = styled.div`
   display: flex;
   flex-direction: column;
   width: calc(100% - 2.5rem);
-  border-bottom: 1px solid ${colors.lightGrey};
   padding-bottom: 1rem;
+  border-bottom: 1px solid ${colors.lightGrey};
 `
-
+export const DeleteButtonWrapper = styled.div`
+  width: 100%;
+  border-top: ${({ showBorder }) =>
+    showBorder && `1px solid ${colors.lightGrey}`};
+  margin-top: 1rem;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: center;
+`
 export const ExportText = styled.pre`
   margin: 0;
   padding: 1rem;
   width: calc(100% - 2.5rem);
   border: solid 1px ${colors.brown};
   border-radius: 5px;
-`
-
-export const TextFieldColor = styled(TextField)`
-  label.Mui-focused {
-    color: ${colors.brown};
-  }
-  #timelineColor {
-    height: 20px;
-  }
-  &.MuiFormControl-root {
-    margin: 1rem 0 1rem 0;
-  }
-  .MuiOutlinedInput-root {
-    fieldset {
-      border-color: ${colors.brown};
-    }
-    &.Mui-focused fieldset {
-      border-color: ${colors.brown};
-    }
-  }
-`
-
-export const StyledButton = styled(Button)`
-  height: 56px;
-  margin-top: ${({ marginTop }) => marginTop && '1rem'} !important;
-  && {
-    color: ${colors.white};
-  }
-  &.MuiButton-contained {
-    background-color: ${colors.brown};
-  }
-  &&:hover {
-    background-color: ${colors.wine};
-  }
 `

@@ -30,6 +30,11 @@ export const ConfirmButtonsWrapper = styled.div`
   justify-content: space-evenly;
 `
 export const DeleteButtonWrapper = styled.div`
+  width: 100%;
+  border-top: ${({ showBorder }) =>
+    showBorder && `1px solid ${colors.lightGrey}`};
+  margin-top: 1rem;
+  padding-top: 1rem;
   display: flex;
   justify-content: center;
 `

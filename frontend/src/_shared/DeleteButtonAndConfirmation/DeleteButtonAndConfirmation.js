@@ -29,7 +29,7 @@ export const DeleteButtonAndConfirmation = ({
       {loading ? (
         <span>Loading...</span>
       ) : !showDeleteMessage ? (
-        <DeleteButtonWrapper>
+        <DeleteButtonWrapper showBorder={true}>
           <DeleteButton onClick={handleFirstDeleteClick} />
         </DeleteButtonWrapper>
       ) : (

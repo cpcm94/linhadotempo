@@ -8,6 +8,8 @@ import { DELETE_TIMELINE_CATEGORY_MUTATION } from '../../_shared/DELETE_TIMELINE
 import { UPDATE_TIMELINE_CATEGORY_MUTATION } from '../../_shared/UPDATE_TIMELINE_CATEGORY_MUTATION'
 import { checkIfCategoryError } from '../../_shared/checkIfCategoryError'
 import { useHistory } from 'react-router'
+import { SectionTitle } from '../../_shared/SectionTitle/SectionTitle'
+import { ErrorMessage } from '../../_shared/ErrorMessage.styles'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -87,8 +89,16 @@ export const EditableTimelineCategoryForm = ({ categoryData, setLoading }) => {
       ? `${numberOfRelatedTimelines} linhas do tempo perderão essa categoria`
       : `1 linha do tempo irá perder essa categoria`
   }. Tem certeza que deseja deletar essa categoria? Essa ação será irreversível.`
+  const showNameFieldErrorMessage =
+    categoryError && categoryError.field === 'name'
   return (
     <Wrapper>
+      <SectionTitle title={'Nome'} />
+      {showNameFieldErrorMessage && (
+        <ErrorMessage>
+          Nome da categoria não pode ser deixado em branco.
+        </ErrorMessage>
+      )}
       <StyledTextField
         type="text"
         id="userName"

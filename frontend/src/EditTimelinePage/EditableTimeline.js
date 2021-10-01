@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Layout } from '../_shared/Layout'
 import { Header } from '../_shared/Header/Header'
-import { UPDATE_TIMELINE_MUTATION } from './UPDATE_TIMELINE_MUTATION'
-import { DELETE_TIMELINE_MUTATION } from './DELETE_TIMELINE_MUTATION'
+import { UPDATE_TIMELINE_MUTATION } from '../_shared/UPDATE_TIMELINE_MUTATION'
+import { DELETE_TIMELINE_MUTATION } from '../_shared/DELETE_TIMELINE_MUTATION'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { Container } from '../_shared/Container'
@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Icon, ImageWrapper, Img } from './EditableTimeline.styles'
 import { EditTimelineForm } from './EditTimelineForm/EditTimelineForm'
+import { checkIfTimelineError } from '../_shared/checkIfTimelineError'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -55,7 +56,7 @@ export const EditableTimeline = ({
       ),
     },
   })
-
+  const timelineError = checkIfTimelineError(timeline)
   const numberOfToBeDeletedEntries = timeline.time_entries.filter(
     (time_entry) => time_entry.timelines.length === 1
   ).length
@@ -139,6 +140,7 @@ export const EditableTimeline = ({
         <EditTimelineForm
           timeline={timelineObject}
           setTimeline={setTimelineObject}
+          timelineError={timelineError}
           entriesStringInfo={entriesInfo}
           deleteTimeline={onDelete}
           deleteMessage={deleteConfirmationMessage}

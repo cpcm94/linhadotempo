@@ -19,7 +19,11 @@ export const ButtonWrapper = styled.div`
   justify-content: center;
   padding-top: 1rem;
 `
-export const ClosedDisplayWrapper = styled.div``
+export const ClosedDisplayWrapper = styled.div`
+  span {
+    cursor: pointer;
+  }
+`
 export const OpenDisplayWrapper = styled.div``
 
 export const TimelineCategoryNameWrapper = styled.div`
