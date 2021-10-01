@@ -10,7 +10,7 @@ import { SectionTitle } from '../../_shared/SectionTitle/SectionTitle'
 import { DeleteButton } from '../../_shared/DeleteButton'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router'
-import { DELETE_TIMELINE_CATEGORY_MUTATION } from './DELETE_TIMELINE_CATEGORY_MUTATION'
+import { DELETE_TIMELINE_CATEGORY_MUTATION } from '../../_shared/DELETE_TIMELINE_CATEGORY_MUTATION'
 
 export const NewTimelineCategoryForm = ({
   category,

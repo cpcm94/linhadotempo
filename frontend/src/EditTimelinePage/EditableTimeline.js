@@ -17,7 +17,11 @@ import { EditTimelineForm } from './EditTimelineForm/EditTimelineForm'
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
-export const EditableTimeline = ({ timeline, bucketName }) => {
+export const EditableTimeline = ({
+  timeline,
+  bucketName,
+  timelineCategories,
+}) => {
   const entriesInfo = timeline.time_entries.map((entry) => {
     return `${entry.name}\t${entry.year ? entry.year : ''}\t${
       entry.month ? entry.month : ''
@@ -45,6 +49,11 @@ export const EditableTimeline = ({ timeline, bucketName }) => {
     timelineIconImageUrl: timeline.timelineIconImageUrl
       ? timeline.timelineIconImageUrl
       : '',
+    timeline_categories: {
+      sync: timeline.timeline_categories.map(
+        (timelineCategory) => timelineCategory.id
+      ),
+    },
   })
 
   const numberOfToBeDeletedEntries = timeline.time_entries.filter(
@@ -96,6 +105,7 @@ export const EditableTimeline = ({ timeline, bucketName }) => {
               color: timelineObject.color,
               initials: timelineObject.initials,
               timelineIconImageUrl: timelineObject.timelineIconImageUrl,
+              timeline_categories: timelineObject.timeline_categories,
             },
           },
         }
@@ -133,6 +143,7 @@ export const EditableTimeline = ({ timeline, bucketName }) => {
           deleteTimeline={onDelete}
           deleteMessage={deleteConfirmationMessage}
           skipDeleteMessage={skipDeleteMessage}
+          timelineCategories={timelineCategories}
           bucketName={bucketName}
         />
         <ToastContainer />
@@ -144,4 +155,5 @@ export const EditableTimeline = ({ timeline, bucketName }) => {
 EditableTimeline.propTypes = {
   timeline: PropTypes.object,
   bucketName: PropTypes.string,
+  timelineCategories: PropTypes.array,
 }

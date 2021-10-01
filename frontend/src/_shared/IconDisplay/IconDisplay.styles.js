@@ -5,7 +5,8 @@ import { Button } from '@material-ui/core'
 
 export const StyledButton = styled(Button)`
   height: 3rem;
-  width: 100%;
+  width: 12.5rem;
+  margin-top: ${({ marginTop }) => marginTop && '1rem'} !important;
   && {
     color: ${colors.white};
   }
@@ -66,7 +67,7 @@ export const TextFieldColor = styled(TextField)`
     }
   }
 `
-
+export const ButtonAndColorWrapper = styled.div``
 export const ImageWrapper = styled.div`
   background-color: ${colors.white};
   margin: 0.5rem 0.5rem 0.5rem 0px;
@@ -86,7 +87,10 @@ export const Img = styled.img`
   object-fit: cover;
   margin: 0;
 `
-export const UploaderAndButtonWrapper = styled.div``
+export const UploaderAndButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 export const ImageAndButtonWrapper = styled.div`
   display: flex;
   border-radius: 5px;

@@ -4,6 +4,7 @@ import {
   ConfirmationWrapper,
   ConfirmButton,
   ConfirmButtonsWrapper,
+  DeleteButtonWrapper,
 } from './DeleteButtonAndConfirmation.styles'
 import PropTypes from 'prop-types'
 
@@ -28,7 +29,9 @@ export const DeleteButtonAndConfirmation = ({
       {loading ? (
         <span>Loading...</span>
       ) : !showDeleteMessage ? (
-        <DeleteButton onClick={handleFirstDeleteClick} />
+        <DeleteButtonWrapper>
+          <DeleteButton onClick={handleFirstDeleteClick} />
+        </DeleteButtonWrapper>
       ) : (
         <ConfirmationWrapper>
           <span>{deleteMessage}</span>

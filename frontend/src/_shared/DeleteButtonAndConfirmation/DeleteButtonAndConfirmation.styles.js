@@ -29,3 +29,7 @@ export const ConfirmButtonsWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
 `
+export const DeleteButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`

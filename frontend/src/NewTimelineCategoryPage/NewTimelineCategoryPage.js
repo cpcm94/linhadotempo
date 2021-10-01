@@ -6,16 +6,12 @@ import { CREATE_TIMELINE_CATEGORY_MUTATION } from './CREATE_TIMELINE_CATEGORY_MU
 import { useHistory } from 'react-router-dom'
 import { Container } from '../_shared/Container'
 import { NewTimelineCategoryForm } from './NewTimelineCategoryForm/NewTimelineCategoryForm'
+import { UPDATE_TIMELINE_CATEGORY_MUTATION } from '../_shared/UPDATE_TIMELINE_CATEGORY_MUTATION'
+import { checkIfCategoryError } from '../_shared/checkIfCategoryError'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
-const checkIfCategoryError = (category) => {
-  if (category.name.trim() === '') {
-    return { error: 'emptyCategoryName', field: 'name' }
-  } else {
-    return false
-  }
-}
+
 export const NewTimelineCategoryPage = () => {
   const [category, setCategory] = useState({
     name: '',
@@ -29,6 +25,9 @@ export const NewTimelineCategoryPage = () => {
 
   const [createTimelineCategory, { loading }] = useMutation(
     CREATE_TIMELINE_CATEGORY_MUTATION
+  )
+  const [updateTimelineCategory, { loading: updateLoading }] = useMutation(
+    UPDATE_TIMELINE_CATEGORY_MUTATION
   )
   const isFirstRun = useRef(true)
   const categoryError = checkIfCategoryError(category)
@@ -45,22 +44,33 @@ export const NewTimelineCategoryPage = () => {
               input: category,
             },
           }
-          createTimelineCategory(payload).then((res) => {
-            if (res.data.createTimelineCategory && !categoryId) {
-              setCategoryId(res.data.createTimelineCategory.id)
-            }
-          })
+          if (categoryId) {
+            updateTimelineCategory(payload)
+          } else {
+            createTimelineCategory(payload).then((res) => {
+              if (res.data.createTimelineCategory && !categoryId) {
+                setCategoryId(res.data.createTimelineCategory.id)
+              }
+            })
+          }
         }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
     } else {
       isFirstRun.current = false
     }
-  }, [category, categoryError, categoryId, createTimelineCategory])
+  }, [
+    category,
+    categoryError,
+    categoryId,
+    createTimelineCategory,
+    updateTimelineCategory,
+  ])
 
+  const isLoading = loading || updateLoading
   return (
     <Layout>
       <Header
         title={'Criar categoria'}
-        loading={loading}
+        loading={isLoading}
         returnButton={navigateToCategoriesPage}
       />
       <Container>

@@ -7,6 +7,7 @@ import {
   NameWrapper,
 } from './CategoriesList.styles'
 import { useHistory } from 'react-router'
+import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
 
 export const CategoriesList = ({ categories }) => {
   let history = useHistory()
@@ -14,9 +15,14 @@ export const CategoriesList = ({ categories }) => {
     e.preventDefault()
     history.push(`/editTimelineCategory/${categoryId}`)
   }
+  const sortedBooksAlphabetically = sortArrayAlphabeticallyByProp(
+    'name',
+    categories
+  )
+
   return (
     <CategoriesListWrapper>
-      {categories.map((category) => (
+      {sortedBooksAlphabetically.map((category) => (
         <CategoryWrapper
           key={category.id}
           onClick={navigateToEditCategoryPage(category.id)}

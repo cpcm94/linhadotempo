@@ -6,6 +6,7 @@ import {
   ImageAndButtonWrapper,
   StyledButton,
   UploaderAndButtonWrapper,
+  ButtonAndColorWrapper,
 } from './IconDisplay.styles'
 import PropTypes from 'prop-types'
 import { GithubPicker } from 'react-color'
@@ -37,19 +38,21 @@ export const ImageAndUploader = ({
         />
         <DeleteButton onClick={() => updateTimelineIconImageUrl('')} />
       </ImageAndButtonWrapper>
-      <GithubPicker
-        triangle="hide"
-        color={timeline.color}
-        onChange={handleChangeColor}
-        colors={colorsArray}
-      />
-      <StyledButton
-        onClick={toggleColorInitialsDisplay}
-        marginTop={true}
-        variant="contained"
-      >
-        Usar sigla
-      </StyledButton>
+      <ButtonAndColorWrapper>
+        <GithubPicker
+          triangle="hide"
+          color={timeline.color}
+          onChange={handleChangeColor}
+          colors={colorsArray}
+        />
+        <StyledButton
+          onClick={toggleColorInitialsDisplay}
+          marginTop={true}
+          variant="contained"
+        >
+          Usar sigla
+        </StyledButton>
+      </ButtonAndColorWrapper>
     </UploaderAndButtonWrapper>
   )
 }
