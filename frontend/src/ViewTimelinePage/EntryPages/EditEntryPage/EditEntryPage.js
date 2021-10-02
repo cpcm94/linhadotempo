@@ -6,10 +6,15 @@ import { useHistory } from 'react-router-dom'
 import { Container } from '../../../_shared/Container'
 import { EditEntryForm } from './EditEntryForm/EditEntryForm'
 import { yearWithoutNegativeSign } from '../../../_shared/yearWithoutNegativeSign'
-import { UPDATE_TIME_ENTRY_MUTATION } from './UPDATE_TIME_ENTRY_MUTATION'
+import { UPDATE_TIME_ENTRY_MUTATION } from '../../../_shared/UPDATE_TIME_ENTRY_MUTATION'
 import { toast, Slide, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useMutation } from '@apollo/client'
+import { checkIfEntryError } from '../../../_shared/checkIfEntryError'
+import { useEffect } from 'react'
+import { useRef } from 'react'
+import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
+import { DELETE_TIME_ENTRY_MUTATION } from '../../../_shared/DELETE_TIME_ENTRY_MUTATION'
 
 const toastConfig = {
   position: 'top-center',
@@ -17,21 +22,8 @@ const toastConfig = {
   transition: Slide,
 }
 
-const checkIfEntryError = (entry) => {
-  if (entry.name.length > 300) {
-    return { error: 'aboveMaxNameLength', field: 'name' }
-  } else if (entry.name.trim() === '') {
-    return { error: 'emptyName', field: 'name' }
-  } else if (entry.day !== '' && (entry.month === '' || entry.year === '')) {
-    return { error: 'dayWithoutYearOrMonth', field: 'date' }
-  } else if (entry.month !== '' && entry.year === '') {
-    return { error: 'monthWithoutYear', field: 'date' }
-  } else if (!entry.timelines.sync[0]) {
-    return { error: 'entryWithoutTimeline', field: 'timeline' }
-  } else {
-    return false
-  }
-}
+const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
+let timeoutId = null
 
 export const EditEntryPage = ({
   timelines,
@@ -39,7 +31,49 @@ export const EditEntryPage = ({
   books,
   bucketName,
 }) => {
+  const isFirstRun = useRef(true)
+
+  const [entry, setEntry] = useState({
+    timelines: { sync: entryToEdit.timelines.map((timeline) => timeline.id) },
+    name: entryToEdit.name,
+    description: entryToEdit.description,
+    year: yearWithoutNegativeSign(entryToEdit),
+    month: entryToEdit.month ? entryToEdit.month : '',
+    day: entryToEdit.day ? entryToEdit.day : '',
+    annual_importance: false,
+    monthly_importance: false,
+    image_url: entryToEdit.image_url ? entryToEdit.image_url : '',
+    source_url: entryToEdit.source_url ? entryToEdit.source_url : '',
+    book_page: entryToEdit.book_page ? entryToEdit.book_page : '',
+    book_id: entryToEdit.book_id ? entryToEdit.book_id : '',
+  })
+  const [radioValue, setRadioValue] = useState(
+    entry.year && entry.year.toString().startsWith('-') ? 'AC' : 'DC'
+  )
   const [updateEntry, { loading }] = useMutation(UPDATE_TIME_ENTRY_MUTATION)
+  const [deleteEntry, { loading: deleteLoading }] = useMutation(
+    DELETE_TIME_ENTRY_MUTATION,
+    {
+      variables: { id: entryToEdit.id },
+    }
+  )
+  const timelinesString = timelines.map((timeline) => timeline.id).toString()
+
+  const goBack = () => {
+    history.push({
+      pathname: '/viewTimeline/',
+      search: `?timelines=${timelinesString}`,
+      hash: `#date=${entry.year}${entry.month ? `/${entry.month}` : ''}${
+        entry.day ? `/${entry.day}` : ''
+      }`,
+    })
+  }
+
+  const handleDelete = () => {
+    deleteEntry().then((res) => {
+      if (res.data) goBack()
+    })
+  }
 
   const scrollFieldErrorIntoView = () => {
     const yOffset = -40
@@ -52,8 +86,9 @@ export const EditEntryPage = ({
     }
   }
   let history = useHistory()
-  const goBack = () => {
-    if (!entryError) history.push(`/viewTimeline/${location.search}`)
+
+  const checkErrorBeforeGoBack = () => {
+    if (!entryError) goBack()
     if (entryError) {
       toast.error(
         'Algumas alterações contêm erros e não foram salvas',
@@ -62,35 +97,47 @@ export const EditEntryPage = ({
       scrollFieldErrorIntoView()
     }
   }
-  const [entry, setEntry] = useState({
-    timelines: { sync: entryToEdit.timelines.map((timeline) => timeline.id) },
-    name: entryToEdit.name,
-    description: entryToEdit.description,
-    year: yearWithoutNegativeSign(entryToEdit),
-    month: entryToEdit.month ? entryToEdit.month : '',
-    day: entryToEdit.day ? entryToEdit.day : '',
-    annual_importance: false,
-    monthly_importance: false,
-    source_url: entryToEdit.source_url ? entryToEdit.source_url : '',
-    book_page: entryToEdit.book_page ? entryToEdit.book_page : '',
-    book_id: entryToEdit.book_id ? entryToEdit.book_id : '',
-  })
 
   const entryError = checkIfEntryError(entry)
 
+  useEffect(() => {
+    if (!isFirstRun.current) {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+      if (!entryError)
+        timeoutId = setTimeout(() => {
+          const payload = {
+            variables: {
+              id: entryToEdit.id,
+              input: convertFormDataValues(entry, radioValue),
+            },
+          }
+          updateEntry(payload)
+        }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+    } else {
+      isFirstRun.current = false
+    }
+  }, [entry, entryError, radioValue, updateEntry, entryToEdit.id])
   return (
     <Layout>
-      <Header title={'Acontecimento'} returnButton={goBack} loading={loading} />
+      <Header
+        title={'Acontecimento'}
+        returnButton={checkErrorBeforeGoBack}
+        loading={loading}
+      />
       <Container>
         <EditEntryForm
           timelines={timelines}
           entry={entry}
-          entryId={entryToEdit.id}
           setEntry={setEntry}
           books={books}
           entryError={entryError}
-          updateEntry={updateEntry}
+          setRadioValue={setRadioValue}
+          radioValue={radioValue}
           bucketName={bucketName}
+          deleteLoading={deleteLoading}
+          handleDelete={handleDelete}
         />
         <ToastContainer />
       </Container>

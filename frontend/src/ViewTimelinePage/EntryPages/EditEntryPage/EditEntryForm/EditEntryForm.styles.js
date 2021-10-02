@@ -6,7 +6,3 @@ export const Wrapper = styled.div`
   width: 100%;
   padding: 0.75rem;
 `
-export const EditButtonsWrapper = styled.div`
-  margin-top: 1rem;
-  align-self: center;
-`

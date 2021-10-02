@@ -13,11 +13,12 @@ export const Wrapper = styled.div`
   display: flex;
 `
 
-export const SubmitButtonWrapper = styled.div`
-  padding: 0 0.5rem 0.5rem 0;
-  position: fixed;
-  bottom: 0;
-  background-color: ${colors.white};
-  width: calc(100% - 1rem);
-  z-index: 2;
+export const DeleteButtonWrapper = styled.div`
+  width: 100%;
+  border-top: ${({ showBorder }) =>
+    showBorder && `1px solid ${colors.lightGrey}`};
+  margin-top: 1rem;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: center;
 `

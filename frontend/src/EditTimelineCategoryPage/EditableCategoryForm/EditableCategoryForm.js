@@ -14,7 +14,6 @@ import { ErrorMessage } from '../../_shared/ErrorMessage.styles'
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 export const EditableTimelineCategoryForm = ({ categoryData, setLoading }) => {
-  const [showDeleteMessage, setShowDeleteMessage] = useState(false)
   const [category, setCategory] = useState({
     name: categoryData.name,
   })
@@ -108,8 +107,6 @@ export const EditableTimelineCategoryForm = ({ categoryData, setLoading }) => {
         onChange={handleChange('name')}
       />
       <DeleteButtonAndConfirmation
-        showDeleteMessage={showDeleteMessage}
-        setShowDeleteMessage={setShowDeleteMessage}
         deleteFunction={onDelete}
         skipDeleteMessage={skipDeleteMessage}
         deleteMessage={deleteMessage}
