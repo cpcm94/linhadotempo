@@ -1,56 +1,33 @@
-import React, { useState } from 'react'
-import { StyledTextField, Wrapper } from './NewBookForm.styles'
-import { useMutation } from '@apollo/client'
-import { CREATE_BOOK_MUTATION } from './CREATE_BOOK_MUTATION'
-import { SubmitFormButton } from './SubmitFormButton'
-import { useHistory } from 'react-router'
-import { toast, Slide } from 'react-toastify'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { convertBookFormData } from '../../_shared/convertBookFormDataValues'
+import React from 'react'
+import { DeleteButton } from '../../_shared/DeleteButton'
+import {
+  DeleteButtonWrapper,
+  StyledTextField,
+  Wrapper,
+} from './NewBookForm.styles'
+import PropTypes from 'prop-types'
+import { ErrorMessage } from '../../_shared/ErrorMessage.styles'
 
-export const NewBookForm = () => {
-  let history = useHistory()
-
-  const [book, setBook] = useState({
-    book_name: '',
-    publisher: '',
-    publishing_year: '',
-    edition: '',
-    author: '',
-  })
-
-  const [createBook, { loading }] = useMutation(CREATE_BOOK_MUTATION, {
-    variables: {
-      input: convertBookFormData(book),
-    },
-  })
+export const NewBookForm = ({
+  book,
+  setBook,
+  bookId,
+  deleteLoading,
+  handleDelete,
+  bookError,
+}) => {
   const handleChange = (bookPropName) => (e) => {
     const newBook = { ...book }
     newBook[bookPropName] = e.target.value
     setBook(newBook)
   }
+  const showNameFieldError = bookError && bookError.field === 'name'
 
-  const navigateToBooks = () => {
-    history.push('/books')
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    createBook().then((res) => {
-      if (res.data.createBook) {
-        navigateToBooks()
-      } else {
-        toast.error('Erro ao criar livro', {
-          position: 'top-center',
-          hideProgressBar: true,
-          transition: Slide,
-        })
-      }
-    })
-  }
   return (
     <Wrapper>
+      {showNameFieldError && (
+        <ErrorMessage>Nome do livro não pode estar em branco.</ErrorMessage>
+      )}
       <StyledTextField
         type="text"
         variant="outlined"
@@ -87,13 +64,23 @@ export const NewBookForm = () => {
         value={book.publishing_year}
         onChange={handleChange('publishing_year')}
       />
-      <SubmitFormButton
-        book={book}
-        onClick={handleSubmit}
-        loading={loading}
-        buttonText={'Criar Livro'}
-      />
-      <ToastContainer />
+      <DeleteButtonWrapper showBorder={bookId}>
+        {bookId &&
+          (deleteLoading ? (
+            <span>Loading...</span>
+          ) : (
+            <DeleteButton onClick={handleDelete} />
+          ))}
+      </DeleteButtonWrapper>
     </Wrapper>
   )
+}
+
+NewBookForm.propTypes = {
+  book: PropTypes.object,
+  setBook: PropTypes.func,
+  bookId: PropTypes.any,
+  deleteLoading: PropTypes.bool,
+  handleDelete: PropTypes.func,
+  bookError: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 }

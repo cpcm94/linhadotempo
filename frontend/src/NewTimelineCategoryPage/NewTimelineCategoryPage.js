@@ -8,11 +8,14 @@ import { Container } from '../_shared/Container'
 import { NewTimelineCategoryForm } from './NewTimelineCategoryForm/NewTimelineCategoryForm'
 import { UPDATE_TIMELINE_CATEGORY_MUTATION } from '../_shared/UPDATE_TIMELINE_CATEGORY_MUTATION'
 import { checkIfCategoryError } from '../_shared/checkIfCategoryError'
+import { DELETE_TIMELINE_CATEGORY_MUTATION } from '../_shared/DELETE_TIMELINE_CATEGORY_MUTATION'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
 export const NewTimelineCategoryPage = () => {
+  const isFirstRun = useRef(true)
+
   const [category, setCategory] = useState({
     name: '',
   })
@@ -29,8 +32,19 @@ export const NewTimelineCategoryPage = () => {
   const [updateTimelineCategory, { loading: updateLoading }] = useMutation(
     UPDATE_TIMELINE_CATEGORY_MUTATION
   )
-  const isFirstRun = useRef(true)
+  const [deleteCategory, { loading: deleteLoading }] = useMutation(
+    DELETE_TIMELINE_CATEGORY_MUTATION,
+    { variables: { id: categoryId } }
+  )
+
+  const handleDelete = () => {
+    deleteCategory().then((res) => {
+      if (res.data) navigateToCategoriesPage()
+    })
+  }
+
   const categoryError = checkIfCategoryError(category)
+
   useEffect(() => {
     if (!isFirstRun.current) {
       if (timeoutId) {
@@ -79,6 +93,8 @@ export const NewTimelineCategoryPage = () => {
           setCategory={setCategory}
           categoryError={categoryError}
           categoryId={categoryId}
+          deleteLoading={deleteLoading}
+          handleDelete={handleDelete}
         />
       </Container>
     </Layout>

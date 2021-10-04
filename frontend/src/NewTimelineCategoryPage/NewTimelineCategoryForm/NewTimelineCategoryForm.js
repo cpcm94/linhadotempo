@@ -8,9 +8,6 @@ import {
 import PropTypes from 'prop-types'
 import { SectionTitle } from '../../_shared/SectionTitle/SectionTitle'
 import { DeleteButton } from '../../_shared/DeleteButton'
-import { useMutation } from '@apollo/client'
-import { useHistory } from 'react-router'
-import { DELETE_TIMELINE_CATEGORY_MUTATION } from '../../_shared/DELETE_TIMELINE_CATEGORY_MUTATION'
 import { ErrorMessage } from '../../_shared/ErrorMessage.styles'
 
 export const NewTimelineCategoryForm = ({
@@ -18,11 +15,9 @@ export const NewTimelineCategoryForm = ({
   setCategory,
   categoryError,
   categoryId,
+  deleteLoading,
+  handleDelete,
 }) => {
-  let history = useHistory()
-  const navigateToCategories = () => {
-    history.push('/timelineCategories')
-  }
   const handleChange = (categoryPropName) => (e) => {
     const newCategory = { ...category }
     newCategory[categoryPropName] = e.target.value
@@ -31,15 +26,6 @@ export const NewTimelineCategoryForm = ({
   const showNameFieldErrorMessage =
     categoryError && categoryError.field === 'name'
 
-  const [deleteCategory, { loading }] = useMutation(
-    DELETE_TIMELINE_CATEGORY_MUTATION,
-    { variables: { id: categoryId } }
-  )
-  const handleDelete = () => {
-    deleteCategory().then((res) => {
-      if (res.data) navigateToCategories()
-    })
-  }
   return (
     <Wrapper>
       <Form>
@@ -58,7 +44,7 @@ export const NewTimelineCategoryForm = ({
         />
         <DeleteButtonWrapper showBorder={categoryId}>
           {categoryId &&
-            (loading ? (
+            (deleteLoading ? (
               <span>Loading...</span>
             ) : (
               <DeleteButton onClick={handleDelete} />
@@ -74,4 +60,6 @@ NewTimelineCategoryForm.propTypes = {
   setCategory: PropTypes.func,
   categoryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   categoryId: PropTypes.any,
+  deleteLoading: PropTypes.bool,
+  handleDelete: PropTypes.func,
 }
