@@ -42,7 +42,7 @@ export const UpperHeader = styled.div`
 export const LowerHeader = styled.div`
   display: flex;
   width: 100%;
-  background-color: ${colors.grey};
+  background-color: ${colors.lightBrown};
   height: 100%;
   flex: 1;
   align-items: center;

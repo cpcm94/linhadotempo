@@ -5,33 +5,40 @@ import {
   TimelinesWrapper,
   TimelinesListWrapper,
   TimelineNameWrapper,
+  EditButtonWrapper,
   IconAndNameWrapper,
   CheckMarkerWrapper,
   Img,
 } from './TimelinesList.styles'
-// import { useHistory } from 'react-router'
+import { EditButton } from '../../_shared/EditButton'
+import { useHistory } from 'react-router'
 import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
+import { TimelinesIconRow } from '../TimelinesIconRow/TimelinesIconRow'
 
 export const TimelinesList = ({
   timelines,
   setSelectedTimelines,
   selectedTimelines,
   bucketName,
+  timelineId,
 }) => {
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
-  // let history = useHistory()
-  // const navigateToEditTimelinePage = (history, timelineId) => (e) => {
-  //   e.stopPropagation()
-  //   history.push(
-  //     `/editTimeline/${timelineId}${
-  //       arraySelectedTimelinesId[0]
-  //         ? `?timelines=${arraySelectedTimelinesId.toString()}`
-  //         : ''
-  //     }`
-  //   )
-  // }
+  const mainTimeline = timelines.filter(
+    (timeline) => timeline.id === timelineId
+  )[0]
+  let history = useHistory()
+  const navigateToEditTimelinePage = (history, timelineId) => (e) => {
+    e.stopPropagation()
+    history.push(
+      `/editTimeline/${timelineId}${
+        arraySelectedTimelinesId[0]
+          ? `?timelines=${arraySelectedTimelinesId.toString()}`
+          : ''
+      }`
+    )
+  }
 
   const toggleTimelines = (_, timeline) => {
     if (arraySelectedTimelinesId.includes(timeline.id)) {
@@ -52,20 +59,47 @@ export const TimelinesList = ({
 
   return (
     <TimelinesListWrapper>
+      <TimelinesWrapper key={mainTimeline.id}>
+        <IconAndNameWrapper checked={true}>
+          {mainTimeline.timelineIconImageUrl ? (
+            <IconWrapper>
+              <Img
+                src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${mainTimeline.timelineIconImageUrl}`}
+                alt="Icone"
+              />
+            </IconWrapper>
+          ) : (
+            <IconWrapper color={mainTimeline.color}>
+              {mainTimeline.initials}
+            </IconWrapper>
+          )}
+          <TimelineNameWrapper>{mainTimeline.name}</TimelineNameWrapper>
+        </IconAndNameWrapper>
+        <EditButtonWrapper
+          onClick={navigateToEditTimelinePage(history, mainTimeline.id)}
+        >
+          <EditButton />
+        </EditButtonWrapper>
+      </TimelinesWrapper>
+      <TimelinesIconRow
+        timelines={selectedTimelines}
+        bucketName={bucketName}
+        setSelectedTimelines={setSelectedTimelines}
+      />
+
       {sortedTimelinesAlphabetically.map((timeline) => {
         const onTimelineClick = (event) => toggleTimelines(event, timeline)
 
         return (
           <TimelinesWrapper key={timeline.id}>
             <IconAndNameWrapper
+              onClick={onTimelineClick}
               checked={arraySelectedTimelinesId.includes(timeline.id)}
             >
               {arraySelectedTimelinesId.includes(timeline.id) ? (
-                <CheckMarkerWrapper checked={true} onClick={onTimelineClick}>
-                  &#10003;
-                </CheckMarkerWrapper>
+                <CheckMarkerWrapper checked={true}>&#10003;</CheckMarkerWrapper>
               ) : (
-                <CheckMarkerWrapper onClick={onTimelineClick} />
+                <CheckMarkerWrapper />
               )}
               {timeline.timelineIconImageUrl ? (
                 <IconWrapper>
@@ -93,4 +127,5 @@ TimelinesList.propTypes = {
   selectedTimelines: PropTypes.array,
   setSelectedTimelines: PropTypes.func,
   bucketName: PropTypes.string,
+  timelineId: PropTypes.string,
 }

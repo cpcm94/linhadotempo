@@ -11,8 +11,9 @@ export const TimelineNameWrapper = styled.div`
 export const EditButtonWrapper = styled.div`
   align-self: center;
   cursor: pointer;
+  background-color: ${colors.lightBrown};
   :hover {
-    background-color: ${colors.lightBrown};
+    background-color: ${colors.brown};
   }
 `
 
