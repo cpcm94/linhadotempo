@@ -20,14 +20,11 @@ export const TimelinesList = ({
   setSelectedTimelines,
   selectedTimelines,
   bucketName,
-  timelineId,
+  mainTimeline,
 }) => {
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
-  const mainTimeline = timelines.filter(
-    (timeline) => timeline.id === timelineId
-  )[0]
   let history = useHistory()
   const navigateToEditTimelinePage = (history, timelineId) => (e) => {
     e.stopPropagation()
@@ -56,6 +53,7 @@ export const TimelinesList = ({
     'name',
     timelines
   )
+  console.log('mainTimeline', mainTimeline)
 
   return (
     <TimelinesListWrapper>
@@ -127,5 +125,5 @@ TimelinesList.propTypes = {
   selectedTimelines: PropTypes.array,
   setSelectedTimelines: PropTypes.func,
   bucketName: PropTypes.string,
-  timelineId: PropTypes.string,
+  mainTimeline: PropTypes.object,
 }
