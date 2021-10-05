@@ -230,6 +230,7 @@ type Query {
     me: User @auth
     timelines: [Timeline!]! @all @whereAuth(relation: "user")
     timeline(id: ID @eq): Timeline @find @whereAuth(relation: "user")
+    relatedTimelines(id: ID @eq): [Timeline]
     time_entries(timeline_ids: [ID]): [TimeEntry]
     time_entry(id: ID! @eq): TimeEntry @find
     settings: Settings!
