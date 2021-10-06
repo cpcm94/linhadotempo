@@ -10,12 +10,15 @@ import {
   UserButtonWrapper,
   UpperHeader,
   LowerHeader,
+  TimelineTitle,
+  MobileTitle,
 } from './Header.styles.js'
 import { ReturnButton } from '../ReturnButton'
 import { CurrentUserContext } from '../CurrentUserContextProvider'
 import { UserButton } from '../UserButton'
 import { useHistory } from 'react-router-dom'
 import { MenuDrawer } from '../MenuDrawer/MenuDrawer'
+import { truncateTextFunction } from '../truncateTextFunction'
 
 export const Header = ({
   title,
@@ -25,6 +28,7 @@ export const Header = ({
   returnButton,
   timelinesIconRow,
   showMenuButton,
+  timelineTitle,
   icon,
 }) => {
   const { user, userLoading } = useContext(CurrentUserContext)
@@ -40,6 +44,7 @@ export const Header = ({
     history.push('/user')
   }
   const onlyTitle = title && !subTitle && !timelinesIconRow
+  const truncatedTitle = title && truncateTextFunction(title, 15)
   return userLoading ? (
     <span>Loading...</span>
   ) : (
@@ -51,10 +56,17 @@ export const Header = ({
         {subTitle || timelinesIconRow ? (
           <TitlesWrapper>
             <SubTitle>{subTitle}</SubTitle>
-            <Title hasMenuButton={displayMenuButton}>{title}</Title>
+            <Title>{title}</Title>
+            <MobileTitle>{truncatedTitle}</MobileTitle>
           </TitlesWrapper>
         ) : null}
-        {onlyTitle && <Title hasMenuButton={displayMenuButton}>{title}</Title>}
+        {onlyTitle && (
+          <>
+            <Title>{title}</Title>
+            <MobileTitle>{truncatedTitle}</MobileTitle>
+          </>
+        )}
+        {timelineTitle && <TimelineTitle>{timelineTitle}</TimelineTitle>}
         {pageActions && <PageActions>{pageActions}</PageActions>}
         {loading && <span>Loading...</span>}
         {user && !userLoading && (
@@ -84,4 +96,5 @@ Header.propTypes = {
   timelinesIconRow: PropTypes.element,
   showMenuButton: PropTypes.bool,
   icon: PropTypes.element,
+  timelineTitle: PropTypes.element,
 }

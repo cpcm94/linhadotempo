@@ -16,6 +16,8 @@ export const RelatedTimelinesLoader = () => {
     fetchPolicy: 'cache-and-network',
   })
   const selectedTimelinesIds = urlQueryTimelineIds()
+    ? urlQueryTimelineIds()
+    : []
 
   const isLoading = loading || userDataLoading
   if (error) {

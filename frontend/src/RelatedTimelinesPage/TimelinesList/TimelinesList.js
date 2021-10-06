@@ -5,13 +5,10 @@ import {
   TimelinesWrapper,
   TimelinesListWrapper,
   TimelineNameWrapper,
-  EditButtonWrapper,
   IconAndNameWrapper,
   CheckMarkerWrapper,
   Img,
 } from './TimelinesList.styles'
-import { EditButton } from '../../_shared/EditButton'
-import { useHistory } from 'react-router'
 import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
 import { TimelinesIconRow } from '../TimelinesIconRow/TimelinesIconRow'
 
@@ -25,17 +22,6 @@ export const TimelinesList = ({
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
-  let history = useHistory()
-  const navigateToEditTimelinePage = (history, timelineId) => (e) => {
-    e.stopPropagation()
-    history.push(
-      `/editTimeline/${timelineId}${
-        arraySelectedTimelinesId[0]
-          ? `?timelines=${arraySelectedTimelinesId.toString()}`
-          : ''
-      }`
-    )
-  }
 
   const toggleTimelines = (_, timeline) => {
     if (arraySelectedTimelinesId.includes(timeline.id)) {
@@ -48,41 +34,19 @@ export const TimelinesList = ({
       setSelectedTimelines([...selectedTimelines, timeline])
     }
   }
-
   const sortedTimelinesAlphabetically = sortArrayAlphabeticallyByProp(
     'name',
     timelines
   )
-  console.log('mainTimeline', mainTimeline)
 
   return (
     <TimelinesListWrapper>
-      <TimelinesWrapper key={mainTimeline.id}>
-        <IconAndNameWrapper checked={true}>
-          {mainTimeline.timelineIconImageUrl ? (
-            <IconWrapper>
-              <Img
-                src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${mainTimeline.timelineIconImageUrl}`}
-                alt="Icone"
-              />
-            </IconWrapper>
-          ) : (
-            <IconWrapper color={mainTimeline.color}>
-              {mainTimeline.initials}
-            </IconWrapper>
-          )}
-          <TimelineNameWrapper>{mainTimeline.name}</TimelineNameWrapper>
-        </IconAndNameWrapper>
-        <EditButtonWrapper
-          onClick={navigateToEditTimelinePage(history, mainTimeline.id)}
-        >
-          <EditButton />
-        </EditButtonWrapper>
-      </TimelinesWrapper>
       <TimelinesIconRow
-        timelines={selectedTimelines}
+        timelines={timelines}
+        selectedTimelines={selectedTimelines}
         bucketName={bucketName}
         setSelectedTimelines={setSelectedTimelines}
+        mainTimeline={mainTimeline}
       />
 
       {sortedTimelinesAlphabetically.map((timeline) => {

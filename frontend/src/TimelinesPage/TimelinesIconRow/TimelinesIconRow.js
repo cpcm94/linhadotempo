@@ -13,17 +13,19 @@ import { TimelinesCheckbox } from './TimelinesCheckbox'
 export const TimelinesIconRow = ({
   timelines,
   onClick,
+  selectedTimelines,
   setSelectedTimelines,
   bucketName,
 }) => {
   return (
     <Wrapper>
       <TimelinesCheckbox
-        selectedTimelines={timelines}
+        timelines={timelines}
+        selectedTimelines={selectedTimelines}
         setSelectedTimelines={setSelectedTimelines}
       />
       <IconsRow>
-        {timelines.map((timeline, index) => (
+        {selectedTimelines.map((timeline, index) => (
           <Link
             key={index}
             to={timeline.id}
@@ -58,6 +60,7 @@ export const TimelinesIconRow = ({
 
 TimelinesIconRow.propTypes = {
   timelines: PropTypes.array,
+  selectedTimelines: PropTypes.array,
   onClick: PropTypes.func,
   setSelectedTimelines: PropTypes.func,
   bucketName: PropTypes.string,

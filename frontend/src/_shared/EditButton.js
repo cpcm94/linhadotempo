@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const Wrapper = styled.div`
   cursor: pointer;
-  padding: 1rem 1.25rem;
+  padding: 0 0 0 1rem;
 `
 
 export const EditButton = ({ color, onClick }) => {

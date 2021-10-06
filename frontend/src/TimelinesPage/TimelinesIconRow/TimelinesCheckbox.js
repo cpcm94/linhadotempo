@@ -6,10 +6,10 @@ import { colors } from '../../_shared/colors'
 const CheckBoxWrapper = styled.div`
   margin: 0 0.25rem 0.25rem 1.25rem;
   border-radius: 5px;
-  min-width: 1.25rem;
-  min-height: 1.25rem;
-  max-width: 1.25rem;
-  max-height: 1.25rem;
+  min-width: 1rem;
+  min-height: 1rem;
+  max-width: 1rem;
+  max-height: 1rem;
   font-size: 0.75rem;
   background-color: ${({ selected }) =>
     selected ? colors.brown : colors.white};
@@ -42,25 +42,30 @@ const NumberBoxWrapper = styled.div`
 `
 
 export const TimelinesCheckbox = ({
+  timelines,
   selectedTimelines,
   setSelectedTimelines,
 }) => {
   const countOfSelectedTimelines = selectedTimelines.length
+  const handleCheckboxClick = () => {
+    if (countOfSelectedTimelines) {
+      setSelectedTimelines([])
+    } else {
+      setSelectedTimelines(timelines)
+    }
+  }
   return (
     <>
       {selectedTimelines.length ? (
         <>
-          <CheckBoxWrapper
-            selected={true}
-            onClick={() => setSelectedTimelines([])}
-          >
+          <CheckBoxWrapper selected={true} onClick={handleCheckboxClick}>
             &#10003;
           </CheckBoxWrapper>
           <NumberBoxWrapper>{countOfSelectedTimelines}</NumberBoxWrapper>
         </>
       ) : (
         <>
-          <CheckBoxWrapper />
+          <CheckBoxWrapper onClick={handleCheckboxClick} />
           <NumberBoxWrapper>{countOfSelectedTimelines}</NumberBoxWrapper>
         </>
       )}
@@ -70,5 +75,6 @@ export const TimelinesCheckbox = ({
 
 TimelinesCheckbox.propTypes = {
   selectedTimelines: PropTypes.array,
+  timelines: PropTypes.array,
   setSelectedTimelines: PropTypes.func,
 }
