@@ -19,6 +19,10 @@ class RelatedTimelines
             return $timeline->timeline_id;
         })->unique()->toArray();
         $relatedTimelines = Timeline::find($relatedTimelineIds);
-        return $relatedTimelines;
+        if (sizeof($entries) === 0) {
+            return $timeline;
+        } else {
+            return $relatedTimelines;
+        }
     }
 }

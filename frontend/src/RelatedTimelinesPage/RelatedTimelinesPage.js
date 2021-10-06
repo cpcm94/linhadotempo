@@ -21,6 +21,12 @@ export const RelatedTimelinesPage = ({
   const [selectedTimelines, setSelectedTimelines] = useState(
     filteredSelectedTimelines
   )
+  const onlyRelatedTimelines = relatedTimelines.filter(
+    (timeline) => timeline.id !== timelineId
+  )
+  const mainTimeline = relatedTimelines.filter(
+    (timeline) => timeline.id === timelineId
+  )[0]
   return (
     <Layout>
       <Header
@@ -29,11 +35,11 @@ export const RelatedTimelinesPage = ({
       />
       <Container>
         <TimelinesList
-          timelines={relatedTimelines}
+          timelines={onlyRelatedTimelines}
           selectedTimelines={selectedTimelines}
           setSelectedTimelines={setSelectedTimelines}
           bucketName={bucketName}
-          timelineId={timelineId}
+          mainTimeline={mainTimeline}
         />
       </Container>
     </Layout>
