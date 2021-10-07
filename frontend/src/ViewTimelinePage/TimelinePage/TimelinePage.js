@@ -148,10 +148,20 @@ export const TimelinePage = ({
   const handleScroll = useCallback(() => {
     const elementsCoords = getScrollPosition(objectRefs)
     const entryToDisplay = findEntryToDisplay(elementsCoords, entries)
-    if (entryToDisplay || !visibleTimelines[0]) {
+    const hasEntryToDisplayOrNoVisibleTimelines =
+      entryToDisplay || !visibleTimelines[0]
+
+    const checkIfEntryIdDiffers =
+      entryToDisplay && entryToDisplay.entryId !== displayEntry.entryId
+
+    if (!entryToDisplay) {
+      setDisplayEntry({ entryId: null })
+    }
+
+    if (hasEntryToDisplayOrNoVisibleTimelines && checkIfEntryIdDiffers) {
       setDisplayEntry(entryToDisplay)
     }
-  }, [entries, objectRefs, visibleTimelines])
+  }, [displayEntry.entryId, entries, objectRefs, visibleTimelines])
 
   useEffect(() => {
     document.body.addEventListener('touchmove', function (e) {

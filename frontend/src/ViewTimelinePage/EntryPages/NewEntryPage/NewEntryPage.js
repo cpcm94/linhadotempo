@@ -18,6 +18,13 @@ import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
+const syncTimelinesFromDefault = (defaultEntryData, timelines) =>
+  defaultEntryData.timeline &&
+  defaultEntryData.timeline
+    .split(',')
+    .filter((timelineId) =>
+      timelines.map((timeline) => timeline.id).includes(timelineId)
+    )
 
 export const NewEntryPage = ({
   timelines,
@@ -26,7 +33,6 @@ export const NewEntryPage = ({
   bucketName,
 }) => {
   const isFirstRun = useRef(true)
-
   const [entryId, setEntryId] = useState(null)
   const hasDefaultEntryDataAndYear = defaultEntryData && defaultEntryData.year
   const [radioValue, setRadioValue] = useState(
@@ -38,7 +44,9 @@ export const NewEntryPage = ({
     defaultEntryData
       ? {
           timelines: defaultEntryData.timeline
-            ? { sync: defaultEntryData.timeline.split(',') }
+            ? {
+                sync: syncTimelinesFromDefault(defaultEntryData, timelines),
+              }
             : { sync: [timelines[0].id] },
           name: '',
           description: '',
