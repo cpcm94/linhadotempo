@@ -9,7 +9,7 @@ import {
   CheckMarkerWrapper,
   Img,
 } from './TimelinesList.styles'
-// import { useHistory } from 'react-router'
+import { useHistory } from 'react-router'
 import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
 
 export const TimelinesList = ({
@@ -21,17 +21,17 @@ export const TimelinesList = ({
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
-  // let history = useHistory()
-  // const navigateToEditTimelinePage = (history, timelineId) => (e) => {
-  //   e.stopPropagation()
-  //   history.push(
-  //     `/editTimeline/${timelineId}${
-  //       arraySelectedTimelinesId[0]
-  //         ? `?timelines=${arraySelectedTimelinesId.toString()}`
-  //         : ''
-  //     }`
-  //   )
-  // }
+  let history = useHistory()
+  const navigateToRelatedTimelinePage = (history, timelineId) => (e) => {
+    e.stopPropagation()
+    history.push(
+      `/relatedTimelines/${timelineId}${
+        arraySelectedTimelinesId[0]
+          ? `?timelines=${arraySelectedTimelinesId.toString()}`
+          : ''
+      }`
+    )
+  }
 
   const toggleTimelines = (_, timeline) => {
     if (arraySelectedTimelinesId.includes(timeline.id)) {
@@ -79,7 +79,11 @@ export const TimelinesList = ({
                   {timeline.initials}
                 </IconWrapper>
               )}
-              <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
+              <TimelineNameWrapper
+                onClick={navigateToRelatedTimelinePage(history, timeline.id)}
+              >
+                {timeline.name}
+              </TimelineNameWrapper>
             </IconAndNameWrapper>
           </TimelinesWrapper>
         )

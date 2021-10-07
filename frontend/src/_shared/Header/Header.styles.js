@@ -3,8 +3,17 @@ import { colors } from '../colors'
 
 export const Title = styled.div`
   font-size: 1.1rem;
-  padding: ${({ hasMenuButton }) =>
-    hasMenuButton ? '0 0.5rem 0 0.5rem' : '0 0.5rem 0 0'};
+  padding: 0 0.5rem 0 0.5rem;
+  @media (max-width: 425px) {
+    display: none;
+  }
+`
+export const MobileTitle = styled.div`
+  font-size: 1.1rem;
+  padding: 0 0.5rem 0 0.5rem;
+  @media (min-width: 426px) {
+    display: none;
+  }
 `
 
 export const PageActions = styled.div`
@@ -46,4 +55,8 @@ export const LowerHeader = styled.div`
   height: 100%;
   flex: 1;
   align-items: center;
+`
+export const TimelineTitle = styled.div`
+  font-size: 1.1rem;
+  width: calc(100% - 4rem);
 `

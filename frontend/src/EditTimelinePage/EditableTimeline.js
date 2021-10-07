@@ -56,7 +56,7 @@ export const EditableTimeline = ({
       ),
     },
   })
-  const timelineError = checkIfTimelineError(timeline)
+  const timelineError = checkIfTimelineError(timelineObject)
   const numberOfToBeDeletedEntries = timeline.time_entries.filter(
     (time_entry) => time_entry.timelines.length === 1
   ).length
@@ -100,25 +100,26 @@ export const EditableTimeline = ({
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
-      timeoutId = setTimeout(() => {
-        const payload = {
-          variables: {
-            id: timeline.id,
-            input: {
-              name: timelineObject.name,
-              color: timelineObject.color,
-              initials: timelineObject.initials,
-              timelineIconImageUrl: timelineObject.timelineIconImageUrl,
-              timeline_categories: timelineObject.timeline_categories,
+      if (!timelineError)
+        timeoutId = setTimeout(() => {
+          const payload = {
+            variables: {
+              id: timeline.id,
+              input: {
+                name: timelineObject.name,
+                color: timelineObject.color,
+                initials: timelineObject.initials,
+                timelineIconImageUrl: timelineObject.timelineIconImageUrl,
+                timeline_categories: timelineObject.timeline_categories,
+              },
             },
-          },
-        }
-        updateTimeline(payload)
-      }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+          }
+          updateTimeline(payload)
+        }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
     } else {
       isFirstRun.current = false
     }
-  }, [updateTimeline, timeline.id, timelineObject])
+  }, [updateTimeline, timeline.id, timelineObject, timelineError])
 
   return (
     <Layout>

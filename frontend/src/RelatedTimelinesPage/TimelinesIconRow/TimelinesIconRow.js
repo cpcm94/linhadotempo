@@ -5,18 +5,25 @@ import { Wrapper, IconWrapper, IconsRow, Img } from './TimelinesIconRow.styles'
 import { TimelinesCheckbox } from './TimelinesCheckbox'
 
 export const TimelinesIconRow = ({
-  timelines,
+  selectedTimelines,
   setSelectedTimelines,
+  timelines,
   bucketName,
+  mainTimeline,
 }) => {
+  const filteredSelectedTimelinesFromMain = selectedTimelines.filter(
+    (timeline) => timeline.id !== mainTimeline.id
+  )
   return (
     <Wrapper>
       <TimelinesCheckbox
-        selectedTimelines={timelines}
+        timelines={timelines}
+        selectedTimelines={selectedTimelines}
         setSelectedTimelines={setSelectedTimelines}
+        mainTimeline={mainTimeline}
       />
       <IconsRow>
-        {timelines.map((timeline, index) => (
+        {filteredSelectedTimelinesFromMain.map((timeline, index) => (
           <Link
             key={index}
             to={timeline.id}
@@ -44,7 +51,8 @@ export const TimelinesIconRow = ({
 
 TimelinesIconRow.propTypes = {
   timelines: PropTypes.array,
-  onClick: PropTypes.func,
+  selectedTimelines: PropTypes.array,
   setSelectedTimelines: PropTypes.func,
   bucketName: PropTypes.string,
+  mainTimeline: PropTypes.object,
 }
