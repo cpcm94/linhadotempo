@@ -10,6 +10,8 @@ import { useMutation } from '@apollo/client'
 import { convertBookFormData } from '../_shared/convertBookFormDataValues'
 import { DELETE_BOOK_MUTATION } from '../_shared/DELETE_BOOK_MUTATION'
 import { checkIfBookError } from '../_shared/checkIfBookError'
+import { startTouch } from '../_shared/startTouch'
+import { moveTouch } from '../_shared/moveTouch'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -17,6 +19,7 @@ let timeoutId = null
 export const NewBookPage = () => {
   const isFirstRun = useRef(true)
 
+  const [initialX, setInitialX] = useState(null)
   const [book, setBook] = useState({
     book_name: '',
     publisher: '',
@@ -76,6 +79,18 @@ export const NewBookPage = () => {
       isFirstRun.current = false
     }
   }, [bookError, bookId, book, updateBook, createBook])
+
+  const onStartTouch = (e) => startTouch(e, setInitialX)
+  const onMoveTouch = (e) => moveTouch(e, navigateToBooks, initialX)
+
+  useEffect(() => {
+    window.addEventListener('touchstart', onStartTouch)
+    window.addEventListener('touchmove', onMoveTouch)
+    return () => {
+      window.removeEventListener('touchstart', onStartTouch)
+      window.removeEventListener('touchmove', onMoveTouch)
+    }
+  })
 
   const isLoading = loading || updateLoading
 

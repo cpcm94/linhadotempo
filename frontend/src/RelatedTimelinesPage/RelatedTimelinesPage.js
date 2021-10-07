@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout } from '../_shared/Layout'
 import { Header } from '../_shared/Header/Header'
 import { Container } from '../_shared/Container'
 import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
-import { useState } from 'react'
 import { TimelinesList } from './TimelinesList/TimelinesList'
 import { HeaderTimeline } from './HeaderTimeline/HeaderTimeline'
+import { startTouch } from '../_shared/startTouch'
+import { moveTouch } from '../_shared/moveTouch'
 
 export const RelatedTimelinesPage = ({
   relatedTimelines,
@@ -20,6 +21,7 @@ export const RelatedTimelinesPage = ({
   const [selectedTimelines, setSelectedTimelines] = useState(
     filteredSelectedTimelines
   )
+  const [initialX, setInitialX] = useState(null)
   const onlyRelatedTimelines = relatedTimelines.filter(
     (timeline) => timeline.id !== timelineId
   )
@@ -49,6 +51,18 @@ export const RelatedTimelinesPage = ({
           : `?timelines=${mainTimeline.id}`
       }`
     )
+
+  const onStartTouch = (e) => startTouch(e, setInitialX)
+  const onMoveTouch = (e) => moveTouch(e, navigateToTimelinesPage, initialX)
+
+  useEffect(() => {
+    window.addEventListener('touchstart', onStartTouch)
+    window.addEventListener('touchmove', onMoveTouch)
+    return () => {
+      window.removeEventListener('touchstart', onStartTouch)
+      window.removeEventListener('touchmove', onMoveTouch)
+    }
+  })
 
   return (
     <Layout>

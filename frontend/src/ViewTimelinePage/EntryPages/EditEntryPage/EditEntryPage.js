@@ -15,6 +15,8 @@ import { useEffect } from 'react'
 import { useRef } from 'react'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { DELETE_TIME_ENTRY_MUTATION } from '../../../_shared/DELETE_TIME_ENTRY_MUTATION'
+import { moveTouch } from '../../../_shared/moveTouch'
+import { startTouch } from '../../../_shared/startTouch'
 
 const toastConfig = {
   position: 'top-center',
@@ -33,6 +35,7 @@ export const EditEntryPage = ({
 }) => {
   const isFirstRun = useRef(true)
 
+  const [initialX, setInitialX] = useState(null)
   const [entry, setEntry] = useState({
     timelines: { sync: entryToEdit.timelines.map((timeline) => timeline.id) },
     name: entryToEdit.name,
@@ -94,6 +97,7 @@ export const EditEntryPage = ({
         'Algumas alterações contêm erros e não foram salvas',
         toastConfig
       )
+      toast.clearWaitingQueue()
       scrollFieldErrorIntoView()
     }
   }
@@ -119,6 +123,18 @@ export const EditEntryPage = ({
       isFirstRun.current = false
     }
   }, [entry, entryError, radioValue, updateEntry, entryToEdit.id])
+
+  const onStartTouch = (e) => startTouch(e, setInitialX)
+  const onMoveTouch = (e) => moveTouch(e, checkErrorBeforeGoBack, initialX)
+
+  useEffect(() => {
+    window.addEventListener('touchstart', onStartTouch)
+    window.addEventListener('touchmove', onMoveTouch)
+    return () => {
+      window.removeEventListener('touchstart', onStartTouch)
+      window.removeEventListener('touchmove', onMoveTouch)
+    }
+  })
   return (
     <Layout>
       <Header
@@ -139,7 +155,7 @@ export const EditEntryPage = ({
           deleteLoading={deleteLoading}
           handleDelete={handleDelete}
         />
-        <ToastContainer />
+        <ToastContainer limit={1} />
       </Container>
     </Layout>
   )

@@ -68,7 +68,7 @@ export const BookForm = ({
         variant="outlined"
         value={book.publishing_year}
         onChange={handleChange('publishing_year')}
-        date={true}
+        isLast={true}
       />
       <DeleteButtonAndConfirmation
         deleteMessage={deleteMessage}
