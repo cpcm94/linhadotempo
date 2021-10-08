@@ -20,6 +20,7 @@ const CheckBoxWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: center;
   cursor: pointer;
 `
 const NumberBoxWrapper = styled.div`
@@ -40,13 +41,20 @@ const NumberBoxWrapper = styled.div`
   align-items: center;
   cursor: pointer;
 `
+const Wrapper = styled.div`
+  display: flex;
+  padding: 1rem 0;
+`
 
 export const TimelinesCheckbox = ({
   timelines,
   selectedTimelines,
   setSelectedTimelines,
+  mainTimeline,
 }) => {
-  const countOfSelectedTimelines = selectedTimelines.length
+  const countOfSelectedTimelines = selectedTimelines.filter(
+    (timeline) => timeline.id !== mainTimeline.id
+  ).length
   const handleCheckboxClick = () => {
     if (countOfSelectedTimelines) {
       setSelectedTimelines([])
@@ -56,18 +64,18 @@ export const TimelinesCheckbox = ({
   }
   return (
     <>
-      {selectedTimelines.length ? (
-        <>
+      {countOfSelectedTimelines ? (
+        <Wrapper>
           <CheckBoxWrapper selected={true} onClick={handleCheckboxClick}>
             &#10003;
           </CheckBoxWrapper>
           <NumberBoxWrapper>{countOfSelectedTimelines}</NumberBoxWrapper>
-        </>
+        </Wrapper>
       ) : (
-        <>
+        <Wrapper>
           <CheckBoxWrapper onClick={handleCheckboxClick} />
           <NumberBoxWrapper>{countOfSelectedTimelines}</NumberBoxWrapper>
-        </>
+        </Wrapper>
       )}
     </>
   )
@@ -75,6 +83,7 @@ export const TimelinesCheckbox = ({
 
 TimelinesCheckbox.propTypes = {
   selectedTimelines: PropTypes.array,
-  timelines: PropTypes.array,
   setSelectedTimelines: PropTypes.func,
+  timelines: PropTypes.array,
+  mainTimeline: PropTypes.object,
 }

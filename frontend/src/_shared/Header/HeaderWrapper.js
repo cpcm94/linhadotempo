@@ -11,5 +11,5 @@ export const HeaderWrapper = styled.div`
   height: ${({ timelinesIconRow, subTitle }) =>
     timelinesIconRow ? '4.25rem' : subTitle ? '3rem' : '2.5rem'};
   z-index: 2;
-  overflow-x: hidden;
+  overflow: hidden;
 `

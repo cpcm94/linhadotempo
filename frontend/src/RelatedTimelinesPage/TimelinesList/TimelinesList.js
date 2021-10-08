@@ -9,29 +9,19 @@ import {
   CheckMarkerWrapper,
   Img,
 } from './TimelinesList.styles'
-import { useHistory } from 'react-router'
 import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
+import { TimelinesIconRow } from '../TimelinesIconRow/TimelinesIconRow'
 
 export const TimelinesList = ({
   timelines,
   setSelectedTimelines,
   selectedTimelines,
   bucketName,
+  mainTimeline,
 }) => {
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
-  let history = useHistory()
-  const navigateToRelatedTimelinePage = (history, timelineId) => (e) => {
-    e.stopPropagation()
-    history.push(
-      `/relatedTimelines/${timelineId}${
-        arraySelectedTimelinesId[0]
-          ? `?timelines=${arraySelectedTimelinesId.toString()}`
-          : ''
-      }`
-    )
-  }
 
   const toggleTimelines = (_, timeline) => {
     if (arraySelectedTimelinesId.includes(timeline.id)) {
@@ -44,7 +34,6 @@ export const TimelinesList = ({
       setSelectedTimelines([...selectedTimelines, timeline])
     }
   }
-
   const sortedTimelinesAlphabetically = sortArrayAlphabeticallyByProp(
     'name',
     timelines
@@ -52,20 +41,27 @@ export const TimelinesList = ({
 
   return (
     <TimelinesListWrapper>
+      <TimelinesIconRow
+        timelines={timelines}
+        selectedTimelines={selectedTimelines}
+        bucketName={bucketName}
+        setSelectedTimelines={setSelectedTimelines}
+        mainTimeline={mainTimeline}
+      />
+
       {sortedTimelinesAlphabetically.map((timeline) => {
         const onTimelineClick = (event) => toggleTimelines(event, timeline)
 
         return (
           <TimelinesWrapper key={timeline.id}>
             <IconAndNameWrapper
+              onClick={onTimelineClick}
               checked={arraySelectedTimelinesId.includes(timeline.id)}
             >
               {arraySelectedTimelinesId.includes(timeline.id) ? (
-                <CheckMarkerWrapper checked={true} onClick={onTimelineClick}>
-                  &#10003;
-                </CheckMarkerWrapper>
+                <CheckMarkerWrapper checked={true}>&#10003;</CheckMarkerWrapper>
               ) : (
-                <CheckMarkerWrapper onClick={onTimelineClick} />
+                <CheckMarkerWrapper />
               )}
               {timeline.timelineIconImageUrl ? (
                 <IconWrapper>
@@ -79,11 +75,7 @@ export const TimelinesList = ({
                   {timeline.initials}
                 </IconWrapper>
               )}
-              <TimelineNameWrapper
-                onClick={navigateToRelatedTimelinePage(history, timeline.id)}
-              >
-                {timeline.name}
-              </TimelineNameWrapper>
+              <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
             </IconAndNameWrapper>
           </TimelinesWrapper>
         )
@@ -97,4 +89,5 @@ TimelinesList.propTypes = {
   selectedTimelines: PropTypes.array,
   setSelectedTimelines: PropTypes.func,
   bucketName: PropTypes.string,
+  mainTimeline: PropTypes.object,
 }

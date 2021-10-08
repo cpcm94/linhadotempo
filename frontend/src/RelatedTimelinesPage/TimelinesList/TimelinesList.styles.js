@@ -7,14 +7,6 @@ export const TimelinesListWrapper = styled.div`
 
 export const TimelineNameWrapper = styled.div`
   flex: 1;
-  height: 100%;
-`
-export const EditButtonWrapper = styled.div`
-  align-self: center;
-  cursor: pointer;
-  :hover {
-    background-color: ${colors.lightBrown};
-  }
 `
 
 export const IconAndNameWrapper = styled.div`

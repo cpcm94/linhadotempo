@@ -25,6 +25,7 @@ import { NewBookLoader } from './NewBookPage/NewBookLoader'
 import { CategoriesLoader } from './TimelineCategoriesPage/TimelineCategoriesLoader'
 import { NewTimelineCategoryLoader } from './NewTimelineCategoryPage/NewTimelineCategoryLoader'
 import { EditTimelineCategoryPage } from './EditTimelineCategoryPage/EditTimelineCategoryPage'
+import { ViewRelatedTimelines } from './RelatedTimelinesPage/ViewRelatedTimelines'
 
 const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
   const token = getToken()
@@ -104,6 +105,9 @@ const Wrapped = () => {
           </Route>
           <Route path="/editTimelineCategory">
             <EditTimelineCategoryPage />
+          </Route>
+          <Route path="/relatedTimelines">
+            <ViewRelatedTimelines />
           </Route>
           <Route path="/">
             <LoginPageLoader />

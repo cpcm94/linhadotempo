@@ -1,31 +1,36 @@
 import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
-
-export const TimelinesListWrapper = styled.div`
-  height: 100%;
-`
-
 export const TimelineNameWrapper = styled.div`
   flex: 1;
-  height: 100%;
+  width: 100%;
+  @media (max-width: 425px) {
+    display: none;
+  }
+`
+export const MobileTimelineNameWrapper = styled.div`
+  flex: 1;
+  width: 100%;
+
+  @media (min-width: 426px) {
+    display: none;
+  }
 `
 export const EditButtonWrapper = styled.div`
   align-self: center;
   cursor: pointer;
+  background-color: ${colors.brown};
   :hover {
-    background-color: ${colors.lightBrown};
+    background-color: ${colors.brown};
   }
 `
-
 export const IconAndNameWrapper = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   flex: 1;
-  padding: 1rem 0 1rem 1.25rem;
   cursor: pointer;
 
-  background-color: ${({ checked }) =>
-    checked ? colors.lightBrown : colors.white};
+  background-color: ${({ checked }) => (checked ? colors.brown : colors.white)};
   @media (min-width: 769px) {
     :hover {
       background-color: ${colors.lightBrown};
@@ -50,27 +55,6 @@ export const IconWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `
-
-export const CheckMarkerWrapper = styled.div`
-  margin: 0 5px 0 0;
-  background-color: ${({ checked }) => (checked ? colors.brown : colors.white)};
-  border: ${({ checked }) =>
-    checked ? `solid 1px ${colors.brown}` : `solid 1px ${colors.lightGrey}`};
-  color: ${colors.white};
-  border-radius: 5px;
-  min-width: 1rem;
-  min-height: 1rem;
-  max-width: 1rem !important;
-  max-height: 1rem;
-  font-size: 0.75rem;
-  font-weight: bold;
-  text-align: center;
-  font-family: Karla;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
 export const TimelinesWrapper = styled.div`
   display: flex;
   cursor: pointer;

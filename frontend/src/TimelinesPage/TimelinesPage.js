@@ -57,7 +57,8 @@ export const TimelinesPage = ({
         pageActions={<AddTimelineButton onClick={navigateToNewTimelinePage} />}
         timelinesIconRow={
           <TimelinesIconRow
-            timelines={selectedTimelines}
+            selectedTimelines={selectedTimelines}
+            timelines={timelines}
             onClick={navigateToViewTimelines}
             bucketName={bucketName}
             setSelectedTimelines={setSelectedTimelines}
