@@ -1,87 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { StyledTextField, Wrapper } from './BookForm.styles'
-import { useMutation } from '@apollo/client'
-import { UPDATE_BOOK_MUTATION } from './UPDATE_BOOK_MUTATION'
 import { DeleteButtonAndConfirmation } from '../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
-import { DELETE_BOOK_MUTATION } from './DELETE_BOOK_MUTATION'
-import { useHistory } from 'react-router'
-import { toast, Slide } from 'react-toastify'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { ErrorMessage } from '../../_shared/ErrorMessage.styles'
 
-const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
-let timeoutId = null
-
-export const BookForm = ({ bookData, setLoading }) => {
-  let history = useHistory()
-  const isFirstRun = useRef(true)
-  const [book, setBook] = useState({
-    book_name: bookData.book_name,
-    publisher: bookData.publisher,
-    publishing_year: bookData.publishing_year,
-    edition: bookData.edition,
-    author: bookData.author,
-  })
-  const [updateBook, { loading }] = useMutation(UPDATE_BOOK_MUTATION, {
-    variables: {
-      id: bookData.id,
-      input: book,
-    },
-  })
-  const navigateToBooks = () => {
-    history.push('/books')
-  }
-  const [deleteBook, { loading: deleteLoading }] = useMutation(
-    DELETE_BOOK_MUTATION,
-    {
-      variables: {
-        id: bookData.id,
-      },
-    }
-  )
-  const handleDelete = () => {
-    deleteBook().then((res) => {
-      if (res.data.deleteBook.success) {
-        navigateToBooks()
-      } else {
-        toast.error(res.data.deleteBook.message, {
-          position: 'top-center',
-          hideProgressBar: true,
-          transition: Slide,
-        })
-      }
-    })
-  }
+export const BookForm = ({
+  book,
+  setBook,
+  handleDelete,
+  deleteLoading,
+  bookEntries,
+  bookError,
+}) => {
   const handleChange = (bookPropName) => (e) => {
     const newBook = { ...book }
     newBook[bookPropName] = e.target.value
     setBook(newBook)
   }
-  useEffect(() => {
-    setLoading(loading)
-  }, [loading, setLoading])
 
-  useEffect(() => {
-    if (!isFirstRun.current && book.publishing_year !== '') {
-      if (timeoutId) {
-        clearTimeout(timeoutId)
-      }
-      timeoutId = setTimeout(() => {
-        const payload = {
-          variables: {
-            id: bookData.id,
-            input: book,
-          },
-        }
-        updateBook(payload)
-      }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
-    } else {
-      isFirstRun.current = false
-    }
-  }, [bookData.id, book, updateBook])
-
-  const numberOfRelatedEntries = bookData.time_entries.length
+  const numberOfRelatedEntries = bookEntries.length
   const skipDeleteMessage = !numberOfRelatedEntries
   const deleteMessage = `Ao deletar esse livro ${
     numberOfRelatedEntries > 1
@@ -89,8 +26,13 @@ export const BookForm = ({ bookData, setLoading }) => {
       : `1 acontecimento irá perder esse livro como fonte`
   }. Tem certeza que deseja deletar esse livro? Essa ação será irreversível.`
 
+  const showNameFieldError = bookError && bookError.field === 'name'
+
   return (
     <Wrapper>
+      {showNameFieldError && (
+        <ErrorMessage>Nome do livro não pode estar em branco.</ErrorMessage>
+      )}
       <StyledTextField
         type="text"
         variant="outlined"
@@ -134,12 +76,15 @@ export const BookForm = ({ bookData, setLoading }) => {
         loading={deleteLoading}
         deleteFunction={handleDelete}
       />
-      <ToastContainer />
     </Wrapper>
   )
 }
 
 BookForm.propTypes = {
-  bookData: PropTypes.object,
-  setLoading: PropTypes.func,
+  book: PropTypes.object,
+  setBook: PropTypes.func,
+  handleDelete: PropTypes.func,
+  deleteLoading: PropTypes.bool,
+  bookEntries: PropTypes.array,
+  bookError: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
 }

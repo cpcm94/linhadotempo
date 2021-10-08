@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Container } from '../_shared/Container'
 import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
@@ -7,14 +7,71 @@ import { useHistory } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { EditableTimelineCategoryForm } from './EditableCategoryForm/EditableCategoryForm'
+import { UPDATE_TIMELINE_CATEGORY_MUTATION } from '../_shared/UPDATE_TIMELINE_CATEGORY_MUTATION'
+import { useMutation } from '@apollo/client'
+import { checkIfCategoryError } from '../_shared/checkIfCategoryError'
+import { DELETE_TIMELINE_CATEGORY_MUTATION } from '../_shared/DELETE_TIMELINE_CATEGORY_MUTATION'
+
+const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
+let timeoutId = null
 
 export const EditableTimelineCategory = ({ categoryData }) => {
-  const [loading, setLoading] = useState(false)
   let history = useHistory()
   const navigateToTimelineCategoriesPage = () => {
     history.push('/timelineCategories')
   }
+  const [category, setCategory] = useState({
+    name: categoryData.name,
+  })
+  const isFirstRun = useRef(true)
 
+  const categoryError = checkIfCategoryError(category)
+
+  const [updateTimelineCategory, { loading }] = useMutation(
+    UPDATE_TIMELINE_CATEGORY_MUTATION
+  )
+  const [deleteCategory, { loading: deleteLoading }] = useMutation(
+    DELETE_TIMELINE_CATEGORY_MUTATION,
+    {
+      variables: { id: categoryData.id },
+    }
+  )
+
+  const handleDelete = () => {
+    deleteCategory().then((res) => {
+      if (res.data.deleteTimelineCategory) {
+        navigateToTimelineCategoriesPage()
+      } else {
+        toast.error('Erro ao delete categoria', {
+          position: 'top-center',
+          hideProgressBar: true,
+          transition: Slide,
+        })
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (!isFirstRun.current) {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+      if (!categoryError)
+        timeoutId = setTimeout(() => {
+          const payload = {
+            variables: {
+              id: categoryData.id,
+              input: category,
+            },
+          }
+          updateTimelineCategory(payload)
+        }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+    } else {
+      isFirstRun.current = false
+    }
+  }, [categoryError, updateTimelineCategory, categoryData.id, category])
+
+  const categoryTimelines = categoryData.timelines
   return (
     <Layout>
       <Header
@@ -24,10 +81,13 @@ export const EditableTimelineCategory = ({ categoryData }) => {
       />
       <Container>
         <EditableTimelineCategoryForm
-          categoryData={categoryData}
-          setLoading={setLoading}
+          category={category}
+          setCategory={setCategory}
+          handleDelete={handleDelete}
+          deleteLoading={deleteLoading}
+          categoryTimelines={categoryTimelines}
+          categoryError={categoryError}
         />
-
         <ToastContainer />
       </Container>
     </Layout>
