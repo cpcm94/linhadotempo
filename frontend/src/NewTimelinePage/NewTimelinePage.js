@@ -12,6 +12,8 @@ import { UPDATE_TIMELINE_MUTATION } from '../_shared/UPDATE_TIMELINE_MUTATION'
 import { useRef } from 'react'
 import { checkIfTimelineError } from '../_shared/checkIfTimelineError'
 import { useEffect } from 'react'
+import { moveTouch } from '../_shared/moveTouch'
+import { startTouch } from '../_shared/startTouch'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -36,8 +38,12 @@ export const NewTimelinePage = ({ bucketName, timelineCategories }) => {
     timelineIconImageUrl: '',
     timeline_categories: { sync: [] },
   })
+
+  const [initialX, setInitialX] = useState(null)
   const [timelineId, setTimelineId] = useState(false)
+
   const isFirstRun = useRef(true)
+
   let history = useHistory()
 
   const selectedTimelinesFromUrl = qs.parse(location.search).timelines
@@ -79,6 +85,18 @@ export const NewTimelinePage = ({ bucketName, timelineCategories }) => {
     const path = returnToTimelinesPath(selectedTimelinesFromUrl, timelineId)
     history.push(path)
   }
+
+  const onStartTouch = (e) => startTouch(e, setInitialX)
+  const onMoveTouch = (e) => moveTouch(e, saveAndReturn, initialX)
+
+  useEffect(() => {
+    window.addEventListener('touchstart', onStartTouch)
+    window.addEventListener('touchmove', onMoveTouch)
+    return () => {
+      window.removeEventListener('touchstart', onStartTouch)
+      window.removeEventListener('touchmove', onMoveTouch)
+    }
+  })
   const isLoading = loading || updateLoading
 
   return (

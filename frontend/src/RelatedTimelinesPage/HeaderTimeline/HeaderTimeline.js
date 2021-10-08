@@ -12,23 +12,17 @@ import {
 } from './HeaderTimeline.styles'
 import PropTypes from 'prop-types'
 import { truncateTextFunction } from '../../_shared/truncateTextFunction'
+import qs from 'query-string'
 
-export const HeaderTimeline = ({
-  bucketName,
-  mainTimeline,
-  selectedTimelines,
-}) => {
-  const arraySelectedTimelinesId = selectedTimelines.map(
-    (timeline) => timeline.id
-  )
+export const HeaderTimeline = ({ bucketName, mainTimeline }) => {
+  const selectedTimelinesFromUrl = qs.parse(location.search).timelines
+
   let history = useHistory()
   const navigateToEditTimelinePage = (history, timelineId) => (e) => {
     e.stopPropagation()
     history.push(
       `/editTimeline/${timelineId}${
-        arraySelectedTimelinesId[0]
-          ? `?timelines=${arraySelectedTimelinesId.toString()}`
-          : ''
+        selectedTimelinesFromUrl ? `?timelines=${selectedTimelinesFromUrl}` : ''
       }`
     )
   }
@@ -64,5 +58,4 @@ export const HeaderTimeline = ({
 HeaderTimeline.propTypes = {
   bucketName: PropTypes.string,
   mainTimeline: PropTypes.object,
-  selectedTimelines: PropTypes.array,
 }

@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 
 export const StyledTextField = styled(TextField)`
   margin-top: 1rem !important;
-  margin-bottom: ${({ date }) => date && '1rem'} !important;
+  margin-bottom: ${({ isLast }) => isLast && '1rem'} !important;
   width: 100%;
   label.Mui-focused {
     color: ${colors.brown};

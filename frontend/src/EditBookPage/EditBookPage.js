@@ -13,6 +13,9 @@ import { DELETE_BOOK_MUTATION } from '../_shared/DELETE_BOOK_MUTATION'
 import { UPDATE_BOOK_MUTATION } from '../_shared/UPDATE_BOOK_MUTATION'
 import { convertBookFormData } from '../_shared/convertBookFormDataValues'
 import { checkIfBookError } from '../_shared/checkIfBookError'
+// import { startTouch } from '../_shared/startTouch'
+import { moveTouch } from '../_shared/moveTouch'
+import { startTouch } from '../_shared/startTouch'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -30,6 +33,7 @@ export const EditBookPage = ({ bookData }) => {
     edition: bookData.edition,
     author: bookData.author,
   })
+  const [initialX, setInitialX] = useState(null)
   const bookEntries = bookData.time_entries
   const [updateBook, { loading }] = useMutation(UPDATE_BOOK_MUTATION, {
     variables: {
@@ -79,6 +83,17 @@ export const EditBookPage = ({ bookData }) => {
     }
   }, [bookData.id, book, updateBook, bookError])
 
+  const onStartTouch = (e) => startTouch(e, setInitialX)
+  const onMoveTouch = (e) => moveTouch(e, navigateToBooks, initialX)
+
+  useEffect(() => {
+    window.addEventListener('touchstart', onStartTouch)
+    window.addEventListener('touchmove', onMoveTouch)
+    return () => {
+      window.removeEventListener('touchstart', onStartTouch)
+      window.removeEventListener('touchmove', onMoveTouch)
+    }
+  })
   return (
     <Layout>
       <Header
