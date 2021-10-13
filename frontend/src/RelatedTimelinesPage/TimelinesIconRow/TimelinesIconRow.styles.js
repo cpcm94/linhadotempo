@@ -7,7 +7,23 @@ export const Wrapper = styled.div`
   width: 100%;
   background-color: ${colors.lightBrown};
 `
+export const StyledButton = styled.div`
+  display: flex;
+  height: 1.5rem;
+  padding: 0.25rem;
+  align-items: center;
+  color: ${colors.white};
+  background-color: ${colors.brown};
+  border-radius: 5px;
+  margin: 0 0.75rem 0.25rem 0;
+  cursor: pointer;
+  &:hover {
+    background-color: ${colors.wine};
+  }
 
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  pointer-events: ${({ disabled }) => disabled && 'none'};
+`
 export const Img = styled.img`
   border-radius: 5px;
   width: 0.9rem;

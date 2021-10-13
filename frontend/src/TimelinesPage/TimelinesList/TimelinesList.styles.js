@@ -8,6 +8,7 @@ export const TimelinesListWrapper = styled.div`
 export const TimelineNameWrapper = styled.div`
   flex: 1;
   height: 100%;
+  padding: 1rem;
 `
 export const EditButtonWrapper = styled.div`
   align-self: center;
@@ -21,7 +22,6 @@ export const IconAndNameWrapper = styled.div`
   display: flex;
   align-items: center;
   flex: 1;
-  padding: 1rem 0 1rem 1.25rem;
   cursor: pointer;
 
   background-color: ${({ checked }) =>
@@ -50,7 +50,9 @@ export const IconWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `
-
+export const CheckMarkerBoxWrapper = styled.div`
+  padding: 1rem 0 1rem 1.25rem;
+`
 export const CheckMarkerWrapper = styled.div`
   margin: 0 5px 0 0;
   background-color: ${({ checked }) => (checked ? colors.brown : colors.white)};

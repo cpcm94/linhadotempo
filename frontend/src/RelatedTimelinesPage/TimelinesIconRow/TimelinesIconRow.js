@@ -1,7 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-scroll'
-import { Wrapper, IconWrapper, IconsRow, Img } from './TimelinesIconRow.styles'
+import {
+  Wrapper,
+  IconWrapper,
+  IconsRow,
+  Img,
+  StyledButton,
+} from './TimelinesIconRow.styles'
 import { TimelinesCheckbox } from './TimelinesCheckbox'
 
 export const TimelinesIconRow = ({
@@ -10,6 +16,7 @@ export const TimelinesIconRow = ({
   timelines,
   bucketName,
   mainTimeline,
+  navigateToViewTimelines,
 }) => {
   const filteredSelectedTimelinesFromMain = selectedTimelines.filter(
     (timeline) => timeline.id !== mainTimeline.id
@@ -45,6 +52,9 @@ export const TimelinesIconRow = ({
           </Link>
         ))}
       </IconsRow>
+      <StyledButton onClick={navigateToViewTimelines} variant="contained">
+        Visualizar
+      </StyledButton>
     </Wrapper>
   )
 }
@@ -55,4 +65,5 @@ TimelinesIconRow.propTypes = {
   setSelectedTimelines: PropTypes.func,
   bucketName: PropTypes.string,
   mainTimeline: PropTypes.object,
+  navigateToViewTimelines: PropTypes.func,
 }

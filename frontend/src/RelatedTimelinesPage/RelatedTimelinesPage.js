@@ -36,6 +36,7 @@ export const RelatedTimelinesPage = ({
       (id) => !relatedTimelines.map((timeline) => timeline.id).includes(id)
     )
     .concat(selectedRelatedTimelineIds)
+    .sort((a, b) => a - b)
   const allSelectedTimelinesString = allSelectedTimelines.includes(
     mainTimeline.id
   )
@@ -43,17 +44,18 @@ export const RelatedTimelinesPage = ({
     : [...allSelectedTimelines, mainTimeline.id]
 
   let history = useHistory()
-  const navigateToTimelinesPage = () =>
+  const navigateTo = (page) => {
     history.push(
-      `/timelines${
+      `${page}${
         allSelectedTimelines[0]
           ? `?timelines=${allSelectedTimelinesString}`
           : `?timelines=${mainTimeline.id}`
       }`
     )
+  }
 
   const onStartTouch = (e) => startTouch(e, setInitialX)
-  const onMoveTouch = (e) => moveTouch(e, navigateToTimelinesPage, initialX)
+  const onMoveTouch = (e) => moveTouch(e, navigateTo('/timelines'), initialX)
 
   useEffect(() => {
     window.addEventListener('touchstart', onStartTouch)
@@ -67,7 +69,7 @@ export const RelatedTimelinesPage = ({
   return (
     <Layout>
       <Header
-        returnButton={navigateToTimelinesPage}
+        returnButton={() => navigateTo('/timelines')}
         timelineTitle={
           <HeaderTimeline
             selectedTimelines={selectedTimelines}
@@ -83,6 +85,7 @@ export const RelatedTimelinesPage = ({
           setSelectedTimelines={setSelectedTimelines}
           bucketName={bucketName}
           mainTimeline={mainTimeline}
+          navigateToViewTimelines={() => navigateTo('/viewTimeline/')}
         />
       </Container>
     </Layout>

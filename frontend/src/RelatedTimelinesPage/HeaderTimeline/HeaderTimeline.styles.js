@@ -31,11 +31,6 @@ export const IconAndNameWrapper = styled.div`
   cursor: pointer;
 
   background-color: ${({ checked }) => (checked ? colors.brown : colors.white)};
-  @media (min-width: 769px) {
-    :hover {
-      background-color: ${colors.lightBrown};
-    }
-  }
 `
 export const IconWrapper = styled.div`
   margin: 0 5px 0 0;

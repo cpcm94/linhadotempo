@@ -49,7 +49,7 @@ export const TimelinesIconRow = ({
       </IconsRow>
       <StyledButton
         onClick={onClick}
-        disabled={!timelines[0]}
+        disabled={!selectedTimelines[0]}
         variant="contained"
       >
         Visualizar
