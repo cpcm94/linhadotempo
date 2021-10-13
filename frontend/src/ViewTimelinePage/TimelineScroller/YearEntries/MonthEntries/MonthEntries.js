@@ -71,7 +71,6 @@ export const MonthEntries = ({
             forwardedRef={forwardedRef}
             visibleTimelines={visibleTimelines}
             bucketName={bucketName}
-            displayEntry={displayEntry}
           />
         </EntryWithoutDayWrapper>
       </MonthAndEntryWrapper>

@@ -60,7 +60,7 @@ export const EntryTimelinesSelect = ({
               <TimelineWrapper key={timeline.id} id={timeline.id}>
                 <ClosedIconAndNameWrapper>
                   {timeline.timelineIconImageUrl ? (
-                    <IconWrapper color={timeline.color}>
+                    <IconWrapper borderColor={timeline.color}>
                       <Img
                         src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
                       />
