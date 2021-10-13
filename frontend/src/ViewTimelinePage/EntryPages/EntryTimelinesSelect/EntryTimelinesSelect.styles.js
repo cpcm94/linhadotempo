@@ -68,9 +68,7 @@ export const IconWrapper = styled.div`
   background-color: ${({ color }) => (color ? color : colors.white)};
   color: #655;
   border: ${({ borderColor }) =>
-    borderColor
-      ? `solid 1px ${borderColor}`
-      : `solid 1px ${colors.borderColor}`};
+    borderColor ? `solid 1px ${borderColor}` : `solid 1px ${colors.white}`};
   border-radius: 2px;
   min-width: 1rem;
   min-height: 1rem;
