@@ -13,7 +13,6 @@ import { DELETE_BOOK_MUTATION } from '../_shared/DELETE_BOOK_MUTATION'
 import { UPDATE_BOOK_MUTATION } from '../_shared/UPDATE_BOOK_MUTATION'
 import { convertBookFormData } from '../_shared/convertBookFormDataValues'
 import { checkIfBookError } from '../_shared/checkIfBookError'
-// import { startTouch } from '../_shared/startTouch'
 import { moveTouch } from '../_shared/moveTouch'
 import { startTouch } from '../_shared/startTouch'
 

@@ -48,6 +48,14 @@ export const TimelineScroller = ({
   const entriesSortedByYear = arrayOfGroupedEntries.sort(
     (a, b) => b[0].year - a[0].year
   )
+  // console.log('entriesSortedByYear', entriesSortedByYear)
+  // const entriesOnlyWithYear = entriesSortedByYear.map((yearArray) =>
+  //   yearArray.map((entriesOfYear) => {
+  //     return { ...entriesOfYear, day: null, month: null }
+  //   })
+  // )
+  // console.log('entriesOnlyWithYear', entriesOnlyWithYear)
+
   return (
     <Wrapper>
       {visibleTimelines[0] ? (

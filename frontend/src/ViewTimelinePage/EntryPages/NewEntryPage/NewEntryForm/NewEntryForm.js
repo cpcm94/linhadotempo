@@ -11,6 +11,7 @@ import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesS
 import { EntrySource } from '../../EntrySource/EntrySource'
 import { ImageUploader } from '../../ImageUploader/ImageUploader'
 import { DeleteButton } from '../../../../_shared/DeleteButton'
+import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
 
 export const NewEntryForm = ({
   timelines,
@@ -83,6 +84,7 @@ export const NewEntryForm = ({
           title={'Descrição'}
           field={'description'}
         />
+        <EntryAnnualImportance entry={entry} setEntry={setEntry} />
         <EntrySource
           entry={entry}
           books={books}

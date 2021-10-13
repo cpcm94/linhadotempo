@@ -25,21 +25,6 @@ export const EntryDateWrapper = styled.div`
   color: ${colors.grey};
 `
 
-// export const YearSpan = styled.span`
-//   background: ${colors.white};
-//   padding: 0 0.5rem 0 0.25rem;
-// `
-
-// export const DaySpan = styled.span`
-//   background: ${colors.white};
-//   padding: 0 0.5rem 0 0.5rem;
-// `
-
-// export const MonthSpan = styled.span`
-//   background: ${colors.white};
-//   padding: 0 0.6rem 0 0.3rem;
-// `
-
 export const EntriesWrapper = styled.div`
   display: flex;
   flex-direction: column;
