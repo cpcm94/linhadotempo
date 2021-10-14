@@ -22,7 +22,6 @@ import PropTypes from 'prop-types'
 import { abvMonthNameArray } from '../../../../../../_shared/monthNameArray'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../../filterEntryTimelinesByVisibleTimelines'
-import { hideEntryIconsIfSameAsDisplay } from '../../../../hideEntryIconIfSameAsDisplay'
 
 export const Entries = ({
   entries,
@@ -88,33 +87,27 @@ export const Entries = ({
               </EntryImageWrapper>
             )}
             <EntryWrapper key={index}>{entry.name}</EntryWrapper>
-            {hideEntryIconsIfSameAsDisplay(
-              entry,
-              displayEntry,
-              visibleTimelines
-            ) && (
-              <IconsWrapper>
-                {filterEntryTimelinesByVisibleTimelines(
-                  visibleTimelines,
-                  entry
-                ).map((timeline) => (
-                  <div key={timeline.id}>
-                    {timeline.timelineIconImageUrl ? (
-                      <EntryIcon borderColor={timeline.color}>
-                        <Img
-                          src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-                          alt="Icone"
-                        />
-                      </EntryIcon>
-                    ) : (
-                      <EntryIcon color={timeline.color}>
-                        {timeline.initials}
-                      </EntryIcon>
-                    )}
-                  </div>
-                ))}
-              </IconsWrapper>
-            )}
+            <IconsWrapper>
+              {filterEntryTimelinesByVisibleTimelines(
+                visibleTimelines,
+                entry
+              ).map((timeline) => (
+                <div key={timeline.id}>
+                  {timeline.timelineIconImageUrl ? (
+                    <EntryIcon borderColor={timeline.color}>
+                      <Img
+                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                        alt="Icone"
+                      />
+                    </EntryIcon>
+                  ) : (
+                    <EntryIcon color={timeline.color}>
+                      {timeline.initials}
+                    </EntryIcon>
+                  )}
+                </div>
+              ))}
+            </IconsWrapper>
           </EntryAndIconWrapper>
         ))}
       </EntriesWrapper>

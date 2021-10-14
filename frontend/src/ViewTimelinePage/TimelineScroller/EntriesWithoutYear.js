@@ -11,7 +11,6 @@ import {
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from './filterEntryTimelinesByVisibleTimelines'
-import { hideEntryIconsIfSameAsDisplay } from './hideEntryIconIfSameAsDisplay'
 
 export const EntriesWithoutYear = ({
   entriesWithoutYear,
@@ -19,7 +18,6 @@ export const EntriesWithoutYear = ({
   forwardedRef,
   visibleTimelines,
   bucketName,
-  displayEntry,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -49,33 +47,27 @@ export const EntriesWithoutYear = ({
               </EntryImageWrapper>
             )}
             <EntryNameWrapper>{entry.name}</EntryNameWrapper>
-            {hideEntryIconsIfSameAsDisplay(
-              entry,
-              displayEntry,
-              visibleTimelines
-            ) && (
-              <IconsWrapper>
-                {filterEntryTimelinesByVisibleTimelines(
-                  visibleTimelines,
-                  entry
-                ).map((timeline) => (
-                  <div key={timeline.id}>
-                    {timeline.timelineIconImageUrl ? (
-                      <EntryIcon borderColor={timeline.color}>
-                        <Img
-                          src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-                          alt="Icone"
-                        />
-                      </EntryIcon>
-                    ) : (
-                      <EntryIcon color={timeline.color}>
-                        {timeline.initials}
-                      </EntryIcon>
-                    )}
-                  </div>
-                ))}
-              </IconsWrapper>
-            )}
+            <IconsWrapper>
+              {filterEntryTimelinesByVisibleTimelines(
+                visibleTimelines,
+                entry
+              ).map((timeline) => (
+                <div key={timeline.id}>
+                  {timeline.timelineIconImageUrl ? (
+                    <EntryIcon borderColor={timeline.color}>
+                      <Img
+                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                        alt="Icone"
+                      />
+                    </EntryIcon>
+                  ) : (
+                    <EntryIcon color={timeline.color}>
+                      {timeline.initials}
+                    </EntryIcon>
+                  )}
+                </div>
+              ))}
+            </IconsWrapper>
           </EntryAndIconWrapper>
         )
       })}
@@ -89,5 +81,4 @@ EntriesWithoutYear.propTypes = {
   forwardedRef: PropTypes.any,
   visibleTimelines: PropTypes.array,
   bucketName: PropTypes.string,
-  displayEntry: PropTypes.object,
 }

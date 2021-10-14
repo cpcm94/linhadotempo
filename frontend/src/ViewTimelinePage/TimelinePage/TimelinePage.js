@@ -188,12 +188,7 @@ export const TimelinePage = ({
   })
   return (
     <Layout>
-      <TimelinePageHeader
-        displayEntry={displayEntry}
-        timelines={timelines}
-        visibleTimelines={visibleTimelines}
-        bucketName={bucketName}
-      />
+      <TimelinePageHeader displayEntry={displayEntry} timelines={timelines} />
       <TimelineScrollerContainer>
         {entries[0] ? (
           <TimelineScroller
