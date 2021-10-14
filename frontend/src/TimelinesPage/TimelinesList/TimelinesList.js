@@ -7,6 +7,7 @@ import {
   TimelineNameWrapper,
   IconAndNameWrapper,
   CheckMarkerWrapper,
+  CheckMarkerBoxWrapper,
   Img,
 } from './TimelinesList.styles'
 import { useHistory } from 'react-router'
@@ -61,11 +62,15 @@ export const TimelinesList = ({
               checked={arraySelectedTimelinesId.includes(timeline.id)}
             >
               {arraySelectedTimelinesId.includes(timeline.id) ? (
-                <CheckMarkerWrapper checked={true} onClick={onTimelineClick}>
-                  &#10003;
-                </CheckMarkerWrapper>
+                <CheckMarkerBoxWrapper onClick={onTimelineClick}>
+                  <CheckMarkerWrapper checked={true}>
+                    &#10003;
+                  </CheckMarkerWrapper>
+                </CheckMarkerBoxWrapper>
               ) : (
-                <CheckMarkerWrapper onClick={onTimelineClick} />
+                <CheckMarkerBoxWrapper onClick={onTimelineClick}>
+                  <CheckMarkerWrapper />
+                </CheckMarkerBoxWrapper>
               )}
               {timeline.timelineIconImageUrl ? (
                 <IconWrapper>

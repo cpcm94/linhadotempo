@@ -18,6 +18,7 @@ export const TimelinesList = ({
   selectedTimelines,
   bucketName,
   mainTimeline,
+  navigateToViewTimelines,
 }) => {
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
@@ -47,6 +48,7 @@ export const TimelinesList = ({
         bucketName={bucketName}
         setSelectedTimelines={setSelectedTimelines}
         mainTimeline={mainTimeline}
+        navigateToViewTimelines={navigateToViewTimelines}
       />
 
       {sortedTimelinesAlphabetically.map((timeline) => {
@@ -90,4 +92,5 @@ TimelinesList.propTypes = {
   setSelectedTimelines: PropTypes.func,
   bucketName: PropTypes.string,
   mainTimeline: PropTypes.object,
+  navigateToViewTimelines: PropTypes.func,
 }

@@ -24,6 +24,7 @@ export const TimelinesPage = ({
 
   const stringOfSelectedTimelines = selectedTimelines
     .map((timeline) => timeline.id)
+    .sort((a, b) => a - b)
     .toString()
 
   let history = useHistory()
@@ -45,10 +46,11 @@ export const TimelinesPage = ({
   }
 
   const navigateToViewTimelines = () => {
-    history.push({
-      pathname: '/viewTimeline/',
-      search: `?timelines=${stringOfSelectedTimelines}`,
-    })
+    history.push(
+      `/viewTimeline${
+        selectedTimelines[0] ? `?timelines=${stringOfSelectedTimelines}` : ''
+      }`
+    )
   }
   return (
     <Layout>
