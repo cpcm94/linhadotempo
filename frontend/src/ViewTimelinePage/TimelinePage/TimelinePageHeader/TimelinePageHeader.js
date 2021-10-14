@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   HeaderWrapper,
@@ -11,8 +11,6 @@ import {
 import { abvMonthNameArray } from '../../../_shared/monthNameArray'
 import { ReturnButton } from '../../../_shared/ReturnButton'
 import { useHistory } from 'react-router'
-import { startTouch } from '../../../_shared/startTouch'
-import { moveTouch } from '../../../_shared/moveTouch'
 
 export const TimelinePageHeader = ({ displayEntry, timelines }) => {
   let history = useHistory()
@@ -20,8 +18,6 @@ export const TimelinePageHeader = ({ displayEntry, timelines }) => {
   const navigateToTimelinesList = () => {
     history.push(`/timelines?timelines=${timelinesId.join()}`)
   }
-
-  const [initialX, setInitialX] = useState(null)
 
   const monthName =
     displayEntry && displayEntry.month
@@ -34,17 +30,6 @@ export const TimelinePageHeader = ({ displayEntry, timelines }) => {
         : displayEntry.year.toString()
       : null
 
-  const onStartTouch = (e) => startTouch(e, setInitialX)
-  const onMoveTouch = (e) => moveTouch(e, navigateToTimelinesList, initialX)
-
-  useEffect(() => {
-    window.addEventListener('touchstart', onStartTouch)
-    window.addEventListener('touchmove', onMoveTouch)
-    return () => {
-      window.removeEventListener('touchstart', onStartTouch)
-      window.removeEventListener('touchmove', onMoveTouch)
-    }
-  })
   return (
     <HeaderWrapper>
       <ReturnButton onClick={navigateToTimelinesList} />

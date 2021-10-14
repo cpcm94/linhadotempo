@@ -9,10 +9,10 @@ import {
   EntryYearWrapper,
   YearWrapper,
 } from './YearEntries.styles'
-import { convertObjectToArray } from '../../../_shared/convertObjectToArray'
 import { filterEntriesWithValue } from './filterEntriesWithValue'
 import { filterEntriesWithoutValue } from './filterEntriesWithoutValue'
-import { groupBy } from '../../../_shared/groupBy'
+import { convertObjectToArray } from '../../../../_shared/convertObjectToArray'
+import { groupBy } from '../../../../_shared/groupBy'
 
 export const YearEntries = ({
   timeEntriesByYear,
@@ -49,13 +49,13 @@ export const YearEntries = ({
   return (
     <Wrapper>
       <EntriesWrapper>
+        <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
+          <YearWrapper>
+            <span>{year}</span>
+          </YearWrapper>
+        </EntryYearWrapper>
         {atLeastOneEntryWithoutMonth && (
           <>
-            <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
-              <YearWrapper>
-                <span>{year}</span>
-              </YearWrapper>
-            </EntryYearWrapper>
             <EntriesWithoutMonthsWrapper>
               <EntriesWithoutMonths
                 entriesWithoutMonth={entriesWithoutMonth}
@@ -73,7 +73,6 @@ export const YearEntries = ({
             key={index}
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
-            displayEntry={displayEntry}
             visibleTimelines={visibleTimelines}
             bucketName={bucketName}
           />

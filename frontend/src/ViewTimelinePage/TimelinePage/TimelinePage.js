@@ -3,7 +3,6 @@ import { Layout } from '../../_shared/Layout'
 import { Footer } from '../../_shared/Footer/Footer'
 import { Button } from './Button'
 import PropTypes from 'prop-types'
-import { TimelineScroller } from '../TimelineScroller/TimelineScroller'
 import { useHistory } from 'react-router-dom'
 import { TimelinesButtonsRow } from './TimelinesButtonsRow'
 import { AddButtonWrapper } from './TimelinePage.styles'
@@ -15,6 +14,7 @@ import { NoEntriesYet } from './NoEntriesYet'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { TimelineScrollerContainer } from './TimelineScrollerContainer'
+import { TimelineScrollerAnnual } from './TimelineScrollerAnnual/TimelineScrollerAnnual'
 
 const HASH_UPDATE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -26,10 +26,13 @@ export const TimelinePage = ({
   hasInvalidTimelines,
   bucketName,
 }) => {
+  console.log('entries', entries)
   const alreadyRan = useRef(false)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
+
   const hash = useRef(window.location.hash)
+
   const oldEntryIds =
     previousEntries && previousEntries.map((entry) => entry.id)
 
@@ -186,12 +189,13 @@ export const TimelinePage = ({
       })
     }
   })
+
   return (
     <Layout>
       <TimelinePageHeader displayEntry={displayEntry} timelines={timelines} />
       <TimelineScrollerContainer>
         {entries[0] ? (
-          <TimelineScroller
+          <TimelineScrollerAnnual
             visibleTimelines={visibleTimelines}
             entries={entries}
             newEntryId={brandNewEntry}

@@ -10,6 +10,7 @@ export const TIME_ENTRIES_QUERY = gql`
       month
       day
       image_url
+      annual_importance
       timelines {
         id
         color

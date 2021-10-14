@@ -1,4 +1,4 @@
-import { filterEntryTimelinesByVisibleTimelines } from './filterEntryTimelinesByVisibleTimelines'
+import { filterEntryTimelinesByVisibleTimelines } from '../../_shared/filterEntryTimelinesByVisibleTimelines'
 
 export const hideEntryIconsIfSameAsDisplay = (
   entry,

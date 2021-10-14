@@ -11,8 +11,6 @@ import { UPDATE_TIMELINE_CATEGORY_MUTATION } from '../_shared/UPDATE_TIMELINE_CA
 import { useMutation } from '@apollo/client'
 import { checkIfCategoryError } from '../_shared/checkIfCategoryError'
 import { DELETE_TIMELINE_CATEGORY_MUTATION } from '../_shared/DELETE_TIMELINE_CATEGORY_MUTATION'
-import { moveTouch } from '../_shared/moveTouch'
-import { startTouch } from '../_shared/startTouch'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -22,7 +20,6 @@ export const EditableTimelineCategory = ({ categoryData }) => {
   const navigateToTimelineCategoriesPage = () => {
     history.push('/timelineCategories')
   }
-  const [initialX, setInitialX] = useState(null)
   const [category, setCategory] = useState({
     name: categoryData.name,
   })
@@ -73,19 +70,6 @@ export const EditableTimelineCategory = ({ categoryData }) => {
       isFirstRun.current = false
     }
   }, [categoryError, updateTimelineCategory, categoryData.id, category])
-
-  const onStartTouch = (e) => startTouch(e, setInitialX)
-  const onMoveTouch = (e) =>
-    moveTouch(e, navigateToTimelineCategoriesPage, initialX)
-
-  useEffect(() => {
-    window.addEventListener('touchstart', onStartTouch)
-    window.addEventListener('touchmove', onMoveTouch)
-    return () => {
-      window.removeEventListener('touchstart', onStartTouch)
-      window.removeEventListener('touchmove', onMoveTouch)
-    }
-  })
 
   const categoryTimelines = categoryData.timelines
   return (

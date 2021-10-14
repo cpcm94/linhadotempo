@@ -9,8 +9,6 @@ import { NewTimelineCategoryForm } from './NewTimelineCategoryForm/NewTimelineCa
 import { UPDATE_TIMELINE_CATEGORY_MUTATION } from '../_shared/UPDATE_TIMELINE_CATEGORY_MUTATION'
 import { checkIfCategoryError } from '../_shared/checkIfCategoryError'
 import { DELETE_TIMELINE_CATEGORY_MUTATION } from '../_shared/DELETE_TIMELINE_CATEGORY_MUTATION'
-import { moveTouch } from '../_shared/moveTouch'
-import { startTouch } from '../_shared/startTouch'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -18,7 +16,6 @@ let timeoutId = null
 export const NewTimelineCategoryPage = () => {
   const isFirstRun = useRef(true)
 
-  const [initialX, setInitialX] = useState(null)
   const [category, setCategory] = useState({
     name: '',
   })
@@ -81,18 +78,6 @@ export const NewTimelineCategoryPage = () => {
     createTimelineCategory,
     updateTimelineCategory,
   ])
-
-  const onStartTouch = (e) => startTouch(e, setInitialX)
-  const onMoveTouch = (e) => moveTouch(e, navigateToCategoriesPage, initialX)
-
-  useEffect(() => {
-    window.addEventListener('touchstart', onStartTouch)
-    window.addEventListener('touchmove', onMoveTouch)
-    return () => {
-      window.removeEventListener('touchstart', onStartTouch)
-      window.removeEventListener('touchmove', onMoveTouch)
-    }
-  })
 
   const isLoading = loading || updateLoading
   return (
