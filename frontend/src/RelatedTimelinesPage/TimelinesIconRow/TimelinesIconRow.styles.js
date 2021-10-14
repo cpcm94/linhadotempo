@@ -15,7 +15,7 @@ export const StyledButton = styled.div`
   color: ${colors.white};
   background-color: ${colors.brown};
   border-radius: 5px;
-  margin: 0 0.75rem 0.25rem 0;
+  margin: 0 0.5rem 0.25rem 0;
   cursor: pointer;
   &:hover {
     background-color: ${colors.wine};
@@ -57,5 +57,5 @@ export const IconsRow = styled.div`
   flex-wrap: wrap;
   padding: 1rem 0;
   flex: 1;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
 `
