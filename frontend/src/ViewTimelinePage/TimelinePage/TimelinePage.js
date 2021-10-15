@@ -42,16 +42,16 @@ export const TimelinePage = ({
     console.log('pinch', pinch)
 
     mc.on('pinchout', (e) => {
+      e.preventDefault()
       if (zoomOut) {
         setZoomOut(false)
       }
-      console.log('event', e)
     })
     mc.on('pinchin', (e) => {
+      e.preventDefault()
       if (!zoomOut) {
         setZoomOut(true)
       }
-      console.log('e', e)
     })
   })
   const oldEntryIds =
