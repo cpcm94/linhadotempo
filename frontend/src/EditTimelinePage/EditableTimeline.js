@@ -14,8 +14,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Icon, ImageWrapper, Img } from './EditableTimeline.styles'
 import { EditTimelineForm } from './EditTimelineForm/EditTimelineForm'
 import { checkIfTimelineError } from '../_shared/checkIfTimelineError'
-import { startTouch } from '../_shared/startTouch'
-import { moveTouch } from '../_shared/moveTouch'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -44,7 +42,6 @@ export const EditableTimeline = ({
 
   const isFirstRun = useRef(true)
 
-  const [initialX, setInitialX] = useState(null)
   const [timelineObject, setTimelineObject] = useState({
     id: timeline.id,
     name: timeline.name,
@@ -123,18 +120,6 @@ export const EditableTimeline = ({
       isFirstRun.current = false
     }
   }, [updateTimeline, timeline.id, timelineObject, timelineError])
-
-  const onStartTouch = (e) => startTouch(e, setInitialX)
-  const onMoveTouch = (e) => moveTouch(e, goBackToPreviousPage, initialX)
-
-  useEffect(() => {
-    window.addEventListener('touchstart', onStartTouch)
-    window.addEventListener('touchmove', onMoveTouch)
-    return () => {
-      window.removeEventListener('touchstart', onStartTouch)
-      window.removeEventListener('touchmove', onMoveTouch)
-    }
-  })
 
   return (
     <Layout>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
 import { useMutation } from '@apollo/client'
@@ -9,11 +9,7 @@ import qs from 'query-string'
 import { NewTimelineForm } from './NewTimelineForm/NewTimelineForm'
 import PropTypes from 'prop-types'
 import { UPDATE_TIMELINE_MUTATION } from '../_shared/UPDATE_TIMELINE_MUTATION'
-import { useRef } from 'react'
 import { checkIfTimelineError } from '../_shared/checkIfTimelineError'
-import { useEffect } from 'react'
-import { moveTouch } from '../_shared/moveTouch'
-import { startTouch } from '../_shared/startTouch'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -39,7 +35,6 @@ export const NewTimelinePage = ({ bucketName, timelineCategories }) => {
     timeline_categories: { sync: [] },
   })
 
-  const [initialX, setInitialX] = useState(null)
   const [timelineId, setTimelineId] = useState(false)
 
   const isFirstRun = useRef(true)
@@ -86,17 +81,6 @@ export const NewTimelinePage = ({ bucketName, timelineCategories }) => {
     history.push(path)
   }
 
-  const onStartTouch = (e) => startTouch(e, setInitialX)
-  const onMoveTouch = (e) => moveTouch(e, saveAndReturn, initialX)
-
-  useEffect(() => {
-    window.addEventListener('touchstart', onStartTouch)
-    window.addEventListener('touchmove', onMoveTouch)
-    return () => {
-      window.removeEventListener('touchstart', onStartTouch)
-      window.removeEventListener('touchmove', onMoveTouch)
-    }
-  })
   const isLoading = loading || updateLoading
 
   return (

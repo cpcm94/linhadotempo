@@ -15,8 +15,6 @@ import { useEffect } from 'react'
 import { useRef } from 'react'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { DELETE_TIME_ENTRY_MUTATION } from '../../../_shared/DELETE_TIME_ENTRY_MUTATION'
-import { moveTouch } from '../../../_shared/moveTouch'
-import { startTouch } from '../../../_shared/startTouch'
 
 const toastConfig = {
   position: 'top-center',
@@ -35,7 +33,6 @@ export const EditEntryPage = ({
 }) => {
   const isFirstRun = useRef(true)
 
-  const [initialX, setInitialX] = useState(null)
   const [entry, setEntry] = useState({
     timelines: { sync: entryToEdit.timelines.map((timeline) => timeline.id) },
     name: entryToEdit.name,
@@ -43,8 +40,8 @@ export const EditEntryPage = ({
     year: yearWithoutNegativeSign(entryToEdit),
     month: entryToEdit.month ? entryToEdit.month : '',
     day: entryToEdit.day ? entryToEdit.day : '',
-    annual_importance: false,
-    monthly_importance: false,
+    annual_importance: entryToEdit.annual_importance,
+    monthly_importance: entryToEdit.monthly_importance,
     image_url: entryToEdit.image_url ? entryToEdit.image_url : '',
     source_url: entryToEdit.source_url ? entryToEdit.source_url : '',
     book_page: entryToEdit.book_page ? entryToEdit.book_page : '',
@@ -124,17 +121,6 @@ export const EditEntryPage = ({
     }
   }, [entry, entryError, radioValue, updateEntry, entryToEdit.id])
 
-  const onStartTouch = (e) => startTouch(e, setInitialX)
-  const onMoveTouch = (e) => moveTouch(e, checkErrorBeforeGoBack, initialX)
-
-  useEffect(() => {
-    window.addEventListener('touchstart', onStartTouch)
-    window.addEventListener('touchmove', onMoveTouch)
-    return () => {
-      window.removeEventListener('touchstart', onStartTouch)
-      window.removeEventListener('touchmove', onMoveTouch)
-    }
-  })
   return (
     <Layout>
       <Header

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { EntryNameWrapper } from './MonthEntries.styles'
+import { EntryDateWrapper, EntryNameWrapper } from './MonthEntries.styles'
 import {
   EntryAndIconWrapper,
   EntryIcon,
@@ -10,7 +10,8 @@ import {
   Img,
 } from '../YearEntries.styles'
 import { useHistory } from 'react-router-dom'
-import { filterEntryTimelinesByVisibleTimelines } from '../../../../_shared/filterEntryTimelinesByVisibleTimelines'
+import { abvMonthNameArray } from '../../../../../_shared/monthNameArray'
+import { filterEntryTimelinesByVisibleTimelines } from '../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
@@ -27,6 +28,11 @@ export const EntriesWithoutDay = ({
       hash: `#entry=${entry.id}`,
     })
   }
+
+  const monthName =
+    timeEntriesWithoutDay[0] &&
+    abvMonthNameArray[timeEntriesWithoutDay[0].month]
+
   return (
     <>
       {timeEntriesWithoutDay[0]
@@ -38,6 +44,7 @@ export const EntriesWithoutDay = ({
               ref={forwardedRef[entry.id]}
               onClick={() => navigateToEditEntry(entry)}
             >
+              <EntryDateWrapper>{monthName}</EntryDateWrapper>
               {entry.image_url && (
                 <EntryImageWrapper>
                   <EntryImage

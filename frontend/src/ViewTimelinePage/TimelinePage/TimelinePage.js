@@ -3,7 +3,6 @@ import { Layout } from '../../_shared/Layout'
 import { Footer } from '../../_shared/Footer/Footer'
 import { Button } from './Button'
 import PropTypes from 'prop-types'
-import { TimelineScroller } from '../TimelineScroller/TimelineScroller'
 import { useHistory } from 'react-router-dom'
 import { TimelinesButtonsRow } from './TimelinesButtonsRow'
 import { AddButtonWrapper } from './TimelinePage.styles'
@@ -15,6 +14,9 @@ import { NoEntriesYet } from './NoEntriesYet'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { TimelineScrollerContainer } from './TimelineScrollerContainer'
+import { TimelineScrollerAnnual } from './TimelineScrollerAnnual/TimelineScrollerAnnual'
+import { TimelineScroller } from '../TimelineScroller/TimelineScroller'
+import Hammer from 'hammerjs'
 
 const HASH_UPDATE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -29,7 +31,29 @@ export const TimelinePage = ({
   const alreadyRan = useRef(false)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
+  const [zoomOut, setZoomOut] = useState(false)
+
+  const element = useRef(null)
   const hash = useRef(window.location.hash)
+  useEffect(() => {
+    const container = document.getElementById('scrollerContainer')
+    const mc = new Hammer.Manager(container)
+    var pinch = new Hammer.Pinch()
+    console.log('pinch', pinch)
+
+    mc.on('pinchout', (e) => {
+      if (zoomOut) {
+        setZoomOut(false)
+      }
+      console.log('event', e)
+    })
+    mc.on('pinchin', (e) => {
+      if (!zoomOut) {
+        setZoomOut(true)
+      }
+      console.log('e', e)
+    })
+  })
   const oldEntryIds =
     previousEntries && previousEntries.map((entry) => entry.id)
 
@@ -114,14 +138,16 @@ export const TimelinePage = ({
 
   useEffect(() => {
     const yOffset = -40
-    const element = hash.current && document.getElementById(entryToScrollTo)
+    element.current = hash.current && document.getElementById(entryToScrollTo)
     const elementPositionWithOffset =
-      element &&
-      element.getBoundingClientRect().top + window.pageYOffset + yOffset
-    if (element) {
+      element.current &&
+      element.current.getBoundingClientRect().top + window.pageYOffset + yOffset
+
+    if (element.current) {
       window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
     }
   }, [entryToScrollTo])
+
   useEffect(() => {
     if (
       displayEntry &&
@@ -186,11 +212,30 @@ export const TimelinePage = ({
       })
     }
   })
+  const entriesWithAnnualImportance = entries.filter(
+    (entry) => entry.annual_importance
+  )
+  const showAnnualImportanceScroller = entriesWithAnnualImportance[0] && zoomOut
+  const showRegularScroller = entries[0] && !zoomOut
   return (
     <Layout>
-      <TimelinePageHeader displayEntry={displayEntry} timelines={timelines} />
-      <TimelineScrollerContainer>
-        {entries[0] ? (
+      <TimelinePageHeader
+        displayEntry={displayEntry}
+        timelines={timelines}
+        zoomOut={zoomOut}
+        setZoomOut={setZoomOut}
+      />
+      <TimelineScrollerContainer id="scrollerContainer">
+        {showAnnualImportanceScroller ? (
+          <TimelineScrollerAnnual
+            visibleTimelines={visibleTimelines}
+            entries={entriesWithAnnualImportance}
+            newEntryId={brandNewEntry}
+            forwardedRef={objectRefs}
+            displayEntry={displayEntry}
+            bucketName={bucketName}
+          />
+        ) : showRegularScroller ? (
           <TimelineScroller
             visibleTimelines={visibleTimelines}
             entries={entries}

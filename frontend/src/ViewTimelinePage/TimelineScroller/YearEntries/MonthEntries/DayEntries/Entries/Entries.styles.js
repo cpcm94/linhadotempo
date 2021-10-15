@@ -25,21 +25,6 @@ export const EntryDateWrapper = styled.div`
   color: ${colors.grey};
 `
 
-// export const YearSpan = styled.span`
-//   background: ${colors.white};
-//   padding: 0 0.5rem 0 0.25rem;
-// `
-
-// export const DaySpan = styled.span`
-//   background: ${colors.white};
-//   padding: 0 0.5rem 0 0.5rem;
-// `
-
-// export const MonthSpan = styled.span`
-//   background: ${colors.white};
-//   padding: 0 0.6rem 0 0.3rem;
-// `
-
 export const EntriesWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,15 +51,6 @@ export const DayWrapper = styled.div`
   min-width: 1.1rem;
 `
 
-export const DateInnerWrapper = styled.div`
-  /* background: ${colors.white}; */
-  /* max-width: ${({ hasYear }) => (!hasYear ? 'auto' : '5rem')}; */
-`
-
-export const DayInnerWrapper = styled.div`
-  /* background: ${colors.white}; */
-  /* max-width: ${({ hasMonth }) => (!hasMonth ? 'auto' : '2.5rem')}; */
-`
 export const DateText = styled.span`
   background: ${colors.white};
   padding: 0 0.25rem 0 0;
