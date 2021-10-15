@@ -24,15 +24,11 @@ export const TimelineScrollerAnnual = ({
   displayEntry,
   bucketName,
 }) => {
-  const entriesWithAnnualImportance = entries.filter(
-    (entry) => entry.annual_importance
-  )
   const visibleTimelinesIds = visibleTimelines.map((timeline) => timeline.id)
-  const filteredEntriesByVisibleTimelines = entriesWithAnnualImportance.filter(
-    (entry) =>
-      entry.timelines
-        .map((timeline) => timeline.id)
-        .some((id) => visibleTimelinesIds.includes(id))
+  const filteredEntriesByVisibleTimelines = entries.filter((entry) =>
+    entry.timelines
+      .map((timeline) => timeline.id)
+      .some((id) => visibleTimelinesIds.includes(id))
   )
 
   const entriesWithoutYear = filterEntriesWithValue(

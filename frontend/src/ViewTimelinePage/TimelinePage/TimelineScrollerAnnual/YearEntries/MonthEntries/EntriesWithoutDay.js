@@ -28,7 +28,7 @@ export const EntriesWithoutDay = ({
       hash: `#entry=${entry.id}`,
     })
   }
-  console.log('timeEntriesWithoutDay', timeEntriesWithoutDay[0])
+
   const monthName =
     timeEntriesWithoutDay[0] &&
     abvMonthNameArray[timeEntriesWithoutDay[0].month]

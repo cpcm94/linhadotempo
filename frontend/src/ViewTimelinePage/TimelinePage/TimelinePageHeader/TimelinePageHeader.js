@@ -11,14 +11,24 @@ import {
 import { abvMonthNameArray } from '../../../_shared/monthNameArray'
 import { ReturnButton } from '../../../_shared/ReturnButton'
 import { useHistory } from 'react-router'
+import { ZoomOutButton } from '../../../_shared/ZoomOutButton'
+import { ZoomInButton } from '../../../_shared/ZoomInButton'
 
-export const TimelinePageHeader = ({ displayEntry, timelines }) => {
+export const TimelinePageHeader = ({
+  displayEntry,
+  timelines,
+  setZoomOut,
+  zoomOut,
+}) => {
   let history = useHistory()
   const timelinesId = timelines.map((timeline) => timeline.id)
   const navigateToTimelinesList = () => {
     history.push(`/timelines?timelines=${timelinesId.join()}`)
   }
 
+  const toggleZoomOut = () => {
+    setZoomOut(!zoomOut)
+  }
   const monthName =
     displayEntry && displayEntry.month
       ? abvMonthNameArray[displayEntry.month]
@@ -33,22 +43,26 @@ export const TimelinePageHeader = ({ displayEntry, timelines }) => {
   return (
     <HeaderWrapper>
       <ReturnButton onClick={navigateToTimelinesList} />
-      <EntryWrapper>
+      <EntryWrapper zoomOut={zoomOut}>
         {yearAC ? (
           <>
-            <DayWrapper
-              isDisplayEntryDay={
-                displayEntry && displayEntry.day ? true : false
-              }
-            >
-              {displayEntry && displayEntry.day ? displayEntry.day : null}
-            </DayWrapper>
-            <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
-              {displayEntry && displayEntry.day ? ` de ` : null}
-              {monthName}
-            </MonthWrapper>
-            <YearWrapper hasPrefix={!monthName}>
-              {monthName && 'de '}
+            {!zoomOut && (
+              <>
+                <DayWrapper
+                  isDisplayEntryDay={
+                    displayEntry && displayEntry.day ? true : false
+                  }
+                >
+                  {displayEntry && displayEntry.day ? displayEntry.day : null}
+                </DayWrapper>
+                <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
+                  {displayEntry && displayEntry.day ? ` de ` : null}
+                  {monthName}
+                </MonthWrapper>
+              </>
+            )}
+            <YearWrapper hasPrefix={!monthName} zoomOut={zoomOut}>
+              {monthName && !zoomOut ? 'de ' : ''}
               {yearAC}
             </YearWrapper>
           </>
@@ -56,6 +70,8 @@ export const TimelinePageHeader = ({ displayEntry, timelines }) => {
           <TextWrapper>Sem data definida</TextWrapper>
         ) : null}
       </EntryWrapper>
+      <ZoomOutButton onClick={toggleZoomOut} hide={!zoomOut} />
+      <ZoomInButton onClick={toggleZoomOut} hide={zoomOut} />
     </HeaderWrapper>
   )
 }
@@ -63,4 +79,6 @@ export const TimelinePageHeader = ({ displayEntry, timelines }) => {
 TimelinePageHeader.propTypes = {
   displayEntry: PropTypes.object,
   timelines: PropTypes.array,
+  setZoomOut: PropTypes.func,
+  zoomOut: PropTypes.bool,
 }
