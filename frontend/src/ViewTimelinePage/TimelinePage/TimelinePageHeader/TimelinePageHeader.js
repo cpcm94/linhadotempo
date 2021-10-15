@@ -7,6 +7,7 @@ import {
   MonthWrapper,
   DayWrapper,
   TextWrapper,
+  FormattingWrapper,
 } from './TimelinePageHeader.styles'
 import { abvMonthNameArray } from '../../../_shared/monthNameArray'
 import { ReturnButton } from '../../../_shared/ReturnButton'
@@ -43,7 +44,7 @@ export const TimelinePageHeader = ({
   return (
     <HeaderWrapper>
       <ReturnButton onClick={navigateToTimelinesList} />
-      <EntryWrapper zoomOut={zoomOut}>
+      <EntryWrapper>
         {yearAC ? (
           <>
             {!zoomOut && (
@@ -61,6 +62,7 @@ export const TimelinePageHeader = ({
                 </MonthWrapper>
               </>
             )}
+            {zoomOut && <FormattingWrapper />}
             <YearWrapper hasPrefix={monthName} zoomOut={zoomOut}>
               {monthName && !zoomOut ? 'de ' : ''}
               {yearAC}

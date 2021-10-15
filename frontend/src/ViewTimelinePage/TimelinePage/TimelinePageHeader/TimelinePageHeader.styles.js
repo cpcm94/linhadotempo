@@ -22,7 +22,6 @@ export const EntryWrapper = styled.div`
   flex: 1;
   color: ${colors.white};
   font-size: 0.9rem;
-  justify-content: ${({ zoomOut }) => zoomOut && 'center'};
 `
 
 export const HeaderWrapper = styled.div`
@@ -73,4 +72,7 @@ export const DayWrapper = styled.div`
     css`
       ${fadeIn} 1s forwards
     `};
+`
+export const FormattingWrapper = styled.div`
+  min-width: 5.6rem;
 `
