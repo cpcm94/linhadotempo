@@ -52,7 +52,7 @@ export const YearWrapper = styled.div`
   animation: ${fadeIn} 1s forwards;
   min-width: 1rem;
   margin-left: ${({ hasPrefix, zoomOut }) =>
-    hasPrefix && !zoomOut ? '1.2rem' : ''};
+    !hasPrefix && !zoomOut ? '1.2rem' : ''};
 `
 
 export const MonthWrapper = styled.div`

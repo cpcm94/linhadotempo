@@ -61,7 +61,7 @@ export const TimelinePageHeader = ({
                 </MonthWrapper>
               </>
             )}
-            <YearWrapper hasPrefix={!monthName} zoomOut={zoomOut}>
+            <YearWrapper hasPrefix={monthName} zoomOut={zoomOut}>
               {monthName && !zoomOut ? 'de ' : ''}
               {yearAC}
             </YearWrapper>
@@ -70,8 +70,8 @@ export const TimelinePageHeader = ({
           <TextWrapper>Sem data definida</TextWrapper>
         ) : null}
       </EntryWrapper>
-      <ZoomOutButton onClick={toggleZoomOut} hide={!zoomOut} />
-      <ZoomInButton onClick={toggleZoomOut} hide={zoomOut} />
+      <ZoomOutButton onClick={toggleZoomOut} hide={zoomOut} />
+      <ZoomInButton onClick={toggleZoomOut} hide={!zoomOut} />
     </HeaderWrapper>
   )
 }
