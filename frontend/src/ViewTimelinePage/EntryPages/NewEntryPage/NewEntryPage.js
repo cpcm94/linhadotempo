@@ -15,8 +15,6 @@ import { DELETE_TIME_ENTRY_MUTATION } from '../../../_shared/DELETE_TIME_ENTRY_M
 import { yearWithoutNegativeSign } from '../../../_shared/yearWithoutNegativeSign'
 import { checkIfEntryError } from '../../../_shared/checkIfEntryError'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
-import { moveTouch } from '../../../_shared/moveTouch'
-import { startTouch } from '../../../_shared/startTouch'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -36,7 +34,6 @@ export const NewEntryPage = ({
 }) => {
   const isFirstRun = useRef(true)
 
-  const [initialX, setInitialX] = useState(null)
   const [entryId, setEntryId] = useState(null)
   const hasDefaultEntryDataAndYear = defaultEntryData && defaultEntryData.year
   const [radioValue, setRadioValue] = useState(
@@ -144,17 +141,6 @@ export const NewEntryPage = ({
     }
   }
 
-  const onStartTouch = (e) => startTouch(e, setInitialX)
-  const onMoveTouch = (e) => moveTouch(e, goBack, initialX)
-
-  useEffect(() => {
-    window.addEventListener('touchstart', onStartTouch)
-    window.addEventListener('touchmove', onMoveTouch)
-    return () => {
-      window.removeEventListener('touchstart', onStartTouch)
-      window.removeEventListener('touchmove', onMoveTouch)
-    }
-  })
   const isLoading = loading || createLoading
   return (
     <Layout>

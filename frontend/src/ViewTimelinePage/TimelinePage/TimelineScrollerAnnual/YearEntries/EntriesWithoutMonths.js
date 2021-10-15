@@ -1,33 +1,21 @@
 import React from 'react'
 import {
-  Wrapper,
-  EntriesWrapper,
-  EntryDateWrapper,
-  EntryWrapper,
-  YearWrapper,
-  MonthWrapper,
-  DayWrapper,
-  DateSpan,
-  DateText,
-} from './Entries.styles'
-import {
-  EntryAndIconWrapper,
   EntryIcon,
-  EntryImage,
-  EntryImageWrapper,
+  EntryNameWrapper,
+  EntryAndIconWrapper,
   IconsWrapper,
   Img,
-} from '../../../YearEntries.styles'
+  EntryImage,
+  EntryImageWrapper,
+} from './YearEntries.styles'
 import PropTypes from 'prop-types'
-import { abvMonthNameArray } from '../../../../../../_shared/monthNameArray'
 import { useHistory } from 'react-router-dom'
-import { filterEntryTimelinesByVisibleTimelines } from '../../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
+import { filterEntryTimelinesByVisibleTimelines } from '../../../../_shared/filterEntryTimelinesByVisibleTimelines'
 
-export const Entries = ({
-  entries,
+export const EntriesWithoutMonths = ({
+  entriesWithoutMonth,
   newEntryId,
   forwardedRef,
-  displayEntry,
   visibleTimelines,
   bucketName,
 }) => {
@@ -39,39 +27,11 @@ export const Entries = ({
       hash: `#entry=${entry.id}`,
     })
   }
-  const { day, month, year } = entries[0]
-  const monthName = abvMonthNameArray[month]
-  const yearAC = year.toString().startsWith('-')
-    ? `${year.toString().substr(1)} a.c.`
-    : year.toString()
-  const isNotFirstEntry = displayEntry && !displayEntry.firstEntry
-  const isDisplayEntryDay =
-    isNotFirstEntry &&
-    displayEntry.day === day &&
-    displayEntry.month === month &&
-    displayEntry.year === year
 
   return (
-    <Wrapper>
-      <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
-        <DateSpan>
-          <DayWrapper>{day}</DayWrapper>
-          {
-            <MonthWrapper>
-              <DateText>de</DateText>
-              {monthName}
-            </MonthWrapper>
-          }
-          {
-            <YearWrapper>
-              <DateText>de</DateText>
-              {yearAC}
-            </YearWrapper>
-          }
-        </DateSpan>
-      </EntryDateWrapper>
-      <EntriesWrapper>
-        {entries.map((entry, index) => (
+    <>
+      {entriesWithoutMonth.map((entry, index) => {
+        return (
           <EntryAndIconWrapper
             key={index}
             isNew={newEntryId === entry.id}
@@ -86,7 +46,7 @@ export const Entries = ({
                 />
               </EntryImageWrapper>
             )}
-            <EntryWrapper key={index}>{entry.name}</EntryWrapper>
+            <EntryNameWrapper>{entry.name}</EntryNameWrapper>
             <IconsWrapper>
               {filterEntryTimelinesByVisibleTimelines(
                 visibleTimelines,
@@ -109,17 +69,16 @@ export const Entries = ({
               ))}
             </IconsWrapper>
           </EntryAndIconWrapper>
-        ))}
-      </EntriesWrapper>
-    </Wrapper>
+        )
+      })}
+    </>
   )
 }
 
-Entries.propTypes = {
-  entries: PropTypes.array,
+EntriesWithoutMonths.propTypes = {
+  entriesWithoutMonth: PropTypes.array,
   visibleTimelines: PropTypes.array,
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
-  displayEntry: PropTypes.object,
   bucketName: PropTypes.string,
 }

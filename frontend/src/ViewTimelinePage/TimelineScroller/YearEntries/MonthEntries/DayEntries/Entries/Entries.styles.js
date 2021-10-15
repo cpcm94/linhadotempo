@@ -51,15 +51,6 @@ export const DayWrapper = styled.div`
   min-width: 1.1rem;
 `
 
-export const DateInnerWrapper = styled.div`
-  /* background: ${colors.white}; */
-  /* max-width: ${({ hasYear }) => (!hasYear ? 'auto' : '5rem')}; */
-`
-
-export const DayInnerWrapper = styled.div`
-  /* background: ${colors.white}; */
-  /* max-width: ${({ hasMonth }) => (!hasMonth ? 'auto' : '2.5rem')}; */
-`
 export const DateText = styled.span`
   background: ${colors.white};
   padding: 0 0.25rem 0 0;

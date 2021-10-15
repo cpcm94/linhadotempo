@@ -10,7 +10,7 @@ import {
 } from './YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
-import { filterEntryTimelinesByVisibleTimelines } from '../filterEntryTimelinesByVisibleTimelines'
+import { filterEntryTimelinesByVisibleTimelines } from '../../../_shared/filterEntryTimelinesByVisibleTimelines'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,

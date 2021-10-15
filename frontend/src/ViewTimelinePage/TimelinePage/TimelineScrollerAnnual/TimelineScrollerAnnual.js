@@ -6,17 +6,17 @@ import {
   InvisibleIconWrapper,
   SpanWrapper,
   EntryWithoutYearLabelWrapper,
-} from './TimelineScroller.styles'
+} from './TimelineScrollerAnnual.styles'
 import { YearEntries } from './YearEntries/YearEntries'
-import { convertObjectToArray } from '../../_shared/convertObjectToArray'
-import { groupBy } from '../../_shared/groupBy'
-import { InvisibleIcon } from '../../_shared/InvisibleIcon'
-import { MessageWrapper } from '../../_shared/MessageWrapper'
+import { InvisibleIcon } from '../../../_shared/InvisibleIcon'
+import { MessageWrapper } from '../../../_shared/MessageWrapper'
 import { filterEntriesWithoutValue } from './YearEntries/filterEntriesWithoutValue'
 import { filterEntriesWithValue } from './YearEntries/filterEntriesWithValue'
 import { EntriesWithoutYear } from './EntriesWithoutYear'
+import { convertObjectToArray } from '../../../_shared/convertObjectToArray'
+import { groupBy } from '../../../_shared/groupBy'
 
-export const TimelineScroller = ({
+export const TimelineScrollerAnnual = ({
   visibleTimelines,
   entries,
   newEntryId,
@@ -93,7 +93,7 @@ export const TimelineScroller = ({
   )
 }
 
-TimelineScroller.propTypes = {
+TimelineScrollerAnnual.propTypes = {
   visibleTimelines: PropTypes.array,
   entries: PropTypes.array,
   newEntryId: PropTypes.string,
