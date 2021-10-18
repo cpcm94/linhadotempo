@@ -57,7 +57,10 @@ export const EditEntryPage = ({
       variables: { id: entryToEdit.id },
     }
   )
-  const timelinesString = timelines.map((timeline) => timeline.id).toString()
+  const timelinesString = timelines
+    .map((timeline) => timeline.id)
+    .sort((a, b) => a - b)
+    .toString()
 
   const goBack = () => {
     history.push({
