@@ -212,6 +212,7 @@ export const TimelinePage = ({
   const entriesWithAnnualImportance = entries.filter(
     (entry) => entry.annual_importance
   )
+
   const showAnnualImportanceScroller = entriesWithAnnualImportance[0] && zoomOut
   const showRegularScroller = entries[0] && !zoomOut
   return (

@@ -26,6 +26,12 @@ export const EntrySource = ({ entry, books, changeEntry, setEntry }) => {
     if (showBookDisplay) setShowBookDisplay(false)
   }
 
+  const setBookPage = (book_page) => {
+    const newEntry = { ...entry }
+    newEntry.book_page = book_page
+    setEntry(newEntry)
+  }
+
   const chosenBook = books.filter((book) => entry.book_id === book.id)[0]
   return (
     <>
@@ -54,6 +60,7 @@ export const EntrySource = ({ entry, books, changeEntry, setEntry }) => {
         <BookSelector
           books={books}
           entry={entry}
+          setBookPage={setBookPage}
           changeEntry={changeEntry}
           showBookSelector={showBookDisplay}
         />
