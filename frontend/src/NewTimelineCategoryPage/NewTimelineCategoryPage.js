@@ -60,7 +60,7 @@ export const NewTimelineCategoryPage = () => {
           }
           if (categoryId) {
             updateTimelineCategory(payload)
-          } else {
+          } else if (!categoryId && !loading) {
             createTimelineCategory(payload).then((res) => {
               if (res.data.createTimelineCategory && !categoryId) {
                 setCategoryId(res.data.createTimelineCategory.id)
@@ -76,6 +76,7 @@ export const NewTimelineCategoryPage = () => {
     categoryError,
     categoryId,
     createTimelineCategory,
+    loading,
     updateTimelineCategory,
   ])
 

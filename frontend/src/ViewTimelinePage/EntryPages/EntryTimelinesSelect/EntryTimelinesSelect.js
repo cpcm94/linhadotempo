@@ -33,6 +33,12 @@ export const EntryTimelinesSelect = ({
   const selectedTimelines = timelines.filter((timeline) =>
     selectedTimelineIds.includes(timeline.id)
   )
+  const sortedSelectedTimelines =
+    selectedTimelines[0] &&
+    selectedTimelines.sort((a, b) => a.name.localeCompare(b.name))
+
+  const sortedTimelines = timelines.sort((a, b) => a.name.localeCompare(b.name))
+
   const toggleTimelines = (_, timeline) => {
     const newEntry = { ...entry }
     if (newEntry.timelines.sync.includes(timeline.id)) {
@@ -55,8 +61,8 @@ export const EntryTimelinesSelect = ({
       )}
       {!displayTimelineSelect && (
         <ClosedDisplayWrapper onClick={toggleDisplaySelect} id={fieldId}>
-          {selectedTimelines[0] ? (
-            selectedTimelines.map((timeline) => (
+          {sortedSelectedTimelines ? (
+            sortedSelectedTimelines.map((timeline) => (
               <TimelineWrapper key={timeline.id} id={timeline.id}>
                 <ClosedIconAndNameWrapper>
                   {timeline.timelineIconImageUrl ? (
@@ -81,7 +87,7 @@ export const EntryTimelinesSelect = ({
       )}
       {displayTimelineSelect && (
         <OpenDisplayWrapper id={fieldId}>
-          {timelines.map((timeline) => {
+          {sortedTimelines.map((timeline) => {
             const onTimelineClick = (event) => toggleTimelines(event, timeline)
             return (
               <TimelineWrapper key={timeline.id} id={timeline.id}>

@@ -63,7 +63,7 @@ export const NewTimelinePage = ({ bucketName, timelineCategories }) => {
           }
           if (timelineId) {
             updateTimeline(payload)
-          } else {
+          } else if (!timelineId && !loading) {
             createTimeline(payload).then((res) => {
               if (res.data.createTimeline && !timelineId) {
                 setTimelineId(res.data.createTimeline.id)
@@ -74,7 +74,14 @@ export const NewTimelinePage = ({ bucketName, timelineCategories }) => {
     } else {
       isFirstRun.current = false
     }
-  }, [createTimeline, timeline, timelineError, timelineId, updateTimeline])
+  }, [
+    createTimeline,
+    loading,
+    timeline,
+    timelineError,
+    timelineId,
+    updateTimeline,
+  ])
 
   const saveAndReturn = () => {
     const path = returnToTimelinesPath(selectedTimelinesFromUrl, timelineId)

@@ -111,7 +111,7 @@ export const NewEntryPage = ({
           }
           if (entryId) {
             updateEntry(payload)
-          } else {
+          } else if (!entryId && !createLoading) {
             createEntry(payload).then((res) => {
               if (res.data.createTimeEntry && !entryId) {
                 setEntryId(res.data.createTimeEntry.id)
@@ -122,7 +122,15 @@ export const NewEntryPage = ({
     } else {
       isFirstRun.current = false
     }
-  }, [entry, entryError, radioValue, entryId, updateEntry, createEntry])
+  }, [
+    entry,
+    entryError,
+    radioValue,
+    entryId,
+    updateEntry,
+    createEntry,
+    createLoading,
+  ])
 
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
   let history = useHistory()

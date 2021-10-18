@@ -30,8 +30,10 @@ export const SourceTextInfo = styled.div`
 `
 
 export const BookPageWrapper = styled.div`
+  display: flex;
   margin: 1rem 0 0 0;
-  width: 5.5rem;
+  width: 16.5rem;
+  align-items: center;
 `
 
 export const BookSelectorWrapper = styled.div`

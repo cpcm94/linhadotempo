@@ -64,7 +64,7 @@ export const NewBookPage = () => {
           }
           if (bookId) {
             updateBook(payload)
-          } else {
+          } else if (!bookId && !loading) {
             createBook(payload).then((res) => {
               if (res.data.createBook && !bookId) {
                 setBookId(res.data.createBook.id)
@@ -75,7 +75,7 @@ export const NewBookPage = () => {
     } else {
       isFirstRun.current = false
     }
-  }, [bookError, bookId, book, updateBook, createBook])
+  }, [bookError, bookId, book, updateBook, createBook, loading])
 
   const isLoading = loading || updateLoading
 
