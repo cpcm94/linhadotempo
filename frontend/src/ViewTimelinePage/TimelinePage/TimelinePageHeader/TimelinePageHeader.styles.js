@@ -22,7 +22,6 @@ export const EntryWrapper = styled.div`
   flex: 1;
   color: ${colors.white};
   font-size: 0.9rem;
-  justify-content: ${({ zoomOut }) => zoomOut && 'center'};
 `
 
 export const HeaderWrapper = styled.div`
@@ -52,7 +51,7 @@ export const YearWrapper = styled.div`
   animation: ${fadeIn} 1s forwards;
   min-width: 1rem;
   margin-left: ${({ hasPrefix, zoomOut }) =>
-    hasPrefix && !zoomOut ? '1.2rem' : ''};
+    !hasPrefix && !zoomOut ? '1.2rem' : ''};
 `
 
 export const MonthWrapper = styled.div`
@@ -73,4 +72,7 @@ export const DayWrapper = styled.div`
     css`
       ${fadeIn} 1s forwards
     `};
+`
+export const FormattingWrapper = styled.div`
+  min-width: 5.6rem;
 `

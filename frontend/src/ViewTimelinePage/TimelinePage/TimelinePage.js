@@ -37,21 +37,18 @@ export const TimelinePage = ({
   const hash = useRef(window.location.hash)
   useEffect(() => {
     const container = document.getElementById('scrollerContainer')
-    const mc = new Hammer.Manager(container)
+    const mc = new Hammer.Manager(container, { touchAction: 'pan-x pan-y' })
     var pinch = new Hammer.Pinch()
-    console.log('pinch', pinch)
-
-    mc.on('pinchout', (e) => {
+    mc.add(pinch)
+    mc.on('pinchout', () => {
       if (zoomOut) {
         setZoomOut(false)
       }
-      console.log('event', e)
     })
-    mc.on('pinchin', (e) => {
+    mc.on('pinchin', () => {
       if (!zoomOut) {
         setZoomOut(true)
       }
-      console.log('e', e)
     })
   })
   const oldEntryIds =
