@@ -8,7 +8,6 @@ import { EntrySource } from '../../EntrySource/EntrySource'
 import { ImageUploader } from '../../ImageUploader/ImageUploader'
 import { DeleteButtonAndConfirmation } from '../../../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
-import { SelectTimelines } from '../../SelectTimelines/SelectTimelines'
 
 export const EditEntryForm = ({
   entry,
@@ -98,12 +97,6 @@ export const EditEntryForm = ({
         deleteMessage={deleteMessage}
         skipDeleteMessage={skipDeleteMessage}
         loading={deleteLoading}
-      />
-      <SelectTimelines
-        timelines={timelines}
-        entry={entry}
-        setEntry={setEntry}
-        bucketName={bucketName}
       />
     </Wrapper>
   )
