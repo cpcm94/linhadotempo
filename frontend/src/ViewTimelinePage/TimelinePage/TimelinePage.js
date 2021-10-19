@@ -24,7 +24,6 @@ let timeoutId = null
 export const TimelinePage = ({
   timelines,
   entries,
-  previousEntries,
   hasInvalidTimelines,
   bucketName,
 }) => {
@@ -51,39 +50,21 @@ export const TimelinePage = ({
       }
     })
   })
-  const oldEntryIds =
-    previousEntries && previousEntries.map((entry) => entry.id)
 
-  const newEntryIds = entries && entries.map((entry) => entry.id)
+  const entryIds = entries.map((entry) => entry.id)
 
-  const brandNewEntry =
-    oldEntryIds &&
-    newEntryIds.filter((entry) => !oldEntryIds.includes(entry))[0]
-
-  const objectRefs = newEntryIds.reduce((accumulator, curr) => {
+  const objectRefs = entryIds.reduce((accumulator, curr) => {
     accumulator[curr] = useRef(null)
     return accumulator
   }, {})
 
   let history = useHistory()
   const timelinesString = timelines.map((timeline) => timeline.id).toString()
-  const displayEntryDate =
-    displayEntry &&
-    `${
-      displayEntry.timelines
-        ? `timeline=${displayEntry.timelines
-            .map((timeline) => timeline.id)
-            .join()}`
-        : ''
-    }${displayEntry.year ? `&year=${displayEntry.year}` : ''}${
-      displayEntry.month ? `&month=${displayEntry.month}` : ''
-    }${displayEntry.day ? `&day=${displayEntry.day}` : ''}`
 
   const navigateToNewEntryPage = () => {
     history.push({
       pathname: '/viewTimeline/newEntry/',
       search: `?timelines=${timelinesString}`,
-      hash: `#${displayEntryDate ? displayEntryDate : ''}`,
     })
   }
 
@@ -120,6 +101,11 @@ export const TimelinePage = ({
     entries,
     hash.current
   )
+
+  const highlightedEntryId =
+    hash.current.indexOf('&') !== -1
+      ? hash.current.substr(hash.current.indexOf('&') + 9)
+      : null
 
   const entryToScrollTo = firstEntryOfExactDate
     ? firstEntryOfExactDate.id
@@ -228,7 +214,7 @@ export const TimelinePage = ({
           <TimelineScrollerAnnual
             visibleTimelines={visibleTimelines}
             entries={entriesWithAnnualImportance}
-            newEntryId={brandNewEntry}
+            newEntryId={highlightedEntryId}
             forwardedRef={objectRefs}
             displayEntry={displayEntry}
             bucketName={bucketName}
@@ -237,7 +223,7 @@ export const TimelinePage = ({
           <TimelineScroller
             visibleTimelines={visibleTimelines}
             entries={entries}
-            newEntryId={brandNewEntry}
+            newEntryId={highlightedEntryId}
             forwardedRef={objectRefs}
             displayEntry={displayEntry}
             bucketName={bucketName}

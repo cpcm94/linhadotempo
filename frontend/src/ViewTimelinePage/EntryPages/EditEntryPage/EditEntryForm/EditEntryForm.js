@@ -20,6 +20,7 @@ export const EditEntryForm = ({
   bucketName,
   deleteLoading,
   handleDelete,
+  setShowTimelineSelectorScreen,
 }) => {
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
@@ -54,6 +55,7 @@ export const EditEntryForm = ({
         entry={entry}
         setEntry={setEntry}
         bucketName={bucketName}
+        setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
       />
       <DateDisplay
         fieldId={'date'}
@@ -114,4 +116,5 @@ EditEntryForm.propTypes = {
   setRadioValue: PropTypes.func,
   deleteLoading: PropTypes.bool,
   handleDelete: PropTypes.func,
+  setShowTimelineSelectorScreen: PropTypes.func,
 }

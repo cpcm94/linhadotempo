@@ -25,6 +25,7 @@ export const NewEntryForm = ({
   entryId,
   deleteLoading,
   handleDelete,
+  setShowTimelineSelectorScreen,
 }) => {
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
@@ -51,6 +52,7 @@ export const NewEntryForm = ({
           fieldId={'timelines'}
           timelines={timelines}
           resetField={resetSelectedTimelines}
+          setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
           entryError={entryError}
           entry={entry}
           setEntry={setEntry}
@@ -116,4 +118,5 @@ NewEntryForm.propTypes = {
   entryId: PropTypes.any,
   deleteLoading: PropTypes.bool,
   handleDelete: PropTypes.func,
+  setShowTimelineSelectorScreen: PropTypes.func,
 }

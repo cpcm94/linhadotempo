@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Header } from '../../../_shared/Header/Header'
 import { Layout } from '../../../_shared/Layout'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
-import { Container } from '../../../_shared/Container'
 import { EditEntryForm } from './EditEntryForm/EditEntryForm'
 import { yearWithoutNegativeSign } from '../../../_shared/yearWithoutNegativeSign'
 import { UPDATE_TIME_ENTRY_MUTATION } from '../../../_shared/UPDATE_TIME_ENTRY_MUTATION'
@@ -11,10 +10,10 @@ import { toast, Slide, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useMutation } from '@apollo/client'
 import { checkIfEntryError } from '../../../_shared/checkIfEntryError'
-import { useEffect } from 'react'
-import { useRef } from 'react'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { DELETE_TIME_ENTRY_MUTATION } from '../../../_shared/DELETE_TIME_ENTRY_MUTATION'
+import { SelectTimelines } from '../SelectTimelines/SelectTimelines'
+import { EntryPageContainer } from '../EntryPageContainer'
 
 const toastConfig = {
   position: 'top-center',
@@ -32,7 +31,8 @@ export const EditEntryPage = ({
   bucketName,
 }) => {
   const isFirstRun = useRef(true)
-
+  const [showTimelineSelectorScreen, setShowTimelineSelectorScreen] =
+    useState(false)
   const [entry, setEntry] = useState({
     timelines: { sync: entryToEdit.timelines.map((timeline) => timeline.id) },
     name: entryToEdit.name,
@@ -57,7 +57,10 @@ export const EditEntryPage = ({
       variables: { id: entryToEdit.id },
     }
   )
-  const timelinesString = timelines.map((timeline) => timeline.id).toString()
+  const timelinesString = timelines
+    .map((timeline) => timeline.id)
+    .sort((a, b) => a - b)
+    .toString()
 
   const goBack = () => {
     history.push({
@@ -65,7 +68,7 @@ export const EditEntryPage = ({
       search: `?timelines=${timelinesString}`,
       hash: `#date=${entry.year}${entry.month ? `/${entry.month}` : ''}${
         entry.day ? `/${entry.day}` : ''
-      }`,
+      }&entryId=${entryToEdit.id}`,
     })
   }
 
@@ -88,14 +91,18 @@ export const EditEntryPage = ({
   let history = useHistory()
 
   const checkErrorBeforeGoBack = () => {
-    if (!entryError) goBack()
-    if (entryError) {
-      toast.error(
-        'Algumas alterações contêm erros e não foram salvas',
-        toastConfig
-      )
-      toast.clearWaitingQueue()
-      scrollFieldErrorIntoView()
+    if (showTimelineSelectorScreen) {
+      setShowTimelineSelectorScreen(false)
+    } else {
+      if (!entryError) goBack()
+      if (entryError) {
+        toast.error(
+          'Algumas alterações contêm erros e não foram salvas',
+          toastConfig
+        )
+        toast.clearWaitingQueue()
+        scrollFieldErrorIntoView()
+      }
     }
   }
 
@@ -120,29 +127,41 @@ export const EditEntryPage = ({
       isFirstRun.current = false
     }
   }, [entry, entryError, radioValue, updateEntry, entryToEdit.id])
-
+  const headerTitle = showTimelineSelectorScreen
+    ? 'Selecionar as linhas do tempo'
+    : 'Acontecimento'
   return (
     <Layout>
       <Header
-        title={'Acontecimento'}
+        title={headerTitle}
         returnButton={checkErrorBeforeGoBack}
         loading={loading}
       />
-      <Container>
-        <EditEntryForm
-          timelines={timelines}
-          entry={entry}
-          setEntry={setEntry}
-          books={books}
-          entryError={entryError}
-          setRadioValue={setRadioValue}
-          radioValue={radioValue}
-          bucketName={bucketName}
-          deleteLoading={deleteLoading}
-          handleDelete={handleDelete}
-        />
+      <EntryPageContainer>
+        {!showTimelineSelectorScreen ? (
+          <EditEntryForm
+            timelines={timelines}
+            entry={entry}
+            setEntry={setEntry}
+            books={books}
+            entryError={entryError}
+            setRadioValue={setRadioValue}
+            radioValue={radioValue}
+            bucketName={bucketName}
+            deleteLoading={deleteLoading}
+            handleDelete={handleDelete}
+            setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
+          />
+        ) : (
+          <SelectTimelines
+            timelines={timelines}
+            entry={entry}
+            setEntry={setEntry}
+            bucketName={bucketName}
+          />
+        )}
         <ToastContainer limit={1} />
-      </Container>
+      </EntryPageContainer>
     </Layout>
   )
 }

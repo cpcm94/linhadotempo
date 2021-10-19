@@ -1,34 +1,6 @@
 import styled from 'styled-components'
 import { colors } from '../../../_shared/colors'
 
-export const ClosedDisplayWrapper = styled.div``
-
-export const TimelineNameWrapper = styled.div`
-  flex: 1;
-`
-
-export const Img = styled.img`
-  border-radius: 5px;
-  width: 0.9rem;
-  height: 0.9rem;
-  object-fit: cover;
-  margin: 0;
-`
-
-export const ClosedIconAndNameWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex: 1;
-  padding: 1rem 0 1rem 0.5rem;
-  transition: background-color 0.5s ease-out;
-
-  background-color: ${({ isSelected }) =>
-    isSelected ? colors.lightBrown : colors.white};
-  :hover {
-    filter: brightness(0.95);
-  }
-`
-
 export const IconWrapper = styled.div`
   margin: 0 5px 0 0;
   background-color: ${({ color }) => (color ? color : colors.white)};
@@ -49,7 +21,34 @@ export const IconWrapper = styled.div`
   align-items: center;
 `
 
+export const Img = styled.img`
+  border-radius: 5px;
+  width: 0.9rem;
+  height: 0.9rem;
+  object-fit: cover;
+  margin: 0;
+`
+
 export const TimelineWrapper = styled.div`
   display: flex;
-  cursor: pointer;
+  align-items: center;
+  flex: 1;
+  padding: 1rem 0 1rem 0.5rem;
+  margin-bottom: 0.25rem;
+  transition: background-color 0.5s ease-out;
+  border-radius: 5px;
+  background-color: ${({ isSelected }) =>
+    isSelected ? colors.lightBrown : colors.white};
+  :hover {
+    filter: brightness(0.95);
+  }
+`
+export const TimelineNameWrapper = styled.div`
+  display: block;
+  white-space: nowrap; /* forces text to single line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+export const Wrapper = styled.div`
+  padding: 0.75rem;
 `
