@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 const Wrapper = styled.div`
   cursor: pointer;
+  padding-right: 0.5rem;
 `
 
 export const MenuButton = ({ color, onClick }) => {

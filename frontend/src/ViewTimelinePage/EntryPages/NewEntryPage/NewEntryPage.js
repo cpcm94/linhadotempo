@@ -1,20 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Header } from '../../../_shared/Header/Header'
 import { Layout } from '../../../_shared/Layout'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
-import { Container } from '../../../_shared/Container'
 import { NewEntryForm } from './NewEntryForm/NewEntryForm'
 import { CREATE_TIME_ENTRY_MUTATION } from '../../../_shared/CREATE_TIME_ENTRY_MUTATION'
 import { UPDATE_TIME_ENTRY_MUTATION } from '../../../_shared/UPDATE_TIME_ENTRY_MUTATION'
 import { useMutation } from '@apollo/client'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { useRef } from 'react'
 import { DELETE_TIME_ENTRY_MUTATION } from '../../../_shared/DELETE_TIME_ENTRY_MUTATION'
 import { yearWithoutNegativeSign } from '../../../_shared/yearWithoutNegativeSign'
 import { checkIfEntryError } from '../../../_shared/checkIfEntryError'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
+import { SelectTimelines } from '../SelectTimelines/SelectTimelines'
+import { EntryPageContainer } from '../EntryPageContainer'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -44,6 +42,8 @@ export const NewEntryPage = ({ timelines, books, bucketName }) => {
   const isFirstRun = useRef(true)
   const cookieEntry = useRef(null)
   const cookieValueUsed = useRef(false)
+  const [showTimelineSelectorScreen, setShowTimelineSelectorScreen] =
+    useState(false)
   const [entryId, setEntryId] = useState(null)
   const [radioValue, setRadioValue] = useState('DC')
   const [entry, setEntry] = useState({
@@ -123,16 +123,20 @@ export const NewEntryPage = ({ timelines, books, bucketName }) => {
   let history = useHistory()
 
   const goBack = () => {
-    if (!entryId) {
-      history.push(`/viewTimeline/${location.search}`)
+    if (showTimelineSelectorScreen) {
+      setShowTimelineSelectorScreen(false)
     } else {
-      history.push({
-        pathname: '/viewTimeline/',
-        search: `?timelines=${timelinesString}`,
-        hash: `#date=${entry.year ? `${entry.year}` : ''}${
-          entry.month ? `/${entry.month}` : ''
-        }${entry.day ? `/${entry.day}` : ''}`,
-      })
+      if (!entryId) {
+        history.push(`/viewTimeline/${location.search}`)
+      } else {
+        history.push({
+          pathname: '/viewTimeline/',
+          search: `?timelines=${timelinesString}`,
+          hash: `#date=${entry.year ? `${entry.year}` : ''}${
+            entry.month ? `/${entry.month}` : ''
+          }${entry.day ? `/${entry.day}` : ''}&entryId=${entryId}`,
+        })
+      }
     }
   }
 
@@ -188,29 +192,38 @@ export const NewEntryPage = ({ timelines, books, bucketName }) => {
     radioValue,
   ])
 
+  const headerTitle = showTimelineSelectorScreen
+    ? 'Selecionar as linhas do tempo'
+    : 'Acontecimento'
   const isLoading = loading || createLoading
   return (
     <Layout>
-      <Header
-        title={'Acontecimento'}
-        returnButton={goBack}
-        loading={isLoading}
-      />
-      <Container>
-        <NewEntryForm
-          timelines={timelines}
-          entry={entry}
-          setEntry={setEntry}
-          radioValue={radioValue}
-          setRadioValue={setRadioValue}
-          entryId={entryId}
-          entryError={entryError}
-          books={books}
-          bucketName={bucketName}
-          deleteLoading={deleteLoading}
-          handleDelete={handleDelete}
-        />
-      </Container>
+      <Header title={headerTitle} returnButton={goBack} loading={isLoading} />
+      <EntryPageContainer>
+        {!showTimelineSelectorScreen ? (
+          <NewEntryForm
+            timelines={timelines}
+            entry={entry}
+            setEntry={setEntry}
+            radioValue={radioValue}
+            setRadioValue={setRadioValue}
+            entryId={entryId}
+            entryError={entryError}
+            books={books}
+            bucketName={bucketName}
+            deleteLoading={deleteLoading}
+            handleDelete={handleDelete}
+            setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
+          />
+        ) : (
+          <SelectTimelines
+            timelines={timelines}
+            entry={entry}
+            setEntry={setEntry}
+            bucketName={bucketName}
+          />
+        )}
+      </EntryPageContainer>
     </Layout>
   )
 }

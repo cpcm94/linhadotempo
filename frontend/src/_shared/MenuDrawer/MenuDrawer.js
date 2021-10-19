@@ -24,7 +24,6 @@ const ListWrapper = styled.ul`
   min-width: 150px;
   max-width: 300px;
 `
-
 export const MenuDrawer = ({ user }) => {
   const [drawer, setDrawer] = useState(false)
 

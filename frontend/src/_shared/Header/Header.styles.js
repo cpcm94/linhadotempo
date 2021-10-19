@@ -3,17 +3,11 @@ import { colors } from '../colors'
 
 export const Title = styled.div`
   font-size: 1.1rem;
-  padding: 0 0.5rem 0 0.5rem;
-  @media (max-width: 425px) {
-    display: none;
-  }
-`
-export const MobileTitle = styled.div`
-  font-size: 1.1rem;
-  padding: 0 0.5rem 0 0.5rem;
-  @media (min-width: 426px) {
-    display: none;
-  }
+  padding-right: 0.5rem;
+  display: block;
+  white-space: nowrap; /* forces text to single line */
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export const PageActions = styled.div`
@@ -38,7 +32,7 @@ export const UserButtonWrapper = styled.div`
   position: absolute;
   top: ${({ hasTimelinesIcons, subTitle }) =>
     hasTimelinesIcons ? '0.5rem' : subTitle ? '0.75rem' : '0.55rem'};
-  right: 1.25rem;
+  right: 0.75rem;
 `
 
 export const UpperHeader = styled.div`

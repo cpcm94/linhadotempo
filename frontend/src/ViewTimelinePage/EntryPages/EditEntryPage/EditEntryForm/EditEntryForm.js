@@ -8,6 +8,7 @@ import { EntrySource } from '../../EntrySource/EntrySource'
 import { ImageUploader } from '../../ImageUploader/ImageUploader'
 import { DeleteButtonAndConfirmation } from '../../../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
+import { SelectTimelines } from '../../SelectTimelines/SelectTimelines'
 
 export const EditEntryForm = ({
   entry,
@@ -20,6 +21,7 @@ export const EditEntryForm = ({
   bucketName,
   deleteLoading,
   handleDelete,
+  setShowTimelineSelectorScreen,
 }) => {
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
@@ -54,6 +56,7 @@ export const EditEntryForm = ({
         entry={entry}
         setEntry={setEntry}
         bucketName={bucketName}
+        setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
       />
       <DateDisplay
         fieldId={'date'}
@@ -96,6 +99,12 @@ export const EditEntryForm = ({
         skipDeleteMessage={skipDeleteMessage}
         loading={deleteLoading}
       />
+      <SelectTimelines
+        timelines={timelines}
+        entry={entry}
+        setEntry={setEntry}
+        bucketName={bucketName}
+      />
     </Wrapper>
   )
 }
@@ -114,4 +123,5 @@ EditEntryForm.propTypes = {
   setRadioValue: PropTypes.func,
   deleteLoading: PropTypes.bool,
   handleDelete: PropTypes.func,
+  setShowTimelineSelectorScreen: PropTypes.func,
 }

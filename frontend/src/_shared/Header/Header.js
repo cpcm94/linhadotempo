@@ -11,14 +11,12 @@ import {
   UpperHeader,
   LowerHeader,
   TimelineTitle,
-  MobileTitle,
 } from './Header.styles.js'
 import { ReturnButton } from '../ReturnButton'
 import { CurrentUserContext } from '../CurrentUserContextProvider'
 import { UserButton } from '../UserButton'
 import { useHistory } from 'react-router-dom'
 import { MenuDrawer } from '../MenuDrawer/MenuDrawer'
-import { truncateTextFunction } from '../truncateTextFunction'
 
 export const Header = ({
   title,
@@ -44,7 +42,7 @@ export const Header = ({
     history.push('/user')
   }
   const onlyTitle = title && !subTitle && !timelinesIconRow
-  const truncatedTitle = title && truncateTextFunction(title, 15)
+
   return userLoading ? (
     <span>Loading...</span>
   ) : (
@@ -57,13 +55,11 @@ export const Header = ({
           <TitlesWrapper>
             <SubTitle>{subTitle}</SubTitle>
             <Title>{title}</Title>
-            <MobileTitle>{truncatedTitle}</MobileTitle>
           </TitlesWrapper>
         ) : null}
         {onlyTitle && (
           <>
             <Title>{title}</Title>
-            <MobileTitle>{truncatedTitle}</MobileTitle>
           </>
         )}
         {timelineTitle && <TimelineTitle>{timelineTitle}</TimelineTitle>}

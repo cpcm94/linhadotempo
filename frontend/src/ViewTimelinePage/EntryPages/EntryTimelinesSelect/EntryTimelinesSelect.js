@@ -1,35 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import {
   ClosedDisplayWrapper,
   TimelineNameWrapper,
   ClosedIconAndNameWrapper,
-  OpenIconAndNameWrapper,
   IconWrapper,
   TimelineWrapper,
-  OpenDisplayWrapper,
-  ButtonWrapper,
-  StyledButton,
   Img,
 } from './EntryTimelinesSelect.styles'
 import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 
 export const EntryTimelinesSelect = ({
   entry,
-  setEntry,
   resetField,
   timelines,
   fieldId,
   entryError,
   bucketName,
+  setShowTimelineSelectorScreen,
 }) => {
   const selectedTimelineIds = entry.timelines.sync
 
-  const [displayTimelineSelect, setDisplayTimelineSelect] = useState(false)
-  const toggleDisplaySelect = () => {
-    setDisplayTimelineSelect(!displayTimelineSelect)
-  }
   const selectedTimelines = timelines.filter((timeline) =>
     selectedTimelineIds.includes(timeline.id)
   )
@@ -37,19 +29,6 @@ export const EntryTimelinesSelect = ({
     selectedTimelines[0] &&
     selectedTimelines.sort((a, b) => a.name.localeCompare(b.name))
 
-  const sortedTimelines = timelines.sort((a, b) => a.name.localeCompare(b.name))
-
-  const toggleTimelines = (_, timeline) => {
-    const newEntry = { ...entry }
-    if (newEntry.timelines.sync.includes(timeline.id)) {
-      newEntry.timelines.sync = newEntry.timelines.sync.filter(
-        (timeline_id) => timeline_id !== timeline.id
-      )
-    } else {
-      newEntry.timelines.sync = [...newEntry.timelines.sync, timeline.id]
-    }
-    setEntry(newEntry)
-  }
   const showErrorMessage = entryError && entryError.field === 'timeline'
   return (
     <>
@@ -59,66 +38,33 @@ export const EntryTimelinesSelect = ({
           {'Não é possível criar acontecimento sem linha do tempo'}
         </ErrorMessage>
       )}
-      {!displayTimelineSelect && (
-        <ClosedDisplayWrapper onClick={toggleDisplaySelect} id={fieldId}>
-          {sortedSelectedTimelines ? (
-            sortedSelectedTimelines.map((timeline) => (
-              <TimelineWrapper key={timeline.id} id={timeline.id}>
-                <ClosedIconAndNameWrapper>
-                  {timeline.timelineIconImageUrl ? (
-                    <IconWrapper borderColor={timeline.color}>
-                      <Img
-                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-                      />
-                    </IconWrapper>
-                  ) : (
-                    <IconWrapper color={timeline.color}>
-                      {timeline.initials}
-                    </IconWrapper>
-                  )}
-                  <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
-                </ClosedIconAndNameWrapper>
-              </TimelineWrapper>
-            ))
-          ) : (
-            <span>Nenhuma linha do tempo selecionada</span>
-          )}
-        </ClosedDisplayWrapper>
-      )}
-      {displayTimelineSelect && (
-        <OpenDisplayWrapper id={fieldId}>
-          {sortedTimelines.map((timeline) => {
-            const onTimelineClick = (event) => toggleTimelines(event, timeline)
-            return (
-              <TimelineWrapper key={timeline.id} id={timeline.id}>
-                <OpenIconAndNameWrapper
-                  isSelected={selectedTimelineIds.includes(timeline.id)}
-                  onClick={onTimelineClick}
-                  img={timeline.timelineIconImageUrl}
-                >
-                  {timeline.timelineIconImageUrl ? (
-                    <IconWrapper color={timeline.color}>
-                      <Img
-                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-                      />
-                    </IconWrapper>
-                  ) : (
-                    <IconWrapper color={timeline.color}>
-                      {timeline.initials}
-                    </IconWrapper>
-                  )}
-                  <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
-                </OpenIconAndNameWrapper>
-              </TimelineWrapper>
-            )
-          })}
-          <ButtonWrapper>
-            <StyledButton onClick={toggleDisplaySelect} variant="contained">
-              Ok
-            </StyledButton>
-          </ButtonWrapper>
-        </OpenDisplayWrapper>
-      )}
+      <ClosedDisplayWrapper
+        onClick={() => setShowTimelineSelectorScreen(true)}
+        id={fieldId}
+      >
+        {sortedSelectedTimelines ? (
+          sortedSelectedTimelines.map((timeline) => (
+            <TimelineWrapper key={timeline.id} id={timeline.id}>
+              <ClosedIconAndNameWrapper>
+                {timeline.timelineIconImageUrl ? (
+                  <IconWrapper borderColor={timeline.color}>
+                    <Img
+                      src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                    />
+                  </IconWrapper>
+                ) : (
+                  <IconWrapper color={timeline.color}>
+                    {timeline.initials}
+                  </IconWrapper>
+                )}
+                <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
+              </ClosedIconAndNameWrapper>
+            </TimelineWrapper>
+          ))
+        ) : (
+          <span>Nenhuma linha do tempo selecionada</span>
+        )}
+      </ClosedDisplayWrapper>
     </>
   )
 }
@@ -131,4 +77,5 @@ EntryTimelinesSelect.propTypes = {
   fieldId: PropTypes.string,
   entryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   bucketName: PropTypes.string,
+  setShowTimelineSelectorScreen: PropTypes.func,
 }
