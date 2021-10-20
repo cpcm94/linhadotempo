@@ -202,13 +202,15 @@ export const NewEntryPage = ({ timelines, books, bucketName }) => {
     ? 'Selecionar as linhas do tempo'
     : 'Acontecimento'
   const isLoading = loading || createLoading
+
+  const titleEntryName = entry.name === '' && ' '
   return (
     <Layout>
       <Header
         title={headerTitle}
         returnButton={goBack}
         loading={isLoading}
-        entryTitle={showTimelineSelectorScreen && entry.name}
+        entryTitle={showTimelineSelectorScreen && titleEntryName}
         timelinesIconRow={
           showTimelineSelectorScreen && (
             <TimelinesIconRow
