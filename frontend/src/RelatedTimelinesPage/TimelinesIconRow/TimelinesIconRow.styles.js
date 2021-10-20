@@ -5,6 +5,8 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  height: 2rem;
+  padding: 0.25rem 0;
   background-color: ${colors.lightBrown};
 `
 export const StyledButton = styled.div`
@@ -55,7 +57,7 @@ export const IconsRow = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  padding: 1rem 0;
   flex: 1;
   margin-left: 0.5rem;
+  min-height: 1.5rem;
 `

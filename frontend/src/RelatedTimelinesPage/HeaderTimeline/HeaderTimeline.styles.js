@@ -1,23 +1,17 @@
 import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
 export const TimelineNameWrapper = styled.div`
-  flex: 1;
-  width: 100%;
-  @media (max-width: 425px) {
-    display: none;
-  }
+  display: block;
+  white-space: nowrap; /* forces text to single line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: calc(100vw - 8.5rem);
 `
-export const MobileTimelineNameWrapper = styled.div`
-  flex: 1;
-  width: 100%;
 
-  @media (min-width: 426px) {
-    display: none;
-  }
-`
 export const EditButtonWrapper = styled.div`
-  align-self: center;
   cursor: pointer;
+  margin-bottom: -0.25rem;
+  padding: 0 0.25rem;
   background-color: ${colors.brown};
   :hover {
     background-color: ${colors.brown};
@@ -26,10 +20,8 @@ export const EditButtonWrapper = styled.div`
 export const IconAndNameWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
   flex: 1;
   cursor: pointer;
-
   background-color: ${({ checked }) => (checked ? colors.brown : colors.white)};
 `
 export const IconWrapper = styled.div`

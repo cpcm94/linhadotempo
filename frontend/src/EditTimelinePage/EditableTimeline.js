@@ -140,7 +140,7 @@ export const EditableTimeline = ({
           )
         }
       />
-      <Container subTitle={true}>
+      <Container>
         <EditTimelineForm
           timeline={timelineObject}
           setTimeline={setTimelineObject}

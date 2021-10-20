@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { colors } from '../../_shared/colors'
+import { colors } from '../../../_shared/colors'
 
 const CheckBoxWrapper = styled.div`
   margin: 0 0.25rem 0.25rem 1.25rem;
@@ -49,16 +49,13 @@ export const TimelinesCheckbox = ({
   timelines,
   selectedTimelines,
   setSelectedTimelines,
-  mainTimeline,
 }) => {
-  const countOfSelectedTimelines = selectedTimelines.filter(
-    (timeline) => timeline.id !== mainTimeline.id
-  ).length
+  const countOfSelectedTimelines = selectedTimelines.length
   const handleCheckboxClick = () => {
     if (countOfSelectedTimelines) {
       setSelectedTimelines([])
     } else {
-      setSelectedTimelines(timelines)
+      setSelectedTimelines(timelines.map((timeline) => timeline.id))
     }
   }
   return (
@@ -84,5 +81,4 @@ TimelinesCheckbox.propTypes = {
   selectedTimelines: PropTypes.array,
   setSelectedTimelines: PropTypes.func,
   timelines: PropTypes.array,
-  mainTimeline: PropTypes.object,
 }

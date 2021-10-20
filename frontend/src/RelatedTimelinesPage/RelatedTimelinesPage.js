@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Layout } from '../_shared/Layout'
 import { Header } from '../_shared/Header/Header'
-import { Container } from '../_shared/Container'
 import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
 import { TimelinesList } from './TimelinesList/TimelinesList'
 import { HeaderTimeline } from './HeaderTimeline/HeaderTimeline'
+import { TimelinesIconRow } from './TimelinesIconRow/TimelinesIconRow'
+import { RelatedTimelinesContainer } from './RelatedTimelinesContainer'
 
 export const RelatedTimelinesPage = ({
   relatedTimelines,
@@ -62,8 +63,18 @@ export const RelatedTimelinesPage = ({
             mainTimeline={mainTimeline}
           />
         }
+        timelinesIconRow={
+          <TimelinesIconRow
+            timelines={onlyRelatedTimelines}
+            selectedTimelines={selectedTimelines}
+            bucketName={bucketName}
+            setSelectedTimelines={setSelectedTimelines}
+            mainTimeline={mainTimeline}
+            navigateToViewTimelines={() => navigateTo('/viewTimeline/')}
+          />
+        }
       />
-      <Container>
+      <RelatedTimelinesContainer>
         <TimelinesList
           timelines={onlyRelatedTimelines}
           selectedTimelines={selectedTimelines}
@@ -72,7 +83,7 @@ export const RelatedTimelinesPage = ({
           mainTimeline={mainTimeline}
           navigateToViewTimelines={() => navigateTo('/viewTimeline/')}
         />
-      </Container>
+      </RelatedTimelinesContainer>
     </Layout>
   )
 }

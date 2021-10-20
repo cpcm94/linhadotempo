@@ -8,10 +8,8 @@ import {
   EditButtonWrapper,
   IconAndNameWrapper,
   Img,
-  MobileTimelineNameWrapper,
 } from './HeaderTimeline.styles'
 import PropTypes from 'prop-types'
-import { truncateTextFunction } from '../../_shared/truncateTextFunction'
 import qs from 'query-string'
 
 export const HeaderTimeline = ({ bucketName, mainTimeline }) => {
@@ -26,7 +24,6 @@ export const HeaderTimeline = ({ bucketName, mainTimeline }) => {
       }`
     )
   }
-  const truncatedTimelineName = truncateTextFunction(mainTimeline.name, 14)
   return (
     <TimelinesWrapper key={mainTimeline.id}>
       <IconAndNameWrapper checked={true}>
@@ -43,9 +40,6 @@ export const HeaderTimeline = ({ bucketName, mainTimeline }) => {
           </IconWrapper>
         )}
         <TimelineNameWrapper>{mainTimeline.name}</TimelineNameWrapper>
-        <MobileTimelineNameWrapper>
-          {truncatedTimelineName}
-        </MobileTimelineNameWrapper>
       </IconAndNameWrapper>
       <EditButtonWrapper
         onClick={navigateToEditTimelinePage(history, mainTimeline.id)}

@@ -13,6 +13,7 @@ import { checkIfEntryError } from '../../../_shared/checkIfEntryError'
 import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { SelectTimelines } from '../SelectTimelines/SelectTimelines'
 import { EntryPageContainer } from '../EntryPageContainer'
+import { TimelinesIconRow } from '../TimelinesIconRow/TimelinesIconRow'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -191,15 +192,37 @@ export const NewEntryPage = ({ timelines, books, bucketName }) => {
     entry.book_page,
     radioValue,
   ])
+  const setEntryTimelines = (array) => {
+    const newEntry = { ...entry }
+    newEntry.timelines.sync = array
+    setEntry(newEntry)
+  }
 
   const headerTitle = showTimelineSelectorScreen
     ? 'Selecionar as linhas do tempo'
     : 'Acontecimento'
   const isLoading = loading || createLoading
+
+  const titleEntryName = entry.name === '' && ' '
   return (
     <Layout>
-      <Header title={headerTitle} returnButton={goBack} loading={isLoading} />
-      <EntryPageContainer>
+      <Header
+        title={headerTitle}
+        returnButton={goBack}
+        loading={isLoading}
+        entryTitle={showTimelineSelectorScreen && titleEntryName}
+        timelinesIconRow={
+          showTimelineSelectorScreen && (
+            <TimelinesIconRow
+              selectedTimelinesIds={entry.timelines.sync}
+              setSelectedTimelines={setEntryTimelines}
+              timelines={timelines}
+              bucketName={bucketName}
+            />
+          )
+        }
+      />
+      <EntryPageContainer expandSize={showTimelineSelectorScreen}>
         {!showTimelineSelectorScreen ? (
           <NewEntryForm
             timelines={timelines}

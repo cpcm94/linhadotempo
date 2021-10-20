@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import {
   IconWrapper,
   Img,
+  TimelineCategoryWrapper,
+  TimelineIconAndNameWrapper,
   TimelineNameWrapper,
   TimelineWrapper,
   Wrapper,
 } from './SelectTimelines.styles'
+import { CategoryTitle } from './CategoryTitle/CategoryTitle'
 
 const uniqueByKey = (array, key) => {
   let seen = new Set()
@@ -34,6 +36,10 @@ export const SelectTimelines = ({ timelines, entry, setEntry, bucketName }) => {
 
   const sortedTimelines = timelines.sort((a, b) => a.name.localeCompare(b.name))
 
+  const timelinesWithoutCategory = timelines
+    .filter((timeline) => !timeline.timeline_categories.length)
+    .sort((a, b) => a.name.localeCompare(b.name))
+
   const toggleTimelines = (_, timeline) => {
     const newEntry = { ...entry }
     if (newEntry.timelines.sync.includes(timeline.id)) {
@@ -50,35 +56,71 @@ export const SelectTimelines = ({ timelines, entry, setEntry, bucketName }) => {
     <Wrapper>
       {uniqueCategories.map((category) => (
         <>
-          <SectionTitle title={category.name} />
-          {filterTimelinesByCategories(timelines, category.id).map(
-            (timeline) => {
-              const onTimelineClick = (event) =>
-                toggleTimelines(event, timeline)
-              return (
-                <TimelineWrapper
-                  key={`${category.id}${timeline.id}`}
-                  onClick={onTimelineClick}
-                  isSelected={selectedTimelineIds.includes(timeline.id)}
-                >
-                  {sortedTimelines.timelineIconImageUrl ? (
-                    <IconWrapper borderColor={timeline.color}>
-                      <Img
-                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-                      />
-                    </IconWrapper>
-                  ) : (
-                    <IconWrapper color={timeline.color}>
-                      {timeline.initials}
-                    </IconWrapper>
-                  )}
-                  <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
-                </TimelineWrapper>
-              )
-            }
-          )}
+          <CategoryTitle title={category.name} />
+          <TimelineCategoryWrapper>
+            {filterTimelinesByCategories(sortedTimelines, category.id).map(
+              (timeline) => {
+                const onTimelineClick = (event) =>
+                  toggleTimelines(event, timeline)
+                return (
+                  <TimelineWrapper
+                    key={`${category.id}${timeline.id}`}
+                    onClick={onTimelineClick}
+                  >
+                    <TimelineIconAndNameWrapper
+                      borderColor={timeline.color}
+                      isSelected={selectedTimelineIds.includes(timeline.id)}
+                    >
+                      {timeline.timelineIconImageUrl ? (
+                        <IconWrapper borderColor={timeline.color}>
+                          <Img
+                            src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                          />
+                        </IconWrapper>
+                      ) : (
+                        <IconWrapper
+                          borderColor={timeline.color}
+                          color={timeline.color}
+                        >
+                          {timeline.initials}
+                        </IconWrapper>
+                      )}
+                      <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
+                    </TimelineIconAndNameWrapper>
+                  </TimelineWrapper>
+                )
+              }
+            )}
+          </TimelineCategoryWrapper>
         </>
       ))}
+      <CategoryTitle title={'...'} />
+      <TimelineCategoryWrapper>
+        {timelinesWithoutCategory.map((timeline) => {
+          const onTimelineClick = (event) => toggleTimelines(event, timeline)
+          return (
+            <TimelineWrapper key={timeline.id} onClick={onTimelineClick}>
+              <TimelineIconAndNameWrapper
+                borderColor={timeline.color}
+                isSelected={selectedTimelineIds.includes(timeline.id)}
+              >
+                {timeline.timelineIconImageUrl ? (
+                  <IconWrapper borderColor={timeline.color}>
+                    <Img
+                      src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                    />
+                  </IconWrapper>
+                ) : (
+                  <IconWrapper color={timeline.color}>
+                    {timeline.initials}
+                  </IconWrapper>
+                )}
+                <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
+              </TimelineIconAndNameWrapper>
+            </TimelineWrapper>
+          )
+        })}
+      </TimelineCategoryWrapper>
     </Wrapper>
   )
 }

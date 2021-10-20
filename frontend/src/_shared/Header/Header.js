@@ -4,13 +4,13 @@ import { HeaderWrapper } from './HeaderWrapper'
 import {
   PageActions,
   Title,
-  SubTitle,
-  TitlesWrapper,
   IconRow,
   UserButtonWrapper,
   UpperHeader,
   LowerHeader,
   TimelineTitle,
+  MiddleHeader,
+  EntryTitle,
 } from './Header.styles.js'
 import { ReturnButton } from '../ReturnButton'
 import { CurrentUserContext } from '../CurrentUserContextProvider'
@@ -22,11 +22,11 @@ export const Header = ({
   title,
   loading,
   pageActions,
-  subTitle,
   returnButton,
   timelinesIconRow,
   showMenuButton,
   timelineTitle,
+  entryTitle,
   icon,
 }) => {
   const { user, userLoading } = useContext(CurrentUserContext)
@@ -41,39 +41,30 @@ export const Header = ({
   const navigateToUserPage = () => {
     history.push('/user')
   }
-  const onlyTitle = title && !subTitle && !timelinesIconRow
 
   return userLoading ? (
     <span>Loading...</span>
   ) : (
-    <HeaderWrapper timelinesIconRow={timelinesIconRow} subTitle={subTitle}>
-      <UpperHeader>
+    <HeaderWrapper timelinesIconRow={timelinesIconRow} entryTitle={entryTitle}>
+      {entryTitle && (
+        <UpperHeader>
+          <EntryTitle>{entryTitle}</EntryTitle>
+        </UpperHeader>
+      )}
+      <MiddleHeader>
         {displayMenuButton ? <MenuDrawer user={user} /> : null}
         {returnButton && <ReturnButton onClick={returnButton} />}
         {icon && <div>{icon}</div>}
-        {subTitle || timelinesIconRow ? (
-          <TitlesWrapper>
-            <SubTitle>{subTitle}</SubTitle>
-            <Title>{title}</Title>
-          </TitlesWrapper>
-        ) : null}
-        {onlyTitle && (
-          <>
-            <Title>{title}</Title>
-          </>
-        )}
+        {title && <Title>{title}</Title>}
         {timelineTitle && <TimelineTitle>{timelineTitle}</TimelineTitle>}
         {pageActions && <PageActions>{pageActions}</PageActions>}
         {loading && <span>Loading...</span>}
         {user && !userLoading && (
-          <UserButtonWrapper
-            hasTimelinesIcons={timelinesIconRow}
-            subTitle={subTitle}
-          >
+          <UserButtonWrapper hasTimelinesIcons={timelinesIconRow}>
             <UserButton initial={user.initial} onClick={navigateToUserPage} />
           </UserButtonWrapper>
         )}
-      </UpperHeader>
+      </MiddleHeader>
       {timelinesIconRow && (
         <LowerHeader>
           <IconRow>{timelinesIconRow}</IconRow>
@@ -85,7 +76,6 @@ export const Header = ({
 
 Header.propTypes = {
   title: PropTypes.any,
-  subTitle: PropTypes.any,
   loading: PropTypes.bool,
   pageActions: PropTypes.element,
   returnButton: PropTypes.func,
@@ -93,4 +83,5 @@ Header.propTypes = {
   showMenuButton: PropTypes.bool,
   icon: PropTypes.element,
   timelineTitle: PropTypes.element,
+  entryTitle: PropTypes.string,
 }
