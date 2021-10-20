@@ -1,6 +1,14 @@
 import styled from 'styled-components'
-import { colors } from '../../_shared/colors'
+import { colors } from '../../../_shared/colors'
 
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  padding: 0.25rem 0;
+  background-color: ${colors.lightBrown};
+`
 export const StyledButton = styled.div`
   display: flex;
   height: 1.5rem;
@@ -18,12 +26,6 @@ export const StyledButton = styled.div`
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   pointer-events: ${({ disabled }) => disabled && 'none'};
 `
-export const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-`
-
 export const Img = styled.img`
   border-radius: 5px;
   width: 0.9rem;

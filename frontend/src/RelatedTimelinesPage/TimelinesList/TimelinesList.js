@@ -10,15 +10,14 @@ import {
   Img,
 } from './TimelinesList.styles'
 import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
-import { TimelinesIconRow } from '../TimelinesIconRow/TimelinesIconRow'
 
 export const TimelinesList = ({
   timelines,
   setSelectedTimelines,
   selectedTimelines,
   bucketName,
-  mainTimeline,
-  navigateToViewTimelines,
+  // mainTimeline,
+  // navigateToViewTimelines,
 }) => {
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
@@ -42,15 +41,6 @@ export const TimelinesList = ({
 
   return (
     <TimelinesListWrapper>
-      <TimelinesIconRow
-        timelines={timelines}
-        selectedTimelines={selectedTimelines}
-        bucketName={bucketName}
-        setSelectedTimelines={setSelectedTimelines}
-        mainTimeline={mainTimeline}
-        navigateToViewTimelines={navigateToViewTimelines}
-      />
-
       {sortedTimelinesAlphabetically.map((timeline) => {
         const onTimelineClick = (event) => toggleTimelines(event, timeline)
 

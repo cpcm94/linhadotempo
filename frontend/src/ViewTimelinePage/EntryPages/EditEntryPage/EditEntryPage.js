@@ -14,6 +14,7 @@ import { convertFormDataValues } from '../../../_shared/convertFormDataValues'
 import { DELETE_TIME_ENTRY_MUTATION } from '../../../_shared/DELETE_TIME_ENTRY_MUTATION'
 import { SelectTimelines } from '../SelectTimelines/SelectTimelines'
 import { EntryPageContainer } from '../EntryPageContainer'
+import { TimelinesIconRow } from '../TimelinesIconRow/TimelinesIconRow'
 
 const toastConfig = {
   position: 'top-center',
@@ -127,6 +128,11 @@ export const EditEntryPage = ({
       isFirstRun.current = false
     }
   }, [entry, entryError, radioValue, updateEntry, entryToEdit.id])
+  const setEntryTimelines = (array) => {
+    const newEntry = { ...entry }
+    newEntry.timelines.sync = array
+    setEntry(newEntry)
+  }
   const headerTitle = showTimelineSelectorScreen
     ? 'Selecionar as linhas do tempo'
     : 'Acontecimento'
@@ -136,8 +142,19 @@ export const EditEntryPage = ({
         title={headerTitle}
         returnButton={checkErrorBeforeGoBack}
         loading={loading}
+        entryTitle={showTimelineSelectorScreen && entry.name}
+        timelinesIconRow={
+          showTimelineSelectorScreen && (
+            <TimelinesIconRow
+              selectedTimelinesIds={entry.timelines.sync}
+              setSelectedTimelines={setEntryTimelines}
+              timelines={timelines}
+              bucketName={bucketName}
+            />
+          )
+        }
       />
-      <EntryPageContainer>
+      <EntryPageContainer expandSize={showTimelineSelectorScreen}>
         {!showTimelineSelectorScreen ? (
           <EditEntryForm
             timelines={timelines}

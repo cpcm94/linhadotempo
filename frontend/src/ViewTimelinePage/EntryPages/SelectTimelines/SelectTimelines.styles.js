@@ -2,16 +2,15 @@ import styled from 'styled-components'
 import { colors } from '../../../_shared/colors'
 
 export const IconWrapper = styled.div`
-  margin: 0 5px 0 0;
   background-color: ${({ color }) => (color ? color : colors.white)};
   color: #655;
   border: ${({ borderColor }) =>
     borderColor ? `solid 1px ${borderColor}` : `solid 1px ${colors.white}`};
   border-radius: 2px;
-  min-width: 1rem;
-  min-height: 1rem;
-  width: 1rem;
-  height: 1rem;
+  min-width: 1.15rem;
+  min-height: 1.15rem;
+  width: 1.15rem;
+  height: 1.15rem;
   font-weight: bold;
   font-size: 0.5rem;
   text-align: center;
@@ -32,23 +31,35 @@ export const Img = styled.img`
 export const TimelineWrapper = styled.div`
   display: flex;
   align-items: center;
-  flex: 1;
-  padding: 1rem 0 1rem 0.5rem;
   margin-bottom: 0.25rem;
-  transition: background-color 0.5s ease-out;
-  border-radius: 5px;
-  background-color: ${({ isSelected }) =>
-    isSelected ? colors.lightBrown : colors.white};
-  :hover {
-    filter: brightness(0.95);
-  }
+  padding-right: 0.5rem;
 `
 export const TimelineNameWrapper = styled.div`
+  border-radius: 5px;
+  padding: 0 0.25rem;
+  transition: background-color 0.5s ease-out;
+  max-width: calc(100vw - 3.75rem);
   display: block;
   white-space: nowrap; /* forces text to single line */
   overflow: hidden;
   text-overflow: ellipsis;
 `
+
+export const TimelineIconAndNameWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  border: ${({ borderColor }) => borderColor && `1px solid ${borderColor}`};
+  background-color: ${({ isSelected }) =>
+    isSelected ? colors.lightGrey : colors.white};
+  :hover {
+    filter: brightness(0.95);
+  }
+  border-radius: 5px;
+`
 export const Wrapper = styled.div`
-  padding: 0.75rem;
+  padding: 1.25rem;
+`
+export const TimelineCategoryWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `

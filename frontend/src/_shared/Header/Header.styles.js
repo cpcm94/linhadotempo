@@ -3,24 +3,16 @@ import { colors } from '../colors'
 
 export const Title = styled.div`
   font-size: 1.1rem;
-  padding-right: 0.5rem;
   display: block;
   white-space: nowrap; /* forces text to single line */
   overflow: hidden;
   text-overflow: ellipsis;
+  flex: 1;
 `
 
 export const PageActions = styled.div`
   display: flex;
-`
-
-export const SubTitle = styled.div`
-  font-size: 0.6rem;
-`
-
-export const TitlesWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  padding: 0 0.5rem;
 `
 
 export const IconRow = styled.div`
@@ -28,20 +20,28 @@ export const IconRow = styled.div`
   width: 100%;
 `
 
-export const UserButtonWrapper = styled.div`
-  position: absolute;
-  top: ${({ hasTimelinesIcons, subTitle }) =>
-    hasTimelinesIcons ? '0.5rem' : subTitle ? '0.75rem' : '0.55rem'};
-  right: 0.75rem;
-`
+export const UserButtonWrapper = styled.div``
 
-export const UpperHeader = styled.div`
+export const MiddleHeader = styled.div`
   display: flex;
   padding: 5px 20px;
   flex: 1;
   align-items: center;
+  width: 100%;
 `
 
+export const UpperHeader = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+`
+export const EntryTitle = styled.div`
+  padding: 0 1.25rem;
+  display: block;
+  white-space: nowrap; /* forces text to single line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
 export const LowerHeader = styled.div`
   display: flex;
   width: 100%;
@@ -52,5 +52,5 @@ export const LowerHeader = styled.div`
 `
 export const TimelineTitle = styled.div`
   font-size: 1.1rem;
-  width: calc(100% - 4rem);
+  width: 100%;
 `
