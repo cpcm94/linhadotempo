@@ -18,7 +18,7 @@ import { TimelineScrollerAnnual } from './TimelineScrollerAnnual/TimelineScrolle
 import { TimelineScroller } from '../TimelineScroller/TimelineScroller'
 import Hammer from 'hammerjs'
 
-const HASH_UPDATE_DEBOUNCE_MILISECONDS = 500
+const HASH_UPDATE_DEBOUNCE_MILISECONDS = 310
 let timeoutId = null
 
 const filterEntryForNullYear = (entries, hash) => {
@@ -63,6 +63,7 @@ export const TimelinePage = ({
   dateFromHash,
 }) => {
   const alreadyRan = useRef(false)
+  const runScrollTo = useRef(true)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
   const [zoomOut, setZoomOut] = useState(hasZoomOut)
@@ -73,7 +74,10 @@ export const TimelinePage = ({
   const entriesWithAnnualImportance = entries.filter(
     (entry) => entry.annual_importance
   )
-
+  const toggleZoomOut = () => {
+    runScrollTo.current = true
+    setZoomOut(!zoomOut)
+  }
   useEffect(() => {
     const container = document.getElementById('scrollerContainer')
     const mc = new Hammer.Manager(container, { touchAction: 'pan-x pan-y' })
@@ -136,7 +140,7 @@ export const TimelinePage = ({
 
   useEffect(() => {
     handleScroll()
-  }, [handleScroll, visibleTimelines])
+  }, [handleScroll, visibleTimelines, zoomOut])
 
   useEffect(() => {
     const yOffset = -40
@@ -145,18 +149,20 @@ export const TimelinePage = ({
       element.current &&
       element.current.getBoundingClientRect().top + window.pageYOffset + yOffset
 
-    if (element.current) {
+    if (element.current && runScrollTo.current) {
+      runScrollTo.current = false
       window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
     }
-  }, [entryToScrollTo])
+  }, [entryToScrollTo, dateFromHash])
 
   useEffect(() => {
+    hash.current = dateFromHash
     if (
       displayEntry &&
       displayEntry.entryId &&
-      (!isTheRightYear(displayEntry, window.location.hash) ||
-        !isTheRightMonth(displayEntry, window.location.hash) ||
-        !isTheRightDay(displayEntry, window.location.hash))
+      (!isTheRightYear(displayEntry, dateFromHash) ||
+        !isTheRightMonth(displayEntry, dateFromHash) ||
+        !isTheRightDay(displayEntry, dateFromHash))
     ) {
       if (timeoutId) {
         clearTimeout(timeoutId)
@@ -171,8 +177,7 @@ export const TimelinePage = ({
         })
       }, HASH_UPDATE_DEBOUNCE_MILISECONDS)
     }
-  }, [displayEntry, history, timelinesString])
-
+  }, [dateFromHash, displayEntry, history, timelinesString])
   const handleScroll = useCallback(() => {
     const elementsCoords = getScrollPosition(objectRefs)
     const entryToDisplay = findEntryToDisplay(elementsCoords, entries)
@@ -223,7 +228,7 @@ export const TimelinePage = ({
         displayEntry={displayEntry}
         timelines={timelines}
         zoomOut={zoomOut}
-        setZoomOut={setZoomOut}
+        toggleZoomOut={toggleZoomOut}
       />
       <TimelineScrollerContainer id="scrollerContainer">
         {showAnnualImportanceScroller ? (
