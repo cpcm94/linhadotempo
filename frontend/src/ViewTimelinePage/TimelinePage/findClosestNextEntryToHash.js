@@ -1,17 +1,13 @@
 export const findClosestNextEntryToHash = (entries, hash) => {
   const entriesWithHigherOrEqualYear = entries.filter(
-    (entry) => entry.year >= parseInt(hash.substr(6).split('/')[0])
+    (entry) => entry.year >= parseInt(hash.split('/')[0])
   )
   return (
     entriesWithHigherOrEqualYear[0] &&
     entriesWithHigherOrEqualYear.reduce((previous, current) => {
-      const hashMonth = hash.substr(6).split('/')[1]
-        ? parseInt(hash.substr(6).split('/')[1])
-        : null
-      const hashDay = hash.substr(6).split('/')[2]
-        ? parseInt(hash.substr(6).split('/')[2])
-        : null
-      const hashYear = parseInt(hash.substr(6).split('/')[0])
+      const hashMonth = hash.split('/')[1] ? parseInt(hash.split('/')[1]) : null
+      const hashDay = hash.split('/')[2] ? parseInt(hash.split('/')[2]) : null
+      const hashYear = parseInt(hash.split('/')[0])
 
       if (
         previous.year === hashYear &&

@@ -18,7 +18,7 @@ export const TextWrapper = styled.div``
 
 export const EntryWrapper = styled.div`
   display: flex;
-  padding: 0.2rem 1.5rem 0 0;
+  padding: 0.2rem 1.5rem 0 0.6rem;
   flex: 1;
   color: ${colors.white};
   font-size: 0.9rem;

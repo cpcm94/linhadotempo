@@ -39,7 +39,7 @@ const getCookie = (cookieName) => {
   return result
 }
 
-export const NewEntryPage = ({ timelines, books, bucketName }) => {
+export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
   const isFirstRun = useRef(true)
   const cookieEntry = useRef(null)
   const cookieValueUsed = useRef(false)
@@ -128,14 +128,20 @@ export const NewEntryPage = ({ timelines, books, bucketName }) => {
       setShowTimelineSelectorScreen(false)
     } else {
       if (!entryId) {
-        history.push(`/viewTimeline/${location.search}`)
+        history.push({
+          pathname: '/viewTimeline/',
+          search: `${location.search}`,
+          hash: `#zoomOut=${hasZoomOut}`,
+        })
       } else {
         history.push({
           pathname: '/viewTimeline/',
           search: `?timelines=${timelinesString}`,
           hash: `#date=${entry.year ? `${entry.year}` : ''}${
             entry.month ? `/${entry.month}` : ''
-          }${entry.day ? `/${entry.day}` : ''}&entryId=${entryId}`,
+          }${
+            entry.day ? `/${entry.day}` : ''
+          }&entryId=${entryId}&zoomOut=${hasZoomOut}`,
         })
       }
     }
@@ -256,4 +262,5 @@ NewEntryPage.propTypes = {
   defaultEntryData: PropTypes.object,
   books: PropTypes.array,
   bucketName: PropTypes.string,
+  hasZoomOut: PropTypes.bool,
 }

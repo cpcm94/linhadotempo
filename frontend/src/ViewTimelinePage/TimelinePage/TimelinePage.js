@@ -21,19 +21,59 @@ import Hammer from 'hammerjs'
 const HASH_UPDATE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
+const filterEntryForNullYear = (entries, hash) => {
+  return entries.filter((entry) => {
+    if (!entry.year && hash.split('/')[0] === 'null') {
+      return entry
+    }
+  })[0]
+}
+
+const isTheRightYear = (entry, hash) =>
+  entry.year
+    ? entry.year.toString() === hash.split('/')[0]
+    : !entry.year === !hash.split('/')[0]
+const isTheRightMonth = (entry, hash) =>
+  entry.month
+    ? entry.month.toString() === hash.split('/')[1]
+    : !entry.month === !hash.split('/')[1]
+const isTheRightDay = (entry, hash) =>
+  entry.day
+    ? entry.day.toString() === hash.split('/')[2]
+    : !entry.day === !hash.split('/')[2]
+
+const filterFirstEntryOfExactDate = (entries, hash) => {
+  return entries.filter((entry) => {
+    if (
+      isTheRightYear(entry, hash) &&
+      isTheRightMonth(entry, hash) &&
+      isTheRightDay(entry, hash)
+    ) {
+      return entry
+    }
+  })[0]
+}
+
 export const TimelinePage = ({
   timelines,
   entries,
   hasInvalidTimelines,
   bucketName,
+  hasZoomOut,
+  dateFromHash,
 }) => {
   const alreadyRan = useRef(false)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
-  const [zoomOut, setZoomOut] = useState(false)
+  const [zoomOut, setZoomOut] = useState(hasZoomOut)
 
   const element = useRef(null)
-  const hash = useRef(window.location.hash)
+  const hash = useRef(dateFromHash)
+
+  const entriesWithAnnualImportance = entries.filter(
+    (entry) => entry.annual_importance
+  )
+
   useEffect(() => {
     const container = document.getElementById('scrollerContainer')
     const mc = new Hammer.Manager(container, { touchAction: 'pan-x pan-y' })
@@ -65,42 +105,21 @@ export const TimelinePage = ({
     history.push({
       pathname: '/viewTimeline/newEntry/',
       search: `?timelines=${timelinesString}`,
+      hash: `#zoomOut=${zoomOut}`,
     })
   }
 
-  const isTheRightYear = (entry, hash) =>
-    entry.year
-      ? entry.year.toString() === hash.substr(6).split('/')[0]
-      : !entry.year === !hash.substr(6).split('/')[0]
-  const isTheRightMonth = (entry, hash) =>
-    entry.month
-      ? entry.month.toString() === hash.substr(6).split('/')[1]
-      : !entry.month === !hash.substr(6).split('/')[1]
-  const isTheRightDay = (entry, hash) =>
-    entry.day
-      ? entry.day.toString() === hash.substr(6).split('/')[2]
-      : !entry.day === !hash.substr(6).split('/')[2]
+  const firstEntryOfExactDate = zoomOut
+    ? filterFirstEntryOfExactDate(entriesWithAnnualImportance, hash.current)
+    : filterFirstEntryOfExactDate(entries, hash.current)
 
-  const firstEntryOfExactDate = entries.filter((entry) => {
-    if (
-      isTheRightYear(entry, hash.current) &&
-      isTheRightMonth(entry, hash.current) &&
-      isTheRightDay(entry, hash.current)
-    ) {
-      return entry
-    }
-  })[0]
+  const firstEntryOfNullYear = zoomOut
+    ? filterEntryForNullYear(entriesWithAnnualImportance, hash.current)
+    : filterEntryForNullYear(entries, hash.current)
 
-  const firstEntryOfNullYear = entries.filter((entry) => {
-    if (!entry.year && hash.current.substr(6).split('/')[0] === 'null') {
-      return entry
-    }
-  })[0]
-
-  const closestNextEntryToHash = findClosestNextEntryToHash(
-    entries,
-    hash.current
-  )
+  const closestNextEntryToHash = zoomOut
+    ? findClosestNextEntryToHash(entriesWithAnnualImportance, hash.current)
+    : findClosestNextEntryToHash(entries, hash.current)
 
   const highlightedEntryId =
     hash.current.indexOf('&') !== -1
@@ -195,9 +214,6 @@ export const TimelinePage = ({
       })
     }
   })
-  const entriesWithAnnualImportance = entries.filter(
-    (entry) => entry.annual_importance
-  )
 
   const showAnnualImportanceScroller = entriesWithAnnualImportance[0] && zoomOut
   const showRegularScroller = entries[0] && !zoomOut
@@ -258,4 +274,6 @@ TimelinePage.propTypes = {
   previousEntries: PropTypes.array,
   hasInvalidTimelines: PropTypes.bool,
   bucketName: PropTypes.string,
+  hasZoomOut: PropTypes.bool,
+  dateFromHash: PropTypes.string,
 }
