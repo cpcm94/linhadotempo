@@ -25,7 +25,7 @@ export const EntriesWithoutDay = ({
     history.push({
       pathname: '/viewTimeline/editEntry/',
       search: window.location.search,
-      hash: `#entry=${entry.id}`,
+      hash: `#entry=${entry.id}&zoomOut=${true}`,
     })
   }
 

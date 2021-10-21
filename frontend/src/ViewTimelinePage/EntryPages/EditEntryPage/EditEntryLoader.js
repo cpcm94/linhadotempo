@@ -21,6 +21,7 @@ export const EditEntryLoader = () => {
       },
     }
   )
+  const hasZoomOut = qs.parse(location.hash).zoomOut === 'true'
   const { data: booksData, loading: booksLoading } = useQuery(BOOKS_QUERY)
   const selectedTimelines = getTimelines(urlQueryTimelineIds())
   const isLoading = loading || entryLoading || booksLoading || userDataLoading
@@ -33,6 +34,7 @@ export const EditEntryLoader = () => {
       entryToEdit={entryData.time_entry}
       books={booksData.books}
       bucketName={s3BucketName}
+      hasZoomOut={hasZoomOut}
     />
   ) : (
     <NotValidEntry />

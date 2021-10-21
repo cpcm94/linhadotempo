@@ -18,22 +18,66 @@ import { TimelineScrollerAnnual } from './TimelineScrollerAnnual/TimelineScrolle
 import { TimelineScroller } from '../TimelineScroller/TimelineScroller'
 import Hammer from 'hammerjs'
 
-const HASH_UPDATE_DEBOUNCE_MILISECONDS = 500
+const HASH_UPDATE_DEBOUNCE_MILISECONDS = 310
 let timeoutId = null
+
+const filterEntryForNullYear = (entries, hash) => {
+  return entries.filter((entry) => {
+    if (!entry.year && hash.split('/')[0] === 'null') {
+      return entry
+    }
+  })[0]
+}
+
+const isTheRightYear = (entry, hash) =>
+  entry.year
+    ? entry.year.toString() === hash.split('/')[0]
+    : !entry.year === !hash.split('/')[0]
+const isTheRightMonth = (entry, hash) =>
+  entry.month
+    ? entry.month.toString() === hash.split('/')[1]
+    : !entry.month === !hash.split('/')[1]
+const isTheRightDay = (entry, hash) =>
+  entry.day
+    ? entry.day.toString() === hash.split('/')[2]
+    : !entry.day === !hash.split('/')[2]
+
+const filterFirstEntryOfExactDate = (entries, hash) => {
+  return entries.filter((entry) => {
+    if (
+      isTheRightYear(entry, hash) &&
+      isTheRightMonth(entry, hash) &&
+      isTheRightDay(entry, hash)
+    ) {
+      return entry
+    }
+  })[0]
+}
 
 export const TimelinePage = ({
   timelines,
   entries,
   hasInvalidTimelines,
   bucketName,
+  hasZoomOut,
+  dateFromHash,
 }) => {
   const alreadyRan = useRef(false)
+  const runScrollTo = useRef(true)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
-  const [zoomOut, setZoomOut] = useState(false)
+  const [zoomOut, setZoomOut] = useState(hasZoomOut)
 
   const element = useRef(null)
-  const hash = useRef(window.location.hash)
+  const hash = useRef(dateFromHash)
+
+  const entriesWithAnnualImportance = entries.filter(
+    (entry) => entry.annual_importance
+  )
+  const toggleZoomOut = () => {
+    runScrollTo.current = true
+    setZoomOut(!zoomOut)
+  }
   useEffect(() => {
     const container = document.getElementById('scrollerContainer')
     const mc = new Hammer.Manager(container, { touchAction: 'pan-x pan-y' })
@@ -65,42 +109,21 @@ export const TimelinePage = ({
     history.push({
       pathname: '/viewTimeline/newEntry/',
       search: `?timelines=${timelinesString}`,
+      hash: `#zoomOut=${zoomOut}`,
     })
   }
 
-  const isTheRightYear = (entry, hash) =>
-    entry.year
-      ? entry.year.toString() === hash.substr(6).split('/')[0]
-      : !entry.year === !hash.substr(6).split('/')[0]
-  const isTheRightMonth = (entry, hash) =>
-    entry.month
-      ? entry.month.toString() === hash.substr(6).split('/')[1]
-      : !entry.month === !hash.substr(6).split('/')[1]
-  const isTheRightDay = (entry, hash) =>
-    entry.day
-      ? entry.day.toString() === hash.substr(6).split('/')[2]
-      : !entry.day === !hash.substr(6).split('/')[2]
+  const firstEntryOfExactDate = zoomOut
+    ? filterFirstEntryOfExactDate(entriesWithAnnualImportance, hash.current)
+    : filterFirstEntryOfExactDate(entries, hash.current)
 
-  const firstEntryOfExactDate = entries.filter((entry) => {
-    if (
-      isTheRightYear(entry, hash.current) &&
-      isTheRightMonth(entry, hash.current) &&
-      isTheRightDay(entry, hash.current)
-    ) {
-      return entry
-    }
-  })[0]
+  const firstEntryOfNullYear = zoomOut
+    ? filterEntryForNullYear(entriesWithAnnualImportance, hash.current)
+    : filterEntryForNullYear(entries, hash.current)
 
-  const firstEntryOfNullYear = entries.filter((entry) => {
-    if (!entry.year && hash.current.substr(6).split('/')[0] === 'null') {
-      return entry
-    }
-  })[0]
-
-  const closestNextEntryToHash = findClosestNextEntryToHash(
-    entries,
-    hash.current
-  )
+  const closestNextEntryToHash = zoomOut
+    ? findClosestNextEntryToHash(entriesWithAnnualImportance, hash.current)
+    : findClosestNextEntryToHash(entries, hash.current)
 
   const highlightedEntryId =
     hash.current.indexOf('&') !== -1
@@ -117,7 +140,7 @@ export const TimelinePage = ({
 
   useEffect(() => {
     handleScroll()
-  }, [handleScroll, visibleTimelines])
+  }, [handleScroll, visibleTimelines, zoomOut])
 
   useEffect(() => {
     const yOffset = -40
@@ -126,18 +149,20 @@ export const TimelinePage = ({
       element.current &&
       element.current.getBoundingClientRect().top + window.pageYOffset + yOffset
 
-    if (element.current) {
+    if (element.current && runScrollTo.current) {
+      runScrollTo.current = false
       window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
     }
-  }, [entryToScrollTo])
+  }, [entryToScrollTo, dateFromHash])
 
   useEffect(() => {
+    hash.current = dateFromHash
     if (
       displayEntry &&
       displayEntry.entryId &&
-      (!isTheRightYear(displayEntry, window.location.hash) ||
-        !isTheRightMonth(displayEntry, window.location.hash) ||
-        !isTheRightDay(displayEntry, window.location.hash))
+      (!isTheRightYear(displayEntry, dateFromHash) ||
+        !isTheRightMonth(displayEntry, dateFromHash) ||
+        !isTheRightDay(displayEntry, dateFromHash))
     ) {
       if (timeoutId) {
         clearTimeout(timeoutId)
@@ -152,8 +177,7 @@ export const TimelinePage = ({
         })
       }, HASH_UPDATE_DEBOUNCE_MILISECONDS)
     }
-  }, [displayEntry, history, timelinesString])
-
+  }, [dateFromHash, displayEntry, history, timelinesString])
   const handleScroll = useCallback(() => {
     const elementsCoords = getScrollPosition(objectRefs)
     const entryToDisplay = findEntryToDisplay(elementsCoords, entries)
@@ -195,9 +219,6 @@ export const TimelinePage = ({
       })
     }
   })
-  const entriesWithAnnualImportance = entries.filter(
-    (entry) => entry.annual_importance
-  )
 
   const showAnnualImportanceScroller = entriesWithAnnualImportance[0] && zoomOut
   const showRegularScroller = entries[0] && !zoomOut
@@ -207,7 +228,7 @@ export const TimelinePage = ({
         displayEntry={displayEntry}
         timelines={timelines}
         zoomOut={zoomOut}
-        setZoomOut={setZoomOut}
+        toggleZoomOut={toggleZoomOut}
       />
       <TimelineScrollerContainer id="scrollerContainer">
         {showAnnualImportanceScroller ? (
@@ -258,4 +279,6 @@ TimelinePage.propTypes = {
   previousEntries: PropTypes.array,
   hasInvalidTimelines: PropTypes.bool,
   bucketName: PropTypes.string,
+  hasZoomOut: PropTypes.bool,
+  dateFromHash: PropTypes.string,
 }
