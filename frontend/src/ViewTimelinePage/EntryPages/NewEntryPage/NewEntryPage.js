@@ -137,7 +137,7 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
         history.push({
           pathname: '/viewTimeline/',
           search: `?timelines=${timelinesString}`,
-          hash: `#date=${entry.year ? `${entry.year}` : ''}${
+          hash: `#date=${entry.year ? `${entry.year}` : 'null'}${
             entry.month ? `/${entry.month}` : ''
           }${
             entry.day ? `/${entry.day}` : ''

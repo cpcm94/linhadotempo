@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { TimelinesList } from './TimelinesList/TimelinesList'
 import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
@@ -29,39 +29,37 @@ export const TimelinesPage = ({
 
   let history = useHistory()
 
+  const searchString = `${
+    selectedTimelines[0] ? `?timelines=${stringOfSelectedTimelines}` : ''
+  }`
+
   useEffect(() => {
-    history.push(
-      `/timelines${
-        selectedTimelines[0] ? `?timelines=${stringOfSelectedTimelines}` : ''
-      }`
-    )
-  }, [history, selectedTimelines, stringOfSelectedTimelines])
+    navigateTo('/timelines')
+  }, [navigateTo, selectedTimelines])
 
-  const navigateToNewTimelinePage = () => {
-    history.push(
-      `/newTimeline${
-        selectedTimelines[0] ? `?timelines=${stringOfSelectedTimelines}` : ''
-      }`
-    )
-  }
+  const navigateTo = useCallback(
+    (path) => {
+      history.push({
+        pathname: path,
+        search: searchString,
+        hash: window.location.hash,
+      })
+    },
+    [history, searchString]
+  )
 
-  const navigateToViewTimelines = () => {
-    history.push(
-      `/viewTimeline${
-        selectedTimelines[0] ? `?timelines=${stringOfSelectedTimelines}` : ''
-      }`
-    )
-  }
   return (
     <Layout>
       <Header
         title={'Linhas do Tempo'}
-        pageActions={<AddTimelineButton onClick={navigateToNewTimelinePage} />}
+        pageActions={
+          <AddTimelineButton onClick={() => navigateTo('/newTimeline')} />
+        }
         timelinesIconRow={
           <TimelinesIconRow
             selectedTimelines={selectedTimelines}
             timelines={timelines}
-            onClick={navigateToViewTimelines}
+            onClick={() => navigateTo('/viewTimeline/')}
             bucketName={bucketName}
             setSelectedTimelines={setSelectedTimelines}
           />
@@ -84,4 +82,5 @@ TimelinesPage.propTypes = {
   timelines: PropTypes.array,
   currentSelectedTimelinesIds: PropTypes.array,
   bucketName: PropTypes.string,
+  entryDate: PropTypes.string,
 }

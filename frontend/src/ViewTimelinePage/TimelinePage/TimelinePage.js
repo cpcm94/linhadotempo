@@ -22,25 +22,35 @@ const HASH_UPDATE_DEBOUNCE_MILISECONDS = 310
 let timeoutId = null
 
 const filterEntryForNullYear = (entries, hash) => {
-  return entries.filter((entry) => {
-    if (!entry.year && hash.split('/')[0] === 'null') {
-      return entry
-    }
-  })[0]
+  if (hash)
+    return entries.filter((entry) => {
+      if (!entry.year && hash.split('/')[0] === 'null') {
+        return entry
+      }
+    })[0]
 }
 
-const isTheRightYear = (entry, hash) =>
-  entry.year
-    ? entry.year.toString() === hash.split('/')[0]
-    : !entry.year === !hash.split('/')[0]
-const isTheRightMonth = (entry, hash) =>
-  entry.month
-    ? entry.month.toString() === hash.split('/')[1]
-    : !entry.month === !hash.split('/')[1]
-const isTheRightDay = (entry, hash) =>
-  entry.day
-    ? entry.day.toString() === hash.split('/')[2]
-    : !entry.day === !hash.split('/')[2]
+const isTheRightYear = (entry, hash) => {
+  if (hash) {
+    return entry.year
+      ? entry.year.toString() === hash.split('/')[0]
+      : !entry.year === !hash.split('/')[0]
+  }
+}
+const isTheRightMonth = (entry, hash) => {
+  if (hash) {
+    return entry.month
+      ? entry.month.toString() === hash.split('/')[1]
+      : !entry.month === !hash.split('/')[1]
+  }
+}
+const isTheRightDay = (entry, hash) => {
+  if (hash) {
+    return entry.day
+      ? entry.day.toString() === hash.split('/')[2]
+      : !entry.day === !hash.split('/')[2]
+  }
+}
 
 const filterFirstEntryOfExactDate = (entries, hash) => {
   return entries.filter((entry) => {
@@ -126,7 +136,7 @@ export const TimelinePage = ({
     : findClosestNextEntryToHash(entries, hash.current)
 
   const highlightedEntryId =
-    hash.current.indexOf('&') !== -1
+    hash.current && hash.current.indexOf('&') !== -1
       ? hash.current.substr(hash.current.indexOf('&') + 9)
       : null
 

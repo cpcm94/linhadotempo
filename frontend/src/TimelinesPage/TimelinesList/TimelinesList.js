@@ -23,14 +23,13 @@ export const TimelinesList = ({
     (timeline) => timeline.id
   )
   let history = useHistory()
-  const navigateToRelatedTimelinePage = (history, timelineId) => (e) => {
-    e.stopPropagation()
+  const navigateToRelatedTimelinePage = (timelineId) => {
     history.push(
       `/relatedTimelines/${timelineId}${
         arraySelectedTimelinesId[0]
           ? `?timelines=${arraySelectedTimelinesId.toString()}`
           : ''
-      }`
+      }${window.location.hash}`
     )
   }
 
@@ -85,7 +84,7 @@ export const TimelinesList = ({
                 </IconWrapper>
               )}
               <TimelineNameWrapper
-                onClick={navigateToRelatedTimelinePage(history, timeline.id)}
+                onClick={() => navigateToRelatedTimelinePage(timeline.id)}
               >
                 {timeline.name}
               </TimelineNameWrapper>

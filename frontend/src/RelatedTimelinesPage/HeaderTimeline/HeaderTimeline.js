@@ -21,7 +21,7 @@ export const HeaderTimeline = ({ bucketName, mainTimeline }) => {
     history.push(
       `/editTimeline/${timelineId}${
         selectedTimelinesFromUrl ? `?timelines=${selectedTimelinesFromUrl}` : ''
-      }`
+      }${window.location.hash}`
     )
   }
   return (

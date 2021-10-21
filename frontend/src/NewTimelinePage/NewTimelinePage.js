@@ -14,15 +14,25 @@ import { checkIfTimelineError } from '../_shared/checkIfTimelineError'
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
-const returnToTimelinesPath = (selectedTimelinesFromUrl, timelineId) => {
+const returnToTimelinesPath = (
+  selectedTimelinesFromUrl,
+  timelineId,
+  entryDate
+) => {
   if (selectedTimelinesFromUrl && timelineId) {
-    return `/timelines${`?timelines=${selectedTimelinesFromUrl},${timelineId}`}`
+    return `/timelines${`?timelines=${selectedTimelinesFromUrl},${timelineId}`}${
+      entryDate && `#date=${entryDate}`
+    }`
   } else if (selectedTimelinesFromUrl) {
-    return `/timelines${`?timelines=${selectedTimelinesFromUrl}`}`
+    return `/timelines${`?timelines=${selectedTimelinesFromUrl}`}${
+      entryDate && `#date=${entryDate}`
+    }`
   } else if (timelineId) {
-    return `/timelines${`?timelines=${timelineId}`}`
+    return `/timelines${`?timelines=${timelineId}`}${
+      entryDate && `#date=${entryDate}`
+    }`
   } else {
-    return '/timelines'
+    return `/timelines${entryDate && `#date=${entryDate}`}`
   }
 }
 
@@ -42,6 +52,7 @@ export const NewTimelinePage = ({ bucketName, timelineCategories }) => {
   let history = useHistory()
 
   const selectedTimelinesFromUrl = qs.parse(location.search).timelines
+  const entryDate = qs.parse(location.hash).date
 
   const [createTimeline, { loading }] = useMutation(CREATE_TIMELINE_MUTATION)
   const [updateTimeline, { loading: updateLoading }] = useMutation(
@@ -84,7 +95,11 @@ export const NewTimelinePage = ({ bucketName, timelineCategories }) => {
   ])
 
   const saveAndReturn = () => {
-    const path = returnToTimelinesPath(selectedTimelinesFromUrl, timelineId)
+    const path = returnToTimelinesPath(
+      selectedTimelinesFromUrl,
+      timelineId,
+      entryDate
+    )
     history.push(path)
   }
 
