@@ -18,7 +18,7 @@ import { ZoomInButton } from '../../../_shared/ZoomInButton'
 export const TimelinePageHeader = ({
   displayEntry,
   timelines,
-  setZoomOut,
+  toggleZoomOut,
   zoomOut,
 }) => {
   let history = useHistory()
@@ -27,9 +27,6 @@ export const TimelinePageHeader = ({
     history.push(`/timelines?timelines=${timelinesId.join()}`)
   }
 
-  const toggleZoomOut = () => {
-    setZoomOut(!zoomOut)
-  }
   const monthName =
     displayEntry && displayEntry.month
       ? abvMonthNameArray[displayEntry.month]
@@ -81,6 +78,6 @@ export const TimelinePageHeader = ({
 TimelinePageHeader.propTypes = {
   displayEntry: PropTypes.object,
   timelines: PropTypes.array,
-  setZoomOut: PropTypes.func,
+  toggleZoomOut: PropTypes.func,
   zoomOut: PropTypes.bool,
 }
