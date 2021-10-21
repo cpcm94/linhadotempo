@@ -17,7 +17,7 @@ export const TimelinesIconRow = ({
   const selectedTimelines = timelines.filter((timeline) =>
     selectedTimelinesIds.includes(timeline.id)
   )
-  console.log('selectedTimelines', selectedTimelines)
+
   const paginatedSelectedTimelines = splitArrayIntoSubarrays(
     selectedTimelines,
     iconsPerView
