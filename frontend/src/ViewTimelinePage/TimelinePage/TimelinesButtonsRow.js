@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
 import PropTypes from 'prop-types'
+import { Menu, MenuItem } from '@material-ui/core'
 
 const Button = styled.div`
   margin-right: 0.5rem;
@@ -55,32 +56,52 @@ export const TimelinesButtonsRow = ({
   setVisibleTimelines,
   bucketName,
 }) => {
+  const [anchorElement, setAnchorElement] = useState(null)
   const arrayVisibleTimelinesId = visibleTimelines.map(
     (timeline) => timeline.id
   )
-
-  const handleClick = (_, timeline) => {
-    if (arrayVisibleTimelinesId.includes(timeline.id)) {
+  const handleClick = (e) => {
+    setAnchorElement(e.currentTarget)
+  }
+  const open = Boolean(anchorElement)
+  const handleClose = () => {
+    setAnchorElement(null)
+  }
+  const getTimelineById = (timelineId) =>
+    timelines.filter((timeline) => timeline.id === timelineId)[0]
+  const hasInvisibleTimelines = timelines.length > visibleTimelines.length
+  const hasMoreThanOneTimeline = timelines.length > 1
+  const handleSelect = (timelineId) => {
+    if (arrayVisibleTimelinesId.includes(timelineId)) {
       setVisibleTimelines(
         visibleTimelines.filter(
-          (timelineItem) => timelineItem.id !== timeline.id
+          (timelineItem) => timelineItem.id !== timelineId
         )
       )
     } else {
-      setVisibleTimelines([...visibleTimelines, timeline])
+      setVisibleTimelines([...visibleTimelines, getTimelineById(timelineId)])
     }
+    handleClose()
+  }
+  const viewOnlySelectedTimeline = (timelineId) => {
+    setVisibleTimelines([getTimelineById(timelineId)])
+    handleClose()
+  }
+  const selectAllTimelines = () => {
+    setVisibleTimelines(timelines)
+    handleClose()
   }
   return (
     <Wrapper>
       {timelines.map((timeline) => {
-        const onTimelineButtonClick = (event) => handleClick(event, timeline)
         return (
           <Fragment key={timeline.id}>
             {timeline.timelineIconImageUrl ? (
               <Button
-                onClick={onTimelineButtonClick}
+                onClick={handleClick}
                 isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
                 borderColor={timeline.color}
+                id={timeline.id}
               >
                 <Img
                   src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
@@ -89,9 +110,10 @@ export const TimelinesButtonsRow = ({
               </Button>
             ) : (
               <Button
-                onClick={onTimelineButtonClick}
+                onClick={handleClick}
                 isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
                 color={timeline.color}
+                id={timeline.id}
               >
                 {timeline.initials}
               </Button>
@@ -99,6 +121,50 @@ export const TimelinesButtonsRow = ({
           </Fragment>
         )
       })}
+      <Menu
+        anchorEl={anchorElement}
+        open={open}
+        onClose={handleClose}
+        transformOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        // PaperProps={{
+        //   elevation: 0,
+        //   sx: {
+        //     overflow: 'visible',
+        //     filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+        //     mb: 1.5,
+        //     '& .MuiPaper-root': {
+        //       width: 32,
+        //       height: 32,
+        //       ml: -0.5,
+        //       mr: 1,
+        //     },
+        //     '&:before': {
+        //       content: '""',
+        //       display: 'block',
+        //       position: 'absolute',
+        //       top: 0,
+        //       right: 14,
+        //       width: 10,
+        //       height: 10,
+        //       bgcolor: 'background.paper',
+        //       transform: 'translateY(-50%) rotate(45deg)',
+        //       zIndex: 0,
+        //     },
+        //   },
+        // }}
+      >
+        <MenuItem onClick={() => handleSelect(anchorElement.id)}>
+          Mostrar/Esconder
+        </MenuItem>
+        {hasMoreThanOneTimeline && (
+          <MenuItem onClick={() => viewOnlySelectedTimeline(anchorElement.id)}>
+            Ver só essa
+          </MenuItem>
+        )}
+        {hasInvisibleTimelines && (
+          <MenuItem onClick={selectAllTimelines}>Ver todas</MenuItem>
+        )}
+      </Menu>
     </Wrapper>
   )
 }
