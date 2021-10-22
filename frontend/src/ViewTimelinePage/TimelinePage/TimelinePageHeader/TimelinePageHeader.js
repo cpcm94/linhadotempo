@@ -24,7 +24,13 @@ export const TimelinePageHeader = ({
   let history = useHistory()
   const timelinesId = timelines.map((timeline) => timeline.id)
   const navigateToTimelinesList = () => {
-    history.push(`/timelines?timelines=${timelinesId.join()}`)
+    history.push({
+      pathname: '/timelines',
+      search: `?timelines=${timelinesId.join()}`,
+      hash: `#date=${displayEntry.year}${
+        displayEntry.month ? `/${displayEntry.month}` : ''
+      }${displayEntry.day ? `/${displayEntry.day}` : ''}`,
+    })
   }
 
   const monthName =

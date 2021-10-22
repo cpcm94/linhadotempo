@@ -23,8 +23,6 @@ export const ViewTimelinesLoader = () => {
 
   const hasZoomOut = qs.parse(location.hash).zoomOut === 'true'
   const dateFromHash = qs.parse(location.hash).date
-    ? qs.parse(location.hash).date
-    : 'null'
 
   const noValidTimelines =
     urlQueryTimelineIds().length > 0 && selectedTimelines.length === 0

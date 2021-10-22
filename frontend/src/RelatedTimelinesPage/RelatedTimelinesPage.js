@@ -42,13 +42,14 @@ export const RelatedTimelinesPage = ({
     : [...allSelectedTimelines, mainTimeline.id]
 
   let history = useHistory()
+
   const navigateTo = (page) => {
     history.push(
       `${page}${
         allSelectedTimelines[0]
           ? `?timelines=${allSelectedTimelinesString}`
           : `?timelines=${mainTimeline.id}`
-      }`
+      }${window.location.hash}`
     )
   }
 

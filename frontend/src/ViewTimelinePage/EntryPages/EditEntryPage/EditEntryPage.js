@@ -68,9 +68,11 @@ export const EditEntryPage = ({
     history.push({
       pathname: '/viewTimeline/',
       search: `?timelines=${timelinesString}`,
-      hash: `#date=${entry.year}${entry.month ? `/${entry.month}` : ''}${
-        entry.day ? `/${entry.day}` : ''
-      }&entryId=${entryToEdit.id}&zoomOut=${hasZoomOut}`,
+      hash: `#date=${entry.year ? entry.year : 'null'}${
+        entry.month ? `/${entry.month}` : ''
+      }${entry.day ? `/${entry.day}` : ''}&entryId=${
+        entryToEdit.id
+      }&zoomOut=${hasZoomOut}`,
     })
   }
 

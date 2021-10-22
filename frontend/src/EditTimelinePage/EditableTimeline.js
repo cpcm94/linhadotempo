@@ -36,7 +36,7 @@ export const EditableTimeline = ({
     history.push(
       `/relatedTimelines/${timeline.id}/${
         selectedTimelinesFromUrl ? `?timelines=${selectedTimelinesFromUrl}` : ''
-      }`
+      }${window.location.hash}`
     )
   }
 
