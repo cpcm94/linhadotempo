@@ -45,6 +45,7 @@ export const EditEntryPage = ({
     end_year: yearWithoutNegativeSign(entryToEdit.end_year),
     end_month: entryToEdit.end_month ? entryToEdit.end_month : '',
     end_day: entryToEdit.end_day ? entryToEdit.end_day : '',
+    is_period: entryToEdit.is_period ? entryToEdit.is_period : false,
     annual_importance: entryToEdit.annual_importance,
     monthly_importance: entryToEdit.monthly_importance,
     image_url: entryToEdit.image_url ? entryToEdit.image_url : '',

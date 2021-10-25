@@ -54,6 +54,10 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
     year: '',
     month: '',
     day: '',
+    end_year: '',
+    end_month: '',
+    end_day: '',
+    is_period: false,
     annual_importance: false,
     monthly_importance: false,
     image_url: '',
@@ -176,6 +180,10 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
           cookieEntry.current.day !== ''
             ? parseInt(cookieEntry.current.day)
             : '',
+        end_year: entry.end_year,
+        end_month: entry.end_month,
+        end_day: entry.end_day,
+        is_period: entry.is_period,
         book_id: cookieEntry.current.bookId,
         book_page: cookieEntry.current.bookPage,
         annual_importance: entry.annual_importance,

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import { TimelinePage } from './TimelinePage/TimelinePage'
 import { TimelinesContext } from './TimelinesContextProvider'
 import { NoValidTimelinesPage } from './NoValidTimelinesPage'
@@ -20,9 +20,10 @@ export const ViewTimelinesLoader = () => {
     fetchPolicy: 'cache-and-network',
     variables: { timeline_ids: urlQueryTimelineIds() },
   })
-
-  const hasZoomOut = qs.parse(location.hash).zoomOut === 'true'
-  const dateFromHash = qs.parse(location.hash).date
+  const hashObject = qs.parse(location.hash)
+  const hasZoomOut = hashObject.zoomOut === 'true'
+  const dateFromHash = hashObject.date
+  const newEntryId = useRef(hashObject.entryId || null)
 
   const noValidTimelines =
     urlQueryTimelineIds().length > 0 && selectedTimelines.length === 0
@@ -45,6 +46,7 @@ export const ViewTimelinesLoader = () => {
       bucketName={s3BucketName}
       hasZoomOut={hasZoomOut}
       dateFromHash={dateFromHash}
+      newEntryId={newEntryId.current}
     />
   ) : null
 }

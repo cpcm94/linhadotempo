@@ -21,3 +21,13 @@ export const DateSpan = styled.div`
   color: ${({ isEmpty }) => (isEmpty ? colors.grey : colors.black)};
   cursor: pointer;
 `
+
+export const PeriodMessage = styled.div`
+  padding: 0.5rem;
+  color: ${colors.grey};
+  font-size: 0.9rem;
+  :hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`

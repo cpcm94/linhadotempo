@@ -13,9 +13,11 @@ export const checkIfEntryError = (entry) => {
     entry.end_day !== '' &&
     (entry.end_month === '' || entry.end_year === '')
   ) {
-    return { error: 'dayWithoutYearOrMonth', field: 'endDate' }
+    return { error: 'dayWithoutYearOrMonthPeriod', field: 'endDate' }
   } else if (entry.end_month !== '' && entry.end_year === '') {
-    return { error: 'monthWithoutYear', field: 'endDate' }
+    return { error: 'monthWithoutYearPeriod', field: 'endDate' }
+  } else if (entry.is_period && entry.year === '') {
+    return { error: 'periodWithoutStartYear', field: 'endDate' }
   } else {
     return false
   }

@@ -71,13 +71,13 @@ export const TimelinePage = ({
   bucketName,
   hasZoomOut,
   dateFromHash,
+  newEntryId,
 }) => {
   const alreadyRan = useRef(false)
   const runScrollTo = useRef(true)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
   const [zoomOut, setZoomOut] = useState(hasZoomOut)
-
   const element = useRef(null)
   const hash = useRef(dateFromHash)
 
@@ -134,11 +134,6 @@ export const TimelinePage = ({
   const closestNextEntryToHash = zoomOut
     ? findClosestNextEntryToHash(entriesWithAnnualImportance, hash.current)
     : findClosestNextEntryToHash(entries, hash.current)
-
-  const highlightedEntryId =
-    hash.current && hash.current.indexOf('&') !== -1
-      ? hash.current.substr(hash.current.indexOf('&') + 9)
-      : null
 
   const entryToScrollTo = firstEntryOfExactDate
     ? firstEntryOfExactDate.id
@@ -229,7 +224,6 @@ export const TimelinePage = ({
       })
     }
   })
-
   const showAnnualImportanceScroller = entriesWithAnnualImportance[0] && zoomOut
   const showRegularScroller = entries[0] && !zoomOut
   return (
@@ -245,7 +239,7 @@ export const TimelinePage = ({
           <TimelineScrollerAnnual
             visibleTimelines={visibleTimelines}
             entries={entriesWithAnnualImportance}
-            newEntryId={highlightedEntryId}
+            newEntryId={newEntryId}
             forwardedRef={objectRefs}
             displayEntry={displayEntry}
             bucketName={bucketName}
@@ -254,7 +248,7 @@ export const TimelinePage = ({
           <TimelineScroller
             visibleTimelines={visibleTimelines}
             entries={entries}
-            newEntryId={highlightedEntryId}
+            newEntryId={newEntryId}
             forwardedRef={objectRefs}
             displayEntry={displayEntry}
             bucketName={bucketName}
@@ -291,4 +285,5 @@ TimelinePage.propTypes = {
   bucketName: PropTypes.string,
   hasZoomOut: PropTypes.bool,
   dateFromHash: PropTypes.string,
+  newEntryId: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 }

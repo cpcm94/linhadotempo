@@ -14,7 +14,7 @@ export const convertFormDataValues = (entry, radioValue) => {
   if (newEntry.end_year === '') {
     newEntry.end_year = null
   } else {
-    newEntry.end_year = parseInt(newEntry.year)
+    newEntry.end_year = parseInt(newEntry.end_year)
   }
   if (newEntry.end_month === '') {
     newEntry.end_month = null

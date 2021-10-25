@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { DateSpan, DateWrapper } from './DateDisplay.styles'
+import { DateSpan, DateWrapper, PeriodMessage } from './DateDisplay.styles'
 import { DaySelector } from './DaySelector/DaySelector'
 import { MonthSelector } from './MonthSelector/MonthSelector'
 import { ResetFieldButton } from './ResetFieldButton'
@@ -7,6 +7,16 @@ import { YearField } from './YearField/YearField'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 import PropTypes from 'prop-types'
+
+const errorMessage = (error) => {
+  if (error === 'dayWithoutYearOrMonthPeriod') {
+    return 'Não é possível criar período com dia sem possuir mês e ano'
+  } else if (error === 'monthWithoutYearPeriod') {
+    return 'Não é possível criar acontecimento com mês sem possuir ano'
+  } else if (error === 'periodWithoutStartYear') {
+    return 'Não é possível salvar um período sem o ano inicial'
+  }
+}
 
 export const EndDateDisplay = ({
   entry,
@@ -22,17 +32,17 @@ export const EndDateDisplay = ({
   const [showYearPicker, setShowYearPicker] = useState(false)
 
   const displayDatePicker = (dateInfo) => {
-    if (dateInfo === 'day') {
+    if (dateInfo === 'end_day') {
       setShowDayPicker(!showDayPicker)
       setShowMonthPicker(false)
       setShowYearPicker(false)
     }
-    if (dateInfo === 'month') {
+    if (dateInfo === 'end_month') {
       setShowDayPicker(false)
       setShowMonthPicker(!showMonthPicker)
       setShowYearPicker(false)
     }
-    if (dateInfo === 'year') {
+    if (dateInfo === 'end_year') {
       setShowDayPicker(false)
       setShowMonthPicker(false)
       setShowYearPicker(!showYearPicker)
@@ -78,15 +88,31 @@ export const EndDateDisplay = ({
     newEntry.end_year = ''
     setEntry(newEntry)
   }
+
+  const turnIntoPeriod = () => {
+    const newEntry = { ...entry }
+    newEntry.is_period = true
+    setEntry(newEntry)
+    setShowEndDateDisplay(true)
+  }
+  const turnIntoNonPeriod = () => {
+    const newEntry = { ...entry }
+    newEntry.is_period = false
+    setEntry(newEntry)
+    setShowEndDateDisplay(false)
+  }
   const checkIfEmptyString = (string) => string.toString().trim() === ''
 
-  const showErrorMessage = entryError && entryError.field === 'date'
+  const showErrorMessage = entryError && entryError.field === 'endDate'
+
+  const showPeriodTrigger = entry.year && !showEndDateDisplay
+
   return (
     <>
-      {!showEndDateDisplay && (
-        <div onClick={() => setShowEndDateDisplay(true)}>
+      {showPeriodTrigger && (
+        <PeriodMessage onClick={turnIntoPeriod}>
           Inserir data final e transformar em período
-        </div>
+        </PeriodMessage>
       )}
       {showEndDateDisplay && (
         <>
@@ -95,17 +121,13 @@ export const EndDateDisplay = ({
             resetSection={resetAllDateFieldValues}
           />
           {showErrorMessage && (
-            <ErrorMessage>
-              {entryError.error === 'dayWithoutYearOrMonth'
-                ? 'Não é possível criar acontecimento com dia sem possuir mês e ano'
-                : 'Não é possível criar acontecimento com mês sem possuir ano'}
-            </ErrorMessage>
+            <ErrorMessage>{errorMessage(entryError.error)}</ErrorMessage>
           )}
           <DateWrapper id={fieldId}>
             <DateSpan
               selected={showDayPicker}
               isEmpty={checkIfEmptyString(entry.end_day)}
-              onClick={() => displayDatePicker('day')}
+              onClick={() => displayDatePicker('end_day')}
             >
               {checkIfEmptyString(entry.end_day) ? 'dia' : entry.end_day}
               {showDayPicker && (
@@ -116,7 +138,7 @@ export const EndDateDisplay = ({
             <DateSpan
               selected={showMonthPicker}
               isEmpty={checkIfEmptyString(entry.end_month)}
-              onClick={() => displayDatePicker('month')}
+              onClick={() => displayDatePicker('end_month')}
             >
               {checkIfEmptyString(entry.end_month)
                 ? 'mês'
@@ -129,7 +151,7 @@ export const EndDateDisplay = ({
             <DateSpan
               selected={showYearPicker}
               isEmpty={checkIfEmptyString(entry.end_year)}
-              onClick={() => displayDatePicker('year')}
+              onClick={() => displayDatePicker('end_year')}
             >
               {checkIfEmptyString(entry.end_year) ? 'ano' : entry.end_year}
               {showYearPicker && (
@@ -159,6 +181,9 @@ export const EndDateDisplay = ({
               changeDay={handleDayChange}
             />
           )}
+          <PeriodMessage onClick={turnIntoNonPeriod}>
+            Retornar a um acontecimento regular
+          </PeriodMessage>
         </>
       )}
     </>
