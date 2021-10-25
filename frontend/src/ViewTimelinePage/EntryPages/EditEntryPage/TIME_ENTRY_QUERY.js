@@ -12,6 +12,7 @@ export const TIME_ENTRY_QUERY = gql`
       end_year
       end_month
       end_day
+      is_period
       monthly_importance
       annual_importance
       image_url
