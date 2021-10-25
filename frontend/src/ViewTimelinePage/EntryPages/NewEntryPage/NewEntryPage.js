@@ -167,7 +167,7 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
       setRadioValue(hasNegativeYear ? 'AC' : 'DC')
       setEntry({
         timelines: { sync: cookieEntry.current.timelines.split(',') },
-        year: yearWithoutNegativeSign(cookieEntry.current),
+        year: yearWithoutNegativeSign(cookieEntry.current.year),
         month:
           cookieEntry.current.month !== ''
             ? parseInt(cookieEntry.current.month)

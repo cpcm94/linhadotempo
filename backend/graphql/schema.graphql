@@ -43,6 +43,9 @@ type TimeEntry {
     year: Int
     month: Int
     day: Int
+    end_year: Int
+    end_month: Int
+    end_day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
     image_url: String
@@ -114,6 +117,9 @@ input CreateTimeEntryInput {
     year: Int
     month: Int
     day: Int
+    end_year: Int
+    end_month: Int
+    end_day: Int
     annual_importance: Boolean!
     monthly_importance: Boolean!
     image_url: String
@@ -153,6 +159,9 @@ input UpdateTimeEntryInput {
     year: Int
     month: Int
     day: Int
+    end_year: Int
+    end_month: Int
+    end_day: Int
     annual_importance: Boolean
     monthly_importance: Boolean
     image_url: String

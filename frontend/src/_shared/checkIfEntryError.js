@@ -9,6 +9,13 @@ export const checkIfEntryError = (entry) => {
     return { error: 'monthWithoutYear', field: 'date' }
   } else if (!entry.timelines.sync[0]) {
     return { error: 'entryWithoutTimeline', field: 'timeline' }
+  } else if (
+    entry.end_day !== '' &&
+    (entry.end_month === '' || entry.end_year === '')
+  ) {
+    return { error: 'dayWithoutYearOrMonth', field: 'endDate' }
+  } else if (entry.end_month !== '' && entry.end_year === '') {
+    return { error: 'monthWithoutYear', field: 'endDate' }
   } else {
     return false
   }
