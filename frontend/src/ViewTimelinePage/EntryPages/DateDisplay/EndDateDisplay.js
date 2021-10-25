@@ -6,9 +6,17 @@ import { ResetFieldButton } from './ResetFieldButton'
 import { YearField } from './YearField/YearField'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
+import PropTypes from 'prop-types'
 
-export const EndDateDisplay = () => {
-  const [showEndDateDisplay, setShowEndDateDisplay] = useState(false)
+export const EndDateDisplay = ({
+  entry,
+  setEntry,
+  radioValue,
+  setRadioValue,
+  fieldId,
+  entryError,
+}) => {
+  const [showEndDateDisplay, setShowEndDateDisplay] = useState(entry.is_period)
   const [showDayPicker, setShowDayPicker] = useState(false)
   const [showMonthPicker, setShowMonthPicker] = useState(false)
   const [showYearPicker, setShowYearPicker] = useState(false)
@@ -155,4 +163,12 @@ export const EndDateDisplay = () => {
       )}
     </>
   )
+}
+EndDateDisplay.propTypes = {
+  entry: PropTypes.object,
+  setEntry: PropTypes.func,
+  radioValue: PropTypes.string,
+  setRadioValue: PropTypes.func,
+  fieldId: PropTypes.string,
+  entryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
 }

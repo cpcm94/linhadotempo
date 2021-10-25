@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddEndDateFieldsToEntriesTable extends Migration
+class AddIsPeriodFieldToTimeEntriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AddEndDateFieldsToEntriesTable extends Migration
     public function up()
     {
         Schema::table('time_entries', function (Blueprint $table) {
-            $table->integer('end_year')->nullable();
-            $table->integer('end_month')->nullable();
-            $table->integer('end_day')->nullable();
+            $table->boolean('is_period')->default(false);
         });
     }
 
@@ -27,8 +25,8 @@ class AddEndDateFieldsToEntriesTable extends Migration
      */
     public function down()
     {
-        $table->dropColumn('end_day');
-        $table->dropColumn('end_month');
-        $table->dropColumn('end_year');
+        Schema::table('time_entries', function (Blueprint $table) {
+            $table->dropColumn('is_period');
+        });
     }
 }
