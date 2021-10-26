@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DateSpan, DateWrapper, PeriodMessage } from './DateDisplay.styles'
 import { DaySelector } from './DaySelector/DaySelector'
 import { MonthSelector } from './MonthSelector/MonthSelector'
@@ -25,6 +25,8 @@ export const EndDateDisplay = ({
   setRadioValue,
   fieldId,
   entryError,
+  showMessageTrigger,
+  setShowMessageTrigger,
 }) => {
   const [showEndDateDisplay, setShowEndDateDisplay] = useState(entry.is_period)
   const [showDayPicker, setShowDayPicker] = useState(false)
@@ -105,8 +107,14 @@ export const EndDateDisplay = ({
 
   const showErrorMessage = entryError && entryError.field === 'endDate'
 
-  const showPeriodTrigger = entry.year && !showEndDateDisplay
+  const showPeriodTrigger =
+    entry.year && !showEndDateDisplay && showMessageTrigger
 
+  useEffect(() => {
+    if (showEndDateDisplay) {
+      setShowMessageTrigger(true)
+    }
+  }, [setShowMessageTrigger, showEndDateDisplay])
   return (
     <>
       {showPeriodTrigger && (
@@ -196,4 +204,6 @@ EndDateDisplay.propTypes = {
   setRadioValue: PropTypes.func,
   fieldId: PropTypes.string,
   entryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  showMessageTrigger: PropTypes.bool,
+  setShowMessageTrigger: PropTypes.func,
 }

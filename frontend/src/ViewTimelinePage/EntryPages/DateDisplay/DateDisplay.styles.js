@@ -22,6 +22,18 @@ export const DateSpan = styled.div`
   cursor: pointer;
 `
 
+export const EllipsisWrapper = styled.div`
+  padding: 0 0.5rem;
+  margin-top: -0.5rem;
+  font-size: 1.5rem;
+  align-self: center;
+  border-radius: 5px;
+  :hover {
+    cursor: pointer;
+    background-color: ${colors.lightBrown};
+  }
+`
+
 export const PeriodMessage = styled.div`
   padding: 0.5rem;
   color: ${colors.grey};

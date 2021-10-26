@@ -16,6 +16,20 @@ import { filterEntriesWithoutValue } from './YearEntries/filterEntriesWithoutVal
 import { filterEntriesWithValue } from './YearEntries/filterEntriesWithValue'
 import { EntriesWithoutYear } from './EntriesWithoutYear'
 
+const addPeriodEndEntries = (array) => {
+  const newArray = [...array]
+  newArray.map((entry) => {
+    if (entry.is_period) {
+      const newEntry = { ...entry, period_end: true }
+      newEntry.name = `Fim ${entry.name}`
+      newEntry.year = entry.end_year
+      newEntry.month = entry.end_month
+      newEntry.day = entry.end_day
+      newArray.push(newEntry)
+    }
+  })
+  return newArray
+}
 export const TimelineScroller = ({
   visibleTimelines,
   entries,
@@ -31,13 +45,17 @@ export const TimelineScroller = ({
       .some((id) => visibleTimelinesIds.includes(id))
   )
 
+  const filteredEntriesAndPeriodsByVisibleTimelines = addPeriodEndEntries(
+    filteredEntriesByVisibleTimelines
+  )
+
   const entriesWithoutYear = filterEntriesWithValue(
-    filteredEntriesByVisibleTimelines,
+    filteredEntriesAndPeriodsByVisibleTimelines,
     'year'
   )
 
   const entriesWithYear = filterEntriesWithoutValue(
-    filteredEntriesByVisibleTimelines,
+    filteredEntriesAndPeriodsByVisibleTimelines,
     'year'
   )
 

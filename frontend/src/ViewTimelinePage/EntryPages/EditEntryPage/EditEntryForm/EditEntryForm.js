@@ -8,7 +8,6 @@ import { EntrySource } from '../../EntrySource/EntrySource'
 import { ImageUploader } from '../../ImageUploader/ImageUploader'
 import { DeleteButtonAndConfirmation } from '../../../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
-import { EndDateDisplay } from '../../DateDisplay/EndDateDisplay'
 
 export const EditEntryForm = ({
   entry,
@@ -60,14 +59,6 @@ export const EditEntryForm = ({
       />
       <DateDisplay
         fieldId={'date'}
-        entryError={entryError}
-        entry={entry}
-        setEntry={setEntry}
-        radioValue={radioValue}
-        setRadioValue={setRadioValue}
-      />
-      <EndDateDisplay
-        fieldId={'endDate'}
         entryError={entryError}
         entry={entry}
         setEntry={setEntry}

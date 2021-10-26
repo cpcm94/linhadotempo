@@ -12,7 +12,6 @@ import { EntrySource } from '../../EntrySource/EntrySource'
 import { ImageUploader } from '../../ImageUploader/ImageUploader'
 import { DeleteButton } from '../../../../_shared/DeleteButton'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
-import { EndDateDisplay } from '../../DateDisplay/EndDateDisplay'
 
 export const NewEntryForm = ({
   timelines,
@@ -61,14 +60,6 @@ export const NewEntryForm = ({
         />
         <DateDisplay
           fieldId={'date'}
-          entry={entry}
-          setEntry={setEntry}
-          entryError={entryError}
-          radioValue={radioValue}
-          setRadioValue={setRadioValue}
-        />
-        <EndDateDisplay
-          fieldId={'endDate'}
           entry={entry}
           setEntry={setEntry}
           entryError={entryError}
