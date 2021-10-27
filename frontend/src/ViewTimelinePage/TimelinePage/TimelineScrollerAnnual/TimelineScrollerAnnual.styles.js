@@ -28,8 +28,6 @@ export const InvisibleIconWrapper = styled.div`
   justify-content: center;
 `
 
-export const SpanWrapper = styled.div``
-
 export const EntryWithoutYearLabelWrapper = styled.div`
   display: flex;
   position: relative;

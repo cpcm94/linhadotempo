@@ -11,8 +11,6 @@ export const MonthAndEntryWrapper = styled.div`
   flex-direction: column;
 `
 
-export const EntryWithoutDayWrapper = styled.div``
-
 export const EntryNameWrapper = styled.div`
   flex: 1;
 `

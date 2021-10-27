@@ -28,14 +28,11 @@ export const InvisibleIconWrapper = styled.div`
   justify-content: center;
 `
 
-export const SpanWrapper = styled.div``
-
 export const EntryWithoutYearLabelWrapper = styled.div`
   display: flex;
   position: relative;
-  justify-content: center;
   z-index: 1;
-  padding: 0.5rem 0;
+  padding: 0.5rem;
   color: ${colors.lightGrey};
   visibility: ${({ isDisplayEntryYear }) =>
     isDisplayEntryYear ? 'hidden' : 'visible'};
@@ -53,8 +50,9 @@ export const EntryWithoutYearLabelWrapper = styled.div`
   }
   span {
     background: ${colors.white};
-    padding: 0 0.25rem;
+    padding: 0 0.5rem;
+    margin-left: 1.85rem;
   }
-  font-size: 0.85em;
+  font-size: 0.9em;
   color: ${colors.grey};
 `

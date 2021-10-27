@@ -14,8 +14,6 @@ to {
 }
 `
 
-export const TextWrapper = styled.div``
-
 export const EntryWrapper = styled.div`
   display: flex;
   padding: 0.2rem 1.5rem 0 0.6rem;

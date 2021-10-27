@@ -12,7 +12,6 @@ import { MinusIcon } from '../../../../_shared/MinusIcon'
 
 export const YearField = ({
   year,
-  changeYear,
   radioValue,
   setRadioValue,
   setYear,
@@ -50,7 +49,7 @@ export const YearField = ({
             variant="outlined"
             label="Ano"
             value={year}
-            onChange={changeYear('year')}
+            onChange={(e) => setYear(e.target.value)}
           />
           <PlusIcon size={'20'} onClick={() => incrementByNumber(year, 1)} />
           <PlusIcon size={'25'} onClick={() => incrementByNumber(year, 10)} />
@@ -71,7 +70,6 @@ export const YearField = ({
 
 YearField.propTypes = {
   year: PropTypes.string,
-  changeYear: PropTypes.func,
   radioValue: PropTypes.string,
   setRadioValue: PropTypes.func,
   displayDatePicker: PropTypes.func,

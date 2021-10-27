@@ -120,8 +120,6 @@ export const EntriesWrapper = styled.div`
   flex-direction: column;
 `
 
-export const EntriesWithoutMonthsWrapper = styled.div``
-
 export const YearWrapper = styled.div`
   margin-left: 7.75rem;
 `

@@ -41,12 +41,6 @@ export const DateDisplay = ({
     }
   }
 
-  const handleChange = (entryPropName) => (e) => {
-    const newEntry = { ...entry }
-    newEntry[entryPropName] = e.target.value
-    setEntry(newEntry)
-  }
-
   const setYear = (year) => {
     const newEntry = { ...entry }
     newEntry.year = year
@@ -139,7 +133,6 @@ export const DateDisplay = ({
       </DateWrapper>
       {showYearPicker && (
         <YearField
-          changeYear={handleChange}
           setYear={setYear}
           year={entry.year}
           radioValue={radioValue}

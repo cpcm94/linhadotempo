@@ -40,8 +40,6 @@ export const EntryWrapper = styled.div`
   flex: 1;
 `
 
-export const YearWrapper = styled.div``
-
 export const MonthWrapper = styled.div`
   min-width: 3.3rem;
   padding: 0 0.25rem;

@@ -2,7 +2,6 @@ import React from 'react'
 import {
   MonthEntriesWrapper,
   MonthAndEntryWrapper,
-  EntryWithoutDayWrapper,
   MonthWrapper,
   MonthDateWrapper,
   DateText,
@@ -64,15 +63,13 @@ export const MonthEntries = ({
             </DateWrapper>
           </MonthWrapper>
         )}
-        <EntryWithoutDayWrapper>
-          <EntriesWithoutDay
-            timeEntriesWithoutDay={entriesWithoutDay}
-            newEntryId={newEntryId}
-            forwardedRef={forwardedRef}
-            visibleTimelines={visibleTimelines}
-            bucketName={bucketName}
-          />
-        </EntryWithoutDayWrapper>
+        <EntriesWithoutDay
+          timeEntriesWithoutDay={entriesWithoutDay}
+          newEntryId={newEntryId}
+          forwardedRef={forwardedRef}
+          visibleTimelines={visibleTimelines}
+          bucketName={bucketName}
+        />
       </MonthAndEntryWrapper>
       <DayEntries
         timeEntriesByDay={entriesSortedByDay}

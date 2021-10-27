@@ -7,6 +7,7 @@ import { YearField } from './YearField/YearField'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 import PropTypes from 'prop-types'
+import { monthNameArray } from '../../../_shared/monthNameArray'
 
 const errorMessage = (error) => {
   if (error === 'dayWithoutYearOrMonthPeriod') {

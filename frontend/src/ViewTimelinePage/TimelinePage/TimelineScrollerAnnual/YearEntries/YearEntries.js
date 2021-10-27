@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { EntriesWithoutMonths } from './EntriesWithoutMonths'
 import { MonthEntries } from './MonthEntries/MonthEntries'
 import {
-  EntriesWithoutMonthsWrapper,
   Wrapper,
   EntriesWrapper,
   EntryYearWrapper,
@@ -55,17 +54,13 @@ export const YearEntries = ({
           </YearWrapper>
         </EntryYearWrapper>
         {atLeastOneEntryWithoutMonth && (
-          <>
-            <EntriesWithoutMonthsWrapper>
-              <EntriesWithoutMonths
-                entriesWithoutMonth={entriesWithoutMonth}
-                newEntryId={newEntryId}
-                forwardedRef={forwardedRef}
-                visibleTimelines={visibleTimelines}
-                bucketName={bucketName}
-              />
-            </EntriesWithoutMonthsWrapper>
-          </>
+          <EntriesWithoutMonths
+            entriesWithoutMonth={entriesWithoutMonth}
+            newEntryId={newEntryId}
+            forwardedRef={forwardedRef}
+            visibleTimelines={visibleTimelines}
+            bucketName={bucketName}
+          />
         )}
         {entriesSortedByMonth.map((month, index) => (
           <MonthEntries

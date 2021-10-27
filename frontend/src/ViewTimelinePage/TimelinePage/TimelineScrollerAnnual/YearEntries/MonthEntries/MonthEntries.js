@@ -2,7 +2,6 @@ import React from 'react'
 import {
   MonthEntriesWrapper,
   MonthAndEntryWrapper,
-  EntryWithoutDayWrapper,
 } from './MonthEntries.styles'
 import { DayEntries } from './DayEntries/DayEntries'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
@@ -34,15 +33,13 @@ export const MonthEntries = ({
   return (
     <MonthEntriesWrapper>
       <MonthAndEntryWrapper>
-        <EntryWithoutDayWrapper>
-          <EntriesWithoutDay
-            timeEntriesWithoutDay={entriesWithoutDay}
-            newEntryId={newEntryId}
-            forwardedRef={forwardedRef}
-            visibleTimelines={visibleTimelines}
-            bucketName={bucketName}
-          />
-        </EntryWithoutDayWrapper>
+        <EntriesWithoutDay
+          timeEntriesWithoutDay={entriesWithoutDay}
+          newEntryId={newEntryId}
+          forwardedRef={forwardedRef}
+          visibleTimelines={visibleTimelines}
+          bucketName={bucketName}
+        />
       </MonthAndEntryWrapper>
       <DayEntries
         timeEntriesByDay={entriesSortedByDay}

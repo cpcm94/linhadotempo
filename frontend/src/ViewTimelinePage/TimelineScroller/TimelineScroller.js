@@ -4,7 +4,6 @@ import {
   Wrapper,
   EntriesWrapper,
   InvisibleIconWrapper,
-  SpanWrapper,
   EntryWithoutYearLabelWrapper,
 } from './TimelineScroller.styles'
 import { YearEntries } from './YearEntries/YearEntries'
@@ -15,21 +14,9 @@ import { MessageWrapper } from '../../_shared/MessageWrapper'
 import { filterEntriesWithoutValue } from './YearEntries/filterEntriesWithoutValue'
 import { filterEntriesWithValue } from './YearEntries/filterEntriesWithValue'
 import { EntriesWithoutYear } from './EntriesWithoutYear'
+import { PeriodEndWithoutYear } from './PeriodEndWithoutYear'
+import { addPeriodEndEntries } from '../../_shared/addPeriodEndEntries'
 
-const addPeriodEndEntries = (array) => {
-  const newArray = [...array]
-  newArray.map((entry) => {
-    if (entry.is_period) {
-      const newEntry = { ...entry, period_end: true }
-      newEntry.name = `Fim ${entry.name}`
-      newEntry.year = entry.end_year
-      newEntry.month = entry.end_month
-      newEntry.day = entry.end_day
-      newArray.push(newEntry)
-    }
-  })
-  return newArray
-}
 export const TimelineScroller = ({
   visibleTimelines,
   entries,
@@ -49,9 +36,15 @@ export const TimelineScroller = ({
     filteredEntriesByVisibleTimelines
   )
 
-  const entriesWithoutYear = filterEntriesWithValue(
+  const entriesAndPeriodsWithoutYear = filterEntriesWithValue(
     filteredEntriesAndPeriodsByVisibleTimelines,
     'year'
+  )
+  const entriesWithoutYear = entriesAndPeriodsWithoutYear.filter(
+    (entry) => !entry.period_end
+  )
+  const periodEndsWithoutYear = entriesAndPeriodsWithoutYear.filter(
+    (entry) => entry.period_end
   )
 
   const entriesWithYear = filterEntriesWithoutValue(
@@ -71,6 +64,19 @@ export const TimelineScroller = ({
     <Wrapper>
       {visibleTimelines[0] ? (
         <EntriesWrapper>
+          {periodEndsWithoutYear[0] && (
+            <>
+              <EntryWithoutYearLabelWrapper>
+                <span>{'Períodos ainda ativos'}</span>
+              </EntryWithoutYearLabelWrapper>
+              <PeriodEndWithoutYear
+                periodEndsWithoutYear={periodEndsWithoutYear}
+                newEntryId={newEntryId}
+                visibleTimelines={visibleTimelines}
+                bucketName={bucketName}
+              />
+            </>
+          )}
           {entriesSortedByYear.map((timeEntriesByYear, index) => (
             <YearEntries
               timeEntriesByYear={timeEntriesByYear}
@@ -85,9 +91,7 @@ export const TimelineScroller = ({
           {entriesWithoutYear[0] && (
             <>
               <EntryWithoutYearLabelWrapper>
-                <SpanWrapper>
-                  <span>{'Sem data definida'}</span>
-                </SpanWrapper>
+                <span>{'Sem data definida'}</span>
               </EntryWithoutYearLabelWrapper>
               <EntriesWithoutYear
                 entriesWithoutYear={entriesWithoutYear}

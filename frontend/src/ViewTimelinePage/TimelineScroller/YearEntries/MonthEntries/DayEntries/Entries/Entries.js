@@ -4,7 +4,6 @@ import {
   EntriesWrapper,
   EntryDateWrapper,
   EntryWrapper,
-  YearWrapper,
   MonthWrapper,
   DayWrapper,
   DateSpan,
@@ -56,18 +55,14 @@ export const Entries = ({
       <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
         <DateSpan>
           <DayWrapper>{day}</DayWrapper>
-          {
-            <MonthWrapper>
-              <DateText>de</DateText>
-              {monthName}
-            </MonthWrapper>
-          }
-          {
-            <YearWrapper>
-              <DateText>de</DateText>
-              {yearAC}
-            </YearWrapper>
-          }
+          <MonthWrapper>
+            <DateText>de</DateText>
+            {monthName}
+          </MonthWrapper>
+          <>
+            <DateText>de</DateText>
+            {yearAC}
+          </>
         </DateSpan>
       </EntryDateWrapper>
       <EntriesWrapper>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { Header } from '../../../_shared/Header/Header'
 import { Layout } from '../../../_shared/Layout'
 import PropTypes from 'prop-types'
@@ -85,6 +85,14 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
 
   const entryError = checkIfEntryError(entry)
 
+  const filterCookieTimelinesForVisibleTimelines = useCallback(
+    (cookieEntryTimelines) =>
+      cookieEntryTimelines.filter((timelineId) =>
+        timelines.map((timeline) => timeline.id).includes(timelineId)
+      ),
+    [timelines]
+  )
+
   useEffect(() => {
     if (!isFirstRun.current) {
       if (timeoutId) {
@@ -170,7 +178,11 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
         cookieEntry.current.year && cookieEntry.current.year.startsWith('-')
       setRadioValue(hasNegativeYear ? 'AC' : 'DC')
       setEntry({
-        timelines: { sync: cookieEntry.current.timelines.split(',') },
+        timelines: {
+          sync: filterCookieTimelinesForVisibleTimelines(
+            cookieEntry.current.timelines.split(',')
+          ),
+        },
         year: yearWithoutNegativeSign(cookieEntry.current.year),
         month:
           cookieEntry.current.month !== ''
@@ -205,6 +217,7 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
     entry.book_id,
     entry.book_page,
     radioValue,
+    filterCookieTimelinesForVisibleTimelines,
   ])
   const setEntryTimelines = (array) => {
     const newEntry = { ...entry }
