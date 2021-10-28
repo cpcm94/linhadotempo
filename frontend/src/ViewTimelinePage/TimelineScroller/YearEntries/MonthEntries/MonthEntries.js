@@ -23,7 +23,36 @@ export const MonthEntries = ({
   displayEntry,
   visibleTimelines,
   bucketName,
+  periods,
 }) => {
+  const periodsWithEndMonthGreaterThan = periods.filter(
+    (subArray) => subArray[1].month > timeEntriesByMonth[0].month
+  )
+  console.log('periodsWithEndMonthGreaterThan', periodsWithEndMonthGreaterThan)
+
+  const filterRelevantPeriods = (periods, month, day) => {
+    return periods.filter((subArray) => {
+      const periodStartMonth = subArray[0].month
+      const periodEndMonth = subArray[1].month
+      const periodStartDay = subArray[0].day
+      const periodEndDay = subArray[1].day
+      if (month > periodStartMonth && month < periodEndMonth) {
+        return subArray
+      } else if (month === periodStartMonth && month === periodEndMonth) {
+        if (day >= periodStartDay && day <= periodEndDay) {
+          return subArray
+        }
+      } else if (month === periodStartMonth && month < periodEndMonth) {
+        if (day >= periodStartDay) {
+          return subArray
+        }
+      } else if (month > periodStartMonth && month === periodEndMonth) {
+        if (day <= periodEndDay) {
+          return subArray
+        }
+      }
+    })
+  }
   const month = abvMonthNameArray[timeEntriesByMonth[0].month]
   const year = timeEntriesByMonth[0].year
   const yearAC = year.toString().startsWith('-')
@@ -51,7 +80,9 @@ export const MonthEntries = ({
 
   return (
     <MonthEntriesWrapper>
-      <MonthAndEntryWrapper>
+      <MonthAndEntryWrapper
+        periods={'placeholder: periodsWithEndMonthGreaterThan'}
+      >
         {atLeastOneEntryWithoutDay && (
           <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
             <DateWrapper>
@@ -78,6 +109,11 @@ export const MonthEntries = ({
         displayEntry={displayEntry}
         visibleTimelines={visibleTimelines}
         bucketName={bucketName}
+        periods={filterRelevantPeriods(
+          periods,
+          timeEntriesByMonth[0].month,
+          timeEntriesByMonth[0].day
+        )}
       />
     </MonthEntriesWrapper>
   )
@@ -90,4 +126,5 @@ MonthEntries.propTypes = {
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
   bucketName: PropTypes.string,
+  periods: PropTypes.array,
 }

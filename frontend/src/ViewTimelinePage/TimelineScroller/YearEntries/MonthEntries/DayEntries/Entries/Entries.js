@@ -29,7 +29,13 @@ export const Entries = ({
   displayEntry,
   visibleTimelines,
   bucketName,
+  periods,
 }) => {
+  console.log('periods', periods)
+  console.log('day', entries[0].day)
+  console.log('month', entries[0].month)
+  console.log('year', entries[0].year)
+
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
     history.push({
@@ -117,4 +123,5 @@ Entries.propTypes = {
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
   bucketName: PropTypes.string,
+  periods: PropTypes.array,
 }

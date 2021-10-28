@@ -7,6 +7,7 @@ import {
   EntriesWrapper,
   EntryYearWrapper,
   YearWrapper,
+  EntriesWithoutMonthsWrapper,
 } from './YearEntries.styles'
 import { convertObjectToArray } from '../../../_shared/convertObjectToArray'
 import { filterEntriesWithValue } from './filterEntriesWithValue'
@@ -20,7 +21,36 @@ export const YearEntries = ({
   displayEntry,
   visibleTimelines,
   bucketName,
+  periods,
 }) => {
+  const periodsWithEndYearGreaterThan = periods.filter(
+    (subArray) => subArray[1].year > timeEntriesByYear[0].year
+  )
+  console.log('periodsWithEndYearGreaterThan', periodsWithEndYearGreaterThan)
+
+  const filterRelevantPeriods = (periods, year, month) => {
+    return periods.filter((subArray) => {
+      const periodStartYear = subArray[0].year
+      const periodEndYear = subArray[1].year
+      const periodStartMonth = subArray[0].month
+      const periodEndMonth = subArray[1].month
+      if (year > periodStartYear && year < periodEndYear) {
+        return subArray
+      } else if (year === periodStartYear && year === periodEndYear) {
+        if (month >= periodStartMonth && month <= periodEndMonth) {
+          return subArray
+        }
+      } else if (year === periodStartYear && year < periodEndYear) {
+        if (month >= periodStartMonth) {
+          return subArray
+        }
+      } else if (year > periodStartYear && year === periodEndYear) {
+        if (month <= periodEndMonth) {
+          return subArray
+        }
+      }
+    })
+  }
   const year = timeEntriesByYear[0].year.toString().startsWith('-')
     ? `${timeEntriesByYear[0].year.toString().substr(1)} a.c.`
     : timeEntriesByYear[0].year.toString()
@@ -49,7 +79,9 @@ export const YearEntries = ({
     <Wrapper>
       <EntriesWrapper>
         {atLeastOneEntryWithoutMonth && (
-          <>
+          <EntriesWithoutMonthsWrapper
+            periods={'placeholder: periodsWithEndYearGreaterThan'}
+          >
             <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
               <YearWrapper>
                 <span>{year}</span>
@@ -62,17 +94,22 @@ export const YearEntries = ({
               visibleTimelines={visibleTimelines}
               bucketName={bucketName}
             />
-          </>
+          </EntriesWithoutMonthsWrapper>
         )}
-        {entriesSortedByMonth.map((month, index) => (
+        {entriesSortedByMonth.map((timeEntriesByMonth, index) => (
           <MonthEntries
-            timeEntriesByMonth={month}
+            timeEntriesByMonth={timeEntriesByMonth}
             key={index}
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
             displayEntry={displayEntry}
             visibleTimelines={visibleTimelines}
             bucketName={bucketName}
+            periods={filterRelevantPeriods(
+              periods,
+              timeEntriesByMonth[0].year,
+              timeEntriesByMonth[0].month
+            )}
           />
         ))}
       </EntriesWrapper>
@@ -87,4 +124,5 @@ YearEntries.propTypes = {
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
   bucketName: PropTypes.string,
+  periods: PropTypes.array,
 }

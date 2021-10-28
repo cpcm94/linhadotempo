@@ -16,6 +16,7 @@ import { filterEntriesWithValue } from './YearEntries/filterEntriesWithValue'
 import { EntriesWithoutYear } from './EntriesWithoutYear'
 import { PeriodEndWithoutYear } from './PeriodEndWithoutYear'
 import { addPeriodEndEntries } from '../../_shared/addPeriodEndEntries'
+import { filterRelevantPeriods } from '../../_shared/filterRelevantPeriods'
 
 export const TimelineScroller = ({
   visibleTimelines,
@@ -34,6 +35,24 @@ export const TimelineScroller = ({
 
   const filteredEntriesAndPeriodsByVisibleTimelines = addPeriodEndEntries(
     filteredEntriesByVisibleTimelines
+  )
+  const periods = convertObjectToArray(
+    groupBy(
+      filteredEntriesAndPeriodsByVisibleTimelines.filter(
+        (entry) => entry.is_period
+      ),
+      'id'
+    )
+  ).map((subArray) =>
+    subArray.map((entry) => {
+      return {
+        is_period: entry.is_period,
+        period_end: !!entry.period_end,
+        year: entry.year,
+        month: entry.month,
+        day: entry.day,
+      }
+    })
   )
 
   const entriesAndPeriodsWithoutYear = filterEntriesWithValue(
@@ -86,6 +105,11 @@ export const TimelineScroller = ({
               displayEntry={displayEntry}
               visibleTimelines={visibleTimelines}
               bucketName={bucketName}
+              periods={filterRelevantPeriods(
+                periods,
+                timeEntriesByYear[0].year,
+                'year'
+              )}
             />
           ))}
           {entriesWithoutYear[0] && (
