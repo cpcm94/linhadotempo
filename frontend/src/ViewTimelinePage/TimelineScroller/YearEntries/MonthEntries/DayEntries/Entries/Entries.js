@@ -31,11 +31,6 @@ export const Entries = ({
   bucketName,
   periods,
 }) => {
-  console.log('periods', periods)
-  console.log('day', entries[0].day)
-  console.log('month', entries[0].month)
-  console.log('year', entries[0].year)
-
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
     history.push({
@@ -57,7 +52,7 @@ export const Entries = ({
     displayEntry.year === year
 
   return (
-    <Wrapper>
+    <Wrapper periods={periods}>
       <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
         <DateSpan>
           <DayWrapper>{day}</DayWrapper>

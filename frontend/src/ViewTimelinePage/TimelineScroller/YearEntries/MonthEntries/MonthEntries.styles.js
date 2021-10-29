@@ -36,6 +36,25 @@ export const MonthEntriesWrapper = styled.div`
 export const MonthAndEntryWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  border-left: ${({ periods }) => periods[0] && `${periods.length}px solid`};
+  border-image: ${({ periods }) => {
+    if (periods.length > 1) {
+      const borderPercentages = 100 / periods.length
+      const ifIndexIsZero = (index) => (index === 0 ? 1 : index)
+      const linearGradientContent = `to right, ${periods.map(
+        (subArray, index) =>
+          `${subArray[0].period_color} ${
+            borderPercentages * ifIndexIsZero(index)
+          }%`
+      )}`
+      return `linear-gradient(${linearGradientContent}) ${periods.length}`
+    }
+  }};
+  border-color: ${({ periods }) => {
+    if (periods.length === 1) {
+      return `${periods[0][0].period_color}`
+    }
+  }};
 `
 
 export const EntryNameWrapper = styled.div`

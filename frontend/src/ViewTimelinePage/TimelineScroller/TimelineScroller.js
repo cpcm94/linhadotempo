@@ -5,6 +5,7 @@ import {
   EntriesWrapper,
   InvisibleIconWrapper,
   EntryWithoutYearLabelWrapper,
+  PeriodsEndsWrapper,
 } from './TimelineScroller.styles'
 import { YearEntries } from './YearEntries/YearEntries'
 import { convertObjectToArray } from '../../_shared/convertObjectToArray'
@@ -17,6 +18,8 @@ import { EntriesWithoutYear } from './EntriesWithoutYear'
 import { PeriodEndWithoutYear } from './PeriodEndWithoutYear'
 import { addPeriodEndEntries } from '../../_shared/addPeriodEndEntries'
 import { filterRelevantPeriods } from '../../_shared/filterRelevantPeriods'
+
+const periodColors = ['red', 'blue', 'green', 'black', 'teal', 'orange']
 
 export const TimelineScroller = ({
   visibleTimelines,
@@ -43,7 +46,7 @@ export const TimelineScroller = ({
       ),
       'id'
     )
-  ).map((subArray) =>
+  ).map((subArray, index) =>
     subArray.map((entry) => {
       return {
         is_period: entry.is_period,
@@ -51,10 +54,10 @@ export const TimelineScroller = ({
         year: entry.year,
         month: entry.month,
         day: entry.day,
+        period_color: periodColors[index],
       }
     })
   )
-
   const entriesAndPeriodsWithoutYear = filterEntriesWithValue(
     filteredEntriesAndPeriodsByVisibleTimelines,
     'year'
@@ -78,13 +81,14 @@ export const TimelineScroller = ({
   const entriesSortedByYear = arrayOfGroupedEntries.sort(
     (a, b) => b[0].year - a[0].year
   )
+  const periodsWithoutEndYear = periods.filter((subArray) => !subArray[1].year)
 
   return (
     <Wrapper>
       {visibleTimelines[0] ? (
         <EntriesWrapper>
           {periodEndsWithoutYear[0] && (
-            <>
+            <PeriodsEndsWrapper periods={periodsWithoutEndYear}>
               <EntryWithoutYearLabelWrapper>
                 <span>{'Períodos ainda ativos'}</span>
               </EntryWithoutYearLabelWrapper>
@@ -94,7 +98,7 @@ export const TimelineScroller = ({
                 visibleTimelines={visibleTimelines}
                 bucketName={bucketName}
               />
-            </>
+            </PeriodsEndsWrapper>
           )}
           {entriesSortedByYear.map((timeEntriesByYear, index) => (
             <YearEntries

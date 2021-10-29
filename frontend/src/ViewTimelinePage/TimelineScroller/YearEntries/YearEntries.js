@@ -23,10 +23,13 @@ export const YearEntries = ({
   bucketName,
   periods,
 }) => {
-  const periodsWithEndYearGreaterThan = periods.filter(
-    (subArray) => subArray[1].year > timeEntriesByYear[0].year
-  )
-  console.log('periodsWithEndYearGreaterThan', periodsWithEndYearGreaterThan)
+  const periodsWithEndYearGreaterThan = periods.filter((subArray) => {
+    if (subArray[1].year > timeEntriesByYear[0].year) {
+      return subArray
+    } else if (!subArray[1].year) {
+      return subArray
+    }
+  })
 
   const filterRelevantPeriods = (periods, year, month) => {
     return periods.filter((subArray) => {
@@ -35,6 +38,10 @@ export const YearEntries = ({
       const periodStartMonth = subArray[0].month
       const periodEndMonth = subArray[1].month
       if (year > periodStartYear && year < periodEndYear) {
+        return subArray
+      } else if (year > periodStartYear && !periodEndYear) {
+        return subArray
+      } else if (year === periodStartYear && !periodEndYear) {
         return subArray
       } else if (year === periodStartYear && year === periodEndYear) {
         if (month >= periodStartMonth && month <= periodEndMonth) {
@@ -51,6 +58,7 @@ export const YearEntries = ({
       }
     })
   }
+
   const year = timeEntriesByYear[0].year.toString().startsWith('-')
     ? `${timeEntriesByYear[0].year.toString().substr(1)} a.c.`
     : timeEntriesByYear[0].year.toString()
@@ -79,9 +87,7 @@ export const YearEntries = ({
     <Wrapper>
       <EntriesWrapper>
         {atLeastOneEntryWithoutMonth && (
-          <EntriesWithoutMonthsWrapper
-            periods={'placeholder: periodsWithEndYearGreaterThan'}
-          >
+          <EntriesWithoutMonthsWrapper periods={periodsWithEndYearGreaterThan}>
             <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
               <YearWrapper>
                 <span>{year}</span>
