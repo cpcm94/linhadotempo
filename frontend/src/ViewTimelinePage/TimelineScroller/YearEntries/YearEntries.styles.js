@@ -1,5 +1,6 @@
 import styled, { keyframes, css } from 'styled-components'
 import { colors } from '../../../_shared/colors'
+import { getBoxShadowFromPeriods } from '../../../_shared/getBoxShadowFromPeriods'
 
 const newBackgroundColor = keyframes`
   from {
@@ -125,22 +126,20 @@ export const YearWrapper = styled.div`
 `
 
 export const EntriesWithoutMonthsWrapper = styled.div`
-  border-left: ${({ periods }) => periods[0] && `${periods.length}px solid`};
-  border-image: ${({ periods }) => {
+  border-left: ${({ periods }) => {
+    return periods.length === 1 && `${periods.length}px solid`
+  }};
+  margin-left: ${({ periods }) => {
     if (periods.length > 1) {
-      const borderPercentages = 100 / periods.length
-      const ifIndexIsZero = (index) => (index === 0 ? 1 : index)
-      const linearGradientContent = `to right, ${periods.map(
-        (subArray, index) =>
-          `${subArray[0].period_color} ${
-            borderPercentages * ifIndexIsZero(index)
-          }% ${
-            index !== 0 && index < periods.length
-              ? `${borderPercentages * (index + 1)}%`
-              : ''
-          }`
-      )}`
-      return `linear-gradient(${linearGradientContent}) ${periods.length + 1}`
+      return `${periods.length}px`
+    }
+  }};
+  box-shadow: ${({ periods }) => getBoxShadowFromPeriods(periods)};
+  -moz-box-shadow: ${({ periods }) => getBoxShadowFromPeriods(periods)};
+  -webkit-shadow: ${({ periods }) => getBoxShadowFromPeriods(periods)};
+  clip-path: ${({ periods }) => {
+    if (periods.length > 1) {
+      return `inset(0.3px 0.3px 0.3px -${periods.length}px)`
     }
   }};
   border-color: ${({ periods }) => {

@@ -25,9 +25,15 @@ export const MonthEntries = ({
   bucketName,
   periods,
 }) => {
-  const periodsWithEndMonthGreaterThan = periods.filter(
-    (subArray) => subArray[1].month >= timeEntriesByMonth[0].month
-  )
+  const periodsWithEndMonthGreaterThan = periods.filter((subArray) => {
+    if (subArray[1].year > timeEntriesByMonth[0].year || !subArray[1].year) {
+      return subArray
+    } else if (subArray[1].year === timeEntriesByMonth[0].year) {
+      if (subArray[1].month >= timeEntriesByMonth[0].month) {
+        return subArray
+      }
+    }
+  })
 
   const month = abvMonthNameArray[timeEntriesByMonth[0].month]
   const year = timeEntriesByMonth[0].year
