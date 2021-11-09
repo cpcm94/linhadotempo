@@ -11,12 +11,18 @@ import {
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../_shared/filterEntryTimelinesByVisibleTimelines'
+import {
+  EntryWithoutYearLabelWrapper,
+  PeriodsEndsWrapper,
+} from './TimelineScroller.styles'
+import { PeriodMarker } from '../../_shared/PeriodMarker/PeriodMarker'
 
 export const PeriodEndWithoutYear = ({
   periodEndsWithoutYear,
   newEntryId,
   visibleTimelines,
   bucketName,
+  periods,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -28,7 +34,11 @@ export const PeriodEndWithoutYear = ({
   }
 
   return (
-    <>
+    <PeriodsEndsWrapper>
+      <EntryWithoutYearLabelWrapper>
+        <span>{'Períodos ainda ativos'}</span>
+      </EntryWithoutYearLabelWrapper>
+      {periods[0] && <PeriodMarker periods={periods} />}
       {periodEndsWithoutYear.map((entry, index) => {
         return (
           <EntryAndIconWrapper
@@ -69,7 +79,7 @@ export const PeriodEndWithoutYear = ({
           </EntryAndIconWrapper>
         )
       })}
-    </>
+    </PeriodsEndsWrapper>
   )
 }
 
@@ -78,4 +88,5 @@ PeriodEndWithoutYear.propTypes = {
   newEntryId: PropTypes.string,
   visibleTimelines: PropTypes.array,
   bucketName: PropTypes.string,
+  periods: PropTypes.array,
 }

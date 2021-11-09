@@ -7,10 +7,14 @@ import {
   Img,
   EntryImage,
   EntryImageWrapper,
+  EntriesWithoutMonthsWrapper,
+  EntryYearWrapper,
+  YearWrapper,
 } from './YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../_shared/filterEntryTimelinesByVisibleTimelines'
+import { PeriodMarker } from '../../../_shared/PeriodMarker/PeriodMarker'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,
@@ -18,6 +22,8 @@ export const EntriesWithoutMonths = ({
   forwardedRef,
   visibleTimelines,
   bucketName,
+  periods,
+  displayEntry,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -27,9 +33,21 @@ export const EntriesWithoutMonths = ({
       hash: `#entry=${entry.id}`,
     })
   }
+  const isNotFirstEntry = displayEntry && !displayEntry.firstEntry
+  const isDisplayEntryYear =
+    isNotFirstEntry && displayEntry.year === entriesWithoutMonth[0].year
 
+  const year = entriesWithoutMonth[0].year.toString().startsWith('-')
+    ? `${entriesWithoutMonth[0].year.toString().substr(1)} a.c.`
+    : entriesWithoutMonth[0].year.toString()
   return (
-    <>
+    <EntriesWithoutMonthsWrapper>
+      <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
+        <YearWrapper>
+          <span>{year}</span>
+        </YearWrapper>
+      </EntryYearWrapper>
+      {periods[0] && <PeriodMarker periods={periods} />}
       {entriesWithoutMonth.map((entry, index) => {
         return (
           <EntryAndIconWrapper
@@ -71,7 +89,7 @@ export const EntriesWithoutMonths = ({
           </EntryAndIconWrapper>
         )
       })}
-    </>
+    </EntriesWithoutMonthsWrapper>
   )
 }
 
@@ -81,4 +99,6 @@ EntriesWithoutMonths.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   bucketName: PropTypes.string,
+  periods: PropTypes.array,
+  displayEntry: PropTypes.object,
 }

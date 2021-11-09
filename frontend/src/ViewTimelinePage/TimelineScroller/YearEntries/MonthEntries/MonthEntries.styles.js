@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { colors } from '../../../../_shared/colors'
-import { getBoxShadowFromPeriods } from '../../../../_shared/getBoxShadowFromPeriods'
 
 export const MonthWrapper = styled.div`
   display: flex;
@@ -37,27 +36,7 @@ export const MonthEntriesWrapper = styled.div`
 export const MonthAndEntryWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-left: ${({ periods }) => {
-    return periods.length === 1 && `${periods.length}px solid`
-  }};
-  margin-left: ${({ periods }) => {
-    if (periods.length > 1) {
-      return `${periods.length}px`
-    }
-  }};
-  box-shadow: ${({ periods }) => getBoxShadowFromPeriods(periods)};
-  -moz-box-shadow: ${({ periods }) => getBoxShadowFromPeriods(periods)};
-  -webkit-shadow: ${({ periods }) => getBoxShadowFromPeriods(periods)};
-  clip-path: ${({ periods }) => {
-    if (periods.length > 1) {
-      return `inset(0.3px 0.3px 0.3px -${periods.length}px)`
-    }
-  }};
-  border-color: ${({ periods }) => {
-    if (periods.length === 1) {
-      return `${periods[0][0].period_color}`
-    }
-  }};
+  position: relative;
 `
 
 export const EntryNameWrapper = styled.div`

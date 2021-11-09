@@ -5,7 +5,6 @@ import {
   EntriesWrapper,
   InvisibleIconWrapper,
   EntryWithoutYearLabelWrapper,
-  PeriodsEndsWrapper,
 } from './TimelineScroller.styles'
 import { YearEntries } from './YearEntries/YearEntries'
 import { convertObjectToArray } from '../../_shared/convertObjectToArray'
@@ -46,18 +45,22 @@ export const TimelineScroller = ({
       ),
       'id'
     )
-  ).map((subArray, index) =>
-    subArray.map((entry) => {
-      return {
-        is_period: entry.is_period,
-        period_end: !!entry.period_end,
-        year: entry.year,
-        month: entry.month,
-        day: entry.day,
-        period_color: periodColors[index],
-      }
-    })
   )
+    .sort((a, b) => a[0].year - b[0].year)
+    .map((subArray, index) =>
+      subArray.map((entry) => {
+        return {
+          is_period: entry.is_period,
+          period_end: !!entry.period_end,
+          year: entry.year,
+          month: entry.month,
+          day: entry.day,
+          period_color: periodColors[index],
+          position: index + 1,
+        }
+      })
+    )
+
   const entriesAndPeriodsWithoutYear = filterEntriesWithValue(
     filteredEntriesAndPeriodsByVisibleTimelines,
     'year'
@@ -88,17 +91,13 @@ export const TimelineScroller = ({
       {visibleTimelines[0] ? (
         <EntriesWrapper>
           {periodEndsWithoutYear[0] && (
-            <PeriodsEndsWrapper periods={periodsWithoutEndYear}>
-              <EntryWithoutYearLabelWrapper>
-                <span>{'Períodos ainda ativos'}</span>
-              </EntryWithoutYearLabelWrapper>
-              <PeriodEndWithoutYear
-                periodEndsWithoutYear={periodEndsWithoutYear}
-                newEntryId={newEntryId}
-                visibleTimelines={visibleTimelines}
-                bucketName={bucketName}
-              />
-            </PeriodsEndsWrapper>
+            <PeriodEndWithoutYear
+              periodEndsWithoutYear={periodEndsWithoutYear}
+              newEntryId={newEntryId}
+              visibleTimelines={visibleTimelines}
+              bucketName={bucketName}
+              periods={periodsWithoutEndYear}
+            />
           )}
           {entriesSortedByYear.map((timeEntriesByYear, index) => (
             <YearEntries

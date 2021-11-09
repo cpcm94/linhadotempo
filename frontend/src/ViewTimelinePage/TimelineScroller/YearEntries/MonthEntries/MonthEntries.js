@@ -1,18 +1,10 @@
 import React from 'react'
-import {
-  MonthEntriesWrapper,
-  MonthAndEntryWrapper,
-  MonthWrapper,
-  MonthDateWrapper,
-  DateText,
-  DateWrapper,
-} from './MonthEntries.styles'
+import { MonthEntriesWrapper } from './MonthEntries.styles'
 import { DayEntries } from './DayEntries/DayEntries'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
 import { convertObjectToArray } from '../../../../_shared/convertObjectToArray'
 import { filterEntriesWithValue } from '../filterEntriesWithValue'
 import { filterEntriesWithoutValue } from '../filterEntriesWithoutValue'
-import { abvMonthNameArray } from '../../../../_shared/monthNameArray'
 import PropTypes from 'prop-types'
 import { groupBy } from '../../../../_shared/groupBy'
 
@@ -35,12 +27,6 @@ export const MonthEntries = ({
     }
   })
 
-  const month = abvMonthNameArray[timeEntriesByMonth[0].month]
-  const year = timeEntriesByMonth[0].year
-  const yearAC = year.toString().startsWith('-')
-    ? `${year.toString().substr(1)} a.c.`
-    : year.toString()
-
   const entriesWithoutDay = filterEntriesWithValue(timeEntriesByMonth, 'day')
 
   const entriesWithDay = filterEntriesWithoutValue(timeEntriesByMonth, 'day')
@@ -53,36 +39,21 @@ export const MonthEntries = ({
     (a, b) => b[0].day - a[0].day
   )
 
-  const isNotFirstEntry = displayEntry && !displayEntry.firstEntry
-  const isDisplayEntryMonth =
-    isNotFirstEntry &&
-    displayEntry.month === timeEntriesByMonth[0].month &&
-    displayEntry.year === timeEntriesByMonth[0].year
-
-  const atLeastOneEntryWithoutDay = entriesWithoutDay[0] ? true : false
+  const atLeastOneEntryWithoutDay = !!entriesWithoutDay[0]
 
   return (
     <MonthEntriesWrapper>
-      <MonthAndEntryWrapper periods={periodsWithEndMonthGreaterThan}>
-        {atLeastOneEntryWithoutDay && (
-          <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
-            <DateWrapper>
-              <MonthDateWrapper>
-                <span>{month}</span>
-              </MonthDateWrapper>
-              <DateText>de</DateText>
-              <span>{yearAC}</span>
-            </DateWrapper>
-          </MonthWrapper>
-        )}
+      {atLeastOneEntryWithoutDay && (
         <EntriesWithoutDay
           timeEntriesWithoutDay={entriesWithoutDay}
           newEntryId={newEntryId}
           forwardedRef={forwardedRef}
           visibleTimelines={visibleTimelines}
           bucketName={bucketName}
+          periods={periodsWithEndMonthGreaterThan}
+          displayEntry={displayEntry}
         />
-      </MonthAndEntryWrapper>
+      )}
       <DayEntries
         timeEntriesByDay={entriesSortedByDay}
         newEntryId={newEntryId}

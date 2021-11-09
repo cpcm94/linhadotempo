@@ -21,6 +21,7 @@ import PropTypes from 'prop-types'
 import { abvMonthNameArray } from '../../../../../../_shared/monthNameArray'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
+import { PeriodMarker } from '../../../../../../_shared/PeriodMarker/PeriodMarker'
 
 export const Entries = ({
   entries,
@@ -66,6 +67,7 @@ export const Entries = ({
           </>
         </DateSpan>
       </EntryDateWrapper>
+      {periods[0] && <PeriodMarker periods={periods} />}
       <EntriesWrapper>
         {entries.map((entry, index) => (
           <EntryAndIconWrapper
