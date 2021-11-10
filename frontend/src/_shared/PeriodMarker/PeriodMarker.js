@@ -2,9 +2,12 @@ import React from 'react'
 import { Wrapper, PeriodBlock } from './PeriodMarker.styles'
 import PropTypes from 'prop-types'
 
-export const PeriodMarker = ({ periods, isPeriodEnd, isPeriodStart }) => {
-  console.log('isPeriodEnd', isPeriodEnd)
-  console.log('isPeriodStart', isPeriodStart)
+export const PeriodMarker = ({
+  periods,
+  // , isPeriodEnd, isPeriodStart
+}) => {
+  // console.log('isPeriodEnd', isPeriodEnd)
+  // console.log('isPeriodStart', isPeriodStart)
 
   return (
     <>

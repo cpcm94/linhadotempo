@@ -82,6 +82,7 @@ export const Wrapper = styled.div`
 export const EntryNameWrapper = styled.div`
   flex: 1;
   padding-right: 5px;
+  z-index: 2;
 `
 
 export const EntryIcon = styled.div`
@@ -122,4 +123,7 @@ export const EntriesWrapper = styled.div`
 
 export const YearWrapper = styled.div`
   margin-left: 7.75rem;
+`
+export const EntriesWithoutMonthsWrapper = styled.div`
+  position: relative;
 `

@@ -34,13 +34,12 @@ export const MonthEntriesWrapper = styled.div`
 `
 
 export const MonthAndEntryWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   position: relative;
 `
 
 export const EntryNameWrapper = styled.div`
   flex: 1;
+  z-index: 2;
 `
 
 export const MonthDateWrapper = styled.div`

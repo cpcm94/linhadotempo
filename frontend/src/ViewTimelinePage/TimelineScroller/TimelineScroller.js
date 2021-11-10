@@ -17,8 +17,7 @@ import { EntriesWithoutYear } from './EntriesWithoutYear'
 import { PeriodEndWithoutYear } from './PeriodEndWithoutYear'
 import { addPeriodEndEntries } from '../../_shared/addPeriodEndEntries'
 import { filterRelevantPeriods } from '../../_shared/filterRelevantPeriods'
-
-const periodColors = ['red', 'blue', 'green', 'black', 'teal', 'orange']
+import { getPeriods } from '../../_shared/getPeriods'
 
 export const TimelineScroller = ({
   visibleTimelines,
@@ -38,28 +37,7 @@ export const TimelineScroller = ({
   const filteredEntriesAndPeriodsByVisibleTimelines = addPeriodEndEntries(
     filteredEntriesByVisibleTimelines
   )
-  const periods = convertObjectToArray(
-    groupBy(
-      filteredEntriesAndPeriodsByVisibleTimelines.filter(
-        (entry) => entry.is_period
-      ),
-      'id'
-    )
-  )
-    .sort((a, b) => a[0].year - b[0].year)
-    .map((subArray, index) =>
-      subArray.map((entry) => {
-        return {
-          is_period: entry.is_period,
-          period_end: !!entry.period_end,
-          year: entry.year,
-          month: entry.month,
-          day: entry.day,
-          period_color: periodColors[index],
-          position: index + 1,
-        }
-      })
-    )
+  const periods = getPeriods(filteredEntriesAndPeriodsByVisibleTimelines)
 
   const entriesAndPeriodsWithoutYear = filterEntriesWithValue(
     filteredEntriesAndPeriodsByVisibleTimelines,

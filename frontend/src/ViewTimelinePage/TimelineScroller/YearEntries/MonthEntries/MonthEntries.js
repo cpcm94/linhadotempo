@@ -1,12 +1,13 @@
 import React from 'react'
 import { MonthEntriesWrapper } from './MonthEntries.styles'
-import { DayEntries } from './DayEntries/DayEntries'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
 import { convertObjectToArray } from '../../../../_shared/convertObjectToArray'
 import { filterEntriesWithValue } from '../filterEntriesWithValue'
 import { filterEntriesWithoutValue } from '../filterEntriesWithoutValue'
 import PropTypes from 'prop-types'
 import { groupBy } from '../../../../_shared/groupBy'
+import { filterRelevantPeriodsForTheDay } from '../../../../_shared/filterRelevantPeriodsForTheDay'
+import { Entries } from './Entries/Entries'
 
 export const MonthEntries = ({
   timeEntriesByMonth,
@@ -54,19 +55,26 @@ export const MonthEntries = ({
           displayEntry={displayEntry}
         />
       )}
-      <DayEntries
-        timeEntriesByDay={entriesSortedByDay}
-        newEntryId={newEntryId}
-        forwardedRef={forwardedRef}
-        displayEntry={displayEntry}
-        visibleTimelines={visibleTimelines}
-        bucketName={bucketName}
-        periods={periods}
-      />
+      {entriesSortedByDay.map((timeEntriesByDay, index) => (
+        <Entries
+          entries={timeEntriesByDay}
+          newEntryId={newEntryId}
+          forwardedRef={forwardedRef}
+          displayEntry={displayEntry}
+          visibleTimelines={visibleTimelines}
+          bucketName={bucketName}
+          periods={filterRelevantPeriodsForTheDay(
+            periods,
+            timeEntriesByDay[0].year,
+            timeEntriesByDay[0].month,
+            timeEntriesByDay[0].day
+          )}
+          key={index}
+        />
+      ))}
     </MonthEntriesWrapper>
   )
 }
-
 MonthEntries.propTypes = {
   timeEntriesByMonth: PropTypes.array,
   visibleTimelines: PropTypes.array,

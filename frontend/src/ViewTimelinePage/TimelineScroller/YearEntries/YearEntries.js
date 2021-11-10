@@ -7,6 +7,7 @@ import { convertObjectToArray } from '../../../_shared/convertObjectToArray'
 import { filterEntriesWithValue } from './filterEntriesWithValue'
 import { filterEntriesWithoutValue } from './filterEntriesWithoutValue'
 import { groupBy } from '../../../_shared/groupBy'
+import { filterRelevantPeriodsForTheMonth } from '../../../_shared/filterRelevantPeriodsForTheMonth'
 
 export const YearEntries = ({
   timeEntriesByYear,
@@ -22,37 +23,13 @@ export const YearEntries = ({
       return subArray
     } else if (!subArray[1].year) {
       return subArray
+    } else if (
+      subArray[1].year === timeEntriesByYear[0].year &&
+      !subArray[1].month
+    ) {
+      return subArray
     }
   })
-
-  const filterRelevantPeriods = (periods, year, month) => {
-    return periods.filter((subArray) => {
-      const periodStartYear = subArray[0].year
-      const periodEndYear = subArray[1].year
-      const periodStartMonth = subArray[0].month
-      const periodEndMonth = subArray[1].month
-      if (year > periodStartYear && year < periodEndYear) {
-        return subArray
-      } else if (year > periodStartYear && !periodEndYear) {
-        return subArray
-      } else if (year === periodStartYear && !periodEndYear) {
-        return subArray
-      } else if (year === periodStartYear && year === periodEndYear) {
-        if (month >= periodStartMonth && month <= periodEndMonth) {
-          return subArray
-        }
-      } else if (year === periodStartYear && year < periodEndYear) {
-        if (month >= periodStartMonth) {
-          return subArray
-        }
-      } else if (year > periodStartYear && year === periodEndYear) {
-        if (month <= periodEndMonth) {
-          return subArray
-        }
-      }
-    })
-  }
-
   const entriesWithoutMonth = filterEntriesWithValue(timeEntriesByYear, 'month')
 
   const entriesWithMonths = filterEntriesWithoutValue(
@@ -94,7 +71,7 @@ export const YearEntries = ({
             displayEntry={displayEntry}
             visibleTimelines={visibleTimelines}
             bucketName={bucketName}
-            periods={filterRelevantPeriods(
+            periods={filterRelevantPeriodsForTheMonth(
               periods,
               timeEntriesByMonth[0].year,
               timeEntriesByMonth[0].month
