@@ -19,7 +19,7 @@ export const getPeriods = (entries) =>
           month: entry.month,
           day: entry.day,
           period_color: periodColors[index],
-          position: index + 1,
+          position: index,
         }
       })
     )
