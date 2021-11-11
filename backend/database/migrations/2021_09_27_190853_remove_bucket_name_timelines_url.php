@@ -16,7 +16,7 @@ class RemoveBucketNameTimelinesUrl extends Migration
     {
         $timelines = Timeline::all();
         foreach ($timelines as $timeline) {
-            if(str_starts_with($timeline->timelineIconImageUrl, 'http')) {
+            if(str_starts_with($timeline->timelineIconImageUrl ? $timeline->timelineIconImageUrl : "" , 'http')) {
                 $object_path = substr(strrchr($timeline->timelineIconImageUrl, '/'), 1);
                 $timeline->timelineIconImageUrl = $object_path;
                 $timeline->save();
