@@ -5,25 +5,24 @@ import {
   EntryAndIconWrapper,
   IconsWrapper,
   Img,
-  EntryImage,
   EntryImageWrapper,
-  EntriesWithoutMonthsWrapper,
-  EntryYearWrapper,
-  YearWrapper,
-} from './YearEntries.styles'
+  EntryImage,
+} from './YearEntries/YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
-import { filterEntryTimelinesByVisibleTimelines } from '../../../_shared/filterEntryTimelinesByVisibleTimelines'
-import { PeriodMarker } from '../../../_shared/PeriodMarker/PeriodMarker'
+import { filterEntryTimelinesByVisibleTimelines } from '../../_shared/filterEntryTimelinesByVisibleTimelines'
+import {
+  EntryWithoutYearLabelWrapper,
+  PeriodsEndsWrapper,
+} from './TimelineScroller.styles'
+import { PeriodMarker } from '../../_shared/PeriodMarker/PeriodMarker'
 
-export const EntriesWithoutMonths = ({
-  entriesWithoutMonth,
+export const PeriodEndWithoutYear = ({
+  periodEndsWithoutYear,
   newEntryId,
-  forwardedRef,
   visibleTimelines,
   bucketName,
   periods,
-  displayEntry,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -33,28 +32,19 @@ export const EntriesWithoutMonths = ({
       hash: `#entry=${entry.id}`,
     })
   }
-  const isNotFirstEntry = displayEntry && !displayEntry.firstEntry
-  const isDisplayEntryYear =
-    isNotFirstEntry && displayEntry.year === entriesWithoutMonth[0].year
 
-  const year = entriesWithoutMonth[0].year.toString().startsWith('-')
-    ? `${entriesWithoutMonth[0].year.toString().substr(1)} a.c.`
-    : entriesWithoutMonth[0].year.toString()
   return (
-    <EntriesWithoutMonthsWrapper>
-      <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
-        <YearWrapper>
-          <span>{year}</span>
-        </YearWrapper>
-      </EntryYearWrapper>
+    <PeriodsEndsWrapper>
+      <EntryWithoutYearLabelWrapper>
+        <span>{'Períodos ainda ativos'}</span>
+      </EntryWithoutYearLabelWrapper>
       {periods[0] && <PeriodMarker periods={periods} />}
-      {entriesWithoutMonth.map((entry, index) => {
+      {periodEndsWithoutYear.map((entry, index) => {
         return (
           <EntryAndIconWrapper
             key={index}
             isNew={newEntryId === entry.id}
             id={entry.id}
-            ref={forwardedRef[entry.id]}
             onClick={() => navigateToEditEntry(entry)}
           >
             {entry.image_url && (
@@ -89,16 +79,14 @@ export const EntriesWithoutMonths = ({
           </EntryAndIconWrapper>
         )
       })}
-    </EntriesWithoutMonthsWrapper>
+    </PeriodsEndsWrapper>
   )
 }
 
-EntriesWithoutMonths.propTypes = {
-  entriesWithoutMonth: PropTypes.array,
-  visibleTimelines: PropTypes.array,
+PeriodEndWithoutYear.propTypes = {
+  periodEndsWithoutYear: PropTypes.array,
   newEntryId: PropTypes.string,
-  forwardedRef: PropTypes.any,
+  visibleTimelines: PropTypes.array,
   bucketName: PropTypes.string,
   periods: PropTypes.array,
-  displayEntry: PropTypes.object,
 }

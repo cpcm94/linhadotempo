@@ -8,6 +8,10 @@ export const CREATE_TIME_ENTRY_MUTATION = gql`
       year
       month
       day
+      end_year
+      end_month
+      end_day
+      is_period
       monthly_importance
       annual_importance
       image_url

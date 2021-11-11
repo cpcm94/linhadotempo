@@ -10,7 +10,7 @@ import { yearWithoutNegativeSign } from '../../../../_shared/yearWithoutNegative
 export const Entry = ({ entry, timeline }) => {
   const [entryInfo, setEntryInfo] = useState({
     name: entry.name,
-    year: yearWithoutNegativeSign(entry),
+    year: yearWithoutNegativeSign(entry.year),
     month: entry.month ? parseInt(entry.month) : '',
     day: entry.day ? parseInt(entry.day) : '',
     annual_importance: false,

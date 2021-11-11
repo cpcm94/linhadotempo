@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../../../../../_shared/colors'
+import { colors } from '../../../../../_shared/colors'
 
 export const EntryDateWrapper = styled.div`
   display: flex;
@@ -34,13 +34,13 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
 `
 
 export const EntryWrapper = styled.div`
   flex: 1;
+  z-index: 2;
 `
-
-export const YearWrapper = styled.div``
 
 export const MonthWrapper = styled.div`
   min-width: 3.3rem;

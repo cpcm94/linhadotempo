@@ -14,8 +14,6 @@ to {
 }
 `
 
-export const TextWrapper = styled.div``
-
 export const EntryWrapper = styled.div`
   display: flex;
   padding: 0.2rem 1.5rem 0 0.6rem;
@@ -33,7 +31,7 @@ export const HeaderWrapper = styled.div`
   position: fixed;
   top: 0;
   height: 2rem;
-  z-index: 2;
+  z-index: 3;
   overflow-x: hidden;
   align-items: center;
   @media (min-width: 540px) {

@@ -11,16 +11,9 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
 `
-const Button = styled.div``
 
 export const UserButton = ({ onClick, initial }) => {
-  return (
-    <>
-      {initial && (
-        <Wrapper onClick={onClick}>{<Button>{initial}</Button>}</Wrapper>
-      )}
-    </>
-  )
+  return <>{initial && <Wrapper onClick={onClick}>{initial}</Wrapper>}</>
 }
 
 UserButton.propTypes = {

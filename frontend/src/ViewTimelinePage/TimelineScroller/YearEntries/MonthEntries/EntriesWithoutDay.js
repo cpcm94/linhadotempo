@@ -1,6 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { EntryNameWrapper } from './MonthEntries.styles'
+import {
+  DateText,
+  DateWrapper,
+  EntryNameWrapper,
+  MonthAndEntryWrapper,
+  MonthDateWrapper,
+  MonthWrapper,
+} from './MonthEntries.styles'
 import {
   EntryAndIconWrapper,
   EntryIcon,
@@ -11,6 +18,8 @@ import {
 } from '../YearEntries.styles'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../../_shared/filterEntryTimelinesByVisibleTimelines'
+import { abvMonthNameArray } from '../../../../_shared/monthNameArray'
+import { PeriodMarker } from '../../../../_shared/PeriodMarker/PeriodMarker'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
@@ -18,7 +27,24 @@ export const EntriesWithoutDay = ({
   forwardedRef,
   visibleTimelines,
   bucketName,
+  periods,
+  displayEntry,
 }) => {
+  const month = abvMonthNameArray[timeEntriesWithoutDay[0].month]
+
+  const year = timeEntriesWithoutDay[0].year
+
+  const yearAC = year.toString().startsWith('-')
+    ? `${year.toString().substr(1)} a.c.`
+    : year.toString()
+
+  const isNotFirstEntry = displayEntry && !displayEntry.firstEntry
+
+  const isDisplayEntryMonth =
+    isNotFirstEntry &&
+    displayEntry.month === timeEntriesWithoutDay[0].month &&
+    displayEntry.year === timeEntriesWithoutDay[0].year
+
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
     history.push({
@@ -28,7 +54,17 @@ export const EntriesWithoutDay = ({
     })
   }
   return (
-    <>
+    <MonthAndEntryWrapper>
+      <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
+        <DateWrapper>
+          <MonthDateWrapper>
+            <span>{month}</span>
+          </MonthDateWrapper>
+          <DateText>de</DateText>
+          <span>{yearAC}</span>
+        </DateWrapper>
+      </MonthWrapper>
+      {periods[0] && <PeriodMarker periods={periods} />}
       {timeEntriesWithoutDay[0]
         ? timeEntriesWithoutDay.map((entry, index) => (
             <EntryAndIconWrapper
@@ -70,7 +106,7 @@ export const EntriesWithoutDay = ({
             </EntryAndIconWrapper>
           ))
         : null}
-    </>
+    </MonthAndEntryWrapper>
   )
 }
 
@@ -80,4 +116,6 @@ EntriesWithoutDay.propTypes = {
   newEntryId: PropTypes.string,
   forwardedRef: PropTypes.any,
   bucketName: PropTypes.string,
+  periods: PropTypes.array,
+  displayEntry: PropTypes.object,
 }

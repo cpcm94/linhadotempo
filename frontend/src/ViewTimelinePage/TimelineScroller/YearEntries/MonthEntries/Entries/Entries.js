@@ -4,6 +4,10 @@ import {
   EntriesWrapper,
   EntryDateWrapper,
   EntryWrapper,
+  MonthWrapper,
+  DayWrapper,
+  DateSpan,
+  DateText,
 } from './Entries.styles'
 import {
   EntryAndIconWrapper,
@@ -12,32 +16,58 @@ import {
   EntryImageWrapper,
   IconsWrapper,
   Img,
-} from '../../../YearEntries.styles'
+} from '../../YearEntries.styles'
 import PropTypes from 'prop-types'
-import { abvMonthNameArray } from '../../../../../../../_shared/monthNameArray'
+import { abvMonthNameArray } from '../../../../../_shared/monthNameArray'
 import { useHistory } from 'react-router-dom'
-import { filterEntryTimelinesByVisibleTimelines } from '../../../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
+import { filterEntryTimelinesByVisibleTimelines } from '../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
+import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
 
 export const Entries = ({
   entries,
   newEntryId,
   forwardedRef,
+  displayEntry,
   visibleTimelines,
   bucketName,
+  periods,
 }) => {
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
     history.push({
       pathname: '/viewTimeline/editEntry/',
       search: window.location.search,
-      hash: `#entry=${entry.id}&zoomOut=${true}`,
+      hash: `#entry=${entry.id}`,
     })
   }
-  const { day, month } = entries[0]
+  const { day, month, year } = entries[0]
   const monthName = abvMonthNameArray[month]
+  const yearAC = year.toString().startsWith('-')
+    ? `${year.toString().substr(1)} a.c.`
+    : year.toString()
+  const isNotFirstEntry = displayEntry && !displayEntry.firstEntry
+  const isDisplayEntryDay =
+    isNotFirstEntry &&
+    displayEntry.day === day &&
+    displayEntry.month === month &&
+    displayEntry.year === year
 
   return (
     <Wrapper>
+      <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
+        <DateSpan>
+          <DayWrapper>{day}</DayWrapper>
+          <MonthWrapper>
+            <DateText>de</DateText>
+            {monthName}
+          </MonthWrapper>
+          <>
+            <DateText>de</DateText>
+            {yearAC}
+          </>
+        </DateSpan>
+      </EntryDateWrapper>
+      {periods[0] && <PeriodMarker periods={periods} />}
       <EntriesWrapper>
         {entries.map((entry, index) => (
           <EntryAndIconWrapper
@@ -47,7 +77,6 @@ export const Entries = ({
             ref={forwardedRef[entry.id]}
             onClick={() => navigateToEditEntry(entry)}
           >
-            <EntryDateWrapper>{`${day}/${monthName}`}</EntryDateWrapper>
             {entry.image_url && (
               <EntryImageWrapper>
                 <EntryImage
@@ -91,4 +120,5 @@ Entries.propTypes = {
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
   bucketName: PropTypes.string,
+  periods: PropTypes.array,
 }

@@ -6,7 +6,6 @@ import {
   YearWrapper,
   MonthWrapper,
   DayWrapper,
-  TextWrapper,
   FormattingWrapper,
 } from './TimelinePageHeader.styles'
 import { abvMonthNameArray } from '../../../_shared/monthNameArray'
@@ -72,7 +71,7 @@ export const TimelinePageHeader = ({
             </YearWrapper>
           </>
         ) : displayEntry && displayEntry.entryId ? (
-          <TextWrapper>Sem data definida</TextWrapper>
+          'Sem data definida'
         ) : null}
       </EntryWrapper>
       <ZoomOutButton onClick={toggleZoomOut} hide={zoomOut} />

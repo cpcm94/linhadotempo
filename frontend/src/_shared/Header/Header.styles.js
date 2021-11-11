@@ -20,8 +20,6 @@ export const IconRow = styled.div`
   width: 100%;
 `
 
-export const UserButtonWrapper = styled.div``
-
 export const MiddleHeader = styled.div`
   display: flex;
   padding: 5px 20px;

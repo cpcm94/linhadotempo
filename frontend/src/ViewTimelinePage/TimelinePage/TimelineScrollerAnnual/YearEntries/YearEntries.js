@@ -2,17 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { EntriesWithoutMonths } from './EntriesWithoutMonths'
 import { MonthEntries } from './MonthEntries/MonthEntries'
-import {
-  EntriesWithoutMonthsWrapper,
-  Wrapper,
-  EntriesWrapper,
-  EntryYearWrapper,
-  YearWrapper,
-} from './YearEntries.styles'
+import { Wrapper, EntriesWrapper } from './YearEntries.styles'
 import { filterEntriesWithValue } from './filterEntriesWithValue'
 import { filterEntriesWithoutValue } from './filterEntriesWithoutValue'
 import { convertObjectToArray } from '../../../../_shared/convertObjectToArray'
 import { groupBy } from '../../../../_shared/groupBy'
+import { filterRelevantPeriodsForTheMonth } from '../../../../_shared/filterRelevantPeriodsForTheMonth'
 
 export const YearEntries = ({
   timeEntriesByYear,
@@ -21,10 +16,20 @@ export const YearEntries = ({
   displayEntry,
   visibleTimelines,
   bucketName,
+  periods,
 }) => {
-  const year = timeEntriesByYear[0].year.toString().startsWith('-')
-    ? `${timeEntriesByYear[0].year.toString().substr(1)} a.c.`
-    : timeEntriesByYear[0].year.toString()
+  const periodsWithEndYearGreaterThan = periods.filter((subArray) => {
+    if (subArray[1].year > timeEntriesByYear[0].year) {
+      return subArray
+    } else if (!subArray[1].year) {
+      return subArray
+    } else if (
+      subArray[1].year === timeEntriesByYear[0].year &&
+      !subArray[1].month
+    ) {
+      return subArray
+    }
+  })
   const entriesWithoutMonth = filterEntriesWithValue(timeEntriesByYear, 'month')
 
   const entriesWithMonths = filterEntriesWithoutValue(
@@ -40,41 +45,38 @@ export const YearEntries = ({
   const entriesSortedByMonth = arrayOfGroupedEntriesByMonth.sort(
     (a, b) => b[0].month - a[0].month
   )
-  const isNotFirstEntry = displayEntry && !displayEntry.firstEntry
-  const isDisplayEntryYear =
-    isNotFirstEntry && displayEntry.year === timeEntriesByYear[0].year
 
-  const atLeastOneEntryWithoutMonth = entriesWithoutMonth[0] ? true : false
+  const atLeastOneEntryWithoutMonth = !!entriesWithoutMonth[0]
 
   return (
     <Wrapper>
       <EntriesWrapper>
-        <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
-          <YearWrapper>
-            <span>{year}</span>
-          </YearWrapper>
-        </EntryYearWrapper>
         {atLeastOneEntryWithoutMonth && (
-          <>
-            <EntriesWithoutMonthsWrapper>
-              <EntriesWithoutMonths
-                entriesWithoutMonth={entriesWithoutMonth}
-                newEntryId={newEntryId}
-                forwardedRef={forwardedRef}
-                visibleTimelines={visibleTimelines}
-                bucketName={bucketName}
-              />
-            </EntriesWithoutMonthsWrapper>
-          </>
+          <EntriesWithoutMonths
+            entriesWithoutMonth={entriesWithoutMonth}
+            newEntryId={newEntryId}
+            forwardedRef={forwardedRef}
+            visibleTimelines={visibleTimelines}
+            bucketName={bucketName}
+            periods={periodsWithEndYearGreaterThan}
+            displayEntry={displayEntry}
+          />
         )}
-        {entriesSortedByMonth.map((month, index) => (
+        {entriesSortedByMonth.map((timeEntriesByMonth, index) => (
           <MonthEntries
-            timeEntriesByMonth={month}
+            timeEntriesByMonth={timeEntriesByMonth}
             key={index}
             newEntryId={newEntryId}
             forwardedRef={forwardedRef}
             visibleTimelines={visibleTimelines}
             bucketName={bucketName}
+            periods={filterRelevantPeriodsForTheMonth(
+              periods,
+              timeEntriesByMonth[0].year,
+              timeEntriesByMonth[0].month
+            )}
+            showDate={!atLeastOneEntryWithoutMonth}
+            displayEntry={displayEntry}
           />
         ))}
       </EntriesWrapper>
@@ -89,4 +91,5 @@ YearEntries.propTypes = {
   forwardedRef: PropTypes.any,
   displayEntry: PropTypes.object,
   bucketName: PropTypes.string,
+  periods: PropTypes.array,
 }

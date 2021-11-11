@@ -9,6 +9,10 @@ export const TIME_ENTRIES_QUERY = gql`
       year
       month
       day
+      end_year
+      end_month
+      end_day
+      is_period
       image_url
       annual_importance
       timelines {

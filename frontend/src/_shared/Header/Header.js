@@ -5,7 +5,6 @@ import {
   PageActions,
   Title,
   IconRow,
-  UserButtonWrapper,
   UpperHeader,
   LowerHeader,
   TimelineTitle,
@@ -60,9 +59,7 @@ export const Header = ({
         {pageActions && <PageActions>{pageActions}</PageActions>}
         {loading && <span>Loading...</span>}
         {user && !userLoading && (
-          <UserButtonWrapper hasTimelinesIcons={timelinesIconRow}>
-            <UserButton initial={user.initial} onClick={navigateToUserPage} />
-          </UserButtonWrapper>
+          <UserButton initial={user.initial} onClick={navigateToUserPage} />
         )}
       </MiddleHeader>
       {timelinesIconRow && (

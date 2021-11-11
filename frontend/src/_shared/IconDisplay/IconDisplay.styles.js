@@ -67,7 +67,6 @@ export const TextFieldColor = styled(TextField)`
     }
   }
 `
-export const ButtonAndColorWrapper = styled.div``
 export const ImageWrapper = styled.div`
   background-color: ${colors.white};
   margin: 0.5rem 0.5rem 0.5rem 0px;

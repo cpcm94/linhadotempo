@@ -1,9 +1,9 @@
-export const yearWithoutNegativeSign = (entry) => {
-  if (entry && entry.year) {
-    if (entry.year.toString().startsWith('-')) {
-      return entry.year.toString().substr(1)
-    } else if (!entry.year.toString().startsWith('-')) {
-      return entry.year.toString()
+export const yearWithoutNegativeSign = (year) => {
+  if (year) {
+    if (year.toString().startsWith('-')) {
+      return year.toString().substr(1)
+    } else if (!year.toString().startsWith('-')) {
+      return year.toString()
     } else {
       return ''
     }

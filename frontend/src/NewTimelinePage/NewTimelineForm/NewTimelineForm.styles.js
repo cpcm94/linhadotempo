@@ -55,7 +55,6 @@ export const Wrapper = styled.div`
   min-height: calc(100vh - 3rem);
   padding: 0 0 1rem 0;
 `
-export const UploaderAndButtonWrapper = styled.div``
 export const ImageAndButtonWrapper = styled.div`
   display: flex;
   border-radius: 5px;

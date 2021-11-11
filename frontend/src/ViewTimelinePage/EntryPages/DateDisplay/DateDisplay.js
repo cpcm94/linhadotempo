@@ -3,11 +3,12 @@ import { DaySelector } from './DaySelector/DaySelector'
 import { MonthSelector } from './MonthSelector/MonthSelector'
 import { YearField } from './YearField/YearField'
 import PropTypes from 'prop-types'
-import { DateSpan, DateWrapper } from './DateDisplay.styles'
+import { DateSpan, DateWrapper, EllipsisWrapper } from './DateDisplay.styles'
 import { monthNameArray } from '../../../_shared/monthNameArray'
 import { ResetFieldButton } from './ResetFieldButton'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
+import { EndDateDisplay } from './EndDateDisplay'
 
 export const DateDisplay = ({
   entry,
@@ -17,6 +18,7 @@ export const DateDisplay = ({
   fieldId,
   entryError,
 }) => {
+  const [showEndDateDisplay, setShowEndDateDisplay] = useState(false)
   const [showDayPicker, setShowDayPicker] = useState(false)
   const [showMonthPicker, setShowMonthPicker] = useState(false)
   const [showYearPicker, setShowYearPicker] = useState(false)
@@ -37,12 +39,6 @@ export const DateDisplay = ({
       setShowMonthPicker(false)
       setShowYearPicker(!showYearPicker)
     }
-  }
-
-  const handleChange = (entryPropName) => (e) => {
-    const newEntry = { ...entry }
-    newEntry[entryPropName] = e.target.value
-    setEntry(newEntry)
   }
 
   const setYear = (year) => {
@@ -81,6 +77,9 @@ export const DateDisplay = ({
   const checkIfEmptyString = (string) => string.toString().trim() === ''
 
   const showErrorMessage = entryError && entryError.field === 'date'
+
+  const showEllipsisButton = !showEndDateDisplay && entry.year !== ''
+
   return (
     <>
       <SectionTitle title={'Data'} resetSection={resetAllDateFieldValues} />
@@ -126,10 +125,14 @@ export const DateDisplay = ({
             <ResetFieldButton resetField={resetFieldValue('year')} />
           )}
         </DateSpan>
+        {showEllipsisButton && (
+          <EllipsisWrapper onClick={() => setShowEndDateDisplay(true)}>
+            ...
+          </EllipsisWrapper>
+        )}
       </DateWrapper>
       {showYearPicker && (
         <YearField
-          changeYear={handleChange}
           setYear={setYear}
           year={entry.year}
           radioValue={radioValue}
@@ -146,6 +149,16 @@ export const DateDisplay = ({
       {showDayPicker && (
         <DaySelector selectedDay={entry.day} changeDay={handleDayChange} />
       )}
+      <EndDateDisplay
+        fieldId={'endDate'}
+        entryError={entryError}
+        entry={entry}
+        setEntry={setEntry}
+        radioValue={radioValue}
+        setRadioValue={setRadioValue}
+        showMessageTrigger={showEndDateDisplay}
+        setShowMessageTrigger={setShowEndDateDisplay}
+      />
     </>
   )
 }

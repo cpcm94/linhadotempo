@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { Header } from '../../../_shared/Header/Header'
 import { Layout } from '../../../_shared/Layout'
 import PropTypes from 'prop-types'
@@ -54,6 +54,10 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
     year: '',
     month: '',
     day: '',
+    end_year: '',
+    end_month: '',
+    end_day: '',
+    is_period: false,
     annual_importance: false,
     monthly_importance: false,
     image_url: '',
@@ -80,6 +84,14 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
   }
 
   const entryError = checkIfEntryError(entry)
+
+  const filterCookieTimelinesForVisibleTimelines = useCallback(
+    (cookieEntryTimelines) =>
+      cookieEntryTimelines.filter((timelineId) =>
+        timelines.map((timeline) => timeline.id).includes(timelineId)
+      ),
+    [timelines]
+  )
 
   useEffect(() => {
     if (!isFirstRun.current) {
@@ -166,8 +178,12 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
         cookieEntry.current.year && cookieEntry.current.year.startsWith('-')
       setRadioValue(hasNegativeYear ? 'AC' : 'DC')
       setEntry({
-        timelines: { sync: cookieEntry.current.timelines.split(',') },
-        year: yearWithoutNegativeSign(cookieEntry.current),
+        timelines: {
+          sync: filterCookieTimelinesForVisibleTimelines(
+            cookieEntry.current.timelines.split(',')
+          ),
+        },
+        year: yearWithoutNegativeSign(cookieEntry.current.year),
         month:
           cookieEntry.current.month !== ''
             ? parseInt(cookieEntry.current.month)
@@ -176,6 +192,10 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
           cookieEntry.current.day !== ''
             ? parseInt(cookieEntry.current.day)
             : '',
+        end_year: entry.end_year,
+        end_month: entry.end_month,
+        end_day: entry.end_day,
+        is_period: entry.is_period,
         book_id: cookieEntry.current.bookId,
         book_page: cookieEntry.current.bookPage,
         annual_importance: entry.annual_importance,
@@ -197,6 +217,7 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
     entry.book_id,
     entry.book_page,
     radioValue,
+    filterCookieTimelinesForVisibleTimelines,
   ])
   const setEntryTimelines = (array) => {
     const newEntry = { ...entry }
