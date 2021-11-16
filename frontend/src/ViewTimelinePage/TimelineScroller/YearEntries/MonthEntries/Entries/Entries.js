@@ -8,6 +8,7 @@ import {
   DayWrapper,
   DateSpan,
   DateText,
+  EntryNameBackground,
 } from './Entries.styles'
 import {
   EntryAndIconWrapper,
@@ -22,6 +23,8 @@ import { abvMonthNameArray } from '../../../../../_shared/monthNameArray'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
 import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
+import { getPeriodColorByEntryId } from '../../../../../_shared/getPeriodColorByEntryId'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../sortPeriodsLastAndEndOfPeriodsFirst'
 
 export const Entries = ({
   entries,
@@ -52,6 +55,12 @@ export const Entries = ({
     displayEntry.month === month &&
     displayEntry.year === year
 
+  const entryDate = {
+    year: entries[0].year,
+    month: entries[0].month,
+    day: entries[0].day,
+  }
+
   return (
     <Wrapper>
       <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
@@ -67,9 +76,9 @@ export const Entries = ({
           </>
         </DateSpan>
       </EntryDateWrapper>
-      {periods[0] && <PeriodMarker periods={periods} />}
+      {periods[0] && <PeriodMarker periods={periods} entryDate={entryDate} />}
       <EntriesWrapper>
-        {entries.map((entry, index) => (
+        {sortPeriodsLastAndEndOfPeriodsFirst(entries).map((entry, index) => (
           <EntryAndIconWrapper
             key={index}
             isNew={newEntryId === entry.id}
@@ -84,7 +93,11 @@ export const Entries = ({
                 />
               </EntryImageWrapper>
             )}
-            <EntryWrapper key={index}>{entry.name}</EntryWrapper>
+            <EntryNameBackground
+              periodColor={getPeriodColorByEntryId(entry.id, periods)}
+            >
+              <EntryWrapper key={index}>{entry.name}</EntryWrapper>
+            </EntryNameBackground>
             <IconsWrapper>
               {filterEntryTimelinesByVisibleTimelines(
                 visibleTimelines,

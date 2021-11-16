@@ -40,6 +40,14 @@ export const MonthAndEntryWrapper = styled.div`
 export const EntryNameWrapper = styled.div`
   flex: 1;
   z-index: 2;
+  position: relative;
+`
+
+export const EntryNameBackground = styled.div`
+  flex: 1;
+  background-color: ${({ periodColor }) => periodColor && periodColor};
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-radius: 0 5px 5px 0;
 `
 
 export const MonthDateWrapper = styled.div`

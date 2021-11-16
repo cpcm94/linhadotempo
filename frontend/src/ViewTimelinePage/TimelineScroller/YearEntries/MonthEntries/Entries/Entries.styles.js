@@ -4,7 +4,7 @@ import { colors } from '../../../../../_shared/colors'
 export const EntryDateWrapper = styled.div`
   display: flex;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   padding: 0.5rem;
 
   visibility: ${({ isDisplayEntryDay }) =>
@@ -40,6 +40,14 @@ export const Wrapper = styled.div`
 export const EntryWrapper = styled.div`
   flex: 1;
   z-index: 2;
+  position: relative;
+`
+
+export const EntryNameBackground = styled.div`
+  flex: 1;
+  background-color: ${({ periodColor }) => periodColor && periodColor};
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-radius: 0 5px 5px 0;
 `
 
 export const MonthWrapper = styled.div`

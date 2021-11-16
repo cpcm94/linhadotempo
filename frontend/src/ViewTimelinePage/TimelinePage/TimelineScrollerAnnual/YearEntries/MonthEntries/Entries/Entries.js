@@ -16,7 +16,13 @@ import { abvMonthNameArray } from '../../../../../../_shared/monthNameArray'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
 import { PeriodMarker } from '../../../../../../_shared/PeriodMarker/PeriodMarker'
-import { EntryDateWrapper } from '../MonthEntries.styles'
+import {
+  EntryDateBackground,
+  EntryDateWrapper,
+  EntryNameBackground,
+} from '../MonthEntries.styles'
+import { getPeriodColorByEntryId } from '../../../../../../_shared/getPeriodColorByEntryId'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../../sortPeriodsLastAndEndOfPeriodsFirst'
 
 export const Entries = ({
   entries,
@@ -46,6 +52,13 @@ export const Entries = ({
 
   const isDisplayEntryYear =
     isNotFirstEntry && displayEntry.year === entries[0].year
+
+  const entryDate = {
+    year: entries[0].year,
+    month: entries[0].month,
+    day: entries[0].day,
+  }
+
   return (
     <Wrapper>
       {showDate && (
@@ -55,9 +68,15 @@ export const Entries = ({
           </YearWrapper>
         </EntryYearWrapper>
       )}
-      {periods[0] && <PeriodMarker periods={periods} />}
+      {periods[0] && (
+        <PeriodMarker
+          periods={periods}
+          entryDate={entryDate}
+          filterByAnnualImportance={true}
+        />
+      )}
       <EntriesWrapper>
-        {entries.map((entry, index) => (
+        {sortPeriodsLastAndEndOfPeriodsFirst(entries).map((entry, index) => (
           <EntryAndIconWrapper
             key={index}
             isNew={newEntryId === entry.id}
@@ -65,7 +84,11 @@ export const Entries = ({
             ref={forwardedRef[entry.id]}
             onClick={() => navigateToEditEntry(entry)}
           >
-            <EntryDateWrapper>{`${day}/${monthName}`}</EntryDateWrapper>
+            <EntryDateBackground
+              periodColor={getPeriodColorByEntryId(entry.id, periods)}
+            >
+              <EntryDateWrapper>{`${day}/${monthName}`}</EntryDateWrapper>
+            </EntryDateBackground>
             {entry.image_url && (
               <EntryImageWrapper>
                 <EntryImage
@@ -73,7 +96,11 @@ export const Entries = ({
                 />
               </EntryImageWrapper>
             )}
-            <EntryNameWrapper key={index}>{entry.name}</EntryNameWrapper>
+            <EntryNameBackground
+              periodColor={getPeriodColorByEntryId(entry.id, periods)}
+            >
+              <EntryNameWrapper key={index}>{entry.name}</EntryNameWrapper>
+            </EntryNameBackground>
             <IconsWrapper>
               {filterEntryTimelinesByVisibleTimelines(
                 visibleTimelines,
