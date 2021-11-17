@@ -7,6 +7,7 @@ import {
   Img,
   EntryImageWrapper,
   EntryImage,
+  EntryNameBackground,
 } from './YearEntries/YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
@@ -16,6 +17,7 @@ import {
   PeriodsEndsWrapper,
 } from './TimelineScroller.styles'
 import { PeriodMarker } from '../../_shared/PeriodMarker/PeriodMarker'
+import { getPeriodColorByEntryId } from '../../_shared/getPeriodColorByEntryId'
 
 export const PeriodEndWithoutYear = ({
   periodEndsWithoutYear,
@@ -32,13 +34,13 @@ export const PeriodEndWithoutYear = ({
       hash: `#entry=${entry.id}`,
     })
   }
-
+  const entryDate = { year: null, month: null, day: null }
   return (
     <PeriodsEndsWrapper>
       <EntryWithoutYearLabelWrapper>
         <span>{'Períodos ainda ativos'}</span>
       </EntryWithoutYearLabelWrapper>
-      {periods[0] && <PeriodMarker periods={periods} />}
+      {periods[0] && <PeriodMarker periods={periods} entryDate={entryDate} />}
       {periodEndsWithoutYear.map((entry, index) => {
         return (
           <EntryAndIconWrapper
@@ -54,7 +56,11 @@ export const PeriodEndWithoutYear = ({
                 />
               </EntryImageWrapper>
             )}
-            <EntryNameWrapper>{entry.name}</EntryNameWrapper>
+            <EntryNameBackground
+              periodColor={getPeriodColorByEntryId(entry.id, periods)}
+            >
+              <EntryNameWrapper>{entry.name}</EntryNameWrapper>
+            </EntryNameBackground>
             <IconsWrapper>
               {filterEntryTimelinesByVisibleTimelines(
                 visibleTimelines,

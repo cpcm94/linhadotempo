@@ -10,11 +10,14 @@ import {
   EntryYearWrapper,
   YearWrapper,
   EntriesWithoutMonthsWrapper,
+  EntryNameBackground,
 } from './YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../../_shared/filterEntryTimelinesByVisibleTimelines'
 import { PeriodMarker } from '../../../../_shared/PeriodMarker/PeriodMarker'
+import { getPeriodColorByEntryId } from '../../../../_shared/getPeriodColorByEntryId'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../sortPeriodsLastAndEndOfPeriodsFirst'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,
@@ -43,6 +46,11 @@ export const EntriesWithoutMonths = ({
   const isDisplayEntryYear =
     isNotFirstEntry && displayEntry.year === entriesWithoutMonth[0].year
 
+  const entryDate = {
+    year: entriesWithoutMonth[0].year,
+    month: null,
+    day: null,
+  }
   return (
     <EntriesWithoutMonthsWrapper>
       <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
@@ -50,48 +58,60 @@ export const EntriesWithoutMonths = ({
           <span>{year}</span>
         </YearWrapper>
       </EntryYearWrapper>
-      {periods[0] && <PeriodMarker periods={periods} />}
-      {entriesWithoutMonth.map((entry, index) => {
-        return (
-          <EntryAndIconWrapper
-            key={index}
-            isNew={newEntryId === entry.id}
-            id={entry.id}
-            ref={forwardedRef[entry.id]}
-            onClick={() => navigateToEditEntry(entry)}
-          >
-            {entry.image_url && (
-              <EntryImageWrapper>
-                <EntryImage
-                  src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
-                />
-              </EntryImageWrapper>
-            )}
-            <EntryNameWrapper>{entry.name}</EntryNameWrapper>
-            <IconsWrapper>
-              {filterEntryTimelinesByVisibleTimelines(
-                visibleTimelines,
-                entry
-              ).map((timeline) => (
-                <div key={timeline.id}>
-                  {timeline.timelineIconImageUrl ? (
-                    <EntryIcon borderColor={timeline.color}>
-                      <Img
-                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-                        alt="Icone"
-                      />
-                    </EntryIcon>
-                  ) : (
-                    <EntryIcon color={timeline.color}>
-                      {timeline.initials}
-                    </EntryIcon>
-                  )}
-                </div>
-              ))}
-            </IconsWrapper>
-          </EntryAndIconWrapper>
-        )
-      })}
+      {periods[0] && (
+        <PeriodMarker
+          periods={periods}
+          entryDate={entryDate}
+          filterByAnnualImportance={true}
+        />
+      )}
+      {sortPeriodsLastAndEndOfPeriodsFirst(entriesWithoutMonth).map(
+        (entry, index) => {
+          return (
+            <EntryAndIconWrapper
+              key={index}
+              isNew={newEntryId === entry.id}
+              id={entry.id}
+              ref={forwardedRef[entry.id]}
+              onClick={() => navigateToEditEntry(entry)}
+            >
+              {entry.image_url && (
+                <EntryImageWrapper>
+                  <EntryImage
+                    src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
+                  />
+                </EntryImageWrapper>
+              )}
+              <EntryNameBackground
+                periodColor={getPeriodColorByEntryId(entry.id, periods)}
+              >
+                <EntryNameWrapper>{entry.name}</EntryNameWrapper>
+              </EntryNameBackground>
+              <IconsWrapper>
+                {filterEntryTimelinesByVisibleTimelines(
+                  visibleTimelines,
+                  entry
+                ).map((timeline) => (
+                  <div key={timeline.id}>
+                    {timeline.timelineIconImageUrl ? (
+                      <EntryIcon borderColor={timeline.color}>
+                        <Img
+                          src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                          alt="Icone"
+                        />
+                      </EntryIcon>
+                    ) : (
+                      <EntryIcon color={timeline.color}>
+                        {timeline.initials}
+                      </EntryIcon>
+                    )}
+                  </div>
+                ))}
+              </IconsWrapper>
+            </EntryAndIconWrapper>
+          )
+        }
+      )}
     </EntriesWithoutMonthsWrapper>
   )
 }

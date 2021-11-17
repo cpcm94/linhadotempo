@@ -13,7 +13,7 @@ const newBackgroundColor = keyframes`
 export const EntryAndIconWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 0.5rem 0.75rem 0.5rem 1rem;
+  padding-right: 0.75rem;
   animation: ${({ isNew }) =>
     isNew
       ? css`
@@ -81,8 +81,15 @@ export const Wrapper = styled.div`
 
 export const EntryNameWrapper = styled.div`
   flex: 1;
-  padding-right: 5px;
+  position: relative;
   z-index: 2;
+`
+
+export const EntryNameBackground = styled.div`
+  flex: 1;
+  background-color: ${({ periodColor }) => periodColor && periodColor};
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-radius: 0 5px 5px 0;
 `
 
 export const EntryIcon = styled.div`

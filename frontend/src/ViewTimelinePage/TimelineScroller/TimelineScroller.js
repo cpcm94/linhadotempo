@@ -18,6 +18,7 @@ import { PeriodEndWithoutYear } from './PeriodEndWithoutYear'
 import { addPeriodEndEntries } from '../../_shared/addPeriodEndEntries'
 import { filterRelevantPeriods } from '../../_shared/filterRelevantPeriods'
 import { getPeriods } from '../../_shared/getPeriods'
+import { getPeriodsPositions } from '../../_shared/getPeriodsPositions'
 
 export const TimelineScroller = ({
   visibleTimelines,
@@ -38,7 +39,7 @@ export const TimelineScroller = ({
     filteredEntriesByVisibleTimelines
   )
   const periods = getPeriods(filteredEntriesAndPeriodsByVisibleTimelines)
-
+  const periodsWithPositions = getPeriodsPositions(periods)
   const entriesAndPeriodsWithoutYear = filterEntriesWithValue(
     filteredEntriesAndPeriodsByVisibleTimelines,
     'year'
@@ -62,7 +63,9 @@ export const TimelineScroller = ({
   const entriesSortedByYear = arrayOfGroupedEntries.sort(
     (a, b) => b[0].year - a[0].year
   )
-  const periodsWithoutEndYear = periods.filter((subArray) => !subArray[1].year)
+  const periodsWithoutEndYear = periodsWithPositions.filter(
+    (subArray) => !subArray[1].year
+  )
 
   return (
     <Wrapper>
@@ -87,9 +90,8 @@ export const TimelineScroller = ({
               visibleTimelines={visibleTimelines}
               bucketName={bucketName}
               periods={filterRelevantPeriods(
-                periods,
-                timeEntriesByYear[0].year,
-                'year'
+                periodsWithPositions,
+                timeEntriesByYear[0].year
               )}
             />
           ))}

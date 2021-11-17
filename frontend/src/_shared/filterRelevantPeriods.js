@@ -1,14 +1,8 @@
-export const filterRelevantPeriods = (periods, propValue, filterPropName) =>
+export const filterRelevantPeriods = (periods, year) =>
   periods.filter((subArray) => {
-    if (
-      propValue >= subArray[0][filterPropName] &&
-      propValue <= subArray[1][filterPropName]
-    ) {
+    if (year >= subArray[0].year && year <= subArray[1].year) {
       return subArray
-    } else if (
-      propValue >= subArray[0][filterPropName] &&
-      !subArray[1][filterPropName]
-    ) {
+    } else if (year >= subArray[0].year && !subArray[1].year) {
       return subArray
     }
   })

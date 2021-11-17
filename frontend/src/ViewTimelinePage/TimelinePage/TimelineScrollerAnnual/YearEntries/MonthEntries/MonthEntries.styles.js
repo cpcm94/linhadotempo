@@ -17,3 +17,13 @@ export const EntryDateWrapper = styled.div`
   color: ${colors.grey};
   z-index: 2;
 `
+export const EntryDateBackground = styled.div`
+  background-color: ${({ periodColor }) => periodColor && periodColor};
+  padding: 0.5rem 0 0.5rem 1rem;
+`
+export const EntryNameBackground = styled.div`
+  flex: 1;
+  background-color: ${({ periodColor }) => periodColor && periodColor};
+  padding: 0.5rem 0 0.5rem 0;
+  border-radius: 0 5px 5px 0;
+`

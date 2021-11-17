@@ -30,6 +30,7 @@ export const YearEntries = ({
       return subArray
     }
   })
+
   const entriesWithoutMonth = filterEntriesWithValue(timeEntriesByYear, 'month')
 
   const entriesWithMonths = filterEntriesWithoutValue(
@@ -47,6 +48,10 @@ export const YearEntries = ({
   )
 
   const atLeastOneEntryWithoutMonth = !!entriesWithoutMonth[0]
+
+  const entriesWithoutDay = filterEntriesWithValue(timeEntriesByYear, 'day')
+
+  const atLeastOneEntryWithoutDay = !!entriesWithoutDay[0]
 
   return (
     <Wrapper>
@@ -75,8 +80,10 @@ export const YearEntries = ({
               timeEntriesByMonth[0].year,
               timeEntriesByMonth[0].month
             )}
-            showDate={!atLeastOneEntryWithoutMonth}
+            yearHasNoEntryWithoutMonth={!atLeastOneEntryWithoutMonth}
+            yearHasNoEntryWithoutDay={!atLeastOneEntryWithoutDay}
             displayEntry={displayEntry}
+            monthIndex={index}
           />
         ))}
       </EntriesWrapper>

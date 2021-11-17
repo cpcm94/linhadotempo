@@ -26,6 +26,6 @@ export const PeriodBlock = styled.div`
     }
   }};
   position: relative;
-  left: ${({ period }) => `${(period[0].position - 1) * 0.25}rem`};
+  left: ${({ period }) => `${period[0].position * 0.25}rem`};
   margin-left: -0.25rem;
 `
