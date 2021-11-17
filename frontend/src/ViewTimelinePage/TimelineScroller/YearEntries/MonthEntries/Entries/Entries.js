@@ -24,7 +24,8 @@ import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
 import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../../../../_shared/getPeriodColorByEntryId'
-import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../sortPeriodsLastAndEndOfPeriodsFirst'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
+import { removePeriodsThatEndThisDate } from '../../../../../_shared/removePeriodsThatEndThisDate'
 
 export const Entries = ({
   entries,
@@ -64,6 +65,12 @@ export const Entries = ({
   return (
     <Wrapper>
       <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
+        {removePeriodsThatEndThisDate(periods, entries)[0] && (
+          <PeriodMarker
+            periods={removePeriodsThatEndThisDate(periods, entries)}
+            entryDate={entryDate}
+          />
+        )}
         <DateSpan>
           <DayWrapper>{day}</DayWrapper>
           <MonthWrapper>
@@ -76,7 +83,6 @@ export const Entries = ({
           </>
         </DateSpan>
       </EntryDateWrapper>
-      {periods[0] && <PeriodMarker periods={periods} entryDate={entryDate} />}
       <EntriesWrapper>
         {sortPeriodsLastAndEndOfPeriodsFirst(entries).map((entry, index) => (
           <EntryAndIconWrapper
@@ -86,6 +92,9 @@ export const Entries = ({
             ref={forwardedRef[entry.id]}
             onClick={() => navigateToEditEntry(entry)}
           >
+            {periods[0] && (
+              <PeriodMarker periods={periods} entryDate={entryDate} />
+            )}
             {entry.image_url && (
               <EntryImageWrapper>
                 <EntryImage

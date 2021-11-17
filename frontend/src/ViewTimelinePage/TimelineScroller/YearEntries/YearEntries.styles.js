@@ -21,6 +21,7 @@ export const EntryAndIconWrapper = styled.div`
         `
       : null};
   cursor: pointer;
+  position: relative;
 `
 
 export const EntryImageWrapper = styled.div`
@@ -52,8 +53,8 @@ export const EntryYearWrapper = styled.div`
   z-index: 1;
   padding: 0.5rem;
   color: ${colors.lightGrey};
-  visibility: ${({ isDisplayEntryYear }) =>
-    isDisplayEntryYear ? 'hidden' : 'visible'};
+  /* visibility: ${({ isDisplayEntryYear }) =>
+    isDisplayEntryYear ? 'hidden' : 'visible'}; */
   &:before {
     border-top: 1px solid ${colors.lightGrey};
     content: '';

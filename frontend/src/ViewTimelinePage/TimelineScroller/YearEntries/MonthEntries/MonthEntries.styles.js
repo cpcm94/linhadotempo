@@ -6,8 +6,8 @@ export const MonthWrapper = styled.div`
   position: relative;
   z-index: 1;
   padding: 0.5rem;
-  visibility: ${({ isDisplayEntryMonth }) =>
-    isDisplayEntryMonth ? 'hidden' : 'visible'};
+  /* visibility: ${({ isDisplayEntryMonth }) =>
+    isDisplayEntryMonth ? 'hidden' : 'visible'}; */
   &:before {
     border-top: 1px solid ${colors.lightGrey};
     content: '';

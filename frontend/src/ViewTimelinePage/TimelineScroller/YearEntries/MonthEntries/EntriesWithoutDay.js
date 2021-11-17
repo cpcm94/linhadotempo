@@ -22,7 +22,8 @@ import { filterEntryTimelinesByVisibleTimelines } from '../../../../_shared/filt
 import { abvMonthNameArray } from '../../../../_shared/monthNameArray'
 import { PeriodMarker } from '../../../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../../../_shared/getPeriodColorByEntryId'
-import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../sortPeriodsLastAndEndOfPeriodsFirst'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
+import { removePeriodsThatEndThisDate } from '../../../../_shared/removePeriodsThatEndThisDate'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
@@ -62,9 +63,59 @@ export const EntriesWithoutDay = ({
     month: timeEntriesWithoutDay[0].month,
     day: null,
   }
+
+  const removePeriodsThatStartOnSameDayOnHigherPosition = (periods, entry) => {
+    const filterPeriods = (periods) => {
+      const onlyPeriodsWithStartDateOfEntry = periods.filter(
+        (subArray) =>
+          subArray[0].year === entry.year &&
+          subArray[0].month === entry.month &&
+          subArray[0].day === entry.day
+      )
+      const filteredPeriodsThatStartOnSameDate =
+        onlyPeriodsWithStartDateOfEntry.filter((subArray) => {
+          if (periods.filter((period) => period[0].id === entry.id)[0]) {
+            return (
+              subArray[0].position <=
+              periods.filter((period) => period[0].id === entry.id)[0][0]
+                .position
+            )
+          } else if (!entry.is_period) {
+            return onlyPeriodsWithStartDateOfEntry
+          }
+        })
+
+      const periodsThatDontStartOnSameDate = periods.filter((subArray) => {
+        if (
+          subArray[0].year === entry.year &&
+          subArray[0].month === entry.month &&
+          subArray[0].day === entry.day
+        ) {
+          return
+        } else {
+          return subArray
+        }
+      })
+      return [
+        ...periodsThatDontStartOnSameDate,
+        ...filteredPeriodsThatStartOnSameDate,
+      ]
+    }
+    const filteredPeriods = filterPeriods(periods)
+    return filteredPeriods
+  }
   return (
     <MonthAndEntryWrapper>
       <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
+        {removePeriodsThatEndThisDate(periods, timeEntriesWithoutDay)[0] && (
+          <PeriodMarker
+            periods={removePeriodsThatEndThisDate(
+              periods,
+              timeEntriesWithoutDay
+            )}
+            entryDate={entryDate}
+          />
+        )}
         <DateWrapper>
           <MonthDateWrapper>
             <span>{month}</span>
@@ -73,10 +124,14 @@ export const EntriesWithoutDay = ({
           <span>{yearAC}</span>
         </DateWrapper>
       </MonthWrapper>
-      {periods[0] && <PeriodMarker periods={periods} entryDate={entryDate} />}
       {timeEntriesWithoutDay[0]
         ? sortPeriodsLastAndEndOfPeriodsFirst(timeEntriesWithoutDay).map(
             (entry, index) => {
+              console.log('entry', entry)
+              console.log(
+                'removePeriodsThatStartOnSameDayOnHigherPosition(periods, entry',
+                removePeriodsThatStartOnSameDayOnHigherPosition(periods, entry)
+              )
               return (
                 <EntryAndIconWrapper
                   key={index}
@@ -85,6 +140,15 @@ export const EntriesWithoutDay = ({
                   ref={forwardedRef[entry.id]}
                   onClick={() => navigateToEditEntry(entry)}
                 >
+                  {periods[0] && (
+                    <PeriodMarker
+                      periods={removePeriodsThatStartOnSameDayOnHigherPosition(
+                        periods,
+                        entry
+                      )}
+                      entryDate={entryDate}
+                    />
+                  )}
                   {entry.image_url && (
                     <EntryImageWrapper>
                       <EntryImage

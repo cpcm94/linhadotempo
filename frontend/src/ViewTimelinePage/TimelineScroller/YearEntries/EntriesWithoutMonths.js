@@ -17,7 +17,8 @@ import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../_shared/filterEntryTimelinesByVisibleTimelines'
 import { PeriodMarker } from '../../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../../_shared/getPeriodColorByEntryId'
-import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../sortPeriodsLastAndEndOfPeriodsFirst'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
+import { removePeriodsThatEndThisDate } from '../../../_shared/removePeriodsThatEndThisDate'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,
@@ -49,14 +50,20 @@ export const EntriesWithoutMonths = ({
     month: null,
     day: null,
   }
+
   return (
     <EntriesWithoutMonthsWrapper>
       <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
+        {removePeriodsThatEndThisDate(periods, entriesWithoutMonth)[0] && (
+          <PeriodMarker
+            periods={removePeriodsThatEndThisDate(periods, entriesWithoutMonth)}
+            entryDate={entryDate}
+          />
+        )}
         <YearWrapper>
           <span>{year}</span>
         </YearWrapper>
       </EntryYearWrapper>
-      {periods[0] && <PeriodMarker periods={periods} entryDate={entryDate} />}
       {sortPeriodsLastAndEndOfPeriodsFirst(entriesWithoutMonth).map(
         (entry, index) => {
           return (
@@ -67,6 +74,9 @@ export const EntriesWithoutMonths = ({
               ref={forwardedRef[entry.id]}
               onClick={() => navigateToEditEntry(entry)}
             >
+              {periods[0] && (
+                <PeriodMarker periods={periods} entryDate={entryDate} />
+              )}
               {entry.image_url && (
                 <EntryImageWrapper>
                   <EntryImage

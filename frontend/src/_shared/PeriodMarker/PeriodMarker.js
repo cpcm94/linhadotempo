@@ -2,7 +2,11 @@ import React from 'react'
 import { Wrapper, PeriodBlock } from './PeriodMarker.styles'
 import PropTypes from 'prop-types'
 
-export const PeriodMarker = ({ periods, entryDate }) => {
+export const PeriodMarker = ({
+  periods,
+  entryDate,
+  filterByAnnualImportance,
+}) => {
   const isPeriodStart = (period) => {
     if (entryDate) {
       return (
@@ -31,6 +35,7 @@ export const PeriodMarker = ({ periods, entryDate }) => {
               period={subArray}
               isPeriodStart={isPeriodStart(subArray)}
               isPeriodEnd={isPeriodEnd(subArray)}
+              filterByAnnualImportance={filterByAnnualImportance}
               key={index}
             />
           )
@@ -42,4 +47,5 @@ export const PeriodMarker = ({ periods, entryDate }) => {
 PeriodMarker.propTypes = {
   periods: PropTypes.array,
   entryDate: PropTypes.object,
+  filterByAnnualImportance: PropTypes.bool,
 }

@@ -6,9 +6,9 @@ export const EntryDateWrapper = styled.div`
   position: relative;
   z-index: 2;
   padding: 0.5rem;
+  /* visibility: ${({ isDisplayEntryDay }) =>
+    isDisplayEntryDay ? 'hidden' : 'visible'}; */
 
-  visibility: ${({ isDisplayEntryDay }) =>
-    isDisplayEntryDay ? 'hidden' : 'visible'};
   &:before {
     border-top: 1px solid ${colors.lightGrey};
     content: '';

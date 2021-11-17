@@ -22,7 +22,7 @@ import {
   EntryNameBackground,
 } from '../MonthEntries.styles'
 import { getPeriodColorByEntryId } from '../../../../../../_shared/getPeriodColorByEntryId'
-import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../../sortPeriodsLastAndEndOfPeriodsFirst'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
 
 export const Entries = ({
   entries,

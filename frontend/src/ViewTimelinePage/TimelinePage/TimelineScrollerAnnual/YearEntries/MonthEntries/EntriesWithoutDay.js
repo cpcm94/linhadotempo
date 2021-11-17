@@ -22,7 +22,7 @@ import { abvMonthNameArray } from '../../../../../_shared/monthNameArray'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
 import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../../../../_shared/getPeriodColorByEntryId'
-import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../sortPeriodsLastAndEndOfPeriodsFirst'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
@@ -61,6 +61,7 @@ export const EntriesWithoutDay = ({
     month: timeEntriesWithoutDay[0].month,
     day: null,
   }
+
   return (
     <MonthAndEntryWrapper>
       {showDate && (

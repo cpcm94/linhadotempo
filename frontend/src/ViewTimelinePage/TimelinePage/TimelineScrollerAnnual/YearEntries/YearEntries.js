@@ -52,7 +52,14 @@ export const YearEntries = ({
   const entriesWithoutDay = filterEntriesWithValue(timeEntriesByYear, 'day')
 
   const atLeastOneEntryWithoutDay = !!entriesWithoutDay[0]
-
+  // console.log(
+  //   'entriesSortedByMonth',
+  //   entriesSortedByMonth.map((subArray) =>
+  //     subArray.map((entry, index) => {
+  //       return { ...entry, indexOnYear: index }
+  //     })
+  //   )
+  // )
   return (
     <Wrapper>
       <EntriesWrapper>
