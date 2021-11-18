@@ -1,28 +1,34 @@
 import styled from 'styled-components'
 import { colors } from '../../../../../_shared/colors'
 
-export const EntryDateWrapper = styled.div`
+export const DateWrapper = styled.div`
   display: flex;
   position: relative;
-  z-index: 2;
-  padding: 0.5rem;
   /* visibility: ${({ isDisplayEntryDay }) =>
     isDisplayEntryDay ? 'hidden' : 'visible'}; */
-
-  &:before {
-    border-top: 1px solid ${colors.lightGrey};
-    content: '';
-    margin: 0 auto;
-    position: absolute;
-    top: 50%;
-    left: 0%;
-    right: 0%;
-    bottom: 0;
-    width: 100%;
-    z-index: -1;
-  }
+  padding: 0.5rem 0;
   font-size: 0.9em;
   color: ${colors.grey};
+`
+export const LeftDateLine = styled.div`
+  border-top: 1px solid ${colors.lightGrey};
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0%;
+  bottom: 0;
+  width: 2rem;
+  z-index: 1;
+`
+export const RightDateLine = styled.div`
+  border-top: 1px solid ${colors.lightGrey};
+  position: absolute;
+  top: 50%;
+  left: 1;
+  right: 0;
+  bottom: 0;
+  width: calc(100% - (2rem + 135px));
+  z-index: 1;
 `
 
 export const EntriesWrapper = styled.div`
@@ -45,6 +51,7 @@ export const EntryWrapper = styled.div`
 
 export const EntryNameBackground = styled.div`
   flex: 1;
+  position: relative;
   background-color: ${({ periodColor }) => periodColor && periodColor};
   padding: 0.5rem 0 0.5rem 1rem;
   border-radius: 0 5px 5px 0;
@@ -60,13 +67,12 @@ export const DayWrapper = styled.div`
 `
 
 export const DateText = styled.span`
-  background: ${colors.white};
   padding: 0 0.25rem 0 0;
   color: ${colors.grey};
 `
 export const DateSpan = styled.div`
   display: flex;
+  z-index: 2;
   padding: 0 0.5rem;
-  background: ${colors.white};
   margin: 0 0 0 1.85rem;
 `

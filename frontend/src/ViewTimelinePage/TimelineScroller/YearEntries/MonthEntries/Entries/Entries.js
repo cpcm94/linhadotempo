@@ -2,13 +2,15 @@ import React from 'react'
 import {
   Wrapper,
   EntriesWrapper,
-  EntryDateWrapper,
   EntryWrapper,
   MonthWrapper,
   DayWrapper,
   DateSpan,
   DateText,
   EntryNameBackground,
+  RightDateLine,
+  LeftDateLine,
+  DateWrapper,
 } from './Entries.styles'
 import {
   EntryAndIconWrapper,
@@ -26,6 +28,7 @@ import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../../../../_shared/getPeriodColorByEntryId'
 import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
 import { removePeriodsThatEndThisDate } from '../../../../../_shared/removePeriodsThatEndThisDate'
+import { filterPeriodsOfSameDateByPosition } from '../../../../../_shared/filterPeriodsOfSameDateByPosition'
 
 export const Entries = ({
   entries,
@@ -64,13 +67,15 @@ export const Entries = ({
 
   return (
     <Wrapper>
-      <EntryDateWrapper isDisplayEntryDay={isDisplayEntryDay}>
+      <DateWrapper isDisplayEntryDay={isDisplayEntryDay}>
         {removePeriodsThatEndThisDate(periods, entries)[0] && (
           <PeriodMarker
             periods={removePeriodsThatEndThisDate(periods, entries)}
             entryDate={entryDate}
           />
         )}
+        <LeftDateLine />
+        <RightDateLine />
         <DateSpan>
           <DayWrapper>{day}</DayWrapper>
           <MonthWrapper>
@@ -82,7 +87,7 @@ export const Entries = ({
             {yearAC}
           </>
         </DateSpan>
-      </EntryDateWrapper>
+      </DateWrapper>
       <EntriesWrapper>
         {sortPeriodsLastAndEndOfPeriodsFirst(entries).map((entry, index) => (
           <EntryAndIconWrapper
@@ -93,7 +98,10 @@ export const Entries = ({
             onClick={() => navigateToEditEntry(entry)}
           >
             {periods[0] && (
-              <PeriodMarker periods={periods} entryDate={entryDate} />
+              <PeriodMarker
+                periods={filterPeriodsOfSameDateByPosition(periods, entry)}
+                entryDate={entryDate}
+              />
             )}
             {entry.image_url && (
               <EntryImageWrapper>

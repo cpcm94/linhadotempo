@@ -47,6 +47,7 @@ export const TimelineScroller = ({
   const entriesWithoutYear = entriesAndPeriodsWithoutYear.filter(
     (entry) => !entry.period_end
   )
+
   const periodEndsWithoutYear = entriesAndPeriodsWithoutYear.filter(
     (entry) => entry.period_end
   )
