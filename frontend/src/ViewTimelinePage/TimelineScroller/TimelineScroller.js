@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Wrapper,
   EntriesWrapper,
   InvisibleIconWrapper,
   EntryWithoutYearLabelWrapper,
@@ -69,7 +68,7 @@ export const TimelineScroller = ({
   )
 
   return (
-    <Wrapper>
+    <>
       {visibleTimelines[0] ? (
         <EntriesWrapper>
           {periodEndsWithoutYear[0] && (
@@ -119,7 +118,7 @@ export const TimelineScroller = ({
           <MessageWrapper>Todas as linhas estão invisíveis.</MessageWrapper>
         </>
       )}
-    </Wrapper>
+    </>
   )
 }
 

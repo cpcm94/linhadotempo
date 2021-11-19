@@ -31,18 +31,6 @@ export const RightDateLine = styled.div`
   z-index: 1;
 `
 
-export const EntriesWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  position: relative;
-`
-
 export const EntryWrapper = styled.div`
   flex: 1;
   z-index: 2;

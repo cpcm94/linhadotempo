@@ -34,15 +34,6 @@ export const RightDateLine = styled.div`
   z-index: 1;
 `
 
-export const MonthEntriesWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-export const MonthAndEntryWrapper = styled.div`
-  position: relative;
-`
-
 export const EntryNameWrapper = styled.div`
   flex: 1;
   z-index: 2;

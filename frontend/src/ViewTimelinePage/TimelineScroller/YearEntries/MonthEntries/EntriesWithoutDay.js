@@ -6,7 +6,6 @@ import {
   EntryNameBackground,
   EntryNameWrapper,
   LeftDateLine,
-  MonthAndEntryWrapper,
   MonthDateWrapper,
   OuterDateWrapper,
   RightDateLine,
@@ -68,7 +67,7 @@ export const EntriesWithoutDay = ({
   }
 
   return (
-    <MonthAndEntryWrapper>
+    <>
       <OuterDateWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
         {removePeriodsThatEndThisDate(periods, timeEntriesWithoutDay)[0] && (
           <PeriodMarker
@@ -147,7 +146,7 @@ export const EntriesWithoutDay = ({
             }
           )
         : null}
-    </MonthAndEntryWrapper>
+    </>
   )
 }
 

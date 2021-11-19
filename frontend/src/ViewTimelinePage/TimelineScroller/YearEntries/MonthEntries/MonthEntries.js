@@ -1,5 +1,4 @@
 import React from 'react'
-import { MonthEntriesWrapper } from './MonthEntries.styles'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
 import { convertObjectToArray } from '../../../../_shared/convertObjectToArray'
 import { filterEntriesWithValue } from '../filterEntriesWithValue'
@@ -43,7 +42,7 @@ export const MonthEntries = ({
   const atLeastOneEntryWithoutDay = !!entriesWithoutDay[0]
 
   return (
-    <MonthEntriesWrapper>
+    <>
       {atLeastOneEntryWithoutDay && (
         <EntriesWithoutDay
           timeEntriesWithoutDay={entriesWithoutDay}
@@ -72,7 +71,7 @@ export const MonthEntries = ({
           key={index}
         />
       ))}
-    </MonthEntriesWrapper>
+    </>
   )
 }
 MonthEntries.propTypes = {

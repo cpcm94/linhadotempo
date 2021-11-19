@@ -129,15 +129,7 @@ export const Img = styled.img`
 export const IconsWrapper = styled.div`
   display: flex;
 `
-export const EntriesWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
 
 export const YearWrapper = styled.div`
   margin-left: 7.75rem;
-`
-
-export const EntriesWithoutMonthsWrapper = styled.div`
-  position: relative;
 `

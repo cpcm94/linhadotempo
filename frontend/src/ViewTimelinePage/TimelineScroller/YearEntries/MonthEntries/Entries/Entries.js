@@ -1,7 +1,5 @@
 import React from 'react'
 import {
-  Wrapper,
-  EntriesWrapper,
   EntryWrapper,
   MonthWrapper,
   DayWrapper,
@@ -66,7 +64,7 @@ export const Entries = ({
   }
 
   return (
-    <Wrapper>
+    <>
       <DateWrapper isDisplayEntryDay={isDisplayEntryDay}>
         {removePeriodsThatEndThisDate(periods, entries)[0] && (
           <PeriodMarker
@@ -88,58 +86,56 @@ export const Entries = ({
           </>
         </DateSpan>
       </DateWrapper>
-      <EntriesWrapper>
-        {sortPeriodsLastAndEndOfPeriodsFirst(entries).map((entry, index) => (
-          <EntryAndIconWrapper
-            key={index}
-            isNew={newEntryId === entry.id}
-            id={entry.id}
-            ref={forwardedRef[entry.id]}
-            onClick={() => navigateToEditEntry(entry)}
-          >
-            {periods[0] && (
-              <PeriodMarker
-                periods={filterPeriodsOfSameDateByPosition(periods, entry)}
-                entryDate={entryDate}
+      {sortPeriodsLastAndEndOfPeriodsFirst(entries).map((entry, index) => (
+        <EntryAndIconWrapper
+          key={index}
+          isNew={newEntryId === entry.id}
+          id={entry.id}
+          ref={forwardedRef[entry.id]}
+          onClick={() => navigateToEditEntry(entry)}
+        >
+          {periods[0] && (
+            <PeriodMarker
+              periods={filterPeriodsOfSameDateByPosition(periods, entry)}
+              entryDate={entryDate}
+            />
+          )}
+          {entry.image_url && (
+            <EntryImageWrapper>
+              <EntryImage
+                src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
               />
-            )}
-            {entry.image_url && (
-              <EntryImageWrapper>
-                <EntryImage
-                  src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
-                />
-              </EntryImageWrapper>
-            )}
-            <EntryNameBackground
-              periodColor={getPeriodColorByEntryId(entry.id, periods)}
-            >
-              <EntryWrapper key={index}>{entry.name}</EntryWrapper>
-            </EntryNameBackground>
-            <IconsWrapper>
-              {filterEntryTimelinesByVisibleTimelines(
-                visibleTimelines,
-                entry
-              ).map((timeline) => (
-                <div key={timeline.id}>
-                  {timeline.timelineIconImageUrl ? (
-                    <EntryIcon borderColor={timeline.color}>
-                      <Img
-                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-                        alt="Icone"
-                      />
-                    </EntryIcon>
-                  ) : (
-                    <EntryIcon color={timeline.color}>
-                      {timeline.initials}
-                    </EntryIcon>
-                  )}
-                </div>
-              ))}
-            </IconsWrapper>
-          </EntryAndIconWrapper>
-        ))}
-      </EntriesWrapper>
-    </Wrapper>
+            </EntryImageWrapper>
+          )}
+          <EntryNameBackground
+            periodColor={getPeriodColorByEntryId(entry.id, periods)}
+          >
+            <EntryWrapper key={index}>{entry.name}</EntryWrapper>
+          </EntryNameBackground>
+          <IconsWrapper>
+            {filterEntryTimelinesByVisibleTimelines(
+              visibleTimelines,
+              entry
+            ).map((timeline) => (
+              <div key={timeline.id}>
+                {timeline.timelineIconImageUrl ? (
+                  <EntryIcon borderColor={timeline.color}>
+                    <Img
+                      src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                      alt="Icone"
+                    />
+                  </EntryIcon>
+                ) : (
+                  <EntryIcon color={timeline.color}>
+                    {timeline.initials}
+                  </EntryIcon>
+                )}
+              </div>
+            ))}
+          </IconsWrapper>
+        </EntryAndIconWrapper>
+      ))}
+    </>
   )
 }
 

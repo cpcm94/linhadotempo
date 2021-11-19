@@ -7,7 +7,6 @@ import {
   Img,
   EntryImage,
   EntryImageWrapper,
-  EntriesWithoutMonthsWrapper,
   YearWrapper,
   EntryNameBackground,
   OuterDateWrapper,
@@ -55,7 +54,7 @@ export const EntriesWithoutMonths = ({
   }
 
   return (
-    <EntriesWithoutMonthsWrapper>
+    <>
       <OuterDateWrapper isDisplayEntryYear={isDisplayEntryYear}>
         {removePeriodsThatEndThisDate(periods, entriesWithoutMonth)[0] && (
           <PeriodMarker
@@ -63,7 +62,6 @@ export const EntriesWithoutMonths = ({
             entryDate={entryDate}
           />
         )}
-
         <LeftDateLine />
         <RightDateLine />
         <YearWrapper>
@@ -123,7 +121,7 @@ export const EntriesWithoutMonths = ({
           )
         }
       )}
-    </EntriesWithoutMonthsWrapper>
+    </>
   )
 }
 
