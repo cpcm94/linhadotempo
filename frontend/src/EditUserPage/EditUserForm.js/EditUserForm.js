@@ -78,7 +78,6 @@ export const EditUserForm = ({ user }) => {
       >
         <MenuItem value={'basic'}>{'Básico'}</MenuItem>
         <MenuItem value={'admin'}>{'Administrador'}</MenuItem>
-        <MenuItem value={'premium'}>{'Premium'}</MenuItem>
       </StyledTextField>
       {saveUserLoading ? (
         <span>Loading...</span>
