@@ -4,11 +4,27 @@ import PropTypes from 'prop-types'
 
 export const PeriodMarker = ({
   periods,
-  // , isPeriodEnd, isPeriodStart
+  entryDate,
+  filterByAnnualImportance,
 }) => {
-  // console.log('isPeriodEnd', isPeriodEnd)
-  // console.log('isPeriodStart', isPeriodStart)
-
+  const isPeriodStart = (period) => {
+    if (entryDate) {
+      return (
+        period[0].year === entryDate.year &&
+        period[0].month === entryDate.month &&
+        period[0].day === entryDate.day
+      )
+    }
+  }
+  const isPeriodEnd = (period) => {
+    if (entryDate) {
+      return (
+        period[1].year === entryDate.year &&
+        period[1].month === entryDate.month &&
+        period[1].day === entryDate.day
+      )
+    }
+  }
   return (
     <>
       <Wrapper periods={periods}>
@@ -17,8 +33,9 @@ export const PeriodMarker = ({
             <PeriodBlock
               periods={periods}
               period={subArray}
-              isPeriodEnd={false}
-              isPeriodStart={false}
+              isPeriodStart={isPeriodStart(subArray)}
+              isPeriodEnd={isPeriodEnd(subArray)}
+              filterByAnnualImportance={filterByAnnualImportance}
               key={index}
             />
           )
@@ -29,6 +46,6 @@ export const PeriodMarker = ({
 }
 PeriodMarker.propTypes = {
   periods: PropTypes.array,
-  isPeriodEnd: PropTypes.array,
-  isPeriodStart: PropTypes.array,
+  entryDate: PropTypes.object,
+  filterByAnnualImportance: PropTypes.bool,
 }

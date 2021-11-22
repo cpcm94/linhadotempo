@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  Wrapper,
   EntriesWrapper,
   InvisibleIconWrapper,
   EntryWithoutYearLabelWrapper,
@@ -18,6 +17,7 @@ import { PeriodEndWithoutYear } from './PeriodEndWithoutYear'
 import { addPeriodEndEntries } from '../../_shared/addPeriodEndEntries'
 import { filterRelevantPeriods } from '../../_shared/filterRelevantPeriods'
 import { getPeriods } from '../../_shared/getPeriods'
+import { getPeriodsPositions } from '../../_shared/getPeriodsPositions'
 
 export const TimelineScroller = ({
   visibleTimelines,
@@ -38,7 +38,7 @@ export const TimelineScroller = ({
     filteredEntriesByVisibleTimelines
   )
   const periods = getPeriods(filteredEntriesAndPeriodsByVisibleTimelines)
-
+  const periodsWithPositions = getPeriodsPositions(periods)
   const entriesAndPeriodsWithoutYear = filterEntriesWithValue(
     filteredEntriesAndPeriodsByVisibleTimelines,
     'year'
@@ -46,6 +46,7 @@ export const TimelineScroller = ({
   const entriesWithoutYear = entriesAndPeriodsWithoutYear.filter(
     (entry) => !entry.period_end
   )
+
   const periodEndsWithoutYear = entriesAndPeriodsWithoutYear.filter(
     (entry) => entry.period_end
   )
@@ -62,10 +63,12 @@ export const TimelineScroller = ({
   const entriesSortedByYear = arrayOfGroupedEntries.sort(
     (a, b) => b[0].year - a[0].year
   )
-  const periodsWithoutEndYear = periods.filter((subArray) => !subArray[1].year)
+  const periodsWithoutEndYear = periodsWithPositions.filter(
+    (subArray) => !subArray[1].year
+  )
 
   return (
-    <Wrapper>
+    <>
       {visibleTimelines[0] ? (
         <EntriesWrapper>
           {periodEndsWithoutYear[0] && (
@@ -87,9 +90,8 @@ export const TimelineScroller = ({
               visibleTimelines={visibleTimelines}
               bucketName={bucketName}
               periods={filterRelevantPeriods(
-                periods,
-                timeEntriesByYear[0].year,
-                'year'
+                periodsWithPositions,
+                timeEntriesByYear[0].year
               )}
             />
           ))}
@@ -116,7 +118,7 @@ export const TimelineScroller = ({
           <MessageWrapper>Todas as linhas estão invisíveis.</MessageWrapper>
         </>
       )}
-    </Wrapper>
+    </>
   )
 }
 

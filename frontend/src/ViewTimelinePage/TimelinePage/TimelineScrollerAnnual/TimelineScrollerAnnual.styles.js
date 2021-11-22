@@ -20,9 +20,6 @@ export const EntriesWrapper = styled.div`
     padding: 0 35%;
   }
 `
-export const Wrapper = styled.div`
-  width: 100%;
-`
 export const InvisibleIconWrapper = styled.div`
   display: flex;
   justify-content: center;

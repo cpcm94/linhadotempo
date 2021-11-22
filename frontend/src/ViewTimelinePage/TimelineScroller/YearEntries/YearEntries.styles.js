@@ -13,7 +13,7 @@ const newBackgroundColor = keyframes`
 export const EntryAndIconWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 0.5rem 0.75rem 0.5rem 1rem;
+  padding-right: 0.75rem;
   animation: ${({ isNew }) =>
     isNew
       ? css`
@@ -21,6 +21,7 @@ export const EntryAndIconWrapper = styled.div`
         `
       : null};
   cursor: pointer;
+  position: relative;
 `
 
 export const EntryImageWrapper = styled.div`
@@ -46,32 +47,37 @@ export const EntryImage = styled.img`
   margin: 0;
 `
 
-export const EntryYearWrapper = styled.div`
+export const OuterDateWrapper = styled.div`
   display: flex;
   position: relative;
-  z-index: 1;
-  padding: 0.5rem;
-  color: ${colors.lightGrey};
-  visibility: ${({ isDisplayEntryYear }) =>
-    isDisplayEntryYear ? 'hidden' : 'visible'};
-  &:before {
-    border-top: 1px solid ${colors.lightGrey};
-    content: '';
-    margin: 0 auto;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0%;
-    bottom: 0;
-    width: 100%;
-    z-index: -1;
-  }
+  /* visibility: ${({ isDisplayEntryDay }) =>
+    isDisplayEntryDay ? 'hidden' : 'visible'}; */
+  color: ${colors.grey};
+  font-size: 0.9em;
+  padding: 0.5rem 0;
   span {
-    background: ${colors.white};
     padding: 0 0.25rem;
   }
-  font-size: 0.9em;
-  color: ${colors.grey};
+`
+export const LeftDateLine = styled.div`
+  border-top: 1px solid ${colors.lightGrey};
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  right: 0%;
+  bottom: 0;
+  width: 7.5rem;
+  z-index: 1;
+`
+export const RightDateLine = styled.div`
+  border-top: 1px solid ${colors.lightGrey};
+  position: absolute;
+  top: 50%;
+  left: 1;
+  right: 0;
+  bottom: 0;
+  width: calc(100% - (7.5rem + 46px));
+  z-index: 1;
 `
 export const Wrapper = styled.div`
   display: flex;
@@ -81,8 +87,15 @@ export const Wrapper = styled.div`
 
 export const EntryNameWrapper = styled.div`
   flex: 1;
-  padding-right: 5px;
+  position: relative;
   z-index: 2;
+`
+
+export const EntryNameBackground = styled.div`
+  flex: 1;
+  background-color: ${({ periodColor }) => periodColor && periodColor};
+  padding: 0.5rem 0 0.5rem 1rem;
+  border-radius: 0 5px 5px 0;
 `
 
 export const EntryIcon = styled.div`
@@ -116,15 +129,7 @@ export const Img = styled.img`
 export const IconsWrapper = styled.div`
   display: flex;
 `
-export const EntriesWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
 
 export const YearWrapper = styled.div`
   margin-left: 7.75rem;
-`
-
-export const EntriesWithoutMonthsWrapper = styled.div`
-  position: relative;
 `

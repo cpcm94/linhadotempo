@@ -7,6 +7,7 @@ import {
   Img,
   EntryImageWrapper,
   EntryImage,
+  EntryNameBackground,
 } from './YearEntries/YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
@@ -16,6 +17,8 @@ import {
   PeriodsEndsWrapper,
 } from './TimelineScroller.styles'
 import { PeriodMarker } from '../../_shared/PeriodMarker/PeriodMarker'
+import { getPeriodColorByEntryId } from '../../_shared/getPeriodColorByEntryId'
+import { filterPeriodsOfSameDateByPosition } from '../../_shared/filterPeriodsOfSameDateByPosition'
 
 export const PeriodEndWithoutYear = ({
   periodEndsWithoutYear,
@@ -32,14 +35,27 @@ export const PeriodEndWithoutYear = ({
       hash: `#entry=${entry.id}`,
     })
   }
+  const entryDate = { year: null, month: null, day: null }
+
+  const arrayOfPeriodEndings = periods.map((subArray) => subArray[1])
+
+  const sortedPeriodEndsWithoutYear = periodEndsWithoutYear
+    .map((entry) => {
+      return {
+        ...entry,
+        position: arrayOfPeriodEndings.filter(
+          (periodEnd) => periodEnd.id === entry.id
+        )[0].position,
+      }
+    })
+    .sort((a, b) => a.position - b.position)
 
   return (
     <PeriodsEndsWrapper>
       <EntryWithoutYearLabelWrapper>
         <span>{'Períodos ainda ativos'}</span>
       </EntryWithoutYearLabelWrapper>
-      {periods[0] && <PeriodMarker periods={periods} />}
-      {periodEndsWithoutYear.map((entry, index) => {
+      {sortedPeriodEndsWithoutYear.map((entry, index) => {
         return (
           <EntryAndIconWrapper
             key={index}
@@ -47,6 +63,12 @@ export const PeriodEndWithoutYear = ({
             id={entry.id}
             onClick={() => navigateToEditEntry(entry)}
           >
+            {periods[0] && (
+              <PeriodMarker
+                periods={filterPeriodsOfSameDateByPosition(periods, entry)}
+                entryDate={entryDate}
+              />
+            )}
             {entry.image_url && (
               <EntryImageWrapper>
                 <EntryImage
@@ -54,7 +76,11 @@ export const PeriodEndWithoutYear = ({
                 />
               </EntryImageWrapper>
             )}
-            <EntryNameWrapper>{entry.name}</EntryNameWrapper>
+            <EntryNameBackground
+              periodColor={getPeriodColorByEntryId(entry.id, periods)}
+            >
+              <EntryNameWrapper>{entry.name}</EntryNameWrapper>
+            </EntryNameBackground>
             <IconsWrapper>
               {filterEntryTimelinesByVisibleTimelines(
                 visibleTimelines,
