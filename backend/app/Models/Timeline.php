@@ -20,4 +20,7 @@ class Timeline extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+    public function time_entry() {
+        return $this->belongsTo(TimeEntry::class);
+    }
 }
