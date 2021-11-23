@@ -35,6 +35,7 @@ type Timeline {
     time_entry_id: String
     user_id: String
     user: User @belongsTo
+    time_entry_origin: TimeEntry @belongsTo
 }
 
 type TimeEntry {
@@ -55,6 +56,7 @@ type TimeEntry {
     book_page: Int
     book_id: String
     timelines: [Timeline] @belongsToMany
+    timelines_origin: [Timeline] @hasMany
     book: Book @belongsTo
 }
 
