@@ -35,7 +35,7 @@ type Timeline {
     time_entry_id: String
     user_id: String
     user: User @belongsTo
-    time_entry_origin: TimeEntry @belongsTo
+    origin_time_entry: TimeEntry @belongsTo(relation: "time_entry")
 }
 
 type TimeEntry {

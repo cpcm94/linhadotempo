@@ -13,10 +13,13 @@ class TimeEntry extends Model
 
     public function timelines(): BelongsToMany {
         return $this->belongsToMany(Timeline::class);
-        return $this->hasMany(Timeline::class);
     }
 
     public function book() {
         return $this->belongsTo(Book::class);
+    }
+
+    public function timelines_origin() {
+        return $this->hasMany(Timeline::class);
     }
 }
