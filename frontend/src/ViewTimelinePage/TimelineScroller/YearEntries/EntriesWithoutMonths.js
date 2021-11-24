@@ -7,17 +7,20 @@ import {
   Img,
   EntryImage,
   EntryImageWrapper,
-  EntriesWithoutMonthsWrapper,
-  EntryYearWrapper,
   YearWrapper,
   EntryNameBackground,
+  OuterDateWrapper,
+  LeftDateLine,
+  RightDateLine,
 } from './YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../../_shared/filterEntryTimelinesByVisibleTimelines'
 import { PeriodMarker } from '../../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../../_shared/getPeriodColorByEntryId'
-import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../sortPeriodsLastAndEndOfPeriodsFirst'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
+import { removePeriodsThatEndThisDate } from '../../../_shared/removePeriodsThatEndThisDate'
+import { filterPeriodsOfSameDateByPosition } from '../../../_shared/filterPeriodsOfSameDateByPosition'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,
@@ -49,14 +52,22 @@ export const EntriesWithoutMonths = ({
     month: null,
     day: null,
   }
+
   return (
-    <EntriesWithoutMonthsWrapper>
-      <EntryYearWrapper isDisplayEntryYear={isDisplayEntryYear}>
+    <>
+      <OuterDateWrapper isDisplayEntryYear={isDisplayEntryYear}>
+        {removePeriodsThatEndThisDate(periods, entriesWithoutMonth)[0] && (
+          <PeriodMarker
+            periods={removePeriodsThatEndThisDate(periods, entriesWithoutMonth)}
+            entryDate={entryDate}
+          />
+        )}
+        <LeftDateLine />
+        <RightDateLine />
         <YearWrapper>
           <span>{year}</span>
         </YearWrapper>
-      </EntryYearWrapper>
-      {periods[0] && <PeriodMarker periods={periods} entryDate={entryDate} />}
+      </OuterDateWrapper>
       {sortPeriodsLastAndEndOfPeriodsFirst(entriesWithoutMonth).map(
         (entry, index) => {
           return (
@@ -67,6 +78,12 @@ export const EntriesWithoutMonths = ({
               ref={forwardedRef[entry.id]}
               onClick={() => navigateToEditEntry(entry)}
             >
+              {periods[0] && (
+                <PeriodMarker
+                  periods={filterPeriodsOfSameDateByPosition(periods, entry)}
+                  entryDate={entryDate}
+                />
+              )}
               {entry.image_url && (
                 <EntryImageWrapper>
                   <EntryImage
@@ -104,7 +121,7 @@ export const EntriesWithoutMonths = ({
           )
         }
       )}
-    </EntriesWithoutMonthsWrapper>
+    </>
   )
 }
 

@@ -1,8 +1,4 @@
 import React from 'react'
-import {
-  MonthEntriesWrapper,
-  MonthAndEntryWrapper,
-} from './MonthEntries.styles'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
 import { filterEntriesWithValue } from '../filterEntriesWithValue'
 import { filterEntriesWithoutValue } from '../filterEntriesWithoutValue'
@@ -53,21 +49,19 @@ export const MonthEntries = ({
     monthIndex === 0 && yearHasNoEntryWithoutMonth && !yearHasNoEntryWithoutDay
 
   return (
-    <MonthEntriesWrapper>
-      <MonthAndEntryWrapper>
-        {atLeastOneEntryWithoutDay && (
-          <EntriesWithoutDay
-            timeEntriesWithoutDay={entriesWithoutDay}
-            newEntryId={newEntryId}
-            forwardedRef={forwardedRef}
-            visibleTimelines={visibleTimelines}
-            bucketName={bucketName}
-            periods={periodsWithEndMonthGreaterThan}
-            displayEntry={displayEntry}
-            showDate={yearHasNoEntryWithoutMonth && monthIndex === 0}
-          />
-        )}
-      </MonthAndEntryWrapper>
+    <>
+      {atLeastOneEntryWithoutDay && (
+        <EntriesWithoutDay
+          timeEntriesWithoutDay={entriesWithoutDay}
+          newEntryId={newEntryId}
+          forwardedRef={forwardedRef}
+          visibleTimelines={visibleTimelines}
+          bucketName={bucketName}
+          periods={periodsWithEndMonthGreaterThan}
+          displayEntry={displayEntry}
+          showDate={yearHasNoEntryWithoutMonth && monthIndex === 0}
+        />
+      )}
       {entriesSortedByDay.map((timeEntriesByDay, index) => (
         <Entries
           entries={timeEntriesByDay}
@@ -91,7 +85,7 @@ export const MonthEntries = ({
           key={index}
         />
       ))}
-    </MonthEntriesWrapper>
+    </>
   )
 }
 

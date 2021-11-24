@@ -18,4 +18,8 @@ class TimeEntry extends Model
     public function book() {
         return $this->belongsTo(Book::class);
     }
+
+    public function timelines_origin() {
+        return $this->hasMany(Timeline::class);
+    }
 }

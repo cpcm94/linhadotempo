@@ -182,6 +182,5 @@ export const getPeriodsPositions = (periods) => {
     periodsWithInitialPositions,
     arrayWithSubarraysOfIdsAndFinalPositions
   )
-
   return periodsWithFinalPositions
 }

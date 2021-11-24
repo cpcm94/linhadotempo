@@ -8,6 +8,7 @@ import { EntrySource } from '../../EntrySource/EntrySource'
 import { ImageUploader } from '../../ImageUploader/ImageUploader'
 import { DeleteButtonAndConfirmation } from '../../../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
+import { TimelineOriginSelector } from '../../TimelineOriginSelector/TimelineOriginSelector'
 
 export const EditEntryForm = ({
   entry,
@@ -21,6 +22,7 @@ export const EditEntryForm = ({
   deleteLoading,
   handleDelete,
   setShowTimelineSelectorScreen,
+  entryId,
 }) => {
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
@@ -86,6 +88,12 @@ export const EditEntryForm = ({
         field={'description'}
       />
       <EntryAnnualImportance entry={entry} setEntry={setEntry} />
+      <TimelineOriginSelector
+        entry={entry}
+        bucketName={bucketName}
+        timelines={timelines}
+        entryId={entryId}
+      />
       <EntrySource
         entry={entry}
         books={books}
@@ -117,4 +125,5 @@ EditEntryForm.propTypes = {
   deleteLoading: PropTypes.bool,
   handleDelete: PropTypes.func,
   setShowTimelineSelectorScreen: PropTypes.func,
+  entryId: PropTypes.string,
 }

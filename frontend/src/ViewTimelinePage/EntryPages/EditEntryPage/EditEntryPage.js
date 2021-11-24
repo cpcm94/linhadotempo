@@ -175,6 +175,7 @@ export const EditEntryPage = ({
             deleteLoading={deleteLoading}
             handleDelete={handleDelete}
             setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
+            entryId={entryToEdit.id}
           />
         ) : (
           <SelectTimelines

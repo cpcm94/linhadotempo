@@ -32,8 +32,10 @@ type Timeline {
     timelineIconImageUrl: String
     time_entries: [TimeEntry] @belongsToMany
     timeline_categories: [TimelineCategory] @belongsToMany
+    time_entry_id: String
     user_id: String
     user: User @belongsTo
+    origin_time_entry: TimeEntry @belongsTo(relation: "time_entry")
 }
 
 type TimeEntry {
@@ -54,6 +56,7 @@ type TimeEntry {
     book_page: Int
     book_id: String
     timelines: [Timeline] @belongsToMany
+    timelines_origin: [Timeline] @hasMany
     book: Book @belongsTo
 }
 
@@ -202,6 +205,7 @@ input CreateTimelineInput {
     initials: String
     timelineIconImageUrl: String
     timeline_categories: CreateCategoryBelongsToMany
+    time_entry_id: String
 }
 
 input CreateCategoryBelongsToMany {
@@ -214,6 +218,7 @@ input UpdateTimelineInput {
     initials: String
     timelineIconImageUrl: String
     timeline_categories: UpdateCategoryBelongsToMany
+    time_entry_id: String
 }
 
 input UpdateCategoryBelongsToMany {

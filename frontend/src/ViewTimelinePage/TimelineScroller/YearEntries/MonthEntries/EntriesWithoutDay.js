@@ -5,9 +5,10 @@ import {
   DateWrapper,
   EntryNameBackground,
   EntryNameWrapper,
-  MonthAndEntryWrapper,
+  LeftDateLine,
   MonthDateWrapper,
-  MonthWrapper,
+  OuterDateWrapper,
+  RightDateLine,
 } from './MonthEntries.styles'
 import {
   EntryAndIconWrapper,
@@ -22,7 +23,9 @@ import { filterEntryTimelinesByVisibleTimelines } from '../../../../_shared/filt
 import { abvMonthNameArray } from '../../../../_shared/monthNameArray'
 import { PeriodMarker } from '../../../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../../../_shared/getPeriodColorByEntryId'
-import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../sortPeriodsLastAndEndOfPeriodsFirst'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
+import { removePeriodsThatEndThisDate } from '../../../../_shared/removePeriodsThatEndThisDate'
+import { filterPeriodsOfSameDateByPosition } from '../../../../_shared/filterPeriodsOfSameDateByPosition'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
@@ -62,9 +65,21 @@ export const EntriesWithoutDay = ({
     month: timeEntriesWithoutDay[0].month,
     day: null,
   }
+
   return (
-    <MonthAndEntryWrapper>
-      <MonthWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
+    <>
+      <OuterDateWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
+        {removePeriodsThatEndThisDate(periods, timeEntriesWithoutDay)[0] && (
+          <PeriodMarker
+            periods={removePeriodsThatEndThisDate(
+              periods,
+              timeEntriesWithoutDay
+            )}
+            entryDate={entryDate}
+          />
+        )}
+        <LeftDateLine />
+        <RightDateLine />
         <DateWrapper>
           <MonthDateWrapper>
             <span>{month}</span>
@@ -72,8 +87,7 @@ export const EntriesWithoutDay = ({
           <DateText>de</DateText>
           <span>{yearAC}</span>
         </DateWrapper>
-      </MonthWrapper>
-      {periods[0] && <PeriodMarker periods={periods} entryDate={entryDate} />}
+      </OuterDateWrapper>
       {timeEntriesWithoutDay[0]
         ? sortPeriodsLastAndEndOfPeriodsFirst(timeEntriesWithoutDay).map(
             (entry, index) => {
@@ -85,6 +99,15 @@ export const EntriesWithoutDay = ({
                   ref={forwardedRef[entry.id]}
                   onClick={() => navigateToEditEntry(entry)}
                 >
+                  {periods[0] && (
+                    <PeriodMarker
+                      periods={filterPeriodsOfSameDateByPosition(
+                        periods,
+                        entry
+                      )}
+                      entryDate={entryDate}
+                    />
+                  )}
                   {entry.image_url && (
                     <EntryImageWrapper>
                       <EntryImage
@@ -123,7 +146,7 @@ export const EntriesWithoutDay = ({
             }
           )
         : null}
-    </MonthAndEntryWrapper>
+    </>
   )
 }
 
