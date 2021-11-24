@@ -38,7 +38,9 @@ export const filterRelevantPeriodsForTheDay = (periods, year, month, day) => {
         }
       }
     } else if (year === periodStartYear && year < periodEndYear) {
-      if (month > periodStartMonth) {
+      if (!periodStartMonth) {
+        return
+      } else if (month > periodStartMonth) {
         return subArray
       } else if (month === periodStartMonth) {
         if (!periodStartDay) {
