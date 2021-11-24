@@ -1,17 +1,16 @@
-import { useMutation } from '@apollo/client'
-import React, { useState } from 'react'
-import { CREATE_USER_MUTATION } from '../../_shared/CREATE_USER_MUTATION'
-import { LOGIN_MUTATION } from '../LOGIN_MUTATION'
+import React from 'react'
+import { useState } from 'react'
 import {
-  StyledTextField,
-  StyledButton,
   Form,
+  StyledButton,
+  StyledTextField,
   Wrapper,
-} from './RegisterForm.styles'
+} from './NewUserForm.styles'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useHistory } from 'react-router-dom'
-import { saveToken } from '../../_shared/AuthToken/saveToken'
+import { useMutation } from '@apollo/client'
+import { CREATE_USER_MUTATION } from '../../_shared/CREATE_USER_MUTATION'
+import { MenuItem } from '@material-ui/core'
 import PropTypes from 'prop-types'
 
 const toastConfig = {
@@ -19,21 +18,8 @@ const toastConfig = {
   hideProgressBar: true,
   transition: Slide,
 }
-export const RegisterForm = ({ refetchUser }) => {
-  let history = useHistory()
-  const navigateToTimelines = () => {
-    history.push('/timelines')
-  }
-  const saveTokenAndGoToTimelines = (data) => {
-    if (data.login.success) {
-      saveToken(data.login.token)
-      refetchUser()
-      navigateToTimelines()
-    } else {
-      toast.error(data.login.message, toastConfig)
-    }
-  }
 
+export const NewUserForm = ({ navigateToUsers }) => {
   const [user, setUser] = useState({
     name: '',
     password: '',
@@ -41,6 +27,7 @@ export const RegisterForm = ({ refetchUser }) => {
     email: '',
   })
   const [confirmPassword, setConfirmPassword] = useState('')
+
   const handleChange = (userPropName) => (e) => {
     const newUser = { ...user }
     newUser[userPropName] = e.target.value
@@ -57,13 +44,6 @@ export const RegisterForm = ({ refetchUser }) => {
       error
     },
   })
-  const [login] = useMutation(LOGIN_MUTATION, {
-    variables: { input: { email: user.email, password: user.password } },
-    onError: (error) => {
-      console.error(error.message)
-      toast.error('Erro inesperado ao se comunicar com o servidor', toastConfig)
-    },
-  })
   const handleSubmit = () => {
     if (confirmPassword !== user.password) {
       toast.error('Os dois campos de senha precisam ser iguais!', toastConfig)
@@ -75,10 +55,7 @@ export const RegisterForm = ({ refetchUser }) => {
     } else {
       createUser().then((res) => {
         if (res.data) {
-          toast.success('Usuário criado com sucesso!', toastConfig)
-          login().then((response) => {
-            saveTokenAndGoToTimelines(response.data)
-          })
+          navigateToUsers()
         } else if (res.errors.message.startsWith('Validation')) {
           toast.error('Esse email já está cadastrado', {
             position: 'top-center',
@@ -119,6 +96,17 @@ export const RegisterForm = ({ refetchUser }) => {
           label="Confirme a senha"
           onChange={handleConfirmPasswordChange}
         />
+        <StyledTextField
+          select
+          id="userType"
+          variant="outlined"
+          label="Tipo de Usuário"
+          value={user.type}
+          onChange={handleChange('type')}
+        >
+          <MenuItem value={'basic'}>{'Básico'}</MenuItem>
+          <MenuItem value={'admin'}>{'Administrador'}</MenuItem>
+        </StyledTextField>
         {loading ? (
           <span>Loading...</span>
         ) : (
@@ -128,7 +116,7 @@ export const RegisterForm = ({ refetchUser }) => {
             id="submitCreateButton"
             onClick={handleSubmit}
           >
-            Criar Conta
+            Criar Usuário
           </StyledButton>
         )}
         <ToastContainer />
@@ -137,6 +125,6 @@ export const RegisterForm = ({ refetchUser }) => {
   )
 }
 
-RegisterForm.propTypes = {
-  refetchUser: PropTypes.func,
+NewUserForm.propTypes = {
+  navigateToUsers: PropTypes.func,
 }
