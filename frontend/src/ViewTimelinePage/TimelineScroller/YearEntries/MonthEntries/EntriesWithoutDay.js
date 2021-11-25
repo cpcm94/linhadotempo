@@ -26,6 +26,8 @@ import { getPeriodColorByEntryId } from '../../../../_shared/getPeriodColorByEnt
 import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
 import { removePeriodsThatEndThisDate } from '../../../../_shared/removePeriodsThatEndThisDate'
 import { filterPeriodsOfSameDateByPosition } from '../../../../_shared/filterPeriodsOfSameDateByPosition'
+import { useContext } from 'react'
+import { TimelinesContext } from '../../../TimelinesContextProvider'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
@@ -36,6 +38,43 @@ export const EntriesWithoutDay = ({
   periods,
   displayEntry,
 }) => {
+  const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
+  console.log('timelineIdsDisplayingOrigin', timelineIdsDisplayingOrigin)
+
+  const calculateYearOrMonthDifference = (entry, timeline) => {
+    if (timeline.origin_time_entry) {
+      const originYear = timeline.origin_time_entry.year
+      const originMonth = timeline.origin_time_entry.month
+
+      const entryYear = entry.year
+      const entryMonth = entry.month
+
+      const yearDifference = Math.abs(entryYear - originYear)
+      const monthDifference = Math.abs(entryMonth - originMonth)
+
+      if (!originYear) {
+        return '?'
+      } else if (originYear === entryYear) {
+        if (!originMonth) {
+          return '< 1a'
+        } else if (originMonth < entryMonth) {
+          return `< ${monthDifference + 1}m`
+        } else if (originMonth === entryMonth) {
+          return '< 1m'
+        } else if (originMonth > entryMonth) {
+          return `< ${monthDifference + 1}m`
+        }
+      } else if (originYear < entryYear || originYear > entryYear) {
+        if (!originMonth) {
+          return `< ${yearDifference + 1}a`
+        } else if (originMonth >= entryMonth) {
+          return `< ${yearDifference}a`
+        } else if (originMonth < entryMonth) {
+          return `< ${yearDifference + 1}a`
+        }
+      }
+    }
+  }
   const month = abvMonthNameArray[timeEntriesWithoutDay[0].month]
 
   const year = timeEntriesWithoutDay[0].year
@@ -135,7 +174,7 @@ export const EntriesWithoutDay = ({
                           </EntryIcon>
                         ) : (
                           <EntryIcon color={timeline.color}>
-                            {timeline.initials}
+                            {calculateYearOrMonthDifference(entry, timeline)}
                           </EntryIcon>
                         )}
                       </div>

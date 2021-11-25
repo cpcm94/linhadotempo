@@ -20,6 +20,13 @@ export const TIME_ENTRIES_QUERY = gql`
         color
         initials
         timelineIconImageUrl
+        origin_time_entry {
+          id
+          name
+          year
+          month
+          day
+        }
       }
     }
   }

@@ -125,7 +125,7 @@ export const TimelineOriginSelector = ({
               </TimelineWrapper>
             ))
           ) : (
-            <span>
+            <span onClick={() => setShowOriginTimelineSelector(true)}>
               Esse acontecimento não é origem para nenhuma linha do tempo
             </span>
           )}
