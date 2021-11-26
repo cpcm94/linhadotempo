@@ -4,7 +4,7 @@ import {
   EntryNameWrapper,
   EntryAndIconWrapper,
   IconsWrapper,
-  Img,
+  // Img,
   EntryImage,
   EntryImageWrapper,
   YearWrapper,
@@ -21,8 +21,9 @@ import { getPeriodColorByEntryId } from '../../../_shared/getPeriodColorByEntryI
 import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
 import { removePeriodsThatEndThisDate } from '../../../_shared/removePeriodsThatEndThisDate'
 import { filterPeriodsOfSameDateByPosition } from '../../../_shared/filterPeriodsOfSameDateByPosition'
-import { useContext } from 'react'
-import { TimelinesContext } from '../../TimelinesContextProvider'
+// import { useContext } from 'react'
+// import { TimelinesContext } from '../../TimelinesContextProvider'
+import { calculateYearDistance } from '../../../_shared/calculateYearDistance'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,
@@ -33,25 +34,8 @@ export const EntriesWithoutMonths = ({
   periods,
   displayEntry,
 }) => {
-  const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
-  console.log('timelineIdsDisplayingOrigin', timelineIdsDisplayingOrigin)
-  const calculateYearDifference = (entry, timeline) => {
-    if (timeline.origin_time_entry) {
-      const originYear = timeline.origin_time_entry.year
-      const entryYear = entry.year
-      const yearDifference = Math.abs(entryYear - originYear)
-
-      if (originYear === entryYear) {
-        return '< 1a'
-      } else if (!originYear) {
-        return '?'
-      } else if (entryYear > originYear) {
-        return `< ${yearDifference + 1}a`
-      } else if (entryYear < originYear) {
-        return `< ${yearDifference + 1}a`
-      }
-    }
-  }
+  // const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
+  // console.log('timelineIdsDisplayingOrigin', timelineIdsDisplayingOrigin)
 
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -123,25 +107,20 @@ export const EntriesWithoutMonths = ({
                   visibleTimelines,
                   entry
                 ).map((timeline) => {
-                  console.log('timeline', timeline)
-                  console.log(
-                    'calc year dif',
-                    calculateYearDifference(entry, timeline)
-                  )
                   return (
                     <div key={timeline.id}>
-                      {timeline.timelineIconImageUrl ? (
+                      {/* {timeline.timelineIconImageUrl ? (
                         <EntryIcon borderColor={timeline.color}>
                           <Img
                             src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
                             alt="Icone"
                           />
                         </EntryIcon>
-                      ) : (
-                        <EntryIcon color={timeline.color}>
-                          {calculateYearDifference(entry, timeline)}
-                        </EntryIcon>
-                      )}
+                      ) : ( */}
+                      <EntryIcon color={timeline.color}>
+                        {calculateYearDistance(entry, timeline)}
+                      </EntryIcon>
+                      {/* )} */}
                     </div>
                   )
                 })}
