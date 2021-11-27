@@ -5,26 +5,8 @@ import { filterRelevantPeriodsForTheMonth } from './filterRelevantPeriodsForTheM
 const getInitialPosition = (array, newPeriodStart) =>
   array.findIndex((subArray) => subArray[0].id === newPeriodStart.id)
 
-const getHighestNumber = (array) =>
-  array.reduce((previous, current) => {
-    if (previous > current) {
-      return previous
-    } else {
-      return current
-    }
-  })
-
 const findNewPositions = (array, item, index) => {
-  if (
-    array.indexOf(item.position) !== index &&
-    array.indexOf(item.position + 1) !== -1
-  )
-    return { ...item, position: getHighestNumber(array) + 1 }
-  else if (array.indexOf(item.position) !== index)
-    return { ...item, position: item.position + 1 }
-  else if (item.position < array[array.indexOf(item.position) - 1])
-    return { ...item, position: getHighestNumber(array) + 1 }
-  else return item
+  return { ...item, position: array[0] + index }
 }
 
 const updatePositions = (array) =>

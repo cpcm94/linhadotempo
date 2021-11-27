@@ -18,15 +18,14 @@ export const MonthEntries = ({
   periods,
 }) => {
   const periodsWithEndMonthGreaterThan = periods.filter((subArray) => {
-    if (subArray[1].year > timeEntriesByMonth[0].year || !subArray[1].year) {
+    if (subArray[0].year < timeEntriesByMonth[0].year) {
       return subArray
-    } else if (subArray[1].year === timeEntriesByMonth[0].year) {
-      if (subArray[1].month >= timeEntriesByMonth[0].month) {
+    } else if (subArray[0].year === timeEntriesByMonth[0].year) {
+      if (!subArray[0].day) {
         return subArray
       }
     }
   })
-
   const entriesWithoutDay = filterEntriesWithValue(timeEntriesByMonth, 'day')
 
   const entriesWithDay = filterEntriesWithoutValue(timeEntriesByMonth, 'day')
@@ -43,17 +42,6 @@ export const MonthEntries = ({
 
   return (
     <>
-      {atLeastOneEntryWithoutDay && (
-        <EntriesWithoutDay
-          timeEntriesWithoutDay={entriesWithoutDay}
-          newEntryId={newEntryId}
-          forwardedRef={forwardedRef}
-          visibleTimelines={visibleTimelines}
-          bucketName={bucketName}
-          periods={periodsWithEndMonthGreaterThan}
-          displayEntry={displayEntry}
-        />
-      )}
       {entriesSortedByDay.map((timeEntriesByDay, index) => (
         <Entries
           entries={timeEntriesByDay}
@@ -71,6 +59,17 @@ export const MonthEntries = ({
           key={index}
         />
       ))}
+      {atLeastOneEntryWithoutDay && (
+        <EntriesWithoutDay
+          timeEntriesWithoutDay={entriesWithoutDay}
+          newEntryId={newEntryId}
+          forwardedRef={forwardedRef}
+          visibleTimelines={visibleTimelines}
+          bucketName={bucketName}
+          periods={periodsWithEndMonthGreaterThan}
+          displayEntry={displayEntry}
+        />
+      )}
     </>
   )
 }

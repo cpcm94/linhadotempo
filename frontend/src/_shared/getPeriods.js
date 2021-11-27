@@ -12,9 +12,9 @@ export const getPeriods = (entries) =>
     .sort((a, b) => {
       return (
         a[0].year - b[0].year ||
-        (a[0].month === null) - (b[0].month === null) ||
+        (a[0].month !== null) - (b[0].month !== null) ||
         a[0].month - b[0].month ||
-        (a[0].day === null) - (b[0].day === null) ||
+        (a[0].day !== null) - (b[0].day !== null) ||
         a[0].day - b[0].day
       )
     })

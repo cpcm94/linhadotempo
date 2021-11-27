@@ -4,7 +4,7 @@ import {
   EntryNameWrapper,
   EntryAndIconWrapper,
   IconsWrapper,
-  Img,
+  // Img,
   EntryImage,
   EntryImageWrapper,
   YearWrapper,
@@ -21,6 +21,9 @@ import { getPeriodColorByEntryId } from '../../../_shared/getPeriodColorByEntryI
 import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
 import { removePeriodsThatEndThisDate } from '../../../_shared/removePeriodsThatEndThisDate'
 import { filterPeriodsOfSameDateByPosition } from '../../../_shared/filterPeriodsOfSameDateByPosition'
+// import { useContext } from 'react'
+// import { TimelinesContext } from '../../TimelinesContextProvider'
+import { calculateYearDistance } from '../../../_shared/calculateYearDistance'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,
@@ -31,6 +34,8 @@ export const EntriesWithoutMonths = ({
   periods,
   displayEntry,
 }) => {
+  // const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
+
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
     history.push({
@@ -100,22 +105,24 @@ export const EntriesWithoutMonths = ({
                 {filterEntryTimelinesByVisibleTimelines(
                   visibleTimelines,
                   entry
-                ).map((timeline) => (
-                  <div key={timeline.id}>
-                    {timeline.timelineIconImageUrl ? (
-                      <EntryIcon borderColor={timeline.color}>
-                        <Img
-                          src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-                          alt="Icone"
-                        />
-                      </EntryIcon>
-                    ) : (
+                ).map((timeline) => {
+                  return (
+                    <div key={timeline.id}>
+                      {/* {timeline.timelineIconImageUrl ? (
+                        <EntryIcon borderColor={timeline.color}>
+                          <Img
+                            src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
+                            alt="Icone"
+                          />
+                        </EntryIcon>
+                      ) : ( */}
                       <EntryIcon color={timeline.color}>
-                        {timeline.initials}
+                        {calculateYearDistance(entry, timeline)}
                       </EntryIcon>
-                    )}
-                  </div>
-                ))}
+                      {/* )} */}
+                    </div>
+                  )
+                })}
               </IconsWrapper>
             </EntryAndIconWrapper>
           )

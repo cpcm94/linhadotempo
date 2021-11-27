@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
 import PropTypes from 'prop-types'
 import { Menu, MenuItem } from '@material-ui/core'
+import { useContext } from 'react'
+import { TimelinesContext } from '../TimelinesContextProvider'
 
 const Button = styled.div`
   margin-right: 0.5rem;
@@ -26,7 +28,11 @@ const Button = styled.div`
     cursor: pointer;
   }
 `
-
+const StyledMenuItem = styled(MenuItem)`
+  pointer-events: ${({ isInteractable }) => !isInteractable && 'none'};
+  color: ${({ isInteractable }) =>
+    !isInteractable && `${colors.lightGrey}`} !important;
+`
 const StyledMenu = styled(Menu)`
   & .MuiPopover-paper {
     filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.32));
@@ -80,6 +86,17 @@ export const TimelinesButtonsRow = ({
   setVisibleTimelines,
   bucketName,
 }) => {
+  const { timelineIdsDisplayingOrigin, setTimelineIdsDisplayingOrigin } =
+    useContext(TimelinesContext)
+  const checkIfTimelineHasOriginEntry = (timelines, timelineId) => {
+    if (timelineId) {
+      const filteredTimelineById = timelines.filter(
+        (timeline) => timeline.id === timelineId
+      )[0]
+
+      return !!filteredTimelineById.time_entry_id
+    }
+  }
   const [anchorElement, setAnchorElement] = useState(null)
   const arrayVisibleTimelinesId = visibleTimelines.map(
     (timeline) => timeline.id
@@ -93,8 +110,11 @@ export const TimelinesButtonsRow = ({
   }
   const getTimelineById = (timelineId) =>
     timelines.filter((timeline) => timeline.id === timelineId)[0]
+
   const hasInvisibleTimelines = timelines.length > visibleTimelines.length
+
   const hasMoreThanOneTimeline = timelines.length > 1
+
   const handleSelect = (timelineId) => {
     if (arrayVisibleTimelinesId.includes(timelineId)) {
       setVisibleTimelines(
@@ -107,14 +127,31 @@ export const TimelinesButtonsRow = ({
     }
     handleClose()
   }
+
   const viewOnlySelectedTimeline = (timelineId) => {
     setVisibleTimelines([getTimelineById(timelineId)])
     handleClose()
   }
+
   const selectAllTimelines = () => {
     setVisibleTimelines(timelines)
     handleClose()
   }
+
+  const toggleDistanceToOrigin = (timelineId) => {
+    handleClose()
+    if (timelineIdsDisplayingOrigin.includes(timelineId)) {
+      setTimelineIdsDisplayingOrigin(
+        timelineIdsDisplayingOrigin.filter((id) => timelineId !== id)
+      )
+    } else {
+      setTimelineIdsDisplayingOrigin([
+        ...timelineIdsDisplayingOrigin,
+        timelineId,
+      ])
+    }
+  }
+  const anchorElementId = anchorElement && anchorElement.id
   return (
     <Wrapper>
       {timelines.map((timeline) => {
@@ -162,6 +199,18 @@ export const TimelinesButtonsRow = ({
         {hasInvisibleTimelines && (
           <MenuItem onClick={selectAllTimelines}>Ver todas</MenuItem>
         )}
+        <StyledMenuItem
+          onClick={() => toggleDistanceToOrigin(anchorElement.id)}
+          isInteractable={checkIfTimelineHasOriginEntry(
+            timelines,
+            anchorElementId
+          )}
+        >
+          {anchorElement &&
+          timelineIdsDisplayingOrigin.includes(anchorElement.id)
+            ? 'Esconder origem'
+            : 'Mostrar origem'}
+        </StyledMenuItem>
       </StyledMenu>
     </Wrapper>
   )
