@@ -40,7 +40,6 @@ export const EntriesWithoutDay = ({
   displayEntry,
 }) => {
   // const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
-  // console.log('timelineIdsDisplayingOrigin', timelineIdsDisplayingOrigin)
 
   const month = abvMonthNameArray[timeEntriesWithoutDay[0].month]
 

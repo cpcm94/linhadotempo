@@ -35,7 +35,6 @@ export const EntriesWithoutMonths = ({
   displayEntry,
 }) => {
   // const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
-  // console.log('timelineIdsDisplayingOrigin', timelineIdsDisplayingOrigin)
 
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
