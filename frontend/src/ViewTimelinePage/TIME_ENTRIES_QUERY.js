@@ -13,7 +13,9 @@ export const TIME_ENTRIES_QUERY = gql`
       end_month
       end_day
       is_period
-      image_url
+      images {
+        image_url
+      }
       annual_importance
       timelines {
         id

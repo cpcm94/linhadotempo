@@ -15,10 +15,12 @@ export const TIME_ENTRY_QUERY = gql`
       is_period
       monthly_importance
       annual_importance
-      image_url
       source_url
       book_page
       book_id
+      images {
+        image_url
+      }
       timelines {
         id
         name

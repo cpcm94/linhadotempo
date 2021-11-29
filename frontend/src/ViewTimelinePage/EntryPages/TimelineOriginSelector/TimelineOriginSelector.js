@@ -97,7 +97,7 @@ export const TimelineOriginSelector = ({
       })
     }
   }
-  console.log('selectedTimelines', selectedTimelines)
+
   return (
     <>
       <SectionTitle title={'Origem das Linhas do tempo'} />

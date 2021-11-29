@@ -23,6 +23,7 @@ export const EditEntryForm = ({
   handleDelete,
   setShowTimelineSelectorScreen,
   entryId,
+  entryImages,
 }) => {
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
@@ -77,8 +78,9 @@ export const EditEntryForm = ({
       />
       <ImageUploader
         entry={entry}
-        setEntry={setEntry}
         bucketName={bucketName}
+        entryId={entryId}
+        entryImages={entryImages}
       />
       <EntryTextInput
         entry={entry}
@@ -126,4 +128,5 @@ EditEntryForm.propTypes = {
   handleDelete: PropTypes.func,
   setShowTimelineSelectorScreen: PropTypes.func,
   entryId: PropTypes.string,
+  entryImages: PropTypes.array,
 }

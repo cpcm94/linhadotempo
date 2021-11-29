@@ -9,7 +9,9 @@ export const filterRelevantPeriodsForTheMonth = (periods, year, month) =>
     } else if (year > periodStartYear && !periodEndYear) {
       return subArray
     } else if (year === periodStartYear && !periodEndYear) {
-      if (month >= periodStartMonth) return subArray
+      if (!periodStartMonth) {
+        return subArray
+      } else if (month >= periodStartMonth) return subArray
     } else if (year === periodStartYear && year === periodEndYear) {
       if (!periodEndMonth) {
         return subArray
@@ -18,7 +20,7 @@ export const filterRelevantPeriodsForTheMonth = (periods, year, month) =>
       }
     } else if (year === periodStartYear && year < periodEndYear) {
       if (!periodStartMonth) {
-        return
+        return subArray
       } else if (month >= periodStartMonth) {
         return subArray
       }

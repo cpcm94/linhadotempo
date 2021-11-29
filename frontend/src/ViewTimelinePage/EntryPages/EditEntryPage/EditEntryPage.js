@@ -48,7 +48,6 @@ export const EditEntryPage = ({
     is_period: entryToEdit.is_period ? entryToEdit.is_period : false,
     annual_importance: entryToEdit.annual_importance,
     monthly_importance: entryToEdit.monthly_importance,
-    image_url: entryToEdit.image_url ? entryToEdit.image_url : '',
     source_url: entryToEdit.source_url ? entryToEdit.source_url : '',
     book_page: entryToEdit.book_page ? entryToEdit.book_page : '',
     book_id: entryToEdit.book_id ? entryToEdit.book_id : '',
@@ -176,6 +175,7 @@ export const EditEntryPage = ({
             handleDelete={handleDelete}
             setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
             entryId={entryToEdit.id}
+            entryImages={entryToEdit.images}
           />
         ) : (
           <SelectTimelines
