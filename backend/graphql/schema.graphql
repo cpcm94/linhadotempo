@@ -51,13 +51,12 @@ type TimeEntry {
     is_period: Boolean!
     annual_importance: Boolean!
     monthly_importance: Boolean!
-    image_url: String
     source_url: String
     book_page: Int
     book_id: String
     timelines: [Timeline] @belongsToMany
     timelines_origin: [Timeline] @hasMany
-    images: [Images] @hasMany
+    images: [Image] @hasMany
     book: Book @belongsTo
 }
 
@@ -81,7 +80,7 @@ type TimelineCategory {
     user: User @belongsTo
 }
 
-type Images {
+type Image {
     id: ID!
     name: String!
     image_url: String!
@@ -136,7 +135,6 @@ input CreateTimeEntryInput {
     is_period: Boolean!
     annual_importance: Boolean!
     monthly_importance: Boolean!
-    image_url: String
     source_url: String
     book_page: Int
     book_id: String
@@ -179,7 +177,6 @@ input UpdateTimeEntryInput {
     is_period: Boolean!
     annual_importance: Boolean
     monthly_importance: Boolean
-    image_url: String
     source_url: String
     book_page: Int
     book_id: String
@@ -245,6 +242,7 @@ input UpdateTimelineCategoryInput {
 type Query {
     books: [Book!]! @all @whereAuth(relation: "user")
     book(id: ID! @eq): Book! @find @whereAuth(relation: "user")
+    images: [Image!]! @all
     timeline_categories: [TimelineCategory!]! @all @whereAuth(relation: "user")
     timeline_category(id: ID! @eq): TimelineCategory
         @find

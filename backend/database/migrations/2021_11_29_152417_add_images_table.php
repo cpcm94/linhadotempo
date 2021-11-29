@@ -17,7 +17,7 @@ class AddImagesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name', 255);
-            $table->date('image_url');
+            $table->string('image_url');
             $table->foreignId('time_entry_id')->nullable()->references('id')->on('time_entries')->onDelete('cascade');
         });
     }
