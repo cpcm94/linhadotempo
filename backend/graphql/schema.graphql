@@ -57,6 +57,7 @@ type TimeEntry {
     book_id: String
     timelines: [Timeline] @belongsToMany
     timelines_origin: [Timeline] @hasMany
+    images: [Images] @hasMany
     book: Book @belongsTo
 }
 
@@ -78,6 +79,14 @@ type TimelineCategory {
     timelines: [Timeline] @belongsToMany
     user_id: String
     user: User @belongsTo
+}
+
+type Images {
+    id: ID!
+    name: String!
+    image_url: String!
+    time_entry_id: String!
+    time_entry: TimeEntry @belongsTo
 }
 
 type Settings {
