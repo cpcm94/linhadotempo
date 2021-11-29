@@ -9,6 +9,12 @@ class Image extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+    'name',
+    'image_url',
+    'time_entry_id'
+    ];
+
     public function time_entry() {
         return $this->belongsTo(TimeEntry::class);
     }
