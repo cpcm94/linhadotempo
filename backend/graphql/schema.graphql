@@ -82,8 +82,8 @@ type TimelineCategory {
 
 type Image {
     id: ID!
-    name: String!
-    image_url: String!
+    name: String
+    image_url: String
     time_entry_id: String!
     time_entry: TimeEntry @belongsTo
 }
@@ -142,7 +142,7 @@ input CreateTimeEntryInput {
 }
 
 input CreateImageInput {
-    name: String!
+    name: String
     image_url: String!
     time_entry_id: String!
 }
@@ -255,6 +255,7 @@ type Query {
     books: [Book!]! @all @whereAuth(relation: "user")
     book(id: ID! @eq): Book! @find @whereAuth(relation: "user")
     images: [Image!]! @all
+    image(id: ID! @eq): Image! @find
     timeline_categories: [TimelineCategory!]! @all @whereAuth(relation: "user")
     timeline_category(id: ID! @eq): TimelineCategory
         @find
