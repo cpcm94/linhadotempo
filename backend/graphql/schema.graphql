@@ -141,6 +141,18 @@ input CreateTimeEntryInput {
     timelines: CreateTimelineBelongsToMany!
 }
 
+input CreateImageInput {
+    name: String!
+    image_url: String!
+    time_entry_id: String!
+}
+
+input UpdateImageInput {
+    name: String
+    image_url: String
+    time_entry_id: String
+}
+
 input CreateBookInput {
     book_name: String!
     author: String
@@ -268,6 +280,8 @@ type Mutation {
         @inject(context: "user.id", name: "user_id")
     updateBook(id: ID!, input: UpdateBookInput! @spread): Book! @update
     deleteBook(id: ID!): DeleteBookResponse!
+    createImage(input: CreateImageInput! @spread): Image! @create
+    updateImage(id: ID!, input: UpdateImageInput! @spread): Image! @update
     createTimelineCategory(
         input: CreateTimelineCategoryInput! @spread
     ): TimelineCategory! @upsert @inject(context: "user.id", name: "user_id")
