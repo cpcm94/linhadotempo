@@ -21,7 +21,7 @@ class ImageController extends Controller
             $bucket = $adapter->getBucket();
 
             $key = $request->name;
-
+            $type = 'image/' . substr(strrchr($request->name, '.'), 1);
             $name_of_resized_image = substr($request->name, 0, strpos($request->name, '.')) . 'resolution=' . $request->resolution . substr(strrchr($request->name, '.'), 0);
 
             $client->registerStreamWrapper();
@@ -29,7 +29,7 @@ class ImageController extends Controller
             if ($client->doesObjectExist($bucket, $name_of_resized_image)) {
                 $data = file_get_contents('s3://'.$bucket.'/'.$name_of_resized_image);
 
-                echo '<img src="data:image/jpg;base64,'.base64_encode($data).'"/>';
+                return response($data)->header('Content-Type', $type);
             } else {
                 $height = substr(strrchr($request->resolution, 'x'), 1);
                 $width = substr($request->resolution, 0, strpos($request->resolution, 'x'));
@@ -43,11 +43,11 @@ class ImageController extends Controller
                 $result = $client->putObject([
                     'Bucket' => $bucket,
                     'Key' => $name_of_resized_image,
-                    'ContentType' => 'image/' . substr(strrchr($request->name, '.'), 1),
+                    'ContentType' => $type,
                     'Body' => $img->getImageBlob(),
                 ]);
-                
-                echo '<img src="data:image/jpg;base64,'.base64_encode($img).'"/>';
+
+                return response($img->getImageBlob())->header('Content-Type', $type);
             }
 
     }
