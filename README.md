@@ -158,10 +158,16 @@ And get the name of your app, then run this command **inside the backend folder*
 heroku buildpacks:add -a <your-app-name> https://github.com/lstoll/heroku-buildpack-monorepo -i 1
 ```
 
+After that add the ImageMagick build pack using the following command **inside the backend folder**:
+
+```
+heroku buildpacks:add -a <your-app-name> https://github.com/ReisTecnologia/heroku-buildpack-imagemagick -i 2
+```
+
 After that add the heroku/php build pack using the following command **inside the backend folder**:
 
 ```
-heroku buildpacks:add -a <your-app-name> heroku/php -i 2
+heroku buildpacks:add -a <your-app-name> heroku/php -i 3
 ```
 
 The next command is so the new buildpack knows the path to the laravel app root, which in case you didnt change its inside the folder `backend`, make sure to run it **inside the backend folder**:
