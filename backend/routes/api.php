@@ -36,28 +36,3 @@ Route::middleware('api')->post('/uploadToken', function (Request $request)
 
     return response()->json(['uploadURL' => $presignedUrl], 200);
 });
-
-Route::middleware('api')->post('/resizeImg', function (Request $request){
-
-    $s3 = Storage::disk('s3');
-    $adapter = $s3->getDriver()->getAdapter();
-    $client = $adapter->getClient();
-    $bucket = $adapter->getBucket();
-    $key = $request->name;
-
-    $height = substr(strrchr($request->size, 'x'), 1);
-    $width = substr($request->size, 0, strpos($request->size, 'x'));
-
-    $client->registerStreamWrapper();
-
-    $data = file_get_contents('s3://'.$bucket.'/'.$key);
-
-    $img = new \Imagick();
-    $img->readImageBlob($data);
-    $img->resizeImage($width, $height, null, 1);
-
-    $encoded_img_blob = base64_encode($img);
-
-    return response()->json(['image_blob' => $encoded_img_blob]);
-
-});
