@@ -30,8 +30,10 @@ class ImageController extends Controller
             $img = new \Imagick();
             $img->readImageBlob($data);
             $img->resizeImage($width, $height, null, 1);
-            
-            $encoded_img_blob = base64_encode($img);
-            return response()->json(['image_blob' => $encoded_img_blob]);
+
+            echo '<img src="data:image/jpg;base64,'.base64_encode($img).'"/>';
+
+            // $encoded_img_blob = base64_encode($img);
+            // return response()->json(['image_blob' => $encoded_img_blob]);
     }
 }
