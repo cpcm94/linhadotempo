@@ -84,6 +84,7 @@ type Image {
     id: ID!
     name: String
     image_url: String
+    is_main_image: Boolean!
     time_entry_id: String!
     time_entry: TimeEntry @belongsTo
 }
@@ -144,12 +145,14 @@ input CreateTimeEntryInput {
 input CreateImageInput {
     name: String
     image_url: String!
+    is_main_image: Boolean!
     time_entry_id: String!
 }
 
 input UpdateImageInput {
     name: String
     image_url: String
+    is_main_image: Boolean
     time_entry_id: String
 }
 

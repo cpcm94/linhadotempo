@@ -44,10 +44,10 @@ export const ImageUploader = ({ entryId, entryImages, bucketName }) => {
           {/* <Img
             src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/200__93870312-a75c-457c-88a7-aeb841332598.jpg`}
           /> */}
-          {/* <Img
-            src={`http://127.0.0.1:8000/images?name=200__93870312-a75c-457c-88a7-aeb841332598.jpg&resolution=26x26`}
+          <Img
+            src={`https://shrouded-harbor-09938.herokuapp.com/images?name=200__93870312-a75c-457c-88a7-aeb841332598.jpg&resolution=26x26`}
             alt="Imagem"
-          /> */}
+          />
         </ImageWrapper>
         <FileUploader
           updateImageUrl={updateImageUrl}

@@ -22,7 +22,8 @@ class ImageController extends Controller
 
             $key = $request->name;
             $type = 'image/' . substr(strrchr($request->name, '.'), 1);
-            $name_of_resized_image = substr($request->name, 0, strpos($request->name, '.')) . 'resolution=' . $request->resolution . substr(strrchr($request->name, '.'), 0);
+            $resolution_string = $request->resolution ? 'resolution=' . $request->resolution : null;
+            $name_of_resized_image = substr($request->name, 0, strpos($request->name, '.')) . $resolution_string . substr(strrchr($request->name, '.'), 0);
 
             $client->registerStreamWrapper();
 
