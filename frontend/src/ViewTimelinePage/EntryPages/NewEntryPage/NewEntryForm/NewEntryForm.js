@@ -74,11 +74,6 @@ export const NewEntryForm = ({
           title={'Acontecimento'}
           field={'name'}
         />
-        <ImageUploader
-          entry={entry}
-          setEntry={setEntry}
-          bucketName={bucketName}
-        />
         <EntryTextInput
           entry={entry}
           changeEntry={handleChange}
@@ -93,6 +88,14 @@ export const NewEntryForm = ({
           changeEntry={handleChange}
           setEntry={setEntry}
         />
+        {entryId && (
+          <ImageUploader
+            entryId={entryId}
+            setEntry={setEntry}
+            bucketName={bucketName}
+            entryImages={[]}
+          />
+        )}
         <DeleteButtonWrapper showBorder={entryId}>
           {entryId &&
             (deleteLoading ? (

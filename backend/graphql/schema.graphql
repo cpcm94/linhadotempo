@@ -124,6 +124,11 @@ type DeleteBookResponse {
     success: Boolean!
 }
 
+type DeleteImageResponse {
+    message: String!
+    success: Boolean!
+}
+
 input CreateTimeEntryInput {
     name: String!
     description: String
@@ -150,10 +155,9 @@ input CreateImageInput {
 }
 
 input UpdateImageInput {
-    name: String
-    image_url: String
-    is_main_image: Boolean
-    time_entry_id: String
+    name: String!
+    image_url: String!
+    is_main_image: Boolean!
 }
 
 input CreateBookInput {
@@ -286,6 +290,7 @@ type Mutation {
     deleteBook(id: ID!): DeleteBookResponse!
     createImage(input: CreateImageInput! @spread): Image! @create
     updateImage(id: ID!, input: UpdateImageInput! @spread): Image! @update
+    deleteImage(id: ID!): DeleteImageResponse!
     createTimelineCategory(
         input: CreateTimelineCategoryInput! @spread
     ): TimelineCategory! @upsert @inject(context: "user.id", name: "user_id")

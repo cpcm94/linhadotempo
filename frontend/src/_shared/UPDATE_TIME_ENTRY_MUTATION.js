@@ -17,6 +17,12 @@ export const UPDATE_TIME_ENTRY_MUTATION = gql`
       source_url
       book_page
       book_id
+      images {
+        id
+        name
+        image_url
+        is_main_image
+      }
     }
   }
 `

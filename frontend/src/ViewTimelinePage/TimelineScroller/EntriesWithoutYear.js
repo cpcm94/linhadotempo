@@ -2,7 +2,6 @@ import React from 'react'
 import {
   EntryIcon,
   EntryNameWrapper,
-  EntryAndIconWrapper,
   IconsWrapper,
   Img,
   EntryImageWrapper,
@@ -11,6 +10,8 @@ import {
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../_shared/filterEntryTimelinesByVisibleTimelines'
+import { getEntryMainImage } from '../../_shared/getEntryMainImage'
+import { EntryAndIconWrapper } from './TimelineScroller.styles'
 
 export const EntriesWithoutYear = ({
   entriesWithoutYear,
@@ -39,10 +40,13 @@ export const EntriesWithoutYear = ({
             ref={forwardedRef[entry.id]}
             onClick={() => navigateToEditEntry(entry)}
           >
-            {entry.image_url && (
+            {getEntryMainImage(entry) && (
               <EntryImageWrapper>
                 <EntryImage
-                  src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
+                  src={`${process.env.REACT_APP_IMAGES_ENDPOINT}?name=${
+                    getEntryMainImage(entry).image_url
+                  }&resolution=39x39`}
+                  alt="Imagem"
                 />
               </EntryImageWrapper>
             )}

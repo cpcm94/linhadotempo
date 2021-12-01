@@ -8,6 +8,7 @@ import {
   Img,
   OpenDisplayWrapper,
   OpenTimelineWrapper,
+  SpanMessage,
   StyledButton,
   TimelineNameWrapper,
   TimelineWrapper,
@@ -125,9 +126,9 @@ export const TimelineOriginSelector = ({
               </TimelineWrapper>
             ))
           ) : (
-            <span onClick={() => setShowOriginTimelineSelector(true)}>
+            <SpanMessage onClick={() => setShowOriginTimelineSelector(true)}>
               Esse acontecimento não é origem para nenhuma linha do tempo
-            </span>
+            </SpanMessage>
           )}
         </ClosedDisplayWrapper>
       )}

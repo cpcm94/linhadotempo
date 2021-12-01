@@ -15,6 +15,7 @@ export const TIME_ENTRIES_QUERY = gql`
       is_period
       images {
         image_url
+        is_main_image
       }
       annual_importance
       timelines {

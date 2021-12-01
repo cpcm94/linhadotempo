@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { colors } from '../../_shared/colors'
 
 export const EntriesWrapper = styled.div`
@@ -55,5 +55,26 @@ export const EntryWithoutYearLabelWrapper = styled.div`
   color: ${colors.grey};
 `
 export const PeriodsEndsWrapper = styled.div`
+  position: relative;
+`
+const newBackgroundColor = keyframes`
+  from {
+  background-color: ${colors.lightBrown};
+  }
+  to {
+  background-color: ${colors.white};
+  }
+`
+export const EntryAndIconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0.75rem 0.75rem 1.25rem;
+  animation: ${({ isNew }) =>
+    isNew
+      ? css`
+          ${newBackgroundColor} 3s
+        `
+      : null};
+  cursor: pointer;
   position: relative;
 `

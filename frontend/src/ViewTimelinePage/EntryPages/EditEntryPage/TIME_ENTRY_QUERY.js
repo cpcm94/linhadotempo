@@ -19,7 +19,9 @@ export const TIME_ENTRY_QUERY = gql`
       book_page
       book_id
       images {
+        id
         image_url
+        is_main_image
       }
       timelines {
         id

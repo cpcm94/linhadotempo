@@ -101,3 +101,6 @@ export const CheckBoxWrapper = styled.div`
   align-items: center;
   cursor: pointer;
 `
+export const SpanMessage = styled.span`
+  padding: 0 0.75rem;
+`

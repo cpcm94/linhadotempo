@@ -76,12 +76,6 @@ export const EditEntryForm = ({
         title={'Acontecimento'}
         field={'name'}
       />
-      <ImageUploader
-        entry={entry}
-        bucketName={bucketName}
-        entryId={entryId}
-        entryImages={entryImages}
-      />
       <EntryTextInput
         entry={entry}
         changeEntry={handleChange}
@@ -101,6 +95,12 @@ export const EditEntryForm = ({
         books={books}
         changeEntry={handleChange}
         setEntry={setEntry}
+      />
+      <ImageUploader
+        entry={entry}
+        bucketName={bucketName}
+        entryId={entryId}
+        entryImages={entryImages}
       />
       <DeleteButtonAndConfirmation
         deleteFunction={handleDelete}

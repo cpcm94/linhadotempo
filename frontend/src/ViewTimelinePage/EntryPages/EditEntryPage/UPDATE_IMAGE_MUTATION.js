@@ -6,6 +6,13 @@ export const UPDATE_IMAGE_MUTATION = gql`
       id
       name
       image_url
+      time_entry {
+        id
+        images {
+          id
+          image_url
+        }
+      }
     }
   }
 `

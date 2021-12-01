@@ -76,9 +76,9 @@ Header.propTypes = {
   loading: PropTypes.bool,
   pageActions: PropTypes.element,
   returnButton: PropTypes.func,
-  timelinesIconRow: PropTypes.element,
+  timelinesIconRow: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
   showMenuButton: PropTypes.bool,
   icon: PropTypes.element,
   timelineTitle: PropTypes.element,
-  entryTitle: PropTypes.string,
+  entryTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 }
