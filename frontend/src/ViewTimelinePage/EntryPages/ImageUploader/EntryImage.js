@@ -25,7 +25,7 @@ export const EntryImage = ({
   setMainImageId,
 }) => {
   const isFirstRun = useRef(true)
-  const [imageName, setImageName] = useState({ name: image.name })
+  const [imageName, setImageName] = useState(image.name)
   const [updateImage] = useMutation(UPDATE_IMAGE_MUTATION)
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION)
   const [setMainImage] = useMutation(SET_MAIN_IMAGE_MUTATION)
@@ -67,19 +67,20 @@ export const EntryImage = ({
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
-      timeoutId = setTimeout(() => {
-        const payload = {
-          variables: {
-            id: image.id,
-            input: imageName,
-          },
-        }
-        updateImage(payload)
-      }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+      if (imageName !== image.name)
+        timeoutId = setTimeout(() => {
+          const payload = {
+            variables: {
+              id: image.id,
+              input: { name: imageName },
+            },
+          }
+          updateImage(payload)
+        }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
     } else {
       isFirstRun.current = false
     }
-  }, [image.id, imageName, updateImage])
+  }, [image.id, image.name, imageName, updateImage])
   return (
     <>
       <ImageAndOptionsWrapper>
@@ -101,7 +102,7 @@ export const EntryImage = ({
         id="description"
         variant="outlined"
         label="Descrição"
-        value={image.name}
+        value={imageName}
         onChange={handleChange}
       />
     </>
