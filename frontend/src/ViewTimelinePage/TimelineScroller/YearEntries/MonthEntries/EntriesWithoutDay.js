@@ -29,13 +29,14 @@ import { filterPeriodsOfSameDateByPosition } from '../../../../_shared/filterPer
 // import { useContext } from 'react'
 // import { TimelinesContext } from '../../../TimelinesContextProvider'
 import { calculateMonthYearDistance } from '../../../../_shared/calculateMonthYearDistance'
+import { getEntryMainImage } from '../../../../_shared/getEntryMainImage'
 
 export const EntriesWithoutDay = ({
   timeEntriesWithoutDay,
   newEntryId,
   forwardedRef,
   visibleTimelines,
-  bucketName,
+  // bucketName,
   periods,
   displayEntry,
 }) => {
@@ -113,15 +114,21 @@ export const EntriesWithoutDay = ({
                       entryDate={entryDate}
                     />
                   )}
-                  {entry.image_url && (
-                    <EntryImageWrapper>
+                  {getEntryMainImage(entry) && (
+                    <EntryImageWrapper
+                      periodColor={getPeriodColorByEntryId(entry.id, periods)}
+                    >
                       <EntryImage
-                        src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
+                        src={`${process.env.REACT_APP_IMAGES_ENDPOINT}?name=${
+                          getEntryMainImage(entry).image_url
+                        }&width=39&height=39`}
+                        alt="Imagem"
                       />
                     </EntryImageWrapper>
                   )}
                   <EntryNameBackground
                     periodColor={getPeriodColorByEntryId(entry.id, periods)}
+                    hasMainImage={getEntryMainImage(entry)}
                   >
                     <EntryNameWrapper>{entry.name}</EntryNameWrapper>
                   </EntryNameBackground>

@@ -5,7 +5,7 @@ import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
 import { Wrapper } from './EditEntryForm.styles'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
-import { ImageUploader } from '../../ImageUploader/ImageUploader'
+import { EntryImages } from '../../EntryImages/EntryImages'
 import { DeleteButtonAndConfirmation } from '../../../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
 import { TimelineOriginSelector } from '../../TimelineOriginSelector/TimelineOriginSelector'
@@ -23,6 +23,7 @@ export const EditEntryForm = ({
   handleDelete,
   setShowTimelineSelectorScreen,
   entryId,
+  entryImages,
 }) => {
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
@@ -75,11 +76,6 @@ export const EditEntryForm = ({
         title={'Acontecimento'}
         field={'name'}
       />
-      <ImageUploader
-        entry={entry}
-        setEntry={setEntry}
-        bucketName={bucketName}
-      />
       <EntryTextInput
         entry={entry}
         changeEntry={handleChange}
@@ -99,6 +95,12 @@ export const EditEntryForm = ({
         books={books}
         changeEntry={handleChange}
         setEntry={setEntry}
+      />
+      <EntryImages
+        entry={entry}
+        bucketName={bucketName}
+        entryId={entryId}
+        entryImages={entryImages}
       />
       <DeleteButtonAndConfirmation
         deleteFunction={handleDelete}
@@ -126,4 +128,5 @@ EditEntryForm.propTypes = {
   handleDelete: PropTypes.func,
   setShowTimelineSelectorScreen: PropTypes.func,
   entryId: PropTypes.string,
+  entryImages: PropTypes.array,
 }

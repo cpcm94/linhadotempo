@@ -60,15 +60,14 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
     is_period: false,
     annual_importance: false,
     monthly_importance: false,
-    image_url: '',
     source_url: '',
     book_page: '',
     book_id: '',
   })
-
   const [createEntry, { loading: createLoading }] = useMutation(
     CREATE_TIME_ENTRY_MUTATION
   )
+
   const [updateEntry, { loading }] = useMutation(UPDATE_TIME_ENTRY_MUTATION)
   const [deleteEntry, { loading: deleteLoading }] = useMutation(
     DELETE_TIME_ENTRY_MUTATION,
@@ -200,7 +199,6 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
         book_page: cookieEntry.current.bookPage,
         annual_importance: entry.annual_importance,
         monthly_importance: entry.monthly_importance,
-        image_url: entry.image_url,
         source_url: entry.source_url,
         description: entry.description,
         name: entry.name,

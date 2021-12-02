@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { colors } from '../../../_shared/colors'
 
 export const CheckBoxWrapper = styled.div`
-  margin: 0 0.25rem 0.25rem 1.25rem;
+  margin: 0 0.25rem 0.25rem 0.5rem;
   border-radius: 5px;
   min-width: 1rem;
   min-height: 1rem;

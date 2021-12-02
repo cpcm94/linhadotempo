@@ -22,4 +22,8 @@ class TimeEntry extends Model
     public function timelines_origin() {
         return $this->hasMany(Timeline::class);
     }
+
+    public function images() {
+        return $this->hasMany(Image::class);
+    }
 }

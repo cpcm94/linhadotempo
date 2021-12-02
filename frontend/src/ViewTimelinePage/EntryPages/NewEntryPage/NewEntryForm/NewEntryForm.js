@@ -9,7 +9,7 @@ import {
 } from './NewEntryForm.styles'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
-import { ImageUploader } from '../../ImageUploader/ImageUploader'
+import { EntryImages } from '../../EntryImages/EntryImages'
 import { DeleteButton } from '../../../../_shared/DeleteButton'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
 
@@ -74,11 +74,6 @@ export const NewEntryForm = ({
           title={'Acontecimento'}
           field={'name'}
         />
-        <ImageUploader
-          entry={entry}
-          setEntry={setEntry}
-          bucketName={bucketName}
-        />
         <EntryTextInput
           entry={entry}
           changeEntry={handleChange}
@@ -93,6 +88,14 @@ export const NewEntryForm = ({
           changeEntry={handleChange}
           setEntry={setEntry}
         />
+        {entryId && (
+          <EntryImages
+            entryId={entryId}
+            setEntry={setEntry}
+            bucketName={bucketName}
+            entryImages={[]}
+          />
+        )}
         <DeleteButtonWrapper showBorder={entryId}>
           {entryId &&
             (deleteLoading ? (

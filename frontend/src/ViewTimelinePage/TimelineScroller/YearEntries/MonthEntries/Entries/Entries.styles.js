@@ -40,7 +40,8 @@ export const EntryWrapper = styled.div`
 export const EntryNameBackground = styled.div`
   flex: 1;
   background-color: ${({ periodColor }) => periodColor && periodColor};
-  padding: 0.5rem 0 0.5rem 1rem;
+  padding: ${({ hasMainImage }) =>
+    hasMainImage ? '0.5rem 0' : '0.5rem 0 0.5rem 1rem'};
   border-radius: 0 5px 5px 0;
 `
 

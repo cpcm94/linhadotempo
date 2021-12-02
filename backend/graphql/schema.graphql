@@ -51,12 +51,12 @@ type TimeEntry {
     is_period: Boolean!
     annual_importance: Boolean!
     monthly_importance: Boolean!
-    image_url: String
     source_url: String
     book_page: Int
     book_id: String
     timelines: [Timeline] @belongsToMany
     timelines_origin: [Timeline] @hasMany
+    images: [Image] @hasMany
     book: Book @belongsTo
 }
 
@@ -78,6 +78,15 @@ type TimelineCategory {
     timelines: [Timeline] @belongsToMany
     user_id: String
     user: User @belongsTo
+}
+
+type Image {
+    id: ID!
+    name: String
+    image_url: String
+    is_main_image: Boolean!
+    time_entry_id: String!
+    time_entry: TimeEntry @belongsTo
 }
 
 type Settings {
@@ -115,6 +124,11 @@ type DeleteBookResponse {
     success: Boolean!
 }
 
+type DeleteImageResponse {
+    message: String!
+    success: Boolean!
+}
+
 input CreateTimeEntryInput {
     name: String!
     description: String
@@ -127,11 +141,21 @@ input CreateTimeEntryInput {
     is_period: Boolean!
     annual_importance: Boolean!
     monthly_importance: Boolean!
-    image_url: String
     source_url: String
     book_page: Int
     book_id: String
     timelines: CreateTimelineBelongsToMany!
+}
+
+input CreateImageInput {
+    name: String
+    image_url: String!
+    is_main_image: Boolean!
+    time_entry_id: String!
+}
+
+input UpdateImageInput {
+    name: String!
 }
 
 input CreateBookInput {
@@ -170,7 +194,6 @@ input UpdateTimeEntryInput {
     is_period: Boolean!
     annual_importance: Boolean
     monthly_importance: Boolean
-    image_url: String
     source_url: String
     book_page: Int
     book_id: String
@@ -236,6 +259,8 @@ input UpdateTimelineCategoryInput {
 type Query {
     books: [Book!]! @all @whereAuth(relation: "user")
     book(id: ID! @eq): Book! @find @whereAuth(relation: "user")
+    images: [Image!]! @all
+    image(id: ID! @eq): Image! @find
     timeline_categories: [TimelineCategory!]! @all @whereAuth(relation: "user")
     timeline_category(id: ID! @eq): TimelineCategory
         @find
@@ -261,6 +286,11 @@ type Mutation {
         @inject(context: "user.id", name: "user_id")
     updateBook(id: ID!, input: UpdateBookInput! @spread): Book! @update
     deleteBook(id: ID!): DeleteBookResponse!
+    createImage(input: CreateImageInput! @spread): Image! @create
+    updateImage(id: ID!, input: UpdateImageInput! @spread): Image! @update
+    deleteImage(id: ID!): DeleteImageResponse!
+    setMainImage(id: ID!): Image!
+    unsetMainImage(id: ID!): Image!
     createTimelineCategory(
         input: CreateTimelineCategoryInput! @spread
     ): TimelineCategory! @upsert @inject(context: "user.id", name: "user_id")

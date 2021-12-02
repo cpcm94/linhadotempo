@@ -25,26 +25,25 @@ export const EntryAndIconWrapper = styled.div`
 `
 
 export const EntryImageWrapper = styled.div`
-  border-radius: 5px;
-  min-width: 1.75rem;
-  min-height: 1.75rem;
-  max-width: 1.75rem !important;
-  max-height: 1.75rem;
   font-size: 0.5rem;
   text-align: center;
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 1px;
+  align-self: stretch;
+  padding: 0.25rem 0.5rem;
+  background-color: ${({ periodColor }) => periodColor && periodColor};
 `
 
 export const EntryImage = styled.img`
+  position: relative;
   border-radius: 5px;
   width: 1.7rem;
   height: 1.7rem;
   object-fit: cover;
   margin: 0;
+  background-color: ${colors.white};
 `
 
 export const OuterDateWrapper = styled.div`
@@ -94,8 +93,9 @@ export const EntryNameWrapper = styled.div`
 export const EntryNameBackground = styled.div`
   flex: 1;
   background-color: ${({ periodColor }) => periodColor && periodColor};
-  padding: 0.5rem 0 0.5rem 1rem;
   border-radius: 0 5px 5px 0;
+  padding: ${({ hasMainImage }) =>
+    hasMainImage ? '0.5rem 0' : '0.5rem 0 0.5rem 1rem'};
 `
 
 export const EntryIcon = styled.div`
