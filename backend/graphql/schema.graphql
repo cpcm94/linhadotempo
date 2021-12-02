@@ -156,8 +156,6 @@ input CreateImageInput {
 
 input UpdateImageInput {
     name: String!
-    image_url: String!
-    is_main_image: Boolean!
 }
 
 input CreateBookInput {

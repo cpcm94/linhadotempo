@@ -31,6 +31,7 @@ export const EntryImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: stretch;
   padding: 0.25rem 0.5rem;
   background-color: ${({ periodColor }) => periodColor && periodColor};
 `

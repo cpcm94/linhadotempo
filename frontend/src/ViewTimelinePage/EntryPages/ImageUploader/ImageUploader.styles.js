@@ -1,5 +1,6 @@
 import { colors } from '../../../_shared/colors'
 import styled from 'styled-components'
+import { TextField } from '@material-ui/core'
 
 export const ImageWrapper = styled.div`
   background-color: ${colors.white};
@@ -26,7 +27,6 @@ export const Wrapper = styled.div`
   margin: 0 0.5rem;
   align-items: center;
   flex-direction: column;
-
   .fileUploaderWrapper {
     margin-left: -0.5rem;
   }
@@ -34,4 +34,21 @@ export const Wrapper = styled.div`
 export const ImageAndOptionsWrapper = styled.div`
   display: flex;
   align-items: center;
+`
+export const StyledTextField = styled(TextField)`
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  max-width: 425px;
+  label.Mui-focused {
+    color: ${colors.brown};
+  }
+
+  .MuiOutlinedInput-root {
+    fieldset {
+      border-color: ${colors.brown};
+    }
+    &.Mui-focused fieldset {
+      border-color: ${colors.brown};
+    }
+  }
 `
