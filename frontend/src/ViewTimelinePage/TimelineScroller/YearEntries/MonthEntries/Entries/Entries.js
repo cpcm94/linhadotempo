@@ -29,6 +29,7 @@ import { removePeriodsThatEndThisDate } from '../../../../../_shared/removePerio
 import { filterPeriodsOfSameDateByPosition } from '../../../../../_shared/filterPeriodsOfSameDateByPosition'
 // import { TimelinesContext } from '../../../../TimelinesContextProvider'
 import { calculateDayMonthYearDistance } from '../../../../../_shared/calculateDayMonthYearDistance'
+import { getEntryMainImage } from '../../../../../_shared/getEntryMainImage'
 
 export const Entries = ({
   entries,
@@ -36,7 +37,7 @@ export const Entries = ({
   forwardedRef,
   displayEntry,
   visibleTimelines,
-  bucketName,
+  // bucketName,
   periods,
 }) => {
   // const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
@@ -104,15 +105,21 @@ export const Entries = ({
               entryDate={entryDate}
             />
           )}
-          {entry.image_url && (
-            <EntryImageWrapper>
+          {getEntryMainImage(entry) && (
+            <EntryImageWrapper
+              periodColor={getPeriodColorByEntryId(entry.id, periods)}
+            >
               <EntryImage
-                src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
+                src={`${process.env.REACT_APP_IMAGES_ENDPOINT}?name=${
+                  getEntryMainImage(entry).image_url
+                }&width=39&height=39`}
+                alt="Imagem"
               />
             </EntryImageWrapper>
           )}
           <EntryNameBackground
             periodColor={getPeriodColorByEntryId(entry.id, periods)}
+            hasMainImage={getEntryMainImage(entry)}
           >
             <EntryWrapper key={index}>{entry.name}</EntryWrapper>
           </EntryNameBackground>

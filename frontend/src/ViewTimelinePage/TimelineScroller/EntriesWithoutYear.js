@@ -45,7 +45,7 @@ export const EntriesWithoutYear = ({
                 <EntryImage
                   src={`${process.env.REACT_APP_IMAGES_ENDPOINT}?name=${
                     getEntryMainImage(entry).image_url
-                  }&resolution=39x39`}
+                  }&width=39&height=39`}
                   alt="Imagem"
                 />
               </EntryImageWrapper>

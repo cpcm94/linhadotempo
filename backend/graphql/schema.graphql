@@ -291,6 +291,8 @@ type Mutation {
     createImage(input: CreateImageInput! @spread): Image! @create
     updateImage(id: ID!, input: UpdateImageInput! @spread): Image! @update
     deleteImage(id: ID!): DeleteImageResponse!
+    setMainImage(id: ID!): Image!
+    unsetMainImage(id: ID!): Image!
     createTimelineCategory(
         input: CreateTimelineCategoryInput! @spread
     ): TimelineCategory! @upsert @inject(context: "user.id", name: "user_id")

@@ -14,6 +14,11 @@ import { CREATE_IMAGE_MUTATION } from '../EditEntryPage/CREATE_IMAGE_MUTATION'
 // import { UPDATE_IMAGE_MUTATION } from '../EditEntryPage/UPDATE_IMAGE_MUTATION'
 import { Checkbox, FormControl } from '@material-ui/core'
 import { DELETE_IMAGE_MUTATION } from '../../../_shared/DELETE_IMAGE_MUTATION'
+import { SET_MAIN_IMAGE_MUTATION } from './SET_MAIN_IMAGE_MUTATION'
+import { UNSET_MAIN_IMAGE_MUTATION } from './UNSET_MAIN_IMAGE_MUTATION'
+
+const filterForMainImageId = (images) =>
+  images.filter((img) => !!img.is_main_image)[0]
 
 export const ImageUploader = ({ entryId, entryImages }) => {
   const [loading, setLoading] = useState(false)
@@ -24,6 +29,10 @@ export const ImageUploader = ({ entryId, entryImages }) => {
     time_entry_id: entryId,
   })
   const [images, setImages] = useState(entryImages)
+  const [mainImageId, setMainImageId] = useState(
+    filterForMainImageId(images) ? filterForMainImageId(images).id : null
+  )
+
   const runCreateMutation = useRef(true)
   const updateImageUrl = (url) => {
     const newImage = { ...image }
@@ -35,6 +44,8 @@ export const ImageUploader = ({ entryId, entryImages }) => {
   const [createImage] = useMutation(CREATE_IMAGE_MUTATION)
   // const [updateImage] = useMutation(UPDATE_IMAGE_MUTATION)
   const [deleteImage] = useMutation(DELETE_IMAGE_MUTATION)
+  const [setMainImage] = useMutation(SET_MAIN_IMAGE_MUTATION)
+  const [unsetMainImage] = useMutation(UNSET_MAIN_IMAGE_MUTATION)
 
   const handleDelete = (image) => {
     const payload = {
@@ -48,36 +59,21 @@ export const ImageUploader = ({ entryId, entryImages }) => {
       }
     })
   }
-
   const onRadioChange = (img) => {
-    if (img.is_main_image) {
-      const newImage = { ...img }
-      const imgIndex = images.indexOf(img)
-      newImage.is_main_image = false
-      const newImages = [...images]
-      newImages[imgIndex] = newImage
-      setImages(newImages)
+    const payload = {
+      variables: {
+        id: img.id,
+      },
+    }
+    if (img.id === mainImageId) {
+      setMainImageId(null)
+      unsetMainImage(payload)
     } else {
-      const previousMainImage = images.filter((img) => !!img.is_main_image)[0]
-      const newImage = { ...img }
-      newImage.is_main_image = true
-      if (previousMainImage) {
-        const newPreviousMainImage = { ...previousMainImage }
-        newPreviousMainImage.is_main_image = false
-
-        const filteredImages = images.filter(
-          (img) => img.id !== previousMainImage.id && img.id !== newImage.id
-        )
-
-        const newImages = [...filteredImages, newImage, newPreviousMainImage]
-        setImages(newImages.sort((a, b) => a.id - b.id))
-      } else {
-        const filteredImages = images.filter((img) => img.id !== newImage.id)
-        const newImages = [...filteredImages, newImage]
-        setImages(newImages.sort((a, b) => a.id - b.id))
-      }
+      setMainImageId(img.id)
+      setMainImage(payload)
     }
   }
+
   useEffect(() => {
     const payload = {
       variables: {
@@ -103,13 +99,13 @@ export const ImageUploader = ({ entryId, entryImages }) => {
               <ImageAndOptionsWrapper key={img.id}>
                 <ImageWrapper>
                   <Img
-                    src={`${process.env.REACT_APP_IMAGES_ENDPOINT}?name=${img.image_url}`}
+                    src={`${process.env.REACT_APP_IMAGES_ENDPOINT}?name=${img.image_url}&width=425`}
                     alt="Imagem"
                   />
                 </ImageWrapper>
                 <Checkbox
                   value={img.id}
-                  checked={img.is_main_image}
+                  checked={img.id === mainImageId}
                   onChange={() => onRadioChange(img)}
                 />
                 <DeleteButton onClick={() => handleDelete(img)} />

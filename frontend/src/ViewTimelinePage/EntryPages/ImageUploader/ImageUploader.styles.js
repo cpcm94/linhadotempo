@@ -14,8 +14,8 @@ export const ImageWrapper = styled.div`
 `
 export const Img = styled.img`
   border-radius: 5px;
-  max-width: calc(100% - 0.1rem);
-  max-height: calc(100% - 0.1rem);
+  max-width: 100%;
+  max-height: 100%;
   object-fit: cover;
   margin: 0;
   font-size: 0.9rem;
@@ -23,9 +23,13 @@ export const Img = styled.img`
 
 export const Wrapper = styled.div`
   display: flex;
-  margin: 0 0 0 0.5rem;
+  margin: 0 0.5rem;
   align-items: center;
   flex-direction: column;
+
+  .fileUploaderWrapper {
+    margin-left: -0.5rem;
+  }
 `
 export const ImageAndOptionsWrapper = styled.div`
   display: flex;

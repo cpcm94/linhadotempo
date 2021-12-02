@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from 'uuid'
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 7px;
-  padding-right: 10px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   cursor: pointer;
 `
 
@@ -89,7 +89,7 @@ export const FileUploader = ({
       {loading ? (
         <span>Loading...</span>
       ) : (
-        <Wrapper onClick={onUploadButtonClick}>
+        <Wrapper onClick={onUploadButtonClick} className="fileUploaderWrapper">
           <UploadButton color={color} />
           <input
             type="file"
