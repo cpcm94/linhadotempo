@@ -6,7 +6,7 @@ import {
   ImageWrapper,
   Img,
   StyledTextField,
-} from './ImageUploader.styles'
+} from './EntryImages.styles'
 import PropTypes from 'prop-types'
 import { UPDATE_IMAGE_MUTATION } from '../EditEntryPage/UPDATE_IMAGE_MUTATION'
 import { useMutation } from '@apollo/client'

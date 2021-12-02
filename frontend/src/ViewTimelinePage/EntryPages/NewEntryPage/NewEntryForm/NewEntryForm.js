@@ -9,7 +9,7 @@ import {
 } from './NewEntryForm.styles'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
-import { ImageUploader } from '../../ImageUploader/ImageUploader'
+import { EntryImages } from '../../EntryImages/EntryImages'
 import { DeleteButton } from '../../../../_shared/DeleteButton'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
 
@@ -89,7 +89,7 @@ export const NewEntryForm = ({
           setEntry={setEntry}
         />
         {entryId && (
-          <ImageUploader
+          <EntryImages
             entryId={entryId}
             setEntry={setEntry}
             bucketName={bucketName}

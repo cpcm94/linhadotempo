@@ -5,7 +5,7 @@ import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
 import { Wrapper } from './EditEntryForm.styles'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
-import { ImageUploader } from '../../ImageUploader/ImageUploader'
+import { EntryImages } from '../../EntryImages/EntryImages'
 import { DeleteButtonAndConfirmation } from '../../../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
 import { TimelineOriginSelector } from '../../TimelineOriginSelector/TimelineOriginSelector'
@@ -96,7 +96,7 @@ export const EditEntryForm = ({
         changeEntry={handleChange}
         setEntry={setEntry}
       />
-      <ImageUploader
+      <EntryImages
         entry={entry}
         bucketName={bucketName}
         entryId={entryId}

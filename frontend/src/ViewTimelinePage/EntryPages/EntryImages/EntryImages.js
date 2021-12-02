@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
-import { Wrapper } from './ImageUploader.styles'
+import { Wrapper } from './EntryImages.styles'
 import { FileUploader } from '../../../_shared/FileUploader'
 import { useMutation } from '@apollo/client'
 import { CREATE_IMAGE_MUTATION } from '../EditEntryPage/CREATE_IMAGE_MUTATION'
@@ -11,7 +11,7 @@ import { EntryImage } from './EntryImage'
 const filterForMainImageId = (images) =>
   images.filter((img) => !!img.is_main_image)[0]
 
-export const ImageUploader = ({ entryId, entryImages }) => {
+export const EntryImages = ({ entryId, entryImages }) => {
   const [loading, setLoading] = useState(false)
   const [image, setImage] = useState({
     name: '',
@@ -72,12 +72,13 @@ export const ImageUploader = ({ entryId, entryImages }) => {
           loading={loading}
           setLoading={setLoading}
         />
+        <span>Subir nova imagem</span>
       </Wrapper>
     </>
   )
 }
 
-ImageUploader.propTypes = {
+EntryImages.propTypes = {
   bucketName: PropTypes.string,
   entry: PropTypes.object,
   setEntry: PropTypes.func,
