@@ -52,3 +52,17 @@ export const StyledTextField = styled(TextField)`
     }
   }
 `
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  height: inherit;
+  @media (max-width: 425px) {
+    flex-direction: column-reverse;
+    align-items: center;
+    min-height: 10rem;
+    justify-content: space-evenly;
+  }
+  @media (min-width: 426px) {
+    align-items: center;
+  }
+`

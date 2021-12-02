@@ -11,7 +11,7 @@ import { EntryImage } from './EntryImage'
 const filterForMainImageId = (images) =>
   images.filter((img) => !!img.is_main_image)[0]
 
-export const EntryImages = ({ entryId, entryImages }) => {
+export const EntryImages = ({ entryId, entryImages, bucketName }) => {
   const [loading, setLoading] = useState(false)
   const [image, setImage] = useState({
     name: '',
@@ -63,6 +63,7 @@ export const EntryImages = ({ entryId, entryImages }) => {
                 setImages={setImages}
                 mainImageId={mainImageId}
                 setMainImageId={setMainImageId}
+                bucketName={bucketName}
               />
             ))}
         </FormControl>
