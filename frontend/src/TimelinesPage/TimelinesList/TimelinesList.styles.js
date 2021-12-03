@@ -6,7 +6,6 @@ export const TimelinesListWrapper = styled.div`
 `
 
 export const TimelineNameWrapper = styled.div`
-  flex: 1;
   height: 100%;
   padding: 1rem;
 `
@@ -63,4 +62,21 @@ export const Img = styled.img`
   height: 1.2rem;
   object-fit: cover;
   margin: 0;
+`
+export const CategoryTag = styled.div`
+  border-radius: 5px;
+  background-color: ${colors.brown};
+  color: ${colors.white};
+  padding: 0 0.25rem;
+  margin-left: 0.25rem;
+  display: block;
+  white-space: nowrap; /* forces text to single line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+export const CategoryTags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
 `
