@@ -133,3 +133,13 @@ export const IconsWrapper = styled.div`
 export const YearWrapper = styled.div`
   margin-left: 7.75rem;
 `
+
+export const OriginDistance = styled.span`
+  font-size: 0.6rem;
+  font-weight: bold;
+`
+
+export const IconAndDistanceWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`

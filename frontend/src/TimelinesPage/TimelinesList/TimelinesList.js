@@ -6,12 +6,15 @@ import {
   TimelinesListWrapper,
   TimelineNameWrapper,
   IconAndNameWrapper,
-  CheckMarkerWrapper,
-  CheckMarkerBoxWrapper,
   Img,
+  EditButtonWrapper,
+  CategoryTag,
+  CategoryTags,
 } from './TimelinesList.styles'
-import { useHistory } from 'react-router'
 import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
+import { EditButton } from '../../_shared/EditButton'
+import { useHistory } from 'react-router'
+import qs from 'query-string'
 
 export const TimelinesList = ({
   timelines,
@@ -19,19 +22,11 @@ export const TimelinesList = ({
   selectedTimelines,
   bucketName,
 }) => {
+  const selectedTimelinesFromUrl = qs.parse(location.search).timelines
+
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
-  let history = useHistory()
-  const navigateToRelatedTimelinePage = (timelineId) => {
-    history.push(
-      `/relatedTimelines/${timelineId}${
-        arraySelectedTimelinesId[0]
-          ? `?timelines=${arraySelectedTimelinesId.toString()}`
-          : ''
-      }${window.location.hash}`
-    )
-  }
 
   const toggleTimelines = (_, timeline) => {
     if (arraySelectedTimelinesId.includes(timeline.id)) {
@@ -49,7 +44,15 @@ export const TimelinesList = ({
     'name',
     timelines
   )
-
+  let history = useHistory()
+  const navigateToEditTimelinePage = (history, timelineId) => (e) => {
+    e.stopPropagation()
+    history.push(
+      `/editTimeline/${timelineId}${
+        selectedTimelinesFromUrl ? `?timelines=${selectedTimelinesFromUrl}` : ''
+      }${window.location.hash}`
+    )
+  }
   return (
     <TimelinesListWrapper>
       {sortedTimelinesAlphabetically.map((timeline) => {
@@ -58,19 +61,9 @@ export const TimelinesList = ({
         return (
           <TimelinesWrapper key={timeline.id}>
             <IconAndNameWrapper
+              onClick={onTimelineClick}
               checked={arraySelectedTimelinesId.includes(timeline.id)}
             >
-              {arraySelectedTimelinesId.includes(timeline.id) ? (
-                <CheckMarkerBoxWrapper onClick={onTimelineClick}>
-                  <CheckMarkerWrapper checked={true}>
-                    &#10003;
-                  </CheckMarkerWrapper>
-                </CheckMarkerBoxWrapper>
-              ) : (
-                <CheckMarkerBoxWrapper onClick={onTimelineClick}>
-                  <CheckMarkerWrapper />
-                </CheckMarkerBoxWrapper>
-              )}
               {timeline.timelineIconImageUrl ? (
                 <IconWrapper>
                   <Img
@@ -83,12 +76,18 @@ export const TimelinesList = ({
                   {timeline.initials}
                 </IconWrapper>
               )}
-              <TimelineNameWrapper
-                onClick={() => navigateToRelatedTimelinePage(timeline.id)}
-              >
-                {timeline.name}
-              </TimelineNameWrapper>
+              <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
+              <CategoryTags>
+                {timeline.timeline_categories.map((category) => (
+                  <CategoryTag key={category.id}>{category.name}</CategoryTag>
+                ))}
+              </CategoryTags>
             </IconAndNameWrapper>
+            <EditButtonWrapper
+              onClick={navigateToEditTimelinePage(history, timeline.id)}
+            >
+              <EditButton />
+            </EditButtonWrapper>
           </TimelinesWrapper>
         )
       })}

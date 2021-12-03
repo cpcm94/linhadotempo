@@ -7,6 +7,9 @@ import PropTypes from 'prop-types'
 import { useHistory } from 'react-router'
 import { TimelinesIconRow } from './TimelinesIconRow/TimelinesIconRow'
 import { TimelinesContainer } from './TimelinesContainer'
+import { Footer } from '../_shared/Footer/Footer'
+import { TimelinesButtonsRow } from './TimelinesList/TimelinesButtonsRow'
+import { VisualizeButton } from './VisualizeButton'
 
 export const TimelinesPage = ({
   timelines,
@@ -59,8 +62,6 @@ export const TimelinesPage = ({
           <TimelinesIconRow
             selectedTimelines={selectedTimelines}
             timelines={timelines}
-            onClick={() => navigateTo('/viewTimeline/')}
-            bucketName={bucketName}
             setSelectedTimelines={setSelectedTimelines}
           />
         }
@@ -74,6 +75,21 @@ export const TimelinesPage = ({
           bucketName={bucketName}
         />
       </TimelinesContainer>
+      {selectedTimelines[0] && (
+        <Footer
+          pageActions={
+            <>
+              <VisualizeButton>Visualizar</VisualizeButton>
+              <TimelinesButtonsRow
+                timelines={timelines}
+                selectedTimelines={selectedTimelines}
+                setSelectedTimelines={setSelectedTimelines}
+                bucketName={bucketName}
+              />
+            </>
+          }
+        />
+      )}
     </Layout>
   )
 }

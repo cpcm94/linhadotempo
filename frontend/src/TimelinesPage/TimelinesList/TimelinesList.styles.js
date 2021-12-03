@@ -6,13 +6,13 @@ export const TimelinesListWrapper = styled.div`
 `
 
 export const TimelineNameWrapper = styled.div`
-  flex: 1;
   height: 100%;
   padding: 1rem;
 `
 export const EditButtonWrapper = styled.div`
   align-self: center;
   cursor: pointer;
+  padding: 0 1rem;
   :hover {
     background-color: ${colors.lightBrown};
   }
@@ -23,7 +23,7 @@ export const IconAndNameWrapper = styled.div`
   align-items: center;
   flex: 1;
   cursor: pointer;
-
+  padding-left: 1.25rem;
   background-color: ${({ checked }) =>
     checked ? colors.lightBrown : colors.white};
   @media (min-width: 769px) {
@@ -50,28 +50,6 @@ export const IconWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `
-export const CheckMarkerBoxWrapper = styled.div`
-  padding: 1rem 0 1rem 1.25rem;
-`
-export const CheckMarkerWrapper = styled.div`
-  margin: 0 5px 0 0;
-  background-color: ${({ checked }) => (checked ? colors.brown : colors.white)};
-  border: ${({ checked }) =>
-    checked ? `solid 1px ${colors.brown}` : `solid 1px ${colors.lightGrey}`};
-  color: ${colors.white};
-  border-radius: 5px;
-  min-width: 1rem;
-  min-height: 1rem;
-  max-width: 1rem !important;
-  max-height: 1rem;
-  font-size: 0.75rem;
-  font-weight: bold;
-  text-align: center;
-  font-family: Karla;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
 
 export const TimelinesWrapper = styled.div`
   display: flex;
@@ -84,4 +62,21 @@ export const Img = styled.img`
   height: 1.2rem;
   object-fit: cover;
   margin: 0;
+`
+export const CategoryTag = styled.div`
+  border-radius: 5px;
+  background-color: ${colors.brown};
+  color: ${colors.white};
+  padding: 0 0.25rem;
+  margin-left: 0.25rem;
+  display: block;
+  white-space: nowrap; /* forces text to single line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
+export const CategoryTags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
 `

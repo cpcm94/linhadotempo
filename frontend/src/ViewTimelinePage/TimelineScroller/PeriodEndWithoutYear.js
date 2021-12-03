@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   EntryIcon,
   EntryNameWrapper,
   EntryAndIconWrapper,
   IconsWrapper,
   Img,
-  EntryImageWrapper,
-  EntryImage,
   EntryNameBackground,
+  OriginDistance,
+  IconAndDistanceWrapper,
 } from './YearEntries/YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
@@ -19,6 +19,9 @@ import {
 import { PeriodMarker } from '../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../_shared/getPeriodColorByEntryId'
 import { filterPeriodsOfSameDateByPosition } from '../../_shared/filterPeriodsOfSameDateByPosition'
+import { checkIfTimelineIsDisplayingOrigin } from '../../checkIfTimelineIsDisplayingOrigin'
+import { TimelinesContext } from '../TimelinesContextProvider'
+import { calculateDistanceToCurrent } from '../../_shared/calculateDistanceToCurrent'
 
 export const PeriodEndWithoutYear = ({
   periodEndsWithoutYear,
@@ -27,6 +30,8 @@ export const PeriodEndWithoutYear = ({
   bucketName,
   periods,
 }) => {
+  const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
+
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
     history.push({
@@ -35,6 +40,7 @@ export const PeriodEndWithoutYear = ({
       hash: `#entry=${entry.id}`,
     })
   }
+
   const entryDate = { year: null, month: null, day: null }
 
   const arrayOfPeriodEndings = periods.map((subArray) => subArray[1])
@@ -69,13 +75,6 @@ export const PeriodEndWithoutYear = ({
                 entryDate={entryDate}
               />
             )}
-            {entry.image_url && (
-              <EntryImageWrapper>
-                <EntryImage
-                  src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${entry.image_url}`}
-                />
-              </EntryImageWrapper>
-            )}
             <EntryNameBackground
               periodColor={getPeriodColorByEntryId(entry.id, periods)}
             >
@@ -86,7 +85,7 @@ export const PeriodEndWithoutYear = ({
                 visibleTimelines,
                 entry
               ).map((timeline) => (
-                <div key={timeline.id}>
+                <IconAndDistanceWrapper key={timeline.id}>
                   {timeline.timelineIconImageUrl ? (
                     <EntryIcon borderColor={timeline.color}>
                       <Img
@@ -99,7 +98,15 @@ export const PeriodEndWithoutYear = ({
                       {timeline.initials}
                     </EntryIcon>
                   )}
-                </div>
+                  {checkIfTimelineIsDisplayingOrigin(
+                    timeline,
+                    timelineIdsDisplayingOrigin
+                  ) && (
+                    <OriginDistance>
+                      {calculateDistanceToCurrent(timeline)}
+                    </OriginDistance>
+                  )}
+                </IconAndDistanceWrapper>
               ))}
             </IconsWrapper>
           </EntryAndIconWrapper>
