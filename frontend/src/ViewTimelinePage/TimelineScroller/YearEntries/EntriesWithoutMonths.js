@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   EntryIcon,
   EntryNameWrapper,
   EntryAndIconWrapper,
   IconsWrapper,
-  // Img,
+  Img,
   EntryImage,
   EntryImageWrapper,
   YearWrapper,
@@ -12,6 +12,8 @@ import {
   OuterDateWrapper,
   LeftDateLine,
   RightDateLine,
+  OriginDistance,
+  IconAndDistanceWrapper,
 } from './YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
@@ -21,21 +23,21 @@ import { getPeriodColorByEntryId } from '../../../_shared/getPeriodColorByEntryI
 import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
 import { removePeriodsThatEndThisDate } from '../../../_shared/removePeriodsThatEndThisDate'
 import { filterPeriodsOfSameDateByPosition } from '../../../_shared/filterPeriodsOfSameDateByPosition'
-// import { useContext } from 'react'
-// import { TimelinesContext } from '../../TimelinesContextProvider'
+import { TimelinesContext } from '../../TimelinesContextProvider'
 import { calculateYearDistance } from '../../../_shared/calculateYearDistance'
 import { getEntryMainImage } from '../../../_shared/getEntryMainImage'
+import { checkIfTimelineIsDisplayingOrigin } from '../../../checkIfTimelineIsDisplayingOrigin'
 
 export const EntriesWithoutMonths = ({
   entriesWithoutMonth,
   newEntryId,
   forwardedRef,
   visibleTimelines,
-  // bucketName,
+  bucketName,
   periods,
   displayEntry,
 }) => {
-  // const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
+  const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
 
   let history = useHistory()
   const navigateToEditEntry = (entry) => {
@@ -112,20 +114,28 @@ export const EntriesWithoutMonths = ({
                   entry
                 ).map((timeline) => {
                   return (
-                    <div key={timeline.id}>
-                      {/* {timeline.timelineIconImageUrl ? (
+                    <IconAndDistanceWrapper key={timeline.id}>
+                      {timeline.timelineIconImageUrl ? (
                         <EntryIcon borderColor={timeline.color}>
                           <Img
                             src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
                             alt="Icone"
                           />
                         </EntryIcon>
-                      ) : ( */}
-                      <EntryIcon color={timeline.color}>
-                        {calculateYearDistance(entry, timeline)}
-                      </EntryIcon>
-                      {/* )} */}
-                    </div>
+                      ) : (
+                        <EntryIcon color={timeline.color}>
+                          {timeline.initials}
+                        </EntryIcon>
+                      )}
+                      {checkIfTimelineIsDisplayingOrigin(
+                        timeline,
+                        timelineIdsDisplayingOrigin
+                      ) && (
+                        <OriginDistance>
+                          {calculateYearDistance(entry, timeline)}
+                        </OriginDistance>
+                      )}
+                    </IconAndDistanceWrapper>
                   )
                 })}
               </IconsWrapper>

@@ -32,7 +32,7 @@ export const HeaderWrapper = styled.div`
   top: 0;
   height: 2rem;
   z-index: 3;
-  overflow-x: hidden;
+  overflow: hidden;
   align-items: center;
   @media (min-width: 540px) {
     padding: 5px 20%;
