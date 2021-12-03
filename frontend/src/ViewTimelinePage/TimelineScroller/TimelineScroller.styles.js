@@ -8,17 +8,8 @@ export const EntriesWrapper = styled.div`
   justify-content: space-between;
   position: relative;
   top: 0;
-  width: 100%;
+  width: min(100%, 600px);
   margin-bottom: 3rem;
-  @media (min-width: 540px) {
-    padding: 0 20%;
-  }
-  @media (min-width: 720px) {
-    padding: 0 25%;
-  }
-  @media (min-width: 1080px) {
-    padding: 0 35%;
-  }
 `
 
 export const InvisibleIconWrapper = styled.div`

@@ -35,17 +35,8 @@ export const PageActions = styled.div`
   display: flex;
   flex-direction: row-reverse;
   background-color: ${colors.brown};
-
-  @media (min-width: 1440px) {
-    width: 50%;
-    margin: 0 35.5%;
-  }
-  @media (max-width: 1439px) {
-    width: 55%;
-    margin: 0 26%;
-  }
-  @media (max-width: 719px) {
-    width: 100%;
-    margin: 0;
-  }
+  overflow: hidden;
+  justify-content: center;
+  width: min(100%, 600px);
+  margin-left: calc(50% - min(50%, 300px));
 `

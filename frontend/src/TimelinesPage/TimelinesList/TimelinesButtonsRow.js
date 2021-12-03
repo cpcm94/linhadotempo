@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
 import PropTypes from 'prop-types'
 import { Menu, MenuItem } from '@material-ui/core'
-import { useContext } from 'react'
-import { TimelinesContext } from '../TimelinesContextProvider'
 
 const Button = styled.div`
   margin-right: 0.5rem;
@@ -23,16 +21,9 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   align-self: center;
-  opacity: ${({ isSelected }) => (isSelected ? '1' : '0.5')};
   :hover {
     cursor: pointer;
   }
-`
-
-const StyledMenuItem = styled(MenuItem)`
-  pointer-events: ${({ isInteractable }) => !isInteractable && 'none'};
-  color: ${({ isInteractable }) =>
-    !isInteractable && `${colors.lightGrey}`} !important;
 `
 const StyledMenu = styled(Menu)`
   & .MuiPopover-paper {
@@ -68,31 +59,21 @@ const Img = styled.img`
 const Wrapper = styled.div`
   display: flex;
   justify-content: flex-start;
-  padding-right: 2.5rem;
-  min-width: min(100%, 600px);
+  margin-right: 5%;
+  width: calc(100% - 5rem);
   overflow-x: scroll;
+
   min-height: 3rem;
   max-height: 3rem;
 `
 export const TimelinesButtonsRow = ({
   timelines,
-  visibleTimelines,
-  setVisibleTimelines,
+  setSelectedTimelines,
+  selectedTimelines,
   bucketName,
 }) => {
-  const { timelineIdsDisplayingOrigin, setTimelineIdsDisplayingOrigin } =
-    useContext(TimelinesContext)
-  const checkIfTimelineHasOriginEntry = (timelines, timelineId) => {
-    if (timelineId) {
-      const filteredTimelineById = timelines.filter(
-        (timeline) => timeline.id === timelineId
-      )[0]
-
-      return !!filteredTimelineById.time_entry_id
-    }
-  }
   const [anchorElement, setAnchorElement] = useState(null)
-  const arrayVisibleTimelinesId = visibleTimelines.map(
+  const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
   const handleClick = (e) => {
@@ -105,56 +86,27 @@ export const TimelinesButtonsRow = ({
   const getTimelineById = (timelineId) =>
     timelines.filter((timeline) => timeline.id === timelineId)[0]
 
-  const hasInvisibleTimelines = timelines.length > visibleTimelines.length
-
-  const hasMoreThanOneTimeline = timelines.length > 1
-
   const handleSelect = (timelineId) => {
-    if (arrayVisibleTimelinesId.includes(timelineId)) {
-      setVisibleTimelines(
-        visibleTimelines.filter(
+    if (arraySelectedTimelinesId.includes(timelineId)) {
+      setSelectedTimelines(
+        selectedTimelines.filter(
           (timelineItem) => timelineItem.id !== timelineId
         )
       )
     } else {
-      setVisibleTimelines([...visibleTimelines, getTimelineById(timelineId)])
+      setSelectedTimelines([...selectedTimelines, getTimelineById(timelineId)])
     }
     handleClose()
   }
 
-  const viewOnlySelectedTimeline = (timelineId) => {
-    setVisibleTimelines([getTimelineById(timelineId)])
-    handleClose()
-  }
-
-  const selectAllTimelines = () => {
-    setVisibleTimelines(timelines)
-    handleClose()
-  }
-
-  const toggleDistanceToOrigin = (timelineId) => {
-    handleClose()
-    if (timelineIdsDisplayingOrigin.includes(timelineId)) {
-      setTimelineIdsDisplayingOrigin(
-        timelineIdsDisplayingOrigin.filter((id) => timelineId !== id)
-      )
-    } else {
-      setTimelineIdsDisplayingOrigin([
-        ...timelineIdsDisplayingOrigin,
-        timelineId,
-      ])
-    }
-  }
-  const anchorElementId = anchorElement && anchorElement.id
   return (
     <Wrapper>
-      {timelines.map((timeline) => {
+      {selectedTimelines.map((timeline) => {
         return (
           <Fragment key={timeline.id}>
             {timeline.timelineIconImageUrl ? (
               <Button
                 onClick={handleClick}
-                isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
                 borderColor={timeline.color}
                 id={timeline.id}
               >
@@ -166,7 +118,6 @@ export const TimelinesButtonsRow = ({
             ) : (
               <Button
                 onClick={handleClick}
-                isSelected={arrayVisibleTimelinesId.includes(timeline.id)}
                 color={timeline.color}
                 id={timeline.id}
               >
@@ -182,29 +133,12 @@ export const TimelinesButtonsRow = ({
         onClose={handleClose}
         transformOrigin={{ horizontal: 'left', vertical: 'bottom' }}
       >
-        <MenuItem onClick={() => handleSelect(anchorElement.id)}>
-          Mostrar/Esconder
+        <MenuItem>
+          {anchorElement && getTimelineById(anchorElement.id).name}
         </MenuItem>
-        {hasMoreThanOneTimeline && (
-          <MenuItem onClick={() => viewOnlySelectedTimeline(anchorElement.id)}>
-            Ver só essa
-          </MenuItem>
-        )}
-        {hasInvisibleTimelines && (
-          <MenuItem onClick={selectAllTimelines}>Ver todas</MenuItem>
-        )}
-        <StyledMenuItem
-          onClick={() => toggleDistanceToOrigin(anchorElement.id)}
-          isInteractable={checkIfTimelineHasOriginEntry(
-            timelines,
-            anchorElementId
-          )}
-        >
-          {anchorElement &&
-          timelineIdsDisplayingOrigin.includes(anchorElement.id)
-            ? 'Esconder origem'
-            : 'Mostrar origem'}
-        </StyledMenuItem>
+        <MenuItem onClick={() => handleSelect(anchorElement.id)}>
+          Desselecionar
+        </MenuItem>
       </StyledMenu>
     </Wrapper>
   )
@@ -212,7 +146,7 @@ export const TimelinesButtonsRow = ({
 
 TimelinesButtonsRow.propTypes = {
   timelines: PropTypes.array,
-  visibleTimelines: PropTypes.array,
-  setVisibleTimelines: PropTypes.func,
+  selectedTimelines: PropTypes.array,
+  setSelectedTimelines: PropTypes.func,
   bucketName: PropTypes.string,
 }

@@ -13,6 +13,7 @@ export const TimelineNameWrapper = styled.div`
 export const EditButtonWrapper = styled.div`
   align-self: center;
   cursor: pointer;
+  padding: 0 1rem;
   :hover {
     background-color: ${colors.lightBrown};
   }
@@ -23,7 +24,7 @@ export const IconAndNameWrapper = styled.div`
   align-items: center;
   flex: 1;
   cursor: pointer;
-
+  padding-left: 1.25rem;
   background-color: ${({ checked }) =>
     checked ? colors.lightBrown : colors.white};
   @media (min-width: 769px) {
@@ -43,28 +44,6 @@ export const IconWrapper = styled.div`
   max-width: 1.25rem !important;
   max-height: 1.25rem;
   font-size: 0.5rem;
-  font-weight: bold;
-  text-align: center;
-  font-family: Karla;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-export const CheckMarkerBoxWrapper = styled.div`
-  padding: 1rem 0 1rem 1.25rem;
-`
-export const CheckMarkerWrapper = styled.div`
-  margin: 0 5px 0 0;
-  background-color: ${({ checked }) => (checked ? colors.brown : colors.white)};
-  border: ${({ checked }) =>
-    checked ? `solid 1px ${colors.brown}` : `solid 1px ${colors.lightGrey}`};
-  color: ${colors.white};
-  border-radius: 5px;
-  min-width: 1rem;
-  min-height: 1rem;
-  max-width: 1rem !important;
-  max-height: 1rem;
-  font-size: 0.75rem;
   font-weight: bold;
   text-align: center;
   font-family: Karla;

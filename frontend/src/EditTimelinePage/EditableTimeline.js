@@ -34,7 +34,7 @@ export const EditableTimeline = ({
 
   const goBackToPreviousPage = () => {
     history.push(
-      `/relatedTimelines/${timeline.id}/${
+      `/timelines/${
         selectedTimelinesFromUrl ? `?timelines=${selectedTimelinesFromUrl}` : ''
       }${window.location.hash}`
     )
