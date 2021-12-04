@@ -14,6 +14,8 @@ type User {
     updated_at: DateTime!
     timelines: [Timeline] @hasMany
     hash_users: [HashUser] @hasMany
+    timeline_categories: [TimelineCategory] @hasMany
+    time_entry_categories: [TimeEntryCategory] @hasMany
 }
 
 type HashUser {
@@ -58,6 +60,7 @@ type TimeEntry {
     timelines_origin: [Timeline] @hasMany
     images: [Image] @hasMany
     book: Book @belongsTo
+    time_entry_categories: [TimeEntryCategory] @belongsToMany
 }
 
 type Book {
@@ -76,6 +79,14 @@ type TimelineCategory {
     id: ID!
     name: String!
     timelines: [Timeline] @belongsToMany
+    user_id: String
+    user: User @belongsTo
+}
+
+type TimeEntryCategory {
+    id: ID!
+    name: String!
+    time_entries: [TimeEntry] @belongsToMany
     user_id: String
     user: User @belongsTo
 }

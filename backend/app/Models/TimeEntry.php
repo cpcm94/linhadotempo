@@ -26,4 +26,8 @@ class TimeEntry extends Model
     public function images() {
         return $this->hasMany(Image::class);
     }
+
+    public function time_entry_categories(): BelongsToMany {
+        return $this->belongsToMany(TimeEntryCategory::class);
+    }
 }
