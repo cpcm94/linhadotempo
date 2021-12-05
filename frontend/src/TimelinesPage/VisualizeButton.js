@@ -10,4 +10,5 @@ export const VisualizeButton = styled.div`
   align-self: center;
   padding: 0 0.5rem;
   border-radius: 5px;
+  cursor: pointer;
 `
