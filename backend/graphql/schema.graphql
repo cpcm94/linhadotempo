@@ -156,6 +156,19 @@ input CreateTimeEntryInput {
     book_page: Int
     book_id: String
     timelines: CreateTimelineBelongsToMany!
+    time_entry_categories: CreateTimeEntryCategoryBelongsToMany
+}
+
+input CreateTimelineBelongsToMany {
+    sync: [ID!]
+}
+
+input CreateTimeEntryCategoryBelongsToMany {
+    sync: [ID!]
+}
+
+input CreateTimeEntryCategoryInput {
+    name: String!
 }
 
 input CreateImageInput {
@@ -185,10 +198,6 @@ input UpdateBookInput {
     publishing_year: Int
 }
 
-input CreateTimelineBelongsToMany {
-    sync: [ID!]
-}
-
 input AddHashUserInput {
     email: String!
 }
@@ -209,10 +218,19 @@ input UpdateTimeEntryInput {
     book_page: Int
     book_id: String
     timelines: UpdateTimelineBelongsToMany!
+    time_entry_categories: UpdateTimeEntryCategoryBelongsToMany
 }
 
 input UpdateTimelineBelongsToMany {
     sync: [ID!]
+}
+
+input UpdateTimeEntryCategoryBelongsToMany {
+    sync: [ID!]
+}
+
+input UpdateTimeEntryCategoryInput {
+    name: String!
 }
 
 input CreateUserInput {
@@ -303,11 +321,18 @@ type Mutation {
     unsetMainImage(id: ID!): Image!
     createTimelineCategory(
         input: CreateTimelineCategoryInput! @spread
-    ): TimelineCategory! @upsert @inject(context: "user.id", name: "user_id")
+    ): TimelineCategory! @create @inject(context: "user.id", name: "user_id")
     updateTimelineCategory(
         id: ID!
         input: UpdateTimelineCategoryInput! @spread
     ): TimelineCategory! @update
+    createTimeEntryCategory(
+        input: CreateTimeEntryCategoryInput! @spread
+    ): TimeEntryCategory! @create @inject(context: "user.id", name: "user_id")
+    updateTimeEntryCategory(
+        id: ID!
+        input: UpdateTimeEntryCategoryInput! @spread
+    ): TimeEntryCategory! @update
     deleteTimelineCategory(id: ID!): TimelineCategory @delete
     createTimeline(input: CreateTimelineInput! @spread): Timeline!
         @create
