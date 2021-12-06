@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.4|^8.0",
         "ext-imagick": "*",
+        "bugsnag/bugsnag-laravel": "^2.22",
         "doctrine/dbal": "^3.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
