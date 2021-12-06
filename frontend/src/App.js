@@ -29,6 +29,7 @@ import { NewUserLoader } from './NewUserPage/NewUserLoader'
 import Bugsnag from '@bugsnag/js'
 import BugsnagPluginReact from '@bugsnag/plugin-react'
 import { TimeEntryCategoriesLoader } from './TimeEntryCategoriesPage/TimeEntryCategoriesLoader'
+import { NewTimeEntryCategoryLoader } from './NewTimeEntryCategoryPage/NewTimeEntryCategoryLoader'
 
 Bugsnag.start({
   apiKey: '66084cee799f9a3df069be0f453d0f9e',
@@ -120,6 +121,9 @@ const Wrapped = () => {
           </Route>
           <Route path="/timeEntryCategories">
             <TimeEntryCategoriesLoader />
+          </Route>
+          <Route path="/newTimeEntryCategory">
+            <NewTimeEntryCategoryLoader />
           </Route>
           <Route path="/newUser">
             <NewUserLoader />
