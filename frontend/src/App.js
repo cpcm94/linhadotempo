@@ -57,7 +57,7 @@ const client = new ApolloClient({
 })
 
 const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React)
-Bugsnag.notify(new Error('Test error'))
+
 const ApolloApp = (Wrapped) => (
   <ErrorBoundary>
     <ApolloProvider client={client}>
