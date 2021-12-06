@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { DateDisplay } from '../../DateDisplay/DateDisplay'
 import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
@@ -9,6 +9,8 @@ import { EntryImages } from '../../EntryImages/EntryImages'
 import { DeleteButtonAndConfirmation } from '../../../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
 import { TimelineOriginSelector } from '../../TimelineOriginSelector/TimelineOriginSelector'
+import { TimeEntryCategoriesContext } from '../../../TimeEntryCategoriesContextProvider'
+import { TimeEntryCategorySelect } from '../../../../_shared/TimeEntryCategorySelect/TimeEntryCategorySelect'
 
 export const EditEntryForm = ({
   entry,
@@ -25,6 +27,9 @@ export const EditEntryForm = ({
   entryId,
   entryImages,
 }) => {
+  const { categories, loading: categoriesLoading } = useContext(
+    TimeEntryCategoriesContext
+  )
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
     newEntry[entryPropName] = e.target.value
@@ -39,6 +44,11 @@ export const EditEntryForm = ({
   const resetSelectedTimelines = () => {
     const newEntry = { ...entry }
     newEntry.timelines.sync = []
+    setEntry(newEntry)
+  }
+  const resetSelectedTimeEntryCategories = () => {
+    const newEntry = { ...entry }
+    newEntry.time_entry_categories.sync = []
     setEntry(newEntry)
   }
   const numberOfRelatedTimelines = entry.timelines.sync.length
@@ -84,6 +94,16 @@ export const EditEntryForm = ({
         field={'description'}
       />
       <EntryAnnualImportance entry={entry} setEntry={setEntry} />
+      {categoriesLoading ? (
+        <span>Loading...</span>
+      ) : (
+        <TimeEntryCategorySelect
+          entry={entry}
+          setEntry={setEntry}
+          resetField={resetSelectedTimeEntryCategories}
+          entryCategories={categories}
+        />
+      )}
       <TimelineOriginSelector
         entry={entry}
         bucketName={bucketName}

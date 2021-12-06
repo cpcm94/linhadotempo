@@ -49,6 +49,7 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
   const [radioValue, setRadioValue] = useState('DC')
   const [entry, setEntry] = useState({
     timelines: { sync: [timelines[0].id] },
+    time_entry_categories: { sync: [] },
     name: '',
     description: '',
     year: '',
@@ -165,6 +166,9 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
         month: `${entry.month}`,
         day: `${entry.day}`,
         timelines: `${entry.timelines.sync.toString()}`,
+        time_entry_categories:
+          entry.time_entry_categories.sync[0] &&
+          `${entry.time_entry_categories.sync.toString()}`,
         bookId: `${entry.book_id}`,
         bookPage: `${entry.book_page}`,
       }
@@ -181,6 +185,11 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
           sync: filterCookieTimelinesForVisibleTimelines(
             cookieEntry.current.timelines.split(',')
           ),
+        },
+        time_entry_categories: {
+          sync: cookieEntry.current.time_entry_categories
+            ? cookieEntry.current.time_entry_categories.split(',')
+            : [],
         },
         year: yearWithoutNegativeSign(cookieEntry.current.year),
         month:

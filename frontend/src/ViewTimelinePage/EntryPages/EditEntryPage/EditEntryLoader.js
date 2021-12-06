@@ -13,6 +13,7 @@ export const EditEntryLoader = () => {
   const { userDataLoading, s3BucketName } = useContext(CurrentUserContext)
   const entryId = qs.parse(location.hash).entry
   const { timelines, loading, getTimelines } = useContext(TimelinesContext)
+
   const { data: entryData, loading: entryLoading } = useQuery(
     TIME_ENTRY_QUERY,
     {
