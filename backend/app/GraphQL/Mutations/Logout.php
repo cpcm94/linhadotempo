@@ -15,7 +15,6 @@ class Logout
         $guard = Auth::guard();
 
         Auth::user()->tokens()->delete();
-        $guard->logout();
 
         /** @var \App\Models\User|null $user */
 
