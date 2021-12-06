@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
+use RuntimeException;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('api')->post('/uploadToken', function (Request $request)
 {
+    Bugsnag::notifyException(new RuntimeException("Test error"));
 
     $s3 = Storage::disk('s3');
     $client = $s3->getDriver()->getAdapter()->getClient();
