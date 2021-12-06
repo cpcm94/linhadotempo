@@ -294,6 +294,9 @@ type Query {
     timeline_category(id: ID! @eq): TimelineCategory
         @find
         @whereAuth(relation: "user")
+    time_entry_categories: [TimeEntryCategory!]!
+        @all
+        @whereAuth(relation: "user")
     users: [User!]! @all
     user(id: ID! @eq): User @find
     hashUser(hash_id: String!): HashUser
