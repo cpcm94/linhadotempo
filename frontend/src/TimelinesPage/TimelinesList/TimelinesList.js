@@ -15,7 +15,6 @@ import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabetic
 import { EditButton } from '../../_shared/EditButton'
 import { useHistory } from 'react-router'
 import qs from 'query-string'
-import Bugsnag from '@bugsnag/js'
 
 export const TimelinesList = ({
   timelines,
@@ -28,8 +27,6 @@ export const TimelinesList = ({
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
-  Bugsnag.notify(new Error('Test error'))
-
   const toggleTimelines = (_, timeline) => {
     if (arraySelectedTimelinesId.includes(timeline.id)) {
       setSelectedTimelines(
