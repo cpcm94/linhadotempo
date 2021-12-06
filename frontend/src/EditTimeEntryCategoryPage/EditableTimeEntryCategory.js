@@ -76,7 +76,7 @@ export const EditableTimeEntryCategory = ({ categoryData }) => {
     <Layout>
       <Header
         title={'Editar categoria'}
-        returnButton={navigateToTimelineCategoriesPage}
+        returnButton={navigateToTimeEntryCategoriesPage}
         loading={loading}
       />
       <Container>

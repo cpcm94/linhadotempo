@@ -8,9 +8,9 @@ export const StyledTextField = styled(TextField)`
   label {
     color: ${colors.brown};
   }
-  /* .MuiSelect-root {
-    min-width: 30px;
-  } */
+  label.Mui-focused {
+    color: ${colors.brown};
+  }
   .MuiOutlinedInput-root {
     fieldset {
       border-color: ${colors.brown};
