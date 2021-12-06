@@ -445,13 +445,19 @@ Set the base directory to `frontend`.
 
 On the site overview, go to the `Deploys` tab, then into `Deploy Settings` and under `Environment variables`, click on edit variables.
 
-Add the following variable:
+Add the following variables:
 
 ```
 REACT_APP_GRAPHQL_ENDPOINT
 ```
 
 with its value being the GraphQL endpoint of your server. The default is: `https://<your-heroku-app>.herokuapp.com/graphql`
+
+```
+REACT_APP_IMAGES_ENDPOINT
+```
+
+with its value being the backend endpoint that handles image requests for the app. The default is: `https://<your-heroku-app>.herokuapp.com/images`
 
 ### Step 4 - Check your deploy
 

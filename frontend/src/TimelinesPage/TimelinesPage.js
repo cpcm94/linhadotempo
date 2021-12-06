@@ -79,7 +79,9 @@ export const TimelinesPage = ({
         <Footer
           pageActions={
             <>
-              <VisualizeButton>Visualizar</VisualizeButton>
+              <VisualizeButton onClick={() => navigateTo('/viewTimeline')}>
+                Visualizar
+              </VisualizeButton>
               <TimelinesButtonsRow
                 timelines={timelines}
                 selectedTimelines={selectedTimelines}
