@@ -26,6 +26,13 @@ import { CategoriesLoader } from './TimelineCategoriesPage/TimelineCategoriesLoa
 import { NewTimelineCategoryLoader } from './NewTimelineCategoryPage/NewTimelineCategoryLoader'
 import { EditTimelineCategoryPage } from './EditTimelineCategoryPage/EditTimelineCategoryPage'
 import { NewUserLoader } from './NewUserPage/NewUserLoader'
+import Bugsnag from '@bugsnag/js'
+import BugsnagPluginReact from '@bugsnag/plugin-react'
+
+Bugsnag.start({
+  apiKey: '66084cee799f9a3df069be0f453d0f9e',
+  plugins: [new BugsnagPluginReact()],
+})
 
 const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
   const token = getToken()
@@ -49,12 +56,16 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 })
 
+const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React)
+
 const ApolloApp = (Wrapped) => (
-  <ApolloProvider client={client}>
-    <CurrentUserContextProvider>
-      <Wrapped />
-    </CurrentUserContextProvider>
-  </ApolloProvider>
+  <ErrorBoundary>
+    <ApolloProvider client={client}>
+      <CurrentUserContextProvider>
+        <Wrapped />
+      </CurrentUserContextProvider>
+    </ApolloProvider>
+  </ErrorBoundary>
 )
 const Wrapped = () => {
   return (

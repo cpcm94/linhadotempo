@@ -27,7 +27,6 @@ export const TimelinesList = ({
   const arraySelectedTimelinesId = selectedTimelines.map(
     (timeline) => timeline.id
   )
-
   const toggleTimelines = (_, timeline) => {
     if (arraySelectedTimelinesId.includes(timeline.id)) {
       setSelectedTimelines(

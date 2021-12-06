@@ -12,7 +12,7 @@ class DeleteUser
      */
     public function __invoke($_, array $args)
     {
-        $guard = Auth::guard(config('sanctum.guard', 'web'));
+        $guard = Auth::guard();
 
         $currentUser = Auth::user();
         $user = User::find($args)[0];

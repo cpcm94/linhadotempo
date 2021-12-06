@@ -12,10 +12,9 @@ class Logout
      */
     public function __invoke($_, array $args)
     {
-        $guard = Auth::guard(config('sanctum.guard', 'web'));
+        $guard = Auth::guard();
 
         Auth::user()->tokens()->delete();
-        $guard->logout();
 
         /** @var \App\Models\User|null $user */
 
