@@ -6,6 +6,8 @@ import {
   Img,
   EntryImageWrapper,
   EntryImage,
+  CategoryName,
+  CategoriesWrapper,
 } from './YearEntries/YearEntries.styles'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
@@ -51,6 +53,14 @@ export const EntriesWithoutYear = ({
               </EntryImageWrapper>
             )}
             <EntryNameWrapper>{entry.name}</EntryNameWrapper>
+            <CategoriesWrapper>
+              {entry.time_entry_categories[0] &&
+                entry.time_entry_categories.map((category, index) => (
+                  <CategoryName key={index} bgColor={category.color}>
+                    {category.name}
+                  </CategoryName>
+                ))}
+            </CategoriesWrapper>
             <IconsWrapper>
               {filterEntryTimelinesByVisibleTimelines(
                 visibleTimelines,

@@ -9,6 +9,18 @@ const newBackgroundColor = keyframes`
   background-color: ${colors.white};
   }
 `
+export const CategoryName = styled.div`
+  position: relative;
+  z-index: 2;
+  font-size: 0.75rem;
+  padding: 0 0.25rem;
+  background-color: ${({ bgColor }) => bgColor && bgColor};
+  border-radius: 3px;
+`
+export const CategoriesWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
 
 export const EntryAndIconWrapper = styled.div`
   display: flex;

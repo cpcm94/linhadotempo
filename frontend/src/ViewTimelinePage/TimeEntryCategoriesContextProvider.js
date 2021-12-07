@@ -28,5 +28,5 @@ export const TimeEntryCategoriesContextProvider = ({ children }) => {
   )
 }
 TimeEntryCategoriesContextProvider.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.array,
 }
