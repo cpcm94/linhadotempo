@@ -8,6 +8,7 @@ export const UPDATE_TIME_ENTRY_CATEGORY_MUTATION = gql`
     updateTimeEntryCategory(id: $id, input: $input) {
       id
       name
+      color
     }
   }
 `

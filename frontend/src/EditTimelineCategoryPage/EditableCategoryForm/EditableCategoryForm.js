@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { DeleteButtonAndConfirmation } from '../../_shared/DeleteButtonAndConfirmation/DeleteButtonAndConfirmation'
 import { SectionTitle } from '../../_shared/SectionTitle/SectionTitle'
 import { ErrorMessage } from '../../_shared/ErrorMessage.styles'
+import { ColorSection } from '../../_shared/ColorSection'
 
 export const EditableTimelineCategoryForm = ({
   category,
@@ -44,6 +45,7 @@ export const EditableTimelineCategoryForm = ({
         value={category.name}
         onChange={handleChange('name')}
       />
+      <ColorSection object={category} setObject={setCategory} />
       <DeleteButtonAndConfirmation
         deleteFunction={handleDelete}
         skipDeleteMessage={skipDeleteMessage}
