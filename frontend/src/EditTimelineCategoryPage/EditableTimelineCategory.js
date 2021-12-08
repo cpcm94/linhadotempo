@@ -22,7 +22,7 @@ export const EditableTimelineCategory = ({ categoryData }) => {
   }
   const [category, setCategory] = useState({
     name: categoryData.name,
-    color: categoryData.color,
+    color: categoryData.color ? categoryData.color : '',
   })
   const isFirstRun = useRef(true)
 
