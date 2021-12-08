@@ -20,7 +20,9 @@ export const TimelinesPage = ({
   timelines,
   currentSelectedTimelinesIds,
   bucketName,
+  categories,
 }) => {
+  const [chosenCategories, setChosenCategories] = useState([])
   const [timelineSearchString, setTimelineSearchString] = useState('')
   const isFirstRun = useRef(true)
   const [querySearch, { data: searchData, loading }] = useLazyQuery(
@@ -86,10 +88,8 @@ export const TimelinesPage = ({
 
   useEffect(() => {
     if (timelineSearchString === '') {
-      console.log('if')
       setDisplayedTimelines(timelines)
     } else if (timelineSearchString !== '' && searchData) {
-      console.log('else if')
       setDisplayedTimelines(searchData.search_timeline)
     }
   }, [searchData, timelineSearchString, timelines])
@@ -107,6 +107,9 @@ export const TimelinesPage = ({
             setSelectedTimelines={setSelectedTimelines}
             timelineSearchString={timelineSearchString}
             setTimelineSearchString={setTimelineSearchString}
+            categories={categories}
+            chosenCategories={chosenCategories}
+            setChosenCategories={setChosenCategories}
           />
         }
         showMenuButton={true}
@@ -149,4 +152,5 @@ TimelinesPage.propTypes = {
   currentSelectedTimelinesIds: PropTypes.array,
   bucketName: PropTypes.string,
   entryDate: PropTypes.string,
+  categories: PropTypes.array,
 }

@@ -1,7 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Wrapper, SeachBar } from './TimelinesIconRow.styles'
+import {
+  Wrapper,
+  SearchBar,
+  FilteringCategories,
+  Category,
+} from './TimelinesIconRow.styles'
 import { TimelinesCheckbox } from './TimelinesCheckbox'
+import { CategoryFilterSelect } from './CategoryFilterSelect'
 
 export const TimelinesIconRow = ({
   timelines,
@@ -9,6 +15,9 @@ export const TimelinesIconRow = ({
   setSelectedTimelines,
   timelineSearchString,
   setTimelineSearchString,
+  categories,
+  chosenCategories,
+  setChosenCategories,
 }) => {
   const handleChange = (e) => {
     setTimelineSearchString(e.target.value)
@@ -20,10 +29,22 @@ export const TimelinesIconRow = ({
         selectedTimelines={selectedTimelines}
         setSelectedTimelines={setSelectedTimelines}
       />
-      <SeachBar
+      <FilteringCategories>
+        {chosenCategories.map((category) => (
+          <Category key={category.id} bgColor={category.color}>
+            {category.name}
+          </Category>
+        ))}
+      </FilteringCategories>
+      <SearchBar
         type="text"
         value={timelineSearchString}
         onChange={handleChange}
+      />
+      <CategoryFilterSelect
+        categories={categories}
+        chosenCategories={chosenCategories}
+        setChosenCategories={setChosenCategories}
       />
     </Wrapper>
   )
@@ -35,4 +56,7 @@ TimelinesIconRow.propTypes = {
   setSelectedTimelines: PropTypes.func,
   timelineSearchString: PropTypes.string,
   setTimelineSearchString: PropTypes.func,
+  categories: PropTypes.array,
+  chosenCategories: PropTypes.array,
+  setChosenCategories: PropTypes.func,
 }
