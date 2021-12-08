@@ -51,6 +51,9 @@ export const MenuDrawer = ({ user }) => {
           <ListItemWrapper onClick={() => navigateTo('/timelineCategories')}>
             Categorias para Linhas do Tempo
           </ListItemWrapper>
+          <ListItemWrapper onClick={() => navigateTo('/timeEntryCategories')}>
+            Categorias para Acontecimentos
+          </ListItemWrapper>
           {user && user.type === 'admin' && (
             <ListItemWrapper onClick={() => navigateTo('/users')}>
               Usuários

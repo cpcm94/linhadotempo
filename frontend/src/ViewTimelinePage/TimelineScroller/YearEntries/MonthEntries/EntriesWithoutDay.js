@@ -11,6 +11,8 @@ import {
   RightDateLine,
 } from './MonthEntries.styles'
 import {
+  CategoriesWrapper,
+  CategoryName,
   EntryAndIconWrapper,
   EntryIcon,
   EntryImage,
@@ -133,6 +135,14 @@ export const EntriesWithoutDay = ({
                     hasMainImage={getEntryMainImage(entry)}
                   >
                     <EntryNameWrapper>{entry.name}</EntryNameWrapper>
+                    <CategoriesWrapper>
+                      {entry.time_entry_categories[0] &&
+                        entry.time_entry_categories.map((category, index) => (
+                          <CategoryName key={index} bgColor={category.color}>
+                            {category.name}
+                          </CategoryName>
+                        ))}
+                    </CategoriesWrapper>
                   </EntryNameBackground>
                   <IconsWrapper>
                     {filterEntryTimelinesByVisibleTimelines(

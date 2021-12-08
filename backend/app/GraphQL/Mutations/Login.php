@@ -14,7 +14,6 @@ class Login
     public function __invoke($_, array $args)
     {
 
-        // $guard = Auth::guard(config('sanctum.guard', 'web'));
         $guard = Auth::guard();
 
         if ( ! $guard->attempt($args)) {

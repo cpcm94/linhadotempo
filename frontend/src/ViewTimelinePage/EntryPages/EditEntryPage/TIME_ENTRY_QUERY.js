@@ -18,6 +18,10 @@ export const TIME_ENTRY_QUERY = gql`
       source_url
       book_page
       book_id
+      time_entry_categories {
+        id
+        name
+      }
       images {
         id
         image_url

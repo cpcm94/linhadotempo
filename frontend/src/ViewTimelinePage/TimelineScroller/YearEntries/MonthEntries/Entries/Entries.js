@@ -11,6 +11,8 @@ import {
   DateWrapper,
 } from './Entries.styles'
 import {
+  CategoriesWrapper,
+  CategoryName,
   EntryAndIconWrapper,
   EntryIcon,
   EntryImage,
@@ -125,6 +127,14 @@ export const Entries = ({
             hasMainImage={getEntryMainImage(entry)}
           >
             <EntryWrapper key={index}>{entry.name}</EntryWrapper>
+            <CategoriesWrapper>
+              {entry.time_entry_categories[0] &&
+                entry.time_entry_categories.map((category, index) => (
+                  <CategoryName key={index} bgColor={category.color}>
+                    {category.name}
+                  </CategoryName>
+                ))}
+            </CategoriesWrapper>
           </EntryNameBackground>
           <IconsWrapper>
             {filterEntryTimelinesByVisibleTimelines(

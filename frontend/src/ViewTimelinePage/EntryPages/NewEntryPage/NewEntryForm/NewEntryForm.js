@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { DateDisplay } from '../../DateDisplay/DateDisplay'
 import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
@@ -12,6 +12,8 @@ import { EntrySource } from '../../EntrySource/EntrySource'
 import { EntryImages } from '../../EntryImages/EntryImages'
 import { DeleteButton } from '../../../../_shared/DeleteButton'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
+import { TimeEntryCategorySelect } from '../../../../_shared/TimeEntryCategorySelect/TimeEntryCategorySelect'
+import { TimeEntryCategoriesContext } from '../../../TimeEntryCategoriesContextProvider'
 
 export const NewEntryForm = ({
   timelines,
@@ -27,6 +29,9 @@ export const NewEntryForm = ({
   handleDelete,
   setShowTimelineSelectorScreen,
 }) => {
+  const { categories, loading: categoriesLoading } = useContext(
+    TimeEntryCategoriesContext
+  )
   const handleChange = (entryPropName) => (e) => {
     const newEntry = { ...entry }
     newEntry[entryPropName] = e.target.value
@@ -44,7 +49,11 @@ export const NewEntryForm = ({
     newEntry[fieldName] = ''
     setEntry(newEntry)
   }
-
+  const resetSelectedTimeEntryCategories = () => {
+    const newEntry = { ...entry }
+    newEntry.time_entry_categories.sync = []
+    setEntry(newEntry)
+  }
   return (
     <Wrapper>
       <InnerWrapper>
@@ -82,6 +91,16 @@ export const NewEntryForm = ({
           field={'description'}
         />
         <EntryAnnualImportance entry={entry} setEntry={setEntry} />
+        {categoriesLoading ? (
+          <span>Loading...</span>
+        ) : (
+          <TimeEntryCategorySelect
+            entry={entry}
+            setEntry={setEntry}
+            resetField={resetSelectedTimeEntryCategories}
+            entryCategories={categories}
+          />
+        )}
         <EntrySource
           entry={entry}
           books={books}

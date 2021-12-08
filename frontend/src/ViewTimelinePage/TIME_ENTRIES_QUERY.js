@@ -17,6 +17,11 @@ export const TIME_ENTRIES_QUERY = gql`
         image_url
         is_main_image
       }
+      time_entry_categories {
+        id
+        name
+        color
+      }
       annual_importance
       timelines {
         id

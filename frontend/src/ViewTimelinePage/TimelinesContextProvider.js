@@ -1,9 +1,8 @@
-import React, { createContext } from 'react'
+import React, { createContext, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { TIMELINES_QUERY } from '../_shared/TIMELINES_QUERY'
 import PropTypes from 'prop-types'
 import { filterTimelines } from './filterTimelines'
-import { useState } from 'react'
 
 export const TimelinesContext = createContext()
 export const TimelinesContextProvider = ({ children }) => {

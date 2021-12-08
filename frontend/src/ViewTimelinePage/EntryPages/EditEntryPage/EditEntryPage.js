@@ -37,6 +37,9 @@ export const EditEntryPage = ({
     useState(false)
   const [entry, setEntry] = useState({
     timelines: { sync: entryToEdit.timelines.map((timeline) => timeline.id) },
+    time_entry_categories: {
+      sync: entryToEdit.time_entry_categories.map((category) => category.id),
+    },
     name: entryToEdit.name,
     description: entryToEdit.description,
     year: yearWithoutNegativeSign(entryToEdit.year),
