@@ -5,6 +5,7 @@ export const TIMELINE_CATEGORY_QUERY = gql`
     timeline_category(id: $id) {
       id
       name
+      color
       timelines {
         id
         name

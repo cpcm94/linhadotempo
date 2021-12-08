@@ -19,6 +19,7 @@ export const TIMELINES_QUERY = gql`
       timeline_categories {
         id
         name
+        color
       }
     }
   }

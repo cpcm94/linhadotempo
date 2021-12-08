@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import { SectionTitle } from '../../_shared/SectionTitle/SectionTitle'
 import { DeleteButton } from '../../_shared/DeleteButton'
 import { ErrorMessage } from '../../_shared/ErrorMessage.styles'
+import { ColorSection } from '../../_shared/ColorSection'
 
 export const NewTimelineCategoryForm = ({
   category,
@@ -42,6 +43,7 @@ export const NewTimelineCategoryForm = ({
           value={category.name}
           onChange={handleChange('name')}
         />
+        <ColorSection object={category} setObject={setCategory} />
         <DeleteButtonWrapper showBorder={categoryId}>
           {categoryId &&
             (deleteLoading ? (

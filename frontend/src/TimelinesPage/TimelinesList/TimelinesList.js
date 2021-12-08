@@ -78,7 +78,9 @@ export const TimelinesList = ({
               <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
               <CategoryTags>
                 {timeline.timeline_categories.map((category) => (
-                  <CategoryTag key={category.id}>{category.name}</CategoryTag>
+                  <CategoryTag key={category.id} bgColor={category.color}>
+                    {category.name}
+                  </CategoryTag>
                 ))}
               </CategoryTags>
             </IconAndNameWrapper>

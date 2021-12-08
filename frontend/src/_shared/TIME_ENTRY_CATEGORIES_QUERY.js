@@ -5,6 +5,7 @@ export const TIME_ENTRY_CATEGORIES_QUERY = gql`
     time_entry_categories {
       id
       name
+      color
     }
   }
 `

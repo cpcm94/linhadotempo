@@ -22,6 +22,7 @@ export const EditableTimeEntryCategory = ({ categoryData }) => {
   }
   const [category, setCategory] = useState({
     name: categoryData.name,
+    color: categoryData.color,
   })
   const isFirstRun = useRef(true)
 

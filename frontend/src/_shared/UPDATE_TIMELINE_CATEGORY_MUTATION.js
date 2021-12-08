@@ -8,6 +8,7 @@ export const UPDATE_TIMELINE_CATEGORY_MUTATION = gql`
     updateTimelineCategory(id: $id, input: $input) {
       id
       name
+      color
     }
   }
 `

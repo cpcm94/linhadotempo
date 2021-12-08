@@ -5,6 +5,7 @@ export const CREATE_TIME_ENTRY_CATEGORY_MUTATION = gql`
     createTimeEntryCategory(input: $input) {
       id
       name
+      color
     }
   }
 `

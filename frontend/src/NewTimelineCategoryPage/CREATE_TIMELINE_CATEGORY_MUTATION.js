@@ -5,6 +5,7 @@ export const CREATE_TIMELINE_CATEGORY_MUTATION = gql`
     createTimelineCategory(input: $input) {
       id
       name
+      color
     }
   }
 `

@@ -7,8 +7,7 @@ import {
   StyledTextField,
   Wrapper,
 } from './EditableTimeEntryCategoryForm.styles'
-import { GithubPicker } from 'react-color'
-import { colorsArray } from '../../_shared/colorsArray'
+import { ColorSection } from '../../_shared/ColorSection'
 
 export const EditableTimeEntryCategoryForm = ({
   category,
@@ -23,17 +22,7 @@ export const EditableTimeEntryCategoryForm = ({
     newCategory[categoryPropName] = e.target.value
     setCategory(newCategory)
   }
-  const handleChangeColor = (color) => {
-    const newCategory = { ...category }
-    newCategory.color = color.hex
-    setCategory(newCategory)
-  }
 
-  const resetColorField = () => {
-    const newCategory = { ...category }
-    newCategory.color = ''
-    setCategory(newCategory)
-  }
   const numberOfRelatedTimeEntries = categoryTimeEntries.length
   const skipDeleteMessage = !numberOfRelatedTimeEntries
   const deleteMessage = `Ao deletar essa categoria ${
@@ -59,13 +48,7 @@ export const EditableTimeEntryCategoryForm = ({
         value={category.name}
         onChange={handleChange('name')}
       />
-      <SectionTitle title={'Cor'} resetSection={resetColorField} />
-      <GithubPicker
-        triangle="hide"
-        color={category.color}
-        onChange={handleChangeColor}
-        colors={colorsArray}
-      />
+      <ColorSection object={category} setObject={setCategory} />
       <DeleteButtonAndConfirmation
         deleteFunction={handleDelete}
         skipDeleteMessage={skipDeleteMessage}

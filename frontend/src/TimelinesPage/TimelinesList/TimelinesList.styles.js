@@ -65,8 +65,7 @@ export const Img = styled.img`
 `
 export const CategoryTag = styled.div`
   border-radius: 5px;
-  background-color: ${colors.brown};
-  color: ${colors.white};
+  background-color: ${({ bgColor }) => (bgColor ? bgColor : colors.lightBrown)};
   padding: 0 0.25rem;
   margin-left: 0.25rem;
   display: block;

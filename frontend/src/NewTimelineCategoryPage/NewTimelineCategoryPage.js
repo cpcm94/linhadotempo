@@ -18,6 +18,7 @@ export const NewTimelineCategoryPage = () => {
 
   const [category, setCategory] = useState({
     name: '',
+    color: '',
   })
   const [categoryId, setCategoryId] = useState(null)
   let history = useHistory()
