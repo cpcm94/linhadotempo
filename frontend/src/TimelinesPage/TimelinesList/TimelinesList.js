@@ -10,6 +10,7 @@ import {
   EditButtonWrapper,
   CategoryTag,
   CategoryTags,
+  NameAndTagsWrapper,
 } from './TimelinesList.styles'
 import { sortArrayAlphabeticallyByProp } from '../../_shared/sortArrayAlphabeticallyByProp'
 import { EditButton } from '../../_shared/EditButton'
@@ -75,14 +76,16 @@ export const TimelinesList = ({
                   {timeline.initials}
                 </IconWrapper>
               )}
-              <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
-              <CategoryTags>
-                {timeline.timeline_categories.map((category) => (
-                  <CategoryTag key={category.id} bgColor={category.color}>
-                    {category.name}
-                  </CategoryTag>
-                ))}
-              </CategoryTags>
+              <NameAndTagsWrapper>
+                <TimelineNameWrapper>{timeline.name}</TimelineNameWrapper>
+                <CategoryTags>
+                  {timeline.timeline_categories.map((category) => (
+                    <CategoryTag key={category.id} bgColor={category.color}>
+                      {category.name}
+                    </CategoryTag>
+                  ))}
+                </CategoryTags>
+              </NameAndTagsWrapper>
             </IconAndNameWrapper>
             <EditButtonWrapper
               onClick={navigateToEditTimelinePage(history, timeline.id)}
