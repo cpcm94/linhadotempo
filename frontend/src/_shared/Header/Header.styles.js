@@ -16,7 +16,7 @@ export const PageActions = styled.div`
 `
 
 export const IconRow = styled.div`
-  padding: 0.25rem 0 0 0;
+  padding: 0.25rem 0;
   width: 100%;
 `
 

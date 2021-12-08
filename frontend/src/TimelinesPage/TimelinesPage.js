@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { TimelinesList } from './TimelinesList/TimelinesList'
 import { Header } from '../_shared/Header/Header'
 import { Layout } from '../_shared/Layout'
@@ -10,12 +10,27 @@ import { TimelinesContainer } from './TimelinesContainer'
 import { Footer } from '../_shared/Footer/Footer'
 import { TimelinesButtonsRow } from './TimelinesList/TimelinesButtonsRow'
 import { VisualizeButton } from './VisualizeButton'
+import { SEARCH_TIMELINE_QUERY } from './SEARCH_TIMELINE_QUERY'
+import { useLazyQuery } from '@apollo/client'
+
+const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
+let timeoutId = null
 
 export const TimelinesPage = ({
   timelines,
   currentSelectedTimelinesIds,
   bucketName,
 }) => {
+  const [timelineSearchString, setTimelineSearchString] = useState('')
+  const isFirstRun = useRef(true)
+  const [querySearch, { data: searchData, loading }] = useLazyQuery(
+    SEARCH_TIMELINE_QUERY,
+    {
+      fetchPolicy: 'cache-and-network',
+      notifyOnNetworkStatusChange: true,
+    }
+  )
+  const [displayedTimelines, setDisplayedTimelines] = useState(timelines)
   const filteredSelectedTimelines = timelines.filter((timeline) =>
     currentSelectedTimelinesIds
       ? currentSelectedTimelinesIds.includes(timeline.id)
@@ -51,6 +66,33 @@ export const TimelinesPage = ({
     [history, searchString]
   )
 
+  useEffect(() => {
+    if (!isFirstRun.current) {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+      timeoutId = setTimeout(() => {
+        const payload = {
+          variables: {
+            search: timelineSearchString,
+          },
+        }
+        querySearch(payload)
+      }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+    } else {
+      isFirstRun.current = false
+    }
+  }, [querySearch, timelineSearchString])
+
+  useEffect(() => {
+    if (timelineSearchString === '') {
+      console.log('if')
+      setDisplayedTimelines(timelines)
+    } else if (timelineSearchString !== '' && searchData) {
+      console.log('else if')
+      setDisplayedTimelines(searchData.search_timeline)
+    }
+  }, [searchData, timelineSearchString, timelines])
   return (
     <Layout>
       <Header
@@ -63,17 +105,23 @@ export const TimelinesPage = ({
             selectedTimelines={selectedTimelines}
             timelines={timelines}
             setSelectedTimelines={setSelectedTimelines}
+            timelineSearchString={timelineSearchString}
+            setTimelineSearchString={setTimelineSearchString}
           />
         }
         showMenuButton={true}
       />
       <TimelinesContainer>
-        <TimelinesList
-          timelines={timelines}
-          selectedTimelines={selectedTimelines}
-          setSelectedTimelines={setSelectedTimelines}
-          bucketName={bucketName}
-        />
+        {timelineSearchString !== '' && loading ? (
+          <span>Loading...</span>
+        ) : (
+          <TimelinesList
+            timelines={displayedTimelines}
+            selectedTimelines={selectedTimelines}
+            setSelectedTimelines={setSelectedTimelines}
+            bucketName={bucketName}
+          />
+        )}
       </TimelinesContainer>
       {selectedTimelines[0] && (
         <Footer

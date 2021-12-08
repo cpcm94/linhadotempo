@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { colors } from '../../_shared/colors'
 
 const CheckBoxWrapper = styled.div`
-  margin: 0 0.25rem 0.25rem 1.25rem;
+  margin: 0 0.25rem 0 1.25rem;
   border-radius: 5px;
   min-width: 1rem;
   min-height: 1rem;
@@ -19,11 +19,10 @@ const CheckBoxWrapper = styled.div`
   font-family: Karla;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-self: center;
   cursor: pointer;
 `
 const NumberBoxWrapper = styled.div`
-  margin: 0 0 0.25rem 0;
   border-radius: 5px;
   min-width: 1.25rem;
   min-height: 1.25rem;
