@@ -86,10 +86,8 @@ export const TimelinesPage = ({
 
   useEffect(() => {
     if (timelineSearchString === '') {
-      console.log('if')
       setDisplayedTimelines(timelines)
     } else if (timelineSearchString !== '' && searchData) {
-      console.log('else if')
       setDisplayedTimelines(searchData.search_timeline)
     }
   }, [searchData, timelineSearchString, timelines])
