@@ -7,12 +7,13 @@ export const TimelinesListWrapper = styled.div`
 
 export const TimelineNameWrapper = styled.div`
   height: 100%;
-  padding: 1rem;
+  padding-bottom: 0.25rem;
 `
 export const EditButtonWrapper = styled.div`
   align-self: center;
   cursor: pointer;
   padding: 0 1rem;
+  background-color: ${colors.white};
   :hover {
     background-color: ${colors.lightBrown};
   }
@@ -66,6 +67,7 @@ export const Img = styled.img`
 export const CategoryTag = styled.div`
   border-radius: 5px;
   background-color: ${({ bgColor }) => (bgColor ? bgColor : colors.lightBrown)};
+  border: ${({ bgColor }) => !bgColor && `${colors.lightGrey} 1px solid`};
   padding: 0 0.25rem;
   margin-left: 0.25rem;
   display: block;
@@ -78,4 +80,9 @@ export const CategoryTags = styled.div`
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
+`
+export const NameAndTagsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
 `
