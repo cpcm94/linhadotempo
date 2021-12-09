@@ -80,7 +80,7 @@ export const TimelinesPage = ({
             variables: {
               input: {
                 search: timelineSearchString,
-                timeline_categories: chosenCategories.map(
+                timeline_category_ids: chosenCategories.map(
                   (category) => category.id
                 ),
               },

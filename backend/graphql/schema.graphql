@@ -292,8 +292,14 @@ input UpdateTimelineCategoryInput {
 }
 
 input SearchTimelineInput {
-    search: String
-    timeline_categories: [ID]
+    search: String!
+    timeline_category_ids: [ID]!
+}
+
+input SearchTimeEntryInput {
+    timeline_ids: [ID]!
+    search: String!
+    time_entry_category_ids: [ID]!
 }
 
 type Query {
@@ -319,7 +325,8 @@ type Query {
     timelines: [Timeline!]! @all @whereAuth(relation: "user")
     timeline(id: ID @eq): Timeline @find @whereAuth(relation: "user")
     search_timeline(input: SearchTimelineInput! @spread): [Timeline!]!
-    time_entries(timeline_ids: [ID]): [TimeEntry]
+    search_time_entry(input: SearchTimeEntryInput! @spread): [TimeEntry!]!
+    time_entries(timeline_ids: [ID] @spread): [TimeEntry]
     time_entry(id: ID! @eq): TimeEntry @find
     settings: Settings!
 }
