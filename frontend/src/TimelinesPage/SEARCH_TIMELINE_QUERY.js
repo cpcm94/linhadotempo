@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const SEARCH_TIMELINE_QUERY = gql`
-  query SearchTimeline($search: String!) {
-    search_timeline(search: $search) {
+  query SearchTimeline($input: SearchTimelineInput!) {
+    search_timeline(input: $input) {
       id
       name
       color
