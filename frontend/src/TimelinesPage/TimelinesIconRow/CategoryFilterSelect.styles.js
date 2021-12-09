@@ -4,14 +4,12 @@ import { colors } from '../../_shared/colors'
 
 export const StyledBox = styled(Box)`
   position: absolute;
-  top: 6.5rem;
+  top: 8.25rem;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
   background-color: ${colors.white};
   border: 1px solid #000;
-  display: flex;
-  flex-wrap: wrap;
 `
 
 export const CategoryName = styled.div`
@@ -28,4 +26,21 @@ export const Button = styled.div`
   border: 1px solid ${colors.brown};
   border-left: none;
   padding: 2px 0.25rem 2px 0.25rem;
+`
+
+export const CategoriesWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
+export const ResetButton = styled.div`
+  align-self: center;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  color: ${colors.white};
+  background-color: ${colors.brown};
+`
+export const ResetButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `

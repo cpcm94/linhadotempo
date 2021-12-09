@@ -41,7 +41,7 @@ export const TimelinesPage = ({
   const [selectedTimelines, setSelectedTimelines] = useState(
     filteredSelectedTimelines
   )
-  console.log('chosenCategories', chosenCategories)
+
   const stringOfSelectedTimelines = selectedTimelines
     .map((timeline) => timeline.id)
     .sort((a, b) => a - b)
@@ -94,10 +94,8 @@ export const TimelinesPage = ({
   }, [chosenCategories, hasActiveFilter, querySearch, timelineSearchString])
   useEffect(() => {
     if (timelineSearchString === '' && !chosenCategories[0]) {
-      console.log('if')
       setDisplayedTimelines(timelines)
     } else if (hasActiveFilter && searchData) {
-      console.log('else if')
       setDisplayedTimelines(searchData.search_timeline)
     }
   }, [
@@ -108,7 +106,6 @@ export const TimelinesPage = ({
     timelines,
   ])
 
-  console.log('displayedTimelines', displayedTimelines)
   return (
     <Layout>
       <Header
