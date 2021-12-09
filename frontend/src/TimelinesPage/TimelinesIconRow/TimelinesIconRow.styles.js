@@ -9,9 +9,11 @@ export const Wrapper = styled.div`
 
 export const SearchBar = styled.input`
   border: 1px solid ${colors.brown};
-  border-right: none;
-  border-left: none;
-  width: 8rem;
+  border-bottom: none;
+  max-width: 100%;
+  border-radius: 5px 0 0 0;
+  border-radius: ${({ chosenCategories }) =>
+    chosenCategories[0] ? '5px 5px 0 0' : '5px 0 0 0'};
   :focus {
     outline: 0;
   }
@@ -21,11 +23,13 @@ export const FilteringCategories = styled.div`
   display: flex;
   background-color: ${colors.white};
   border: 1px solid ${colors.brown};
-  border-right: none;
+  border-top: none;
   padding: 1px 0;
-  border-radius: 5px 0 0 5px;
-  margin-left: 0.25rem;
-  max-width: max(25%, 5rem);
+  border-radius: ${({ chosenCategories }) =>
+    chosenCategories[0] ? '0 0 5px 5px' : '0 0 0 5px'};
+  width: 100%;
+  flex-wrap: nowrap;
+  overflow: hidden;
 `
 
 export const Category = styled.div`
@@ -34,6 +38,14 @@ export const Category = styled.div`
   color: ${colors.black};
   margin-left: 0.25rem;
   display: block;
+  white-space: nowrap; /* forces text to single line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+export const TextAndCategoriesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 13.5rem;
   white-space: nowrap; /* forces text to single line */
   overflow: hidden;
   text-overflow: ellipsis;

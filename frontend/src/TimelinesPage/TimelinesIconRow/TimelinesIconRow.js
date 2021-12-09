@@ -5,6 +5,7 @@ import {
   SearchBar,
   FilteringCategories,
   Category,
+  TextAndCategoriesWrapper,
 } from './TimelinesIconRow.styles'
 import { TimelinesCheckbox } from './TimelinesCheckbox'
 import { CategoryFilterSelect } from './CategoryFilterSelect'
@@ -29,18 +30,21 @@ export const TimelinesIconRow = ({
         selectedTimelines={selectedTimelines}
         setSelectedTimelines={setSelectedTimelines}
       />
-      <FilteringCategories>
-        {chosenCategories.map((category) => (
-          <Category key={category.id} bgColor={category.color}>
-            {category.name}
-          </Category>
-        ))}
-      </FilteringCategories>
-      <SearchBar
-        type="text"
-        value={timelineSearchString}
-        onChange={handleChange}
-      />
+      <TextAndCategoriesWrapper>
+        <SearchBar
+          type="text"
+          value={timelineSearchString}
+          onChange={handleChange}
+          chosenCategories={chosenCategories}
+        />
+        <FilteringCategories chosenCategories={chosenCategories}>
+          {chosenCategories.map((category) => (
+            <Category key={category.id} bgColor={category.color}>
+              {category.name}
+            </Category>
+          ))}
+        </FilteringCategories>
+      </TextAndCategoriesWrapper>
       <CategoryFilterSelect
         categories={categories}
         chosenCategories={chosenCategories}

@@ -22,10 +22,10 @@ export const CategoryName = styled.div`
   margin: 0.25rem;
 `
 export const Button = styled.div`
-  background-color: ${colors.white};
-  color: ${colors.brown};
+  background-color: ${colors.brown};
+  color: ${colors.white};
   border-radius: 0 5px 5px 0;
   border: 1px solid ${colors.brown};
   border-left: none;
-  padding: 1px 0.5rem 1px 0.5rem;
+  padding: 2px 0.25rem 2px 0.25rem;
 `
