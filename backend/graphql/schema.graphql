@@ -319,7 +319,7 @@ type Query {
     timelines: [Timeline!]! @all @whereAuth(relation: "user")
     timeline(id: ID @eq): Timeline @find @whereAuth(relation: "user")
     search_timeline(input: SearchTimelineInput! @spread): [Timeline!]!
-    time_entries(timeline_ids: [ID]): [TimeEntry]
+    time_entries(timeline_ids: [ID] @spread): [TimeEntry]
     time_entry(id: ID! @eq): TimeEntry @find
     settings: Settings!
 }
