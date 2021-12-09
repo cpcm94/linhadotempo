@@ -113,9 +113,9 @@ export const TimelineScroller = ({
       ) : (
         <>
           <InvisibleIconWrapper>
+            <MessageWrapper>Todas as linhas estão invisíveis.</MessageWrapper>
             <InvisibleIcon />
           </InvisibleIconWrapper>
-          <MessageWrapper>Todas as linhas estão invisíveis.</MessageWrapper>
         </>
       )}
     </>

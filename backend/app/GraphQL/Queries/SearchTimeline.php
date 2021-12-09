@@ -15,7 +15,8 @@ class SearchTimeline
         $guard = Auth::guard();
         $user_id = $guard->user()->id;
         $search_string = $args["search"];
-        $timeline_category_ids = $args['timeline_categories'];
+        $timeline_category_ids = $args['timeline_category_ids'];
+        
         if (strlen($search_string) !== 0 && ! $timeline_category_ids) {
 
             $result = Timeline::where('user_id', $user_id)
@@ -23,6 +24,7 @@ class SearchTimeline
             ->get();
             
             return $result;
+
         } else if (strlen($search_string) === 0 && $timeline_category_ids) {
 
             $timelines_by_user = Timeline::leftJoin('timeline_timeline_category', 'timelines.id', 'timeline_timeline_category.timeline_id')
@@ -41,6 +43,7 @@ class SearchTimeline
             }
 
             return $result;
+
         } else if (strlen($search_string) !== 0 &&  $timeline_category_ids) {
 
             $timelines_by_user = Timeline::leftJoin('timeline_timeline_category', 'timelines.id', 'timeline_timeline_category.timeline_id')
