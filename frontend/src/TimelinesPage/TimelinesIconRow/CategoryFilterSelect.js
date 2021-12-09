@@ -32,7 +32,12 @@ export const CategoryFilterSelect = ({
 
   return (
     <>
-      <Button onClick={() => setDisplaySelect(true)}>&#9660;</Button>
+      <Button
+        onClick={() => setDisplaySelect(true)}
+        chosenCategories={chosenCategories}
+      >
+        &#9660;
+      </Button>
       {displaySelect && (
         <Modal open={displaySelect} onClose={handleClose}>
           <StyledBox>

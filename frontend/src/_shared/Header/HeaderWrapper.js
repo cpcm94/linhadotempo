@@ -9,7 +9,11 @@ export const HeaderWrapper = styled.div`
   position: fixed;
   top: 0;
   height: ${({ timelinesIconRow, entryTitle }) =>
-    entryTitle ? '6rem' : timelinesIconRow ? '4.25rem' : '2.5rem'};
+    entryTitle || timelinesIconRow[0]
+      ? '5.5rem'
+      : !timelinesIconRow[0]
+      ? '4.25rem'
+      : '2.5rem'};
   z-index: 2;
   overflow: hidden;
 `

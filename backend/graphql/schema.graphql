@@ -291,6 +291,11 @@ input UpdateTimelineCategoryInput {
     color: String
 }
 
+input SearchTimelineInput {
+    search: String
+    timeline_categories: [ID]
+}
+
 type Query {
     books: [Book!]! @all @whereAuth(relation: "user")
     book(id: ID! @eq): Book! @find @whereAuth(relation: "user")
@@ -313,7 +318,7 @@ type Query {
     me: User @auth
     timelines: [Timeline!]! @all @whereAuth(relation: "user")
     timeline(id: ID @eq): Timeline @find @whereAuth(relation: "user")
-    search_timeline(search: String @search): [Timeline!]!
+    search_timeline(input: SearchTimelineInput! @spread): [Timeline!]!
     time_entries(timeline_ids: [ID]): [TimeEntry]
     time_entry(id: ID! @eq): TimeEntry @find
     settings: Settings!

@@ -73,14 +73,15 @@ export const TimelinesPage = ({
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
-      timeoutId = setTimeout(() => {
-        const payload = {
-          variables: {
-            search: timelineSearchString,
-          },
-        }
-        querySearch(payload)
-      }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+      if (timelineSearchString !== '')
+        timeoutId = setTimeout(() => {
+          const payload = {
+            variables: {
+              search: timelineSearchString,
+            },
+          }
+          querySearch(payload)
+        }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
     } else {
       isFirstRun.current = false
     }
@@ -114,7 +115,7 @@ export const TimelinesPage = ({
         }
         showMenuButton={true}
       />
-      <TimelinesContainer>
+      <TimelinesContainer chosenCategories={chosenCategories}>
         {timelineSearchString !== '' && loading ? (
           <span>Loading...</span>
         ) : (
