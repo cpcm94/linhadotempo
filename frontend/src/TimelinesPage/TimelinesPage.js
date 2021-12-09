@@ -67,17 +67,23 @@ export const TimelinesPage = ({
     },
     [history, searchString]
   )
+  const hasActiveFilter = timelineSearchString !== '' || chosenCategories[0]
 
   useEffect(() => {
     if (!isFirstRun.current) {
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
-      if (timelineSearchString !== '')
+      if (hasActiveFilter)
         timeoutId = setTimeout(() => {
           const payload = {
             variables: {
-              search: timelineSearchString,
+              input: {
+                search: timelineSearchString,
+                timeline_categories: chosenCategories.map(
+                  (category) => category.id
+                ),
+              },
             },
           }
           querySearch(payload)
@@ -85,15 +91,21 @@ export const TimelinesPage = ({
     } else {
       isFirstRun.current = false
     }
-  }, [querySearch, timelineSearchString])
-
+  }, [chosenCategories, hasActiveFilter, querySearch, timelineSearchString])
   useEffect(() => {
-    if (timelineSearchString === '') {
+    if (timelineSearchString === '' && !chosenCategories[0]) {
       setDisplayedTimelines(timelines)
-    } else if (timelineSearchString !== '' && searchData) {
+    } else if (hasActiveFilter && searchData) {
       setDisplayedTimelines(searchData.search_timeline)
     }
-  }, [searchData, timelineSearchString, timelines])
+  }, [
+    chosenCategories,
+    hasActiveFilter,
+    searchData,
+    timelineSearchString,
+    timelines,
+  ])
+
   return (
     <Layout>
       <Header
@@ -116,7 +128,7 @@ export const TimelinesPage = ({
         showMenuButton={true}
       />
       <TimelinesContainer chosenCategories={chosenCategories}>
-        {timelineSearchString !== '' && loading ? (
+        {hasActiveFilter && loading ? (
           <span>Loading...</span>
         ) : (
           <TimelinesList

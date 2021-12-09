@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Modal } from '@material-ui/core'
-import { Button, CategoryName, StyledBox } from './CategoryFilterSelect.styles'
+import {
+  Button,
+  CategoriesWrapper,
+  CategoryName,
+  ResetButton,
+  StyledBox,
+  ResetButtonWrapper,
+} from './CategoryFilterSelect.styles'
 
 export const CategoryFilterSelect = ({
   categories,
@@ -30,6 +37,11 @@ export const CategoryFilterSelect = ({
     }
   }
 
+  const resetFilter = () => {
+    setChosenCategories([])
+    handleClose()
+  }
+
   return (
     <>
       <Button
@@ -41,18 +53,24 @@ export const CategoryFilterSelect = ({
       {displaySelect && (
         <Modal open={displaySelect} onClose={handleClose}>
           <StyledBox>
-            {categories.map((category) => {
-              const onCategoryClick = (event) => toggleCategory(event, category)
-              return (
-                <CategoryName
-                  key={category.id}
-                  bgColor={category.color}
-                  onClick={onCategoryClick}
-                >
-                  {category.name}
-                </CategoryName>
-              )
-            })}
+            <CategoriesWrapper>
+              {categories.map((category) => {
+                const onCategoryClick = (event) =>
+                  toggleCategory(event, category)
+                return (
+                  <CategoryName
+                    key={category.id}
+                    bgColor={category.color}
+                    onClick={onCategoryClick}
+                  >
+                    {category.name}
+                  </CategoryName>
+                )
+              })}
+            </CategoriesWrapper>
+            <ResetButtonWrapper>
+              <ResetButton onClick={resetFilter}>Limpar filtro</ResetButton>
+            </ResetButtonWrapper>
           </StyledBox>
         </Modal>
       )}
