@@ -40,11 +40,13 @@ export const Header = ({
   const navigateToUserPage = () => {
     history.push('/user')
   }
-
   return userLoading ? (
     <span>Loading...</span>
   ) : (
-    <HeaderWrapper timelinesIconRow={timelinesIconRow} entryTitle={entryTitle}>
+    <HeaderWrapper
+      timelinesIconRow={timelinesIconRow.props.chosenCategories}
+      entryTitle={entryTitle}
+    >
       {entryTitle && (
         <UpperHeader>
           <EntryTitle>{entryTitle}</EntryTitle>

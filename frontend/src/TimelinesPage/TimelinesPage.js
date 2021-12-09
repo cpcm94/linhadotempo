@@ -20,7 +20,9 @@ export const TimelinesPage = ({
   timelines,
   currentSelectedTimelinesIds,
   bucketName,
+  categories,
 }) => {
+  const [chosenCategories, setChosenCategories] = useState([])
   const [timelineSearchString, setTimelineSearchString] = useState('')
   const isFirstRun = useRef(true)
   const [querySearch, { data: searchData, loading }] = useLazyQuery(
@@ -71,14 +73,15 @@ export const TimelinesPage = ({
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
-      timeoutId = setTimeout(() => {
-        const payload = {
-          variables: {
-            search: timelineSearchString,
-          },
-        }
-        querySearch(payload)
-      }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+      if (timelineSearchString !== '')
+        timeoutId = setTimeout(() => {
+          const payload = {
+            variables: {
+              search: timelineSearchString,
+            },
+          }
+          querySearch(payload)
+        }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
     } else {
       isFirstRun.current = false
     }
@@ -105,11 +108,14 @@ export const TimelinesPage = ({
             setSelectedTimelines={setSelectedTimelines}
             timelineSearchString={timelineSearchString}
             setTimelineSearchString={setTimelineSearchString}
+            categories={categories}
+            chosenCategories={chosenCategories}
+            setChosenCategories={setChosenCategories}
           />
         }
         showMenuButton={true}
       />
-      <TimelinesContainer>
+      <TimelinesContainer chosenCategories={chosenCategories}>
         {timelineSearchString !== '' && loading ? (
           <span>Loading...</span>
         ) : (
@@ -147,4 +153,5 @@ TimelinesPage.propTypes = {
   currentSelectedTimelinesIds: PropTypes.array,
   bucketName: PropTypes.string,
   entryDate: PropTypes.string,
+  categories: PropTypes.array,
 }
