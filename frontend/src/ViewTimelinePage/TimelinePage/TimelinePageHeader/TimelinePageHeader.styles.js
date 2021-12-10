@@ -24,25 +24,38 @@ export const EntryWrapper = styled.div`
 
 export const HeaderWrapper = styled.div`
   display: flex;
-  padding: 0.25rem 1rem;
   width: 100%;
-  background: var(--primary-color);
+  background: linear-gradient(to bottom, #cb857c 0 2rem, #f6cbb7 2rem 100%);
   color: #fff;
   position: fixed;
   top: 0;
-  height: 2rem;
+  height: ${({ showSearchBar, chosenCategories }) =>
+    showSearchBar && chosenCategories[0]
+      ? '5.25rem'
+      : showSearchBar && !chosenCategories[0]
+      ? '4rem'
+      : '2rem'};
   z-index: 3;
   overflow: hidden;
   align-items: center;
-  @media (min-width: 540px) {
-    padding: 5px 20%;
-  }
-  @media (min-width: 720px) {
-    padding: 5px 27%;
-  }
-  @media (min-width: 1080px) {
-    padding: 5px 36%;
-  }
+  flex-direction: column;
+`
+export const UpperHeader = styled.div`
+  display: flex;
+  padding: 5px 20px;
+  flex: 1;
+  align-items: center;
+  max-height: 2rem;
+  width: min(100%, 600px);
+`
+export const LowerHeader = styled.div`
+  display: flex;
+  background-color: ${colors.lightBrown};
+  height: 100%;
+  flex: 1;
+  align-items: center;
+  padding: 0.25rem 1rem;
+  width: min(100%, 600px);
 `
 
 export const YearWrapper = styled.div`

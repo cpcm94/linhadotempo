@@ -14,12 +14,16 @@ import { NoEntriesYet } from './NoEntriesYet'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { TimelineScrollerContainer } from './TimelineScrollerContainer'
-import { TimelineScrollerAnnual } from './TimelineScrollerAnnual/TimelineScrollerAnnual'
 import { TimelineScroller } from '../TimelineScroller/TimelineScroller'
 import Hammer from 'hammerjs'
+import { SEARCH_ENTRY_QUERY } from './SEARCH_ENTRY_QUERY'
+import { useLazyQuery } from '@apollo/client'
 
 const HASH_UPDATE_DEBOUNCE_MILISECONDS = 310
 let timeoutId = null
+
+const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
+let timeoutSearchId = null
 
 const filterEntryForNullYear = (entries, hash) => {
   if (hash)
@@ -72,22 +76,34 @@ export const TimelinePage = ({
   hasZoomOut,
   dateFromHash,
   newEntryId,
+  entryCategories,
 }) => {
   const alreadyRan = useRef(false)
+  const isFirstRun = useRef(true)
   const runScrollTo = useRef(true)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
   const [zoomOut, setZoomOut] = useState(hasZoomOut)
+  const [chosenCategories, setChosenCategories] = useState([])
+  const [showSearchBar, setShowSearchBar] = useState(false)
+  const [entrySearchString, setEntrySearchString] = useState('')
+  const [displayedEntries, setDisplayedEntries] = useState(entries)
+
+  const [querySearch, { data: searchData, loading }] = useLazyQuery(
+    SEARCH_ENTRY_QUERY,
+    {
+      fetchPolicy: 'cache-and-network',
+      notifyOnNetworkStatusChange: true,
+    }
+  )
+
   const element = useRef(null)
   const hash = useRef(dateFromHash)
 
   const entriesWithAnnualImportance = entries.filter(
     (entry) => entry.annual_importance
   )
-  const toggleZoomOut = () => {
-    runScrollTo.current = true
-    setZoomOut(!zoomOut)
-  }
+
   useEffect(() => {
     const container = document.getElementById('scrollerContainer')
     const mc = new Hammer.Manager(container, { touchAction: 'pan-x pan-y' })
@@ -145,7 +161,7 @@ export const TimelinePage = ({
 
   useEffect(() => {
     handleScroll()
-  }, [handleScroll, visibleTimelines, zoomOut])
+  }, [handleScroll, visibleTimelines])
 
   useEffect(() => {
     const yOffset = -40
@@ -156,7 +172,7 @@ export const TimelinePage = ({
 
     if (element.current && runScrollTo.current) {
       runScrollTo.current = false
-      window.scrollTo({ top: elementPositionWithOffset, behavior: 'smooth' })
+      window.scrollTo({ top: elementPositionWithOffset, behavior: 'instant' })
     }
   }, [entryToScrollTo, dateFromHash])
 
@@ -183,6 +199,7 @@ export const TimelinePage = ({
       }, HASH_UPDATE_DEBOUNCE_MILISECONDS)
     }
   }, [dateFromHash, displayEntry, history, timelinesString])
+
   const handleScroll = useCallback(() => {
     const elementsCoords = getScrollPosition(objectRefs)
     const entryToDisplay = findEntryToDisplay(elementsCoords, entries)
@@ -224,30 +241,80 @@ export const TimelinePage = ({
       })
     }
   })
-  const showAnnualImportanceScroller = entriesWithAnnualImportance[0] && zoomOut
-  const showRegularScroller = entries[0] && !zoomOut
+
+  const hasActiveFilter = entrySearchString !== '' || chosenCategories[0]
+
+  useEffect(() => {
+    if (!isFirstRun.current) {
+      if (timeoutSearchId) {
+        clearTimeout(timeoutSearchId)
+      }
+      if (hasActiveFilter)
+        timeoutSearchId = setTimeout(() => {
+          const payload = {
+            variables: {
+              input: {
+                search: entrySearchString,
+                time_entry_category_ids: chosenCategories.map(
+                  (category) => category.id
+                ),
+                timeline_ids: visibleTimelines.map((timeline) => timeline.id),
+              },
+            },
+          }
+          querySearch(payload)
+        }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+    } else {
+      isFirstRun.current = false
+    }
+  }, [
+    chosenCategories,
+    entrySearchString,
+    hasActiveFilter,
+    querySearch,
+    visibleTimelines,
+  ])
+
+  useEffect(() => {
+    if (entrySearchString === '' && !chosenCategories[0]) {
+      setDisplayedEntries(entries)
+    } else if (hasActiveFilter && searchData) {
+      setDisplayedEntries(searchData.search_time_entry)
+    }
+  }, [
+    chosenCategories,
+    hasActiveFilter,
+    searchData,
+    entrySearchString,
+    entries,
+  ])
+
+  const showRegularScroller = displayedEntries[0]
+
   return (
     <Layout>
       <TimelinePageHeader
         displayEntry={displayEntry}
         timelines={timelines}
-        zoomOut={zoomOut}
-        toggleZoomOut={toggleZoomOut}
+        chosenCategories={chosenCategories}
+        setChosenCategories={setChosenCategories}
+        entryCategories={entryCategories}
+        showSearchBar={showSearchBar}
+        setShowSearchBar={setShowSearchBar}
+        entrySearchString={entrySearchString}
+        setEntrySearchString={setEntrySearchString}
       />
-      <TimelineScrollerContainer id="scrollerContainer">
-        {showAnnualImportanceScroller ? (
-          <TimelineScrollerAnnual
-            visibleTimelines={visibleTimelines}
-            entries={entriesWithAnnualImportance}
-            newEntryId={newEntryId}
-            forwardedRef={objectRefs}
-            displayEntry={displayEntry}
-            bucketName={bucketName}
-          />
+      <TimelineScrollerContainer
+        id="scrollerContainer"
+        chosenCategories={chosenCategories}
+        showSearchBar={showSearchBar}
+      >
+        {hasActiveFilter && loading ? (
+          <span>Loading...</span>
         ) : showRegularScroller ? (
           <TimelineScroller
             visibleTimelines={visibleTimelines}
-            entries={entries}
+            entries={displayedEntries}
             newEntryId={newEntryId}
             forwardedRef={objectRefs}
             displayEntry={displayEntry}
@@ -286,4 +353,5 @@ TimelinePage.propTypes = {
   hasZoomOut: PropTypes.bool,
   dateFromHash: PropTypes.string,
   newEntryId: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  entryCategories: PropTypes.array,
 }

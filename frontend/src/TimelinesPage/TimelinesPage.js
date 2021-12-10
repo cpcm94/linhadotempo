@@ -92,6 +92,7 @@ export const TimelinesPage = ({
       isFirstRun.current = false
     }
   }, [chosenCategories, hasActiveFilter, querySearch, timelineSearchString])
+
   useEffect(() => {
     if (timelineSearchString === '' && !chosenCategories[0]) {
       setDisplayedTimelines(timelines)

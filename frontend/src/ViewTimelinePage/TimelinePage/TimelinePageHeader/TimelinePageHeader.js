@@ -6,19 +6,25 @@ import {
   YearWrapper,
   MonthWrapper,
   DayWrapper,
-  FormattingWrapper,
+  UpperHeader,
+  LowerHeader,
 } from './TimelinePageHeader.styles'
 import { abvMonthNameArray } from '../../../_shared/monthNameArray'
 import { ReturnButton } from '../../../_shared/ReturnButton'
 import { useHistory } from 'react-router'
-import { ZoomOutButton } from '../../../_shared/ZoomOutButton'
-import { ZoomInButton } from '../../../_shared/ZoomInButton'
+import { SearchButton } from '../../../_shared/SearchButton'
+import { EntrySearchBar } from './EntrySearchBar/EntrySearchBar'
 
 export const TimelinePageHeader = ({
   displayEntry,
   timelines,
-  toggleZoomOut,
-  zoomOut,
+  chosenCategories,
+  setChosenCategories,
+  entryCategories,
+  showSearchBar,
+  setShowSearchBar,
+  entrySearchString,
+  setEntrySearchString,
 }) => {
   let history = useHistory()
   const timelinesId = timelines.map((timeline) => timeline.id)
@@ -44,38 +50,48 @@ export const TimelinePageHeader = ({
       : null
 
   return (
-    <HeaderWrapper>
-      <ReturnButton onClick={navigateToTimelinesList} />
-      <EntryWrapper>
-        {yearAC ? (
-          <>
-            {!zoomOut && (
-              <>
-                <DayWrapper
-                  isDisplayEntryDay={
-                    displayEntry && displayEntry.day ? true : false
-                  }
-                >
-                  {displayEntry && displayEntry.day ? displayEntry.day : null}
-                </DayWrapper>
-                <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
-                  {displayEntry && displayEntry.day ? ` de ` : null}
-                  {monthName}
-                </MonthWrapper>
-              </>
-            )}
-            {zoomOut && <FormattingWrapper />}
-            <YearWrapper hasPrefix={monthName} zoomOut={zoomOut}>
-              {monthName && !zoomOut ? 'de ' : ''}
-              {yearAC}
-            </YearWrapper>
-          </>
-        ) : displayEntry && displayEntry.entryId ? (
-          'Sem data definida'
-        ) : null}
-      </EntryWrapper>
-      <ZoomOutButton onClick={toggleZoomOut} hide={zoomOut} />
-      <ZoomInButton onClick={toggleZoomOut} hide={!zoomOut} />
+    <HeaderWrapper
+      showSearchBar={showSearchBar}
+      chosenCategories={chosenCategories}
+    >
+      <UpperHeader>
+        <ReturnButton onClick={navigateToTimelinesList} />
+        <EntryWrapper>
+          {yearAC ? (
+            <>
+              <DayWrapper
+                isDisplayEntryDay={
+                  displayEntry && displayEntry.day ? true : false
+                }
+              >
+                {displayEntry && displayEntry.day ? displayEntry.day : null}
+              </DayWrapper>
+              <MonthWrapper isDisplayEntryMonth={monthName ? true : false}>
+                {displayEntry && displayEntry.day ? ` de ` : null}
+                {monthName}
+              </MonthWrapper>
+              <YearWrapper hasPrefix={monthName}>
+                {monthName ? 'de ' : ''}
+                {yearAC}
+              </YearWrapper>
+            </>
+          ) : displayEntry && displayEntry.entryId ? (
+            'Sem data definida'
+          ) : null}
+        </EntryWrapper>
+        <SearchButton onClick={() => setShowSearchBar(!showSearchBar)} />
+      </UpperHeader>
+      {showSearchBar && (
+        <LowerHeader>
+          <EntrySearchBar
+            categories={entryCategories}
+            chosenCategories={chosenCategories}
+            setChosenCategories={setChosenCategories}
+            entrySearchString={entrySearchString}
+            setEntrySearchString={setEntrySearchString}
+          />
+        </LowerHeader>
+      )}
     </HeaderWrapper>
   )
 }
@@ -83,6 +99,11 @@ export const TimelinePageHeader = ({
 TimelinePageHeader.propTypes = {
   displayEntry: PropTypes.object,
   timelines: PropTypes.array,
-  toggleZoomOut: PropTypes.func,
-  zoomOut: PropTypes.bool,
+  chosenCategories: PropTypes.array,
+  setChosenCategories: PropTypes.func,
+  entryCategories: PropTypes.array,
+  showSearchBar: PropTypes.bool,
+  setShowSearchBar: PropTypes.func,
+  entrySearchString: PropTypes.string,
+  setEntrySearchString: PropTypes.func,
 }

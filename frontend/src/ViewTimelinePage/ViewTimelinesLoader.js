@@ -7,6 +7,7 @@ import { TIME_ENTRIES_QUERY } from './TIME_ENTRIES_QUERY'
 import { urlQueryTimelineIds } from '../_shared/urlQueryTimelineIds'
 import { CurrentUserContext } from '../_shared/CurrentUserContextProvider'
 import qs from 'query-string'
+import { TIME_ENTRY_CATEGORIES_QUERY } from '../_shared/TIME_ENTRY_CATEGORIES_QUERY'
 
 export const ViewTimelinesLoader = () => {
   const { timelines, loading, getTimelines } = useContext(TimelinesContext)
@@ -20,6 +21,9 @@ export const ViewTimelinesLoader = () => {
     fetchPolicy: 'cache-and-network',
     variables: { timeline_ids: urlQueryTimelineIds() },
   })
+  const { data: entryCategoriesData, loading: entryCategoriesLoading } =
+    useQuery(TIME_ENTRY_CATEGORIES_QUERY)
+
   const hashObject = qs.parse(location.hash)
   const hasZoomOut = hashObject.zoomOut === 'true'
   const dateFromHash = hashObject.date
@@ -31,7 +35,8 @@ export const ViewTimelinesLoader = () => {
   const containsInvalidTimelines =
     urlQueryTimelineIds().length !== selectedTimelines.length
 
-  const isLoading = userDataLoading || loading || entriesLoading
+  const isLoading =
+    userDataLoading || loading || entriesLoading || entryCategoriesLoading
 
   return isLoading ? (
     <span>Loading...</span>
@@ -47,6 +52,7 @@ export const ViewTimelinesLoader = () => {
       hasZoomOut={hasZoomOut}
       dateFromHash={dateFromHash}
       newEntryId={newEntryId.current}
+      entryCategories={entryCategoriesData.time_entry_categories}
     />
   ) : null
 }
