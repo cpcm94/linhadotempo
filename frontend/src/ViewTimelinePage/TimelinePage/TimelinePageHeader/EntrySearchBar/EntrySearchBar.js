@@ -1,39 +1,29 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { CategoryFilterSelect } from '../../../../_shared/CategoryFilterSelect/CategoryFilterSelect'
 import {
-  Wrapper,
-  SearchBar,
-  FilteringCategories,
   Category,
+  FilteringCategories,
+  SearchBar,
   TextAndCategoriesWrapper,
-} from './TimelinesIconRow.styles'
-import { TimelinesCheckbox } from './TimelinesCheckbox'
-import { CategoryFilterSelect } from '../../_shared/CategoryFilterSelect/CategoryFilterSelect'
+} from './EntrySearchBar.styles'
+import PropTypes from 'prop-types'
 
-export const TimelinesIconRow = ({
-  timelines,
-  selectedTimelines,
-  setSelectedTimelines,
-  timelineSearchString,
-  setTimelineSearchString,
+export const EntrySearchBar = ({
   categories,
   chosenCategories,
   setChosenCategories,
+  entrySearchString,
+  setEntrySearchString,
 }) => {
   const handleChange = (e) => {
-    setTimelineSearchString(e.target.value)
+    setEntrySearchString(e.target.value)
   }
   return (
-    <Wrapper>
-      <TimelinesCheckbox
-        timelines={timelines}
-        selectedTimelines={selectedTimelines}
-        setSelectedTimelines={setSelectedTimelines}
-      />
+    <>
       <TextAndCategoriesWrapper>
         <SearchBar
           type="text"
-          value={timelineSearchString}
+          value={entrySearchString}
           onChange={handleChange}
           chosenCategories={chosenCategories}
         />
@@ -50,17 +40,14 @@ export const TimelinesIconRow = ({
         chosenCategories={chosenCategories}
         setChosenCategories={setChosenCategories}
       />
-    </Wrapper>
+    </>
   )
 }
 
-TimelinesIconRow.propTypes = {
-  timelines: PropTypes.array,
-  selectedTimelines: PropTypes.array,
-  setSelectedTimelines: PropTypes.func,
-  timelineSearchString: PropTypes.string,
-  setTimelineSearchString: PropTypes.func,
+EntrySearchBar.propTypes = {
   categories: PropTypes.array,
   chosenCategories: PropTypes.array,
   setChosenCategories: PropTypes.func,
+  entrySearchString: PropTypes.string,
+  setEntrySearchString: PropTypes.func,
 }

@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core'
 import styled from 'styled-components'
-import { colors } from '../../_shared/colors'
+import { colors } from '../colors'
 
 export const StyledBox = styled(Box)`
   position: absolute;

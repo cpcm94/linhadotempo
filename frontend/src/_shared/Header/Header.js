@@ -44,7 +44,9 @@ export const Header = ({
     <span>Loading...</span>
   ) : (
     <HeaderWrapper
-      timelinesIconRow={timelinesIconRow.props.chosenCategories}
+      timelinesIconRow={
+        timelinesIconRow && timelinesIconRow.props.chosenCategories
+      }
       entryTitle={entryTitle}
     >
       {entryTitle && (
