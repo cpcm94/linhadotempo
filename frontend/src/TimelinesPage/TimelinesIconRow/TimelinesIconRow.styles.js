@@ -49,4 +49,5 @@ export const TextAndCategoriesWrapper = styled.div`
   white-space: nowrap; /* forces text to single line */
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-left: 0.25rem;
 `
