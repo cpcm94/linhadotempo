@@ -21,7 +21,7 @@ export const ColorSection = ({ object, setObject }) => {
       <SectionTitle title={'Cor'} resetSection={resetColorField} />
       <GithubPicker
         triangle="hide"
-        color={object.color}
+        color={object.color ? object.color : ''}
         onChange={handleChangeColor}
         colors={colorsArray}
       />

@@ -15,7 +15,7 @@ export const TimeEntryCategoriesPage = ({ categories }) => {
   return (
     <Layout>
       <Header
-        title={'Categorias'}
+        title={'Categorias Acontecimentos'}
         pageActions={<AddCategoryButton onClick={navigateToNewCategoryPage} />}
         showMenuButton={true}
       />

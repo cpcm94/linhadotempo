@@ -26,6 +26,7 @@ export const TIME_ENTRY_QUERY = gql`
         id
         image_url
         is_main_image
+        name
       }
       timelines {
         id
