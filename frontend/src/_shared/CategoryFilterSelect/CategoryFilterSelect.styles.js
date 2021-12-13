@@ -18,6 +18,7 @@ export const CategoryName = styled.div`
   border-radius: 5px;
   padding: 0.25rem 0.5rem;
   margin: 0.25rem;
+  cursor: pointer;
 `
 export const Button = styled.div`
   background-color: ${colors.brown};
@@ -26,6 +27,7 @@ export const Button = styled.div`
   border: 1px solid ${colors.brown};
   border-left: none;
   padding: 2px 0.25rem 2px 0.25rem;
+  cursor: pointer;
 `
 
 export const CategoriesWrapper = styled.div`
@@ -43,4 +45,5 @@ export const ResetButton = styled.div`
 export const ResetButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+  cursor: pointer;
 `

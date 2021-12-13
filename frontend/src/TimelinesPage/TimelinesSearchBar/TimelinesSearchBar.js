@@ -6,11 +6,11 @@ import {
   FilteringCategories,
   Category,
   TextAndCategoriesWrapper,
-} from './TimelinesIconRow.styles'
+} from './TimelinesSearchBar.styles'
 import { TimelinesCheckbox } from './TimelinesCheckbox'
 import { CategoryFilterSelect } from '../../_shared/CategoryFilterSelect/CategoryFilterSelect'
 
-export const TimelinesIconRow = ({
+export const TimelinesSearchBar = ({
   timelines,
   selectedTimelines,
   setSelectedTimelines,
@@ -54,7 +54,7 @@ export const TimelinesIconRow = ({
   )
 }
 
-TimelinesIconRow.propTypes = {
+TimelinesSearchBar.propTypes = {
   timelines: PropTypes.array,
   selectedTimelines: PropTypes.array,
   setSelectedTimelines: PropTypes.func,

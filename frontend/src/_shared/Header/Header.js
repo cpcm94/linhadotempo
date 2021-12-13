@@ -22,7 +22,7 @@ export const Header = ({
   loading,
   pageActions,
   returnButton,
-  timelinesIconRow,
+  lowerHeader,
   showMenuButton,
   timelineTitle,
   entryTitle,
@@ -40,14 +40,14 @@ export const Header = ({
   const navigateToUserPage = () => {
     history.push('/user')
   }
+  const searchBarHasAtLeastOneChosenCategory =
+    lowerHeader && lowerHeader.props.chosenCategories[0]
   return userLoading ? (
     <span>Loading...</span>
   ) : (
     <HeaderWrapper
-      timelinesIconRow={
-        timelinesIconRow && timelinesIconRow.props.chosenCategories
-      }
-      entryTitle={entryTitle}
+      big={searchBarHasAtLeastOneChosenCategory || entryTitle}
+      medium={lowerHeader}
     >
       {entryTitle && (
         <UpperHeader>
@@ -66,9 +66,9 @@ export const Header = ({
           <UserButton initial={user.initial} onClick={navigateToUserPage} />
         )}
       </MiddleHeader>
-      {timelinesIconRow && (
+      {lowerHeader && (
         <LowerHeader>
-          <IconRow>{timelinesIconRow}</IconRow>
+          <IconRow>{lowerHeader}</IconRow>
         </LowerHeader>
       )}
     </HeaderWrapper>
@@ -80,7 +80,7 @@ Header.propTypes = {
   loading: PropTypes.bool,
   pageActions: PropTypes.element,
   returnButton: PropTypes.func,
-  timelinesIconRow: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
+  lowerHeader: PropTypes.oneOfType([PropTypes.element, PropTypes.bool]),
   showMenuButton: PropTypes.bool,
   icon: PropTypes.element,
   timelineTitle: PropTypes.element,

@@ -5,7 +5,7 @@ import { Layout } from '../_shared/Layout'
 import { AddTimelineButton } from './AddTimelineButton/AddTimelineButton'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router'
-import { TimelinesIconRow } from './TimelinesIconRow/TimelinesIconRow'
+import { TimelinesSearchBar } from './TimelinesSearchBar/TimelinesSearchBar'
 import { TimelinesContainer } from './TimelinesContainer'
 import { Footer } from '../_shared/Footer/Footer'
 import { TimelinesButtonsRow } from './TimelinesList/TimelinesButtonsRow'
@@ -114,8 +114,8 @@ export const TimelinesPage = ({
         pageActions={
           <AddTimelineButton onClick={() => navigateTo('/newTimeline')} />
         }
-        timelinesIconRow={
-          <TimelinesIconRow
+        lowerHeader={
+          <TimelinesSearchBar
             selectedTimelines={selectedTimelines}
             timelines={timelines}
             setSelectedTimelines={setSelectedTimelines}
