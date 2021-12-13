@@ -15,7 +15,7 @@ export const TimelineCategoriesPage = ({ categories }) => {
   return (
     <Layout>
       <Header
-        title={'Categorias'}
+        title={'Categorias Linhas do Tempo'}
         pageActions={<AddCategoryButton onClick={navigateToNewCategoryPage} />}
         showMenuButton={true}
       />
