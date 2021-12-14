@@ -29,7 +29,7 @@ import { filterEntryTimelinesByVisibleTimelines } from '../../../../../_shared/f
 import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../../../../_shared/getPeriodColorByEntryId'
 import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
-import { removePeriodsThatEndThisDate } from '../../../../../_shared/removePeriodsThatEndThisDate'
+import { removePeriodsThatStartThisDate } from '../../../../../_shared/removePeriodsThatStartThisDate'
 import { filterPeriodsOfSameDateByPosition } from '../../../../../_shared/filterPeriodsOfSameDateByPosition'
 import { TimelinesContext } from '../../../../TimelinesContextProvider'
 import { calculateDayMonthYearDistance } from '../../../../../_shared/calculateDayMonthYearDistance'
@@ -76,9 +76,9 @@ export const Entries = ({
   return (
     <>
       <DateWrapper isDisplayEntryDay={isDisplayEntryDay}>
-        {removePeriodsThatEndThisDate(periods, entries)[0] && (
+        {removePeriodsThatStartThisDate(periods, entries)[0] && (
           <PeriodMarker
-            periods={removePeriodsThatEndThisDate(periods, entries)}
+            periods={removePeriodsThatStartThisDate(periods, entries)}
             entryDate={entryDate}
           />
         )}

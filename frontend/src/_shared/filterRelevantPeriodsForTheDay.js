@@ -2,8 +2,10 @@ export const filterRelevantPeriodsForTheDay = (periods, year, month, day) => {
   return periods.filter((subArray) => {
     const periodStartYear = subArray[0].year
     const periodEndYear = subArray[1].year
+
     const periodStartMonth = subArray[0].month
     const periodEndMonth = subArray[1].month
+
     const periodStartDay = subArray[0].day
     const periodEndDay = subArray[1].day
 
@@ -29,7 +31,7 @@ export const filterRelevantPeriodsForTheDay = (periods, year, month, day) => {
       }
     } else if (year > periodStartYear && year === periodEndYear) {
       if (!periodEndMonth) {
-        return
+        return subArray
       } else if (month < periodEndMonth) {
         return subArray
       } else if (month === periodEndMonth) {
@@ -39,7 +41,7 @@ export const filterRelevantPeriodsForTheDay = (periods, year, month, day) => {
       }
     } else if (year === periodStartYear && year < periodEndYear) {
       if (!periodStartMonth) {
-        return subArray
+        return
       } else if (month > periodStartMonth) {
         return subArray
       } else if (month === periodStartMonth) {

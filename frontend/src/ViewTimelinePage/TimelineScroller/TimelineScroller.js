@@ -61,7 +61,7 @@ export const TimelineScroller = ({
   const arrayOfGroupedEntries = convertObjectToArray(entriesGroupedByYear)
 
   const entriesSortedByYear = arrayOfGroupedEntries.sort(
-    (a, b) => b[0].year - a[0].year
+    (a, b) => a[0].year - b[0].year
   )
   const periodsWithoutEndYear = periodsWithPositions.filter(
     (subArray) => !subArray[1].year
@@ -71,15 +71,6 @@ export const TimelineScroller = ({
     <>
       {visibleTimelines[0] ? (
         <EntriesWrapper>
-          {periodEndsWithoutYear[0] && (
-            <PeriodEndWithoutYear
-              periodEndsWithoutYear={periodEndsWithoutYear}
-              newEntryId={newEntryId}
-              visibleTimelines={visibleTimelines}
-              bucketName={bucketName}
-              periods={periodsWithoutEndYear}
-            />
-          )}
           {entriesSortedByYear.map((timeEntriesByYear, index) => (
             <YearEntries
               timeEntriesByYear={timeEntriesByYear}
@@ -95,6 +86,15 @@ export const TimelineScroller = ({
               )}
             />
           ))}
+          {periodEndsWithoutYear[0] && (
+            <PeriodEndWithoutYear
+              periodEndsWithoutYear={periodEndsWithoutYear}
+              newEntryId={newEntryId}
+              visibleTimelines={visibleTimelines}
+              bucketName={bucketName}
+              periods={periodsWithoutEndYear}
+            />
+          )}
           {entriesWithoutYear[0] && (
             <>
               <EntryWithoutYearLabelWrapper>

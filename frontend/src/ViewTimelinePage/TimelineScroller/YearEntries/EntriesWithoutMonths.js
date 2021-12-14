@@ -23,7 +23,7 @@ import { filterEntryTimelinesByVisibleTimelines } from '../../../_shared/filterE
 import { PeriodMarker } from '../../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../../_shared/getPeriodColorByEntryId'
 import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
-import { removePeriodsThatEndThisDate } from '../../../_shared/removePeriodsThatEndThisDate'
+import { removePeriodsThatStartThisDate } from '../../../_shared/removePeriodsThatStartThisDate'
 import { filterPeriodsOfSameDateByPosition } from '../../../_shared/filterPeriodsOfSameDateByPosition'
 import { TimelinesContext } from '../../TimelinesContextProvider'
 import { calculateYearDistance } from '../../../_shared/calculateYearDistance'
@@ -66,9 +66,12 @@ export const EntriesWithoutMonths = ({
   return (
     <>
       <OuterDateWrapper isDisplayEntryYear={isDisplayEntryYear}>
-        {removePeriodsThatEndThisDate(periods, entriesWithoutMonth)[0] && (
+        {removePeriodsThatStartThisDate(periods, entriesWithoutMonth)[0] && (
           <PeriodMarker
-            periods={removePeriodsThatEndThisDate(periods, entriesWithoutMonth)}
+            periods={removePeriodsThatStartThisDate(
+              periods,
+              entriesWithoutMonth
+            )}
             entryDate={entryDate}
           />
         )}

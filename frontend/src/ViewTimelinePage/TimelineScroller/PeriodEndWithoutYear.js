@@ -61,6 +61,7 @@ export const PeriodEndWithoutYear = ({
       <EntryWithoutYearLabelWrapper>
         <span>{'Períodos ainda ativos'}</span>
       </EntryWithoutYearLabelWrapper>
+      <PeriodMarker periods={periods} entryDate={entryDate} />
       {sortedPeriodEndsWithoutYear.map((entry, index) => {
         return (
           <EntryAndIconWrapper
