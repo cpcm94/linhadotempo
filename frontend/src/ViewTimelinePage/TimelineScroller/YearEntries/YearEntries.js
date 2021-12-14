@@ -18,13 +18,11 @@ export const YearEntries = ({
   bucketName,
   periods,
 }) => {
-  const periodsWithEndYearGreaterThan = periods.filter((subArray) => {
-    if (subArray[0].year < timeEntriesByYear[0].year) {
+  const periodsForEntriesWithoutMonth = periods.filter((subArray) => {
+    const entryYear = timeEntriesByYear[0].year
+    const periodStartYear = subArray[0].year
+    if (periodStartYear <= entryYear) {
       return subArray
-    } else if (subArray[0].year === timeEntriesByYear[0].year) {
-      if (!subArray[0].month) {
-        return subArray
-      }
     }
   })
   const entriesWithoutMonth = filterEntriesWithValue(timeEntriesByYear, 'month')
@@ -40,7 +38,7 @@ export const YearEntries = ({
     entriesGroupedByMonth
   )
   const entriesSortedByMonth = arrayOfGroupedEntriesByMonth.sort(
-    (a, b) => b[0].month - a[0].month
+    (a, b) => a[0].month - b[0].month
   )
 
   const atLeastOneEntryWithoutMonth = !!entriesWithoutMonth[0]
@@ -70,7 +68,7 @@ export const YearEntries = ({
           forwardedRef={forwardedRef}
           visibleTimelines={visibleTimelines}
           bucketName={bucketName}
-          periods={periodsWithEndYearGreaterThan}
+          periods={periodsForEntriesWithoutMonth}
           displayEntry={displayEntry}
         />
       )}

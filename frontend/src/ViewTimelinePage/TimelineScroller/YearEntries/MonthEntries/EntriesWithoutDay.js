@@ -28,7 +28,7 @@ import { abvMonthNameArray } from '../../../../_shared/monthNameArray'
 import { PeriodMarker } from '../../../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../../../_shared/getPeriodColorByEntryId'
 import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
-import { removePeriodsThatEndThisDate } from '../../../../_shared/removePeriodsThatEndThisDate'
+import { removePeriodsThatStartThisDate } from '../../../../_shared/removePeriodsThatStartThisDate'
 import { filterPeriodsOfSameDateByPosition } from '../../../../_shared/filterPeriodsOfSameDateByPosition'
 import { TimelinesContext } from '../../../TimelinesContextProvider'
 import { calculateMonthYearDistance } from '../../../../_shared/calculateMonthYearDistance'
@@ -79,9 +79,9 @@ export const EntriesWithoutDay = ({
   return (
     <>
       <OuterDateWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
-        {removePeriodsThatEndThisDate(periods, timeEntriesWithoutDay)[0] && (
+        {removePeriodsThatStartThisDate(periods, timeEntriesWithoutDay)[0] && (
           <PeriodMarker
-            periods={removePeriodsThatEndThisDate(
+            periods={removePeriodsThatStartThisDate(
               periods,
               timeEntriesWithoutDay
             )}
