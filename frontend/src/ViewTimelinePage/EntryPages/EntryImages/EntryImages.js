@@ -43,7 +43,7 @@ export const EntryImages = ({ entryId, entryImages, bucketName }) => {
     if (image.image_url !== '' && runCreateMutation.current)
       createImage(payload).then((res) => {
         if (res.data.createImage) {
-          setImages([...images, res.data.createImage])
+          setImages(res.data.createImage.time_entry.images)
           runCreateMutation.current = false
         }
       })

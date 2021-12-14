@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { UploadButton } from './UploadButton'
 import { v4 as uuidv4 } from 'uuid'
+import { convertObjectToArray } from './convertObjectToArray'
 
 const Wrapper = styled.div`
   display: flex;
@@ -57,30 +58,55 @@ export const FileUploader = ({
 
   const upload = useCallback(
     (files) => {
-      if (files.length > 1) {
+      if (files.length > 1 && updateTimelineIconImageUrl) {
         alert('Por favor envie apenas um arquivo')
         return null
-      }
-      setLoading(true)
-      const file = files[0]
-      const filename = `${imageFilePrefix}${uuidv4()}.jpg`
+      } else if (files.length > 1) {
+        const arrayOfFileObjects = convertObjectToArray(files)
 
-      var reader = new FileReader()
-      const onComplete = () => {
-        if (updateTimelineIconImageUrl) updateTimelineIconImageUrl(filename)
-        if (updateImageUrl) updateImageUrl(filename)
-      }
-      reader.addEventListener(
-        'loadend',
-        buildGetUploadTokenAndPostToAws({
-          filename,
-          file,
-          reader,
-          setLoading,
-          onComplete,
+        arrayOfFileObjects.map((file) => {
+          setLoading(true)
+          const filename = `${imageFilePrefix}${uuidv4()}.jpg`
+
+          var reader = new FileReader()
+          const onComplete = () => {
+            if (updateTimelineIconImageUrl) updateTimelineIconImageUrl(filename)
+            if (updateImageUrl) updateImageUrl(filename)
+          }
+          reader.addEventListener(
+            'loadend',
+            buildGetUploadTokenAndPostToAws({
+              filename,
+              file,
+              reader,
+              setLoading,
+              onComplete,
+            })
+          )
+          reader.readAsArrayBuffer(file)
         })
-      )
-      reader.readAsArrayBuffer(file)
+      } else {
+        setLoading(true)
+        const file = files[0]
+        const filename = `${imageFilePrefix}${uuidv4()}.jpg`
+
+        var reader = new FileReader()
+        const onComplete = () => {
+          if (updateTimelineIconImageUrl) updateTimelineIconImageUrl(filename)
+          if (updateImageUrl) updateImageUrl(filename)
+        }
+        reader.addEventListener(
+          'loadend',
+          buildGetUploadTokenAndPostToAws({
+            filename,
+            file,
+            reader,
+            setLoading,
+            onComplete,
+          })
+        )
+        reader.readAsArrayBuffer(file)
+      }
     },
     [imageFilePrefix, setLoading, updateImageUrl, updateTimelineIconImageUrl]
   )
@@ -94,6 +120,7 @@ export const FileUploader = ({
           <input
             type="file"
             id="file"
+            multiple
             ref={inputFile}
             onChange={(e) => {
               upload(e.target.files)
