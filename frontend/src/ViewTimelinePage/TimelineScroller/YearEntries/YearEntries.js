@@ -21,7 +21,14 @@ export const YearEntries = ({
   const periodsForEntriesWithoutMonth = periods.filter((subArray) => {
     const entryYear = timeEntriesByYear[0].year
     const periodStartYear = subArray[0].year
-    if (periodStartYear <= entryYear) {
+    const periodEndYear = subArray[1].year
+    if (periodEndYear === entryYear) {
+      if (subArray[1].month) {
+        return
+      } else {
+        return subArray
+      }
+    } else if (periodStartYear <= entryYear) {
       return subArray
     }
   })

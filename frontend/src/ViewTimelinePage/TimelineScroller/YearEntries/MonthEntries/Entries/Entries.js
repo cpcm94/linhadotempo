@@ -73,6 +73,9 @@ export const Entries = ({
     day: entries[0].day,
   }
 
+  const yearLength = year.toString().startsWith('-')
+    ? yearAC.length - 2
+    : yearAC.length
   return (
     <>
       <DateWrapper isDisplayEntryDay={isDisplayEntryDay}>
@@ -83,7 +86,7 @@ export const Entries = ({
           />
         )}
         <LeftDateLine />
-        <RightDateLine />
+        <RightDateLine yearLength={yearLength} />
         <DateSpan>
           <DayWrapper>{day}</DayWrapper>
           <MonthWrapper>

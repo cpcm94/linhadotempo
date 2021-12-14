@@ -87,7 +87,8 @@ export const RightDateLine = styled.div`
   left: 1;
   right: 0;
   bottom: 0;
-  width: calc(100% - (7.5rem + 46px));
+  width: ${({ yearLength }) =>
+    `calc(100% - (7.5rem + 12px + ${yearLength * 8}px))`};
   z-index: 1;
 `
 export const Wrapper = styled.div`

@@ -75,7 +75,9 @@ export const EntriesWithoutDay = ({
     month: timeEntriesWithoutDay[0].month,
     day: null,
   }
-
+  const yearLength = year.toString().startsWith('-')
+    ? yearAC.length - 2
+    : yearAC.length
   return (
     <>
       <OuterDateWrapper isDisplayEntryMonth={isDisplayEntryMonth}>
@@ -89,7 +91,7 @@ export const EntriesWithoutDay = ({
           />
         )}
         <LeftDateLine />
-        <RightDateLine />
+        <RightDateLine yearLength={yearLength} />
         <DateWrapper>
           <MonthDateWrapper>
             <span>{month}</span>

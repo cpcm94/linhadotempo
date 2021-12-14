@@ -62,7 +62,9 @@ export const EntriesWithoutMonths = ({
     month: null,
     day: null,
   }
-
+  const yearLength = entriesWithoutMonth[0].year.toString().startsWith('-')
+    ? year.length - 2
+    : year.length
   return (
     <>
       <OuterDateWrapper isDisplayEntryYear={isDisplayEntryYear}>
@@ -76,7 +78,7 @@ export const EntriesWithoutMonths = ({
           />
         )}
         <LeftDateLine />
-        <RightDateLine />
+        <RightDateLine yearLength={yearLength} />
         <YearWrapper>
           <span>{year}</span>
         </YearWrapper>
