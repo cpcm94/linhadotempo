@@ -7,7 +7,4 @@ export const periodColors = [
   '#BED3F3',
   '#D4C4FB',
   'pink',
-  'red',
-  'teal',
-  'orange',
 ]
