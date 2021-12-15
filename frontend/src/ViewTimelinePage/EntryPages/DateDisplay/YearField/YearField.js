@@ -35,7 +35,6 @@ export const YearField = ({
     const stringNewYear = nonNegativeNewYear.toString()
     setYear(stringNewYear)
   }
-
   return (
     <>
       <YearAndRadiosWrapper>
@@ -50,6 +49,7 @@ export const YearField = ({
             label="Ano"
             value={year}
             onChange={(e) => setYear(e.target.value)}
+            autoFocus
           />
           <PlusIcon size={'20'} onClick={() => incrementByNumber(year, 1)} />
           <PlusIcon size={'25'} onClick={() => incrementByNumber(year, 10)} />

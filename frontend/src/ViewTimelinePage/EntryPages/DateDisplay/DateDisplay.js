@@ -9,6 +9,7 @@ import { ResetFieldButton } from './ResetFieldButton'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 import { EndDateDisplay } from './EndDateDisplay'
+import { MicButton } from '../../../_shared/MicButton'
 
 export const DateDisplay = ({
   entry,
@@ -130,6 +131,7 @@ export const DateDisplay = ({
             ...
           </EllipsisWrapper>
         )}
+        <MicButton />
       </DateWrapper>
       {showYearPicker && (
         <YearField
