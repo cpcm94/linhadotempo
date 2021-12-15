@@ -60,16 +60,6 @@ export const EditEntryForm = ({
   }. Tem certeza que deseja deletar esse acontecimento? Essa ação será irreversível.`
   return (
     <Wrapper>
-      <EntryTimelinesSelect
-        fieldId={'timelines'}
-        entryError={entryError}
-        timelines={timelines}
-        resetField={resetSelectedTimelines}
-        entry={entry}
-        setEntry={setEntry}
-        bucketName={bucketName}
-        setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
-      />
       <DateDisplay
         fieldId={'date'}
         entryError={entryError}
@@ -86,14 +76,6 @@ export const EditEntryForm = ({
         title={'Acontecimento'}
         field={'name'}
       />
-      <EntryTextInput
-        entry={entry}
-        changeEntry={handleChange}
-        resetField={resetFieldValue}
-        title={'Descrição'}
-        field={'description'}
-      />
-      <EntryAnnualImportance entry={entry} setEntry={setEntry} />
       {categoriesLoading ? (
         <span>Loading...</span>
       ) : (
@@ -104,6 +86,24 @@ export const EditEntryForm = ({
           entryCategories={categories}
         />
       )}
+      <EntryTimelinesSelect
+        fieldId={'timelines'}
+        entryError={entryError}
+        timelines={timelines}
+        resetField={resetSelectedTimelines}
+        entry={entry}
+        setEntry={setEntry}
+        bucketName={bucketName}
+        setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
+      />
+      <EntryTextInput
+        entry={entry}
+        changeEntry={handleChange}
+        resetField={resetFieldValue}
+        title={'Descrição'}
+        field={'description'}
+      />
+      <EntryAnnualImportance entry={entry} setEntry={setEntry} />
       <TimelineOriginSelector
         entry={entry}
         bucketName={bucketName}

@@ -57,16 +57,6 @@ export const NewEntryForm = ({
   return (
     <Wrapper>
       <InnerWrapper>
-        <EntryTimelinesSelect
-          fieldId={'timelines'}
-          timelines={timelines}
-          resetField={resetSelectedTimelines}
-          setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
-          entryError={entryError}
-          entry={entry}
-          setEntry={setEntry}
-          bucketName={bucketName}
-        />
         <DateDisplay
           fieldId={'date'}
           entry={entry}
@@ -83,14 +73,6 @@ export const NewEntryForm = ({
           title={'Acontecimento'}
           field={'name'}
         />
-        <EntryTextInput
-          entry={entry}
-          changeEntry={handleChange}
-          resetField={resetFieldValue}
-          title={'Descrição'}
-          field={'description'}
-        />
-        <EntryAnnualImportance entry={entry} setEntry={setEntry} />
         {categoriesLoading ? (
           <span>Loading...</span>
         ) : (
@@ -101,6 +83,24 @@ export const NewEntryForm = ({
             entryCategories={categories}
           />
         )}
+        <EntryTimelinesSelect
+          fieldId={'timelines'}
+          timelines={timelines}
+          resetField={resetSelectedTimelines}
+          setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
+          entryError={entryError}
+          entry={entry}
+          setEntry={setEntry}
+          bucketName={bucketName}
+        />
+        <EntryTextInput
+          entry={entry}
+          changeEntry={handleChange}
+          resetField={resetFieldValue}
+          title={'Descrição'}
+          field={'description'}
+        />
+        <EntryAnnualImportance entry={entry} setEntry={setEntry} />
         <EntrySource
           entry={entry}
           books={books}
