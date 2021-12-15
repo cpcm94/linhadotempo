@@ -13,8 +13,11 @@ import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { filterEntryTimelinesByVisibleTimelines } from '../../_shared/filterEntryTimelinesByVisibleTimelines'
 import {
+  DateTextWrapper,
   EntryWithoutYearLabelWrapper,
+  LeftDateLine,
   PeriodsEndsWrapper,
+  RightDateLine,
 } from './TimelineScroller.styles'
 import { PeriodMarker } from '../../_shared/PeriodMarker/PeriodMarker'
 import { getPeriodColorByEntryId } from '../../_shared/getPeriodColorByEntryId'
@@ -54,12 +57,15 @@ export const PeriodEndWithoutYear = ({
         )[0].position,
       }
     })
-    .sort((a, b) => a.position - b.position)
-
+    .sort((a, b) => b.position - a.position)
   return (
     <PeriodsEndsWrapper>
       <EntryWithoutYearLabelWrapper>
-        <span>{'Períodos ainda ativos'}</span>
+        <LeftDateLine />
+        <RightDateLine />
+        <DateTextWrapper>
+          <span>{'Períodos ainda ativos'}</span>
+        </DateTextWrapper>
       </EntryWithoutYearLabelWrapper>
       <PeriodMarker periods={periods} entryDate={entryDate} />
       {sortedPeriodEndsWithoutYear.map((entry, index) => {

@@ -22,30 +22,12 @@ export const InvisibleIconWrapper = styled.div`
 export const EntryWithoutYearLabelWrapper = styled.div`
   display: flex;
   position: relative;
-  z-index: 1;
-  padding: 0.5rem;
-  color: ${colors.lightGrey};
-  visibility: ${({ isDisplayEntryYear }) =>
-    isDisplayEntryYear ? 'hidden' : 'visible'};
-  &:before {
-    border-top: 1px solid ${colors.lightGrey};
-    content: '';
-    margin: 0 auto;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0%;
-    bottom: 0;
-    width: 100%;
-    z-index: -1;
-  }
-  span {
-    background: ${colors.white};
-    padding: 0 0.5rem;
-    margin-left: 1.85rem;
-  }
-  font-size: 0.9em;
   color: ${colors.grey};
+  font-size: 0.9em;
+  padding: 0.5rem 0;
+  span {
+    padding: 0 0.25rem;
+  }
 `
 export const PeriodsEndsWrapper = styled.div`
   position: relative;
@@ -70,4 +52,27 @@ export const EntryAndIconWrapper = styled.div`
       : null};
   cursor: pointer;
   position: relative;
+`
+export const LeftDateLine = styled.div`
+  border-top: 1px solid ${colors.lightGrey};
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  right: 0%;
+  bottom: 0;
+  width: calc(50% - 75px);
+  z-index: 1;
+`
+export const RightDateLine = styled.div`
+  border-top: 1px solid ${colors.lightGrey};
+  position: absolute;
+  top: 50%;
+  left: 1;
+  right: 0;
+  bottom: 0;
+  width: calc(50% - 75px);
+  z-index: 1;
+`
+export const DateTextWrapper = styled.div`
+  margin-left: calc(50% - 75px);
 `

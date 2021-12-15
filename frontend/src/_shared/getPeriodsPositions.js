@@ -6,7 +6,13 @@ const getInitialPosition = (array, newPeriodStart) =>
   array.findIndex((subArray) => subArray[0].id === newPeriodStart.id)
 
 const findNewPositions = (array, item, index) => {
-  return { ...item, position: array[0] + index }
+  if (array.indexOf(item.position) !== index) {
+    return { ...item, position: array[index - 1] + 1 }
+  } else if (item.position < array[index - 1]) {
+    return { ...item, position: array[index - 1] + 1 }
+  } else {
+    return item
+  }
 }
 
 const updatePositions = (array) =>
@@ -29,64 +35,34 @@ const getIdAndPositions = (array) =>
 
 const getIdsAndPositions = (array) =>
   array.map((subArray) => {
-    if (!subArray[0].month) {
-      const relevantPeriods = filterRelevantPeriods(array, subArray[0].year)
+    const periodStartDay = subArray[0].day
+    const periodStartMonth = subArray[0].month
+    const periodStartYear = subArray[0].year
+
+    if (!periodStartMonth) {
+      const relevantPeriods = filterRelevantPeriods(array, periodStartYear)
       return getIdAndPositions(relevantPeriods)
-    } else if (!subArray[0].day) {
+    } else if (!periodStartDay) {
       const relevantPeriods = filterRelevantPeriodsForTheMonth(
         array,
-        subArray[0].year,
-        subArray[0].month
+        periodStartYear,
+        periodStartMonth
       )
       return getIdAndPositions(relevantPeriods)
-    } else if (subArray[0].day) {
+    } else if (periodStartDay) {
       const relevantPeriods = filterRelevantPeriodsForTheDay(
         array,
-        subArray[0].year,
-        subArray[0].month,
-        subArray[0].day
+        periodStartYear,
+        periodStartMonth,
+        periodStartDay
       )
       return getIdAndPositions(relevantPeriods)
     }
   })
 
-const createArrayWithIntermediatePositions = (array, resultArray) => {
-  array.map((subArray) =>
-    subArray.map((objectsWithIdAndPosition) => {
-      if (
-        !resultArray.filter(
-          (objectsWithIdAndFinalPosition) =>
-            objectsWithIdAndPosition.id === objectsWithIdAndFinalPosition.id
-        )[0]
-      ) {
-        resultArray.push(objectsWithIdAndPosition)
-      }
-    })
-  )
-  return resultArray
-}
-const substituteInitialPositionsWithIntermediate = (
-  initialPositionsArray,
-  intermediatePositionsArray
-) =>
-  initialPositionsArray.map((subArray) =>
-    subArray.map((objectsWithIdAndPosition) => {
-      if (
-        intermediatePositionsArray
-          .map((objectsWithIdAndPosition) => objectsWithIdAndPosition.id)
-          .includes(objectsWithIdAndPosition.id)
-      ) {
-        return intermediatePositionsArray.filter(
-          (objectsWithIdAndFinalPosition) =>
-            objectsWithIdAndFinalPosition.id === objectsWithIdAndPosition.id
-        )[0]
-      }
-    })
-  )
-
 const substitutePeriodsInitialPositionsWithFinal = (
   periodsWithInitialPositions,
-  arrayWithSubarraysOfIdsAndFinalPositions
+  arrayWithSubarraysOfIdsAndUpdatedInitialPositions
 ) =>
   periodsWithInitialPositions.map((subArray) =>
     subArray.map((entry) => {
@@ -94,7 +70,7 @@ const substitutePeriodsInitialPositionsWithFinal = (
         ...entry,
         position: filterPositionById(
           entry.id,
-          arrayWithSubarraysOfIdsAndFinalPositions
+          arrayWithSubarraysOfIdsAndUpdatedInitialPositions
         ),
       }
     })
@@ -102,19 +78,23 @@ const substitutePeriodsInitialPositionsWithFinal = (
 
 export const getPeriodsPositions = (periods) => {
   const periodsWithInitialPositions = periods.map((subArray) => {
-    if (!subArray[0].month) {
-      const relevantPeriods = filterRelevantPeriods(periods, subArray[0].year)
+    const periodStartDay = subArray[0].day
+    const periodStartMonth = subArray[0].month
+    const periodStartYear = subArray[0].year
+
+    if (!periodStartMonth) {
+      const relevantPeriods = filterRelevantPeriods(periods, periodStartYear)
       const newPeriodStart = { ...subArray[0] }
       newPeriodStart.position = getInitialPosition(
         relevantPeriods,
         newPeriodStart
       )
       return [newPeriodStart, subArray[1]]
-    } else if (!subArray[0].day) {
+    } else if (!periodStartDay) {
       const relevantPeriods = filterRelevantPeriodsForTheMonth(
         periods,
-        subArray[0].year,
-        subArray[0].month
+        periodStartYear,
+        periodStartMonth
       )
       const newPeriodStart = { ...subArray[0] }
 
@@ -123,12 +103,12 @@ export const getPeriodsPositions = (periods) => {
         newPeriodStart
       )
       return [newPeriodStart, subArray[1]]
-    } else if (subArray[0].day) {
+    } else if (periodStartDay) {
       const relevantPeriods = filterRelevantPeriodsForTheDay(
         periods,
-        subArray[0].year,
-        subArray[0].month,
-        subArray[0].day
+        periodStartYear,
+        periodStartMonth,
+        periodStartDay
       )
       const newPeriodStart = { ...subArray[0] }
       newPeriodStart.position = getInitialPosition(
@@ -142,27 +122,14 @@ export const getPeriodsPositions = (periods) => {
     periodsWithInitialPositions
   )
 
-  const arrayWithSubarraysOfIdsAndUpdatedInitialPositions = updatePositions(
+  const arrayWithSubarraysOfIdsAndUpdatedPositions = updatePositions(
     arrayWithSubarraysOfIdsAndPositions
-  )
-
-  const arrayWithIdsAndIntermediatePositions =
-    createArrayWithIntermediatePositions(
-      arrayWithSubarraysOfIdsAndUpdatedInitialPositions,
-      []
-    )
-  const arrayWithSubarraysOfIdsAndIntermediatePositions =
-    substituteInitialPositionsWithIntermediate(
-      arrayWithSubarraysOfIdsAndUpdatedInitialPositions,
-      arrayWithIdsAndIntermediatePositions
-    )
-  const arrayWithSubarraysOfIdsAndFinalPositions = updatePositions(
-    arrayWithSubarraysOfIdsAndIntermediatePositions
   )
 
   const periodsWithFinalPositions = substitutePeriodsInitialPositionsWithFinal(
     periodsWithInitialPositions,
-    arrayWithSubarraysOfIdsAndFinalPositions
+    arrayWithSubarraysOfIdsAndUpdatedPositions
   )
+
   return periodsWithFinalPositions
 }

@@ -1,8 +1,10 @@
 export const filterRelevantPeriods = (periods, year) =>
   periods.filter((subArray) => {
-    if (year >= subArray[0].year && year <= subArray[1].year) {
+    const periodStartYear = subArray[0].year
+    const periodEndYear = subArray[1].year
+    if (year >= periodStartYear && year <= periodEndYear) {
       return subArray
-    } else if (year >= subArray[0].year && !subArray[1].year) {
+    } else if (year >= periodStartYear && !periodEndYear) {
       return subArray
     }
   })
