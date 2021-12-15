@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   cursor: pointer;
 `
 
-export const MicButton = ({ onClick }) => {
+export const MicButton = ({ onClick, color }) => {
   return (
     <Wrapper onClick={onClick}>
       <svg
@@ -20,7 +20,7 @@ export const MicButton = ({ onClick }) => {
       >
         <g
           transform="translate(0.000000,1060.000000) scale(0.100000,-0.100000)"
-          fill={colors.black}
+          fill={color ? color : colors.black}
           stroke="none"
         >
           <path
@@ -54,4 +54,5 @@ export const MicButton = ({ onClick }) => {
 
 MicButton.propTypes = {
   onClick: PropTypes.func,
+  color: PropTypes.string,
 }
