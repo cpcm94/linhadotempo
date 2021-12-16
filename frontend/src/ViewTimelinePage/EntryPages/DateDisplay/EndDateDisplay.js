@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { DateSpan, DateWrapper, PeriodMessage } from './DateDisplay.styles'
+import {
+  DateSpan,
+  DateWrapper,
+  InnerDateWrapper,
+  PeriodMessage,
+} from './DateDisplay.styles'
 import { DaySelector } from './DaySelector/DaySelector'
 import { MonthSelector } from './MonthSelector/MonthSelector'
 import { ResetFieldButton } from './ResetFieldButton'
@@ -8,6 +13,7 @@ import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 import PropTypes from 'prop-types'
 import { monthNameArray } from '../../../_shared/monthNameArray'
+import { SpeechEndDateToText } from './SpeechDateToText/SpeechEndDateToText'
 
 const errorMessage = (error) => {
   if (error === 'dayWithoutYearOrMonthPeriod') {
@@ -28,6 +34,8 @@ export const EndDateDisplay = ({
   entryError,
   showMessageTrigger,
   setShowMessageTrigger,
+  enableSpeechToText,
+  setEnableSpeechToText,
 }) => {
   const [showEndDateDisplay, setShowEndDateDisplay] = useState(entry.is_period)
   const [showDayPicker, setShowDayPicker] = useState(false)
@@ -116,6 +124,9 @@ export const EndDateDisplay = ({
       setShowMessageTrigger(true)
     }
   }, [setShowMessageTrigger, showEndDateDisplay])
+
+  const anyDatePickerOpen = showDayPicker || showMonthPicker || showYearPicker
+
   return (
     <>
       {showPeriodTrigger && (
@@ -133,40 +144,50 @@ export const EndDateDisplay = ({
             <ErrorMessage>{errorMessage(entryError.error)}</ErrorMessage>
           )}
           <DateWrapper id={fieldId}>
-            <DateSpan
-              selected={showDayPicker}
-              isEmpty={checkIfEmptyString(entry.end_day)}
-              onClick={() => displayDatePicker('end_day')}
-            >
-              {checkIfEmptyString(entry.end_day) ? 'dia' : entry.end_day}
-              {showDayPicker && (
-                <ResetFieldButton resetField={resetFieldValue('end_day')} />
-              )}
-            </DateSpan>
-            /
-            <DateSpan
-              selected={showMonthPicker}
-              isEmpty={checkIfEmptyString(entry.end_month)}
-              onClick={() => displayDatePicker('end_month')}
-            >
-              {checkIfEmptyString(entry.end_month)
-                ? 'mês'
-                : monthNameArray[entry.end_month]}
-              {showMonthPicker && (
-                <ResetFieldButton resetField={resetFieldValue('end_month')} />
-              )}
-            </DateSpan>
-            /
-            <DateSpan
-              selected={showYearPicker}
-              isEmpty={checkIfEmptyString(entry.end_year)}
-              onClick={() => displayDatePicker('end_year')}
-            >
-              {checkIfEmptyString(entry.end_year) ? 'ano' : entry.end_year}
-              {showYearPicker && (
-                <ResetFieldButton resetField={resetFieldValue('end_year')} />
-              )}
-            </DateSpan>
+            <InnerDateWrapper>
+              <DateSpan
+                selected={showDayPicker}
+                isEmpty={checkIfEmptyString(entry.end_day)}
+                onClick={() => displayDatePicker('end_day')}
+              >
+                {checkIfEmptyString(entry.end_day) ? 'dia' : entry.end_day}
+                {showDayPicker && (
+                  <ResetFieldButton resetField={resetFieldValue('end_day')} />
+                )}
+              </DateSpan>
+              /
+              <DateSpan
+                selected={showMonthPicker}
+                isEmpty={checkIfEmptyString(entry.end_month)}
+                onClick={() => displayDatePicker('end_month')}
+              >
+                {checkIfEmptyString(entry.end_month)
+                  ? 'mês'
+                  : monthNameArray[entry.end_month]}
+                {showMonthPicker && (
+                  <ResetFieldButton resetField={resetFieldValue('end_month')} />
+                )}
+              </DateSpan>
+              /
+              <DateSpan
+                selected={showYearPicker}
+                isEmpty={checkIfEmptyString(entry.end_year)}
+                onClick={() => displayDatePicker('end_year')}
+              >
+                {checkIfEmptyString(entry.end_year) ? 'ano' : entry.end_year}
+                {showYearPicker && (
+                  <ResetFieldButton resetField={resetFieldValue('end_year')} />
+                )}
+              </DateSpan>
+            </InnerDateWrapper>
+            {!anyDatePickerOpen && (
+              <SpeechEndDateToText
+                entry={entry}
+                setEntry={setEntry}
+                enableSpeechToText={enableSpeechToText}
+                setEnableSpeechToText={setEnableSpeechToText}
+              />
+            )}
           </DateWrapper>
           {showYearPicker && (
             <YearField
@@ -207,4 +228,6 @@ EndDateDisplay.propTypes = {
   entryError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   showMessageTrigger: PropTypes.bool,
   setShowMessageTrigger: PropTypes.func,
+  enableSpeechToText: PropTypes.object,
+  setEnableSpeechToText: PropTypes.func,
 }
