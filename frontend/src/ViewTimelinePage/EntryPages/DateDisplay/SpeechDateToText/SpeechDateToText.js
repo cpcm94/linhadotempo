@@ -30,7 +30,6 @@ export const SpeechDateToText = ({
   }
 
   const handleMicClick = () => {
-    resetTranscript()
     setEnableSpeechToText({
       dateDisplayMic: true,
       endDateDisplayMic: false,
@@ -40,6 +39,7 @@ export const SpeechDateToText = ({
     } else {
       listenContinuously()
     }
+    resetTranscript()
   }
 
   const confirmDateFromTranscript = (dateObject) => {
