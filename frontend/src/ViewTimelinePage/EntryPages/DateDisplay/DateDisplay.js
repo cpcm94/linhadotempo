@@ -38,13 +38,15 @@ export const DateDisplay = ({
   const { transcript, listening, resetTranscript } = useSpeechRecognition()
 
   const listenContinuously = () => {
-    SpeechRecognition.startListening({ continuous: true })
+    SpeechRecognition.startListening({ continuous: true, language: 'pt-br' })
   }
 
   const [showEndDateDisplay, setShowEndDateDisplay] = useState(false)
   const [showDayPicker, setShowDayPicker] = useState(false)
   const [showMonthPicker, setShowMonthPicker] = useState(false)
   const [showYearPicker, setShowYearPicker] = useState(false)
+
+  const anyDatePickerOpen = showDayPicker || showMonthPicker || showYearPicker
 
   const displayDatePicker = (dateInfo) => {
     if (dateInfo === 'day') {
@@ -205,34 +207,38 @@ export const DateDisplay = ({
             </EllipsisWrapper>
           )}
         </InnerDateWrapper>
-        <SpeechToTextWrapper>
-          <MicButtonAndTranscriptWrapper>
-            <MicButton
-              color={listening && 'red'}
-              onClick={
-                listening ? SpeechRecognition.stopListening : listenContinuously
-              }
-            />
-            <TranscriptText>{transcript}</TranscriptText>
-          </MicButtonAndTranscriptWrapper>
-          {transcript.length > 0 && (
-            <ConfirmeDateWrapper>
-              <ConfirmDateButton
-                onClick={() =>
-                  confirmDateFromTranscript(textToDate(transcript))
+        {!anyDatePickerOpen && (
+          <SpeechToTextWrapper>
+            <MicButtonAndTranscriptWrapper>
+              <MicButton
+                color={listening && 'red'}
+                onClick={
+                  listening
+                    ? SpeechRecognition.stopListening
+                    : listenContinuously
                 }
-              >
-                &#10003;
-              </ConfirmDateButton>
-              <DateResult>
-                {convertDateObjectToString(textToDate(transcript))}
-              </DateResult>
-              <XIconWrapper>
-                <XIcon onClick={resetTranscript} />
-              </XIconWrapper>
-            </ConfirmeDateWrapper>
-          )}
-        </SpeechToTextWrapper>
+              />
+              <TranscriptText>{transcript}</TranscriptText>
+            </MicButtonAndTranscriptWrapper>
+            {transcript.length > 0 && (
+              <ConfirmeDateWrapper>
+                <ConfirmDateButton
+                  onClick={() =>
+                    confirmDateFromTranscript(textToDate(transcript))
+                  }
+                >
+                  &#10003;
+                </ConfirmDateButton>
+                <DateResult>
+                  {convertDateObjectToString(textToDate(transcript))}
+                </DateResult>
+                <XIconWrapper>
+                  <XIcon onClick={resetTranscript} />
+                </XIconWrapper>
+              </ConfirmeDateWrapper>
+            )}
+          </SpeechToTextWrapper>
+        )}
       </DateWrapper>
       {showYearPicker && (
         <YearField

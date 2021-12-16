@@ -27,7 +27,7 @@ export const MonthEntries = ({
     if (periodStartYear < entryYear) {
       return subArray
     } else if (periodStartYear === entryYear) {
-      if (periodStartMonth >= entryMonth) {
+      if (periodStartMonth <= entryMonth) {
         return subArray
       }
     }
