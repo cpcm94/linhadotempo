@@ -4,28 +4,17 @@ import { MonthSelector } from './MonthSelector/MonthSelector'
 import { YearField } from './YearField/YearField'
 import PropTypes from 'prop-types'
 import {
-  ConfirmDateButton,
-  ConfirmeDateWrapper,
-  DateResult,
   DateSpan,
   DateWrapper,
   EllipsisWrapper,
   InnerDateWrapper,
-  MicButtonAndTranscriptWrapper,
-  SpeechToTextWrapper,
-  TranscriptText,
-  XIconWrapper,
 } from './DateDisplay.styles'
 import { monthNameArray } from '../../../_shared/monthNameArray'
 import { ResetFieldButton } from './ResetFieldButton'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 import { EndDateDisplay } from './EndDateDisplay'
-import { MicButton } from '../../../_shared/MicButton'
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from 'react-speech-recognition'
-import { XIcon } from '../../../_shared/XIcon'
+import { SpeechDateToText } from './SpeechDateToText/SpeechDateToText'
 
 export const DateDisplay = ({
   entry,
@@ -35,17 +24,14 @@ export const DateDisplay = ({
   fieldId,
   entryError,
 }) => {
-  const { transcript, listening, resetTranscript } = useSpeechRecognition()
-
-  const listenContinuously = () => {
-    SpeechRecognition.startListening({ continuous: true, language: 'pt-br' })
-  }
-
   const [showEndDateDisplay, setShowEndDateDisplay] = useState(false)
   const [showDayPicker, setShowDayPicker] = useState(false)
   const [showMonthPicker, setShowMonthPicker] = useState(false)
   const [showYearPicker, setShowYearPicker] = useState(false)
-
+  const [enableSpeechToText, setEnableSpeechToText] = useState({
+    dateDisplayMic: false,
+    endDateDisplayMic: false,
+  })
   const anyDatePickerOpen = showDayPicker || showMonthPicker || showYearPicker
 
   const displayDatePicker = (dateInfo) => {
@@ -100,60 +86,11 @@ export const DateDisplay = ({
     setEntry(newEntry)
   }
 
-  const confirmDateFromTranscript = (dateObject) => {
-    const newEntry = { ...entry }
-    newEntry.day = parseInt(dateObject.day)
-    newEntry.month = dateObject.month
-    newEntry.year = dateObject.year
-    setEntry(newEntry)
-    SpeechRecognition.stopListening()
-  }
   const checkIfEmptyString = (string) => string.toString().trim() === ''
 
   const showErrorMessage = entryError && entryError.field === 'date'
 
   const showEllipsisButton = !showEndDateDisplay && entry.year !== ''
-
-  const textToDate = (text) => {
-    const arrayOfSplitText = text.split(' ')
-    const arrayOfMonths = monthNameArray.map((month) => month.toLowerCase())
-    const getMonthNumber = (monthName) =>
-      arrayOfMonths.indexOf(monthName.toLowerCase())
-
-    const countOccurencesOfItem = (array, item) =>
-      array.reduce((n, value) => {
-        return n + (value === item)
-      }, 0)
-
-    if (countOccurencesOfItem(arrayOfSplitText, 'de') === 2) {
-      return {
-        year: arrayOfSplitText[4],
-        month: getMonthNumber(arrayOfSplitText[2]),
-        day: arrayOfSplitText[0],
-      }
-    } else if (countOccurencesOfItem(arrayOfSplitText, 'de') === 1) {
-      return {
-        year: arrayOfSplitText[2],
-        month: getMonthNumber(arrayOfSplitText[0]),
-        day: null,
-      }
-    } else if (countOccurencesOfItem(arrayOfSplitText, 'de') === 0) {
-      return { year: arrayOfSplitText[0], month: null, day: null }
-    }
-  }
-
-  const convertDateObjectToString = (dateObject) => {
-    if (dateObject)
-      if (dateObject.day) {
-        return `${dateObject.day}/${monthNameArray[dateObject.month]}/${
-          dateObject.year
-        }`
-      } else if (dateObject.month && !dateObject.day) {
-        return `dia/${monthNameArray[dateObject.month]}/${dateObject.year}`
-      } else if (!dateObject.month && !dateObject.day) {
-        return `dia/mês/${dateObject.year}`
-      }
-  }
 
   return (
     <>
@@ -208,36 +145,12 @@ export const DateDisplay = ({
           )}
         </InnerDateWrapper>
         {!anyDatePickerOpen && (
-          <SpeechToTextWrapper>
-            <MicButtonAndTranscriptWrapper>
-              <MicButton
-                color={listening && 'red'}
-                onClick={
-                  listening
-                    ? SpeechRecognition.stopListening
-                    : listenContinuously
-                }
-              />
-              <TranscriptText>{transcript}</TranscriptText>
-            </MicButtonAndTranscriptWrapper>
-            {transcript.length > 0 && (
-              <ConfirmeDateWrapper>
-                <ConfirmDateButton
-                  onClick={() =>
-                    confirmDateFromTranscript(textToDate(transcript))
-                  }
-                >
-                  &#10003;
-                </ConfirmDateButton>
-                <DateResult>
-                  {convertDateObjectToString(textToDate(transcript))}
-                </DateResult>
-                <XIconWrapper>
-                  <XIcon onClick={resetTranscript} />
-                </XIconWrapper>
-              </ConfirmeDateWrapper>
-            )}
-          </SpeechToTextWrapper>
+          <SpeechDateToText
+            entry={entry}
+            setEntry={setEntry}
+            enableSpeechToText={enableSpeechToText}
+            setEnableSpeechToText={setEnableSpeechToText}
+          />
         )}
       </DateWrapper>
       {showYearPicker && (
@@ -267,6 +180,8 @@ export const DateDisplay = ({
         setRadioValue={setRadioValue}
         showMessageTrigger={showEndDateDisplay}
         setShowMessageTrigger={setShowEndDateDisplay}
+        enableSpeechToText={enableSpeechToText}
+        setEnableSpeechToText={setEnableSpeechToText}
       />
     </>
   )
