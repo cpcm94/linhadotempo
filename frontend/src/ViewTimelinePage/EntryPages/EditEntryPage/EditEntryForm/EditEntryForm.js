@@ -11,6 +11,7 @@ import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualIm
 import { TimelineOriginSelector } from '../../TimelineOriginSelector/TimelineOriginSelector'
 import { TimeEntryCategoriesContext } from '../../../TimeEntryCategoriesContextProvider'
 import { TimeEntryCategorySelect } from '../../../../_shared/TimeEntryCategorySelect/TimeEntryCategorySelect'
+import { EntryNameInput } from '../../EntryNameInput/EntryNameInput'
 
 export const EditEntryForm = ({
   entry,
@@ -68,13 +69,11 @@ export const EditEntryForm = ({
         radioValue={radioValue}
         setRadioValue={setRadioValue}
       />
-      <EntryTextInput
+      <EntryNameInput
         entry={entry}
+        setEntry={setEntry}
         entryError={entryError}
-        changeEntry={handleChange}
         resetField={resetFieldValue}
-        title={'Acontecimento'}
-        field={'name'}
       />
       <EntryTimelinesSelect
         fieldId={'timelines'}
@@ -86,6 +85,13 @@ export const EditEntryForm = ({
         bucketName={bucketName}
         setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
       />
+      <EntryTextInput
+        entry={entry}
+        changeEntry={handleChange}
+        resetField={resetFieldValue}
+        title={'Descrição'}
+        field={'description'}
+      />
       {categoriesLoading ? (
         <span>Loading...</span>
       ) : (
@@ -96,13 +102,6 @@ export const EditEntryForm = ({
           entryCategories={categories}
         />
       )}
-      <EntryTextInput
-        entry={entry}
-        changeEntry={handleChange}
-        resetField={resetFieldValue}
-        title={'Descrição'}
-        field={'description'}
-      />
       <EntryAnnualImportance entry={entry} setEntry={setEntry} />
       <TimelineOriginSelector
         entry={entry}

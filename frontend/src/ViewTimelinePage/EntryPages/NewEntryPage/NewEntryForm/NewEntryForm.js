@@ -14,6 +14,7 @@ import { DeleteButton } from '../../../../_shared/DeleteButton'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
 import { TimeEntryCategorySelect } from '../../../../_shared/TimeEntryCategorySelect/TimeEntryCategorySelect'
 import { TimeEntryCategoriesContext } from '../../../TimeEntryCategoriesContextProvider'
+import { EntryNameInput } from '../../EntryNameInput/EntryNameInput'
 
 export const NewEntryForm = ({
   timelines,
@@ -65,24 +66,12 @@ export const NewEntryForm = ({
           radioValue={radioValue}
           setRadioValue={setRadioValue}
         />
-        <EntryTextInput
+        <EntryNameInput
           entry={entry}
+          setEntry={setEntry}
           entryError={entryError}
-          changeEntry={handleChange}
           resetField={resetFieldValue}
-          title={'Acontecimento'}
-          field={'name'}
         />
-        {categoriesLoading ? (
-          <span>Loading...</span>
-        ) : (
-          <TimeEntryCategorySelect
-            entry={entry}
-            setEntry={setEntry}
-            resetField={resetSelectedTimeEntryCategories}
-            entryCategories={categories}
-          />
-        )}
         <EntryTimelinesSelect
           fieldId={'timelines'}
           timelines={timelines}
@@ -100,6 +89,16 @@ export const NewEntryForm = ({
           title={'Descrição'}
           field={'description'}
         />
+        {categoriesLoading ? (
+          <span>Loading...</span>
+        ) : (
+          <TimeEntryCategorySelect
+            entry={entry}
+            setEntry={setEntry}
+            resetField={resetSelectedTimeEntryCategories}
+            entryCategories={categories}
+          />
+        )}
         <EntryAnnualImportance entry={entry} setEntry={setEntry} />
         <EntrySource
           entry={entry}

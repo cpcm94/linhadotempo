@@ -184,7 +184,11 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
         timelines: {
           sync: filterCookieTimelinesForVisibleTimelines(
             cookieEntry.current.timelines.split(',')
-          ),
+          )[0]
+            ? filterCookieTimelinesForVisibleTimelines(
+                cookieEntry.current.timelines.split(',')
+              )
+            : [timelines[0].id],
         },
         time_entry_categories: {
           sync: cookieEntry.current.time_entry_categories
@@ -225,6 +229,7 @@ export const NewEntryPage = ({ timelines, books, bucketName, hasZoomOut }) => {
     entry.book_page,
     radioValue,
     filterCookieTimelinesForVisibleTimelines,
+    timelines,
   ])
   const setEntryTimelines = (array) => {
     const newEntry = { ...entry }

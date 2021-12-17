@@ -23,11 +23,11 @@ const updatePositions = (array) =>
     )
   })
 
-const filterPositionById = (id, array) =>
-  array
+const filterPositionById = (id, array) => {
+  return array
     .map((subArray) => subArray.filter((entry) => entry.id === id))
     .filter((subArray) => subArray.length)[0][0].position
-
+}
 const getIdAndPositions = (array) =>
   array.map((subArray) => {
     return { id: subArray[0].id, position: subArray[0].position }

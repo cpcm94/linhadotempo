@@ -103,4 +103,5 @@ export const CheckBoxWrapper = styled.div`
 `
 export const SpanMessage = styled.span`
   padding: 0 0.75rem;
+  display: block;
 `

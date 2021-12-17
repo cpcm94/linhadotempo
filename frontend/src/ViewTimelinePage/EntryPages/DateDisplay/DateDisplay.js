@@ -32,7 +32,6 @@ export const DateDisplay = ({
     dateDisplayMic: false,
     endDateDisplayMic: false,
   })
-  const anyDatePickerOpen = showDayPicker || showMonthPicker || showYearPicker
 
   const displayDatePicker = (dateInfo) => {
     if (dateInfo === 'day') {
@@ -144,14 +143,11 @@ export const DateDisplay = ({
             </EllipsisWrapper>
           )}
         </InnerDateWrapper>
-        {!anyDatePickerOpen && (
-          <SpeechDateToText
-            entry={entry}
-            setEntry={setEntry}
-            enableSpeechToText={enableSpeechToText}
-            setEnableSpeechToText={setEnableSpeechToText}
-          />
-        )}
+        <SpeechDateToText
+          onDateChange={(date) => {
+            console.log({ date })
+          }}
+        />
       </DateWrapper>
       {showYearPicker && (
         <YearField
