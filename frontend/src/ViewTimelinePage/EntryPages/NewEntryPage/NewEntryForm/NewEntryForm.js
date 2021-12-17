@@ -14,6 +14,7 @@ import { DeleteButton } from '../../../../_shared/DeleteButton'
 import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualImportance'
 import { TimeEntryCategorySelect } from '../../../../_shared/TimeEntryCategorySelect/TimeEntryCategorySelect'
 import { TimeEntryCategoriesContext } from '../../../TimeEntryCategoriesContextProvider'
+import { EntryNameInput } from '../../EntryNameInput/EntryNameInput'
 
 export const NewEntryForm = ({
   timelines,
@@ -65,13 +66,11 @@ export const NewEntryForm = ({
           radioValue={radioValue}
           setRadioValue={setRadioValue}
         />
-        <EntryTextInput
+        <EntryNameInput
           entry={entry}
+          setEntry={setEntry}
           entryError={entryError}
-          changeEntry={handleChange}
           resetField={resetFieldValue}
-          title={'Acontecimento'}
-          field={'name'}
         />
         <EntryTimelinesSelect
           fieldId={'timelines'}
