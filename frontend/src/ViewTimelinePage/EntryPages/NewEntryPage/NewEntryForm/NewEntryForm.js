@@ -73,16 +73,6 @@ export const NewEntryForm = ({
           title={'Acontecimento'}
           field={'name'}
         />
-        {categoriesLoading ? (
-          <span>Loading...</span>
-        ) : (
-          <TimeEntryCategorySelect
-            entry={entry}
-            setEntry={setEntry}
-            resetField={resetSelectedTimeEntryCategories}
-            entryCategories={categories}
-          />
-        )}
         <EntryTimelinesSelect
           fieldId={'timelines'}
           timelines={timelines}
@@ -100,6 +90,16 @@ export const NewEntryForm = ({
           title={'Descrição'}
           field={'description'}
         />
+        {categoriesLoading ? (
+          <span>Loading...</span>
+        ) : (
+          <TimeEntryCategorySelect
+            entry={entry}
+            setEntry={setEntry}
+            resetField={resetSelectedTimeEntryCategories}
+            entryCategories={categories}
+          />
+        )}
         <EntryAnnualImportance entry={entry} setEntry={setEntry} />
         <EntrySource
           entry={entry}

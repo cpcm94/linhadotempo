@@ -1,7 +1,12 @@
 import styled from 'styled-components'
 import { colors } from '../../../_shared/colors'
 
-export const ClosedDisplayWrapper = styled.div``
+export const ClosedDisplayWrapper = styled.div`
+  span {
+    display: block;
+    padding: 0 0.75rem;
+  }
+`
 
 export const TimelineNameWrapper = styled.div`
   flex: 1;

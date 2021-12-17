@@ -48,9 +48,9 @@ export const TimelineOriginSelector = ({
   const selectedTimelines = timelinesObjects.filter((timeline) =>
     selectedTimelineIds.includes(timeline.id)
   )
-  const sortedSelectedTimelines =
-    selectedTimelines[0] &&
-    selectedTimelines.sort((a, b) => a.name.localeCompare(b.name))
+  const sortedSelectedTimelines = selectedTimelines[0]
+    ? selectedTimelines.sort((a, b) => a.name.localeCompare(b.name))
+    : []
 
   const filteredTimelinesByOriginId = sortedSelectedTimelines.filter(
     (timeline) => {

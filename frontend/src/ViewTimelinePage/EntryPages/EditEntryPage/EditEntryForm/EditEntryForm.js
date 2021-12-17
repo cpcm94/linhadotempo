@@ -86,6 +86,13 @@ export const EditEntryForm = ({
         bucketName={bucketName}
         setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
       />
+      <EntryTextInput
+        entry={entry}
+        changeEntry={handleChange}
+        resetField={resetFieldValue}
+        title={'Descrição'}
+        field={'description'}
+      />
       {categoriesLoading ? (
         <span>Loading...</span>
       ) : (
@@ -96,13 +103,6 @@ export const EditEntryForm = ({
           entryCategories={categories}
         />
       )}
-      <EntryTextInput
-        entry={entry}
-        changeEntry={handleChange}
-        resetField={resetFieldValue}
-        title={'Descrição'}
-        field={'description'}
-      />
       <EntryAnnualImportance entry={entry} setEntry={setEntry} />
       <TimelineOriginSelector
         entry={entry}

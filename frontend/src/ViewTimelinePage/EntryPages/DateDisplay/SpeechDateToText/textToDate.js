@@ -1,10 +1,34 @@
 import { monthNameArray } from '../../../../_shared/monthNameArray'
 
+const arrayOfWrittenNumbers = [
+  'buffer',
+  'um',
+  'dois',
+  'três',
+  'quatro',
+  'cinco',
+  'seis',
+  'sete',
+  'oito',
+  'nove',
+  'dez',
+  'onze',
+  'doze',
+]
+
 export const textToDate = (text) => {
   const arrayOfSplitText = text.split(' ')
   const arrayOfMonths = monthNameArray.map((month) => month.toLowerCase())
   const getMonthNumber = (monthName) =>
     arrayOfMonths.indexOf(monthName.toLowerCase())
+
+  const getMonthNumberIfString = (month) => {
+    if (arrayOfWrittenNumbers.includes(month.toLowerCase())) {
+      return arrayOfWrittenNumbers.indexOf(month.toLowerCase())
+    } else if (parseInt(month)) {
+      return parseInt(month)
+    }
+  }
 
   const countOccurencesOfItem = (array, item) =>
     array.reduce((n, value) => {
@@ -17,17 +41,26 @@ export const textToDate = (text) => {
       month: getMonthNumber(arrayOfSplitText[2]),
       day: arrayOfSplitText[0],
     }
+  } else if (
+    countOccurencesOfItem(arrayOfSplitText, 'de') === 1 &&
+    countOccurencesOfItem(arrayOfSplitText, 'do') === 1
+  ) {
+    return {
+      year: arrayOfSplitText[4],
+      month: getMonthNumberIfString(arrayOfSplitText[2]),
+      day: arrayOfSplitText[0],
+    }
   } else if (countOccurencesOfItem(arrayOfSplitText, 'de') === 1) {
     return {
       year: arrayOfSplitText[2],
       month: getMonthNumber(arrayOfSplitText[0]),
-      day: null,
+      day: '',
     }
   } else if (countOccurencesOfItem(arrayOfSplitText, 'de') === 0) {
     return {
-      year: !parseInt(arrayOfSplitText[0]) ? null : arrayOfSplitText[0],
-      month: null,
-      day: null,
+      year: !parseInt(arrayOfSplitText[0]) ? '' : arrayOfSplitText[0],
+      month: '',
+      day: '',
     }
   }
 }

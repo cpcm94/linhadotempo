@@ -4,12 +4,6 @@ import { colors } from '../../../_shared/colors'
 export const DateWrapper = styled.div`
   display: flex;
   margin-bottom: -2px;
-  @media (max-width: 425px) {
-    flex-direction: column;
-  }
-  @media (min-width: 426px) {
-    flex-direction: row;
-  }
 `
 export const InnerDateWrapper = styled.div`
   display: flex;

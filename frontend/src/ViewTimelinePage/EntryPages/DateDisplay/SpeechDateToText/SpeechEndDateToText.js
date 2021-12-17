@@ -1,21 +1,19 @@
-import React from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { MicButton } from '../../../../_shared/MicButton'
-import { XIcon } from '../../../../_shared/XIcon'
 import {
-  ConfirmDateButton,
-  ConfirmeDateWrapper,
-  DateResult,
   MicButtonAndTranscriptWrapper,
   SpeechToTextWrapper,
   TranscriptText,
-  XIconWrapper,
+  TranscriptTextWrapper,
 } from './SpeechDateToText.styles'
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition'
 import PropTypes from 'prop-types'
 import { textToDate } from './textToDate'
-import { convertDateObjectToString } from './convertDateObjectToString'
+
+const AUTO_SAVE_DEBOUNCE_MILISECONDS = 2500
+let timeoutId = null
 
 export const SpeechEndDateToText = ({
   entry,
@@ -23,7 +21,13 @@ export const SpeechEndDateToText = ({
   enableSpeechToText,
   setEnableSpeechToText,
 }) => {
-  const { transcript, listening, resetTranscript } = useSpeechRecognition()
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition()
+  const isFirstRun = useRef(true)
 
   const listenContinuously = () => {
     SpeechRecognition.startListening({ continuous: true, language: 'pt-br' })
@@ -41,44 +45,71 @@ export const SpeechEndDateToText = ({
     }
     resetTranscript()
   }
-
-  const confirmDateFromTranscript = (dateObject) => {
-    const newEntry = { ...entry }
-    newEntry.end_day = dateObject.day ? parseInt(dateObject.day) : ''
-    newEntry.end_month = dateObject.month ? dateObject.month : ''
-    newEntry.end_year = dateObject.year ? dateObject.year : ''
-    setEntry(newEntry)
-    SpeechRecognition.stopListening()
-    resetTranscript()
-  }
+  console.log('entry', entry)
+  const confirmDateFromTranscript = useCallback(
+    (dateObject) => {
+      console.log('dateObject', dateObject)
+      const newEntry = { ...entry }
+      newEntry.end_day = dateObject.day ? parseInt(dateObject.day) : ''
+      newEntry.end_month = dateObject.month ? dateObject.month : ''
+      newEntry.end_year = dateObject.year ? dateObject.year : ''
+      setEntry(newEntry)
+      SpeechRecognition.stopListening()
+      setEnableSpeechToText({
+        dateDisplayMic: false,
+        endDateDisplayMic: false,
+      })
+      resetTranscript()
+    },
+    [entry, resetTranscript, setEnableSpeechToText, setEntry]
+  )
 
   const enabled = enableSpeechToText.endDateDisplayMic
   const listeningAndEnabled = listening && enabled
+
+  useEffect(() => {
+    if (enabled) {
+      const hasMonthOrEmptyMonth =
+        textToDate(transcript).month || textToDate(transcript).month === ''
+      const hasDayOrEmptyDay =
+        textToDate(transcript).day || textToDate(transcript).day === ''
+
+      const textToDateIsValid =
+        textToDate(transcript).year &&
+        textToDate(transcript).year !== '' &&
+        hasMonthOrEmptyMonth &&
+        hasDayOrEmptyDay
+
+      if (!isFirstRun.current) {
+        if (timeoutId) {
+          clearTimeout(timeoutId)
+        }
+        if (textToDateIsValid)
+          timeoutId = setTimeout(() => {
+            confirmDateFromTranscript(textToDate(transcript))
+          }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
+      } else {
+        isFirstRun.current = false
+      }
+    }
+  }, [confirmDateFromTranscript, enabled, transcript])
+
   return (
-    <SpeechToTextWrapper>
-      <MicButtonAndTranscriptWrapper>
-        <MicButton
-          color={listeningAndEnabled && 'red'}
-          onClick={handleMicClick}
-        />
-        <TranscriptText>{enabled ? transcript : null}</TranscriptText>
-      </MicButtonAndTranscriptWrapper>
-      {transcript.length > 0 && enabled ? (
-        <ConfirmeDateWrapper>
-          <ConfirmDateButton
-            onClick={() => confirmDateFromTranscript(textToDate(transcript))}
-          >
-            &#10003;
-          </ConfirmDateButton>
-          <DateResult>
-            {convertDateObjectToString(textToDate(transcript))}
-          </DateResult>
-          <XIconWrapper>
-            <XIcon onClick={resetTranscript} />
-          </XIconWrapper>
-        </ConfirmeDateWrapper>
-      ) : null}
-    </SpeechToTextWrapper>
+    <>
+      {browserSupportsSpeechRecognition && (
+        <SpeechToTextWrapper>
+          <MicButtonAndTranscriptWrapper>
+            <MicButton
+              color={listeningAndEnabled && 'red'}
+              onClick={handleMicClick}
+            />
+          </MicButtonAndTranscriptWrapper>
+          <TranscriptTextWrapper>
+            <TranscriptText>{enabled ? transcript : null}</TranscriptText>
+          </TranscriptTextWrapper>
+        </SpeechToTextWrapper>
+      )}
+    </>
   )
 }
 
