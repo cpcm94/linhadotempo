@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   MicButtonAndTranscriptWrapper,
   SpeechToNameWrapper,
@@ -11,26 +11,20 @@ import { MicButton } from '../MicButton'
 
 export const SpeechToText = ({ onTextChange }) => {
   const [recording, setRecording] = useState(false)
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition({ transcribing: recording })
+  const { transcript, resetTranscript, browserSupportsSpeechRecognition } =
+    useSpeechRecognition({ transcribing: recording })
 
   const handleMicClick = () => {
-    setRecording(true)
-    SpeechRecognition.startListening({ language: 'pt-br' })
-  }
-  useEffect(() => {
-    if (!listening) {
+    if (!recording) {
+      setRecording(true)
+      SpeechRecognition.startListening({ language: 'pt-br', continuous: true })
+    } else {
       setRecording(false)
-      if (transcript) {
-        onTextChange(transcript)
-        resetTranscript()
-      }
+      SpeechRecognition.stopListening()
+      onTextChange(transcript)
+      resetTranscript()
     }
-  }, [listening, onTextChange, resetTranscript, transcript])
+  }
 
   return (
     <>

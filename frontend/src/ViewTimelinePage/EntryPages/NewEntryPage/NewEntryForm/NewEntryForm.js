@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { DateDisplay } from '../../DateDisplay/DateDisplay'
-import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
 import {
   DeleteButtonWrapper,
   InnerWrapper,
@@ -15,6 +14,7 @@ import { EntryAnnualImportance } from '../../EntryAnnualImportance/EntryAnnualIm
 import { TimeEntryCategorySelect } from '../../../../_shared/TimeEntryCategorySelect/TimeEntryCategorySelect'
 import { TimeEntryCategoriesContext } from '../../../TimeEntryCategoriesContextProvider'
 import { EntryNameInput } from '../../EntryNameInput/EntryNameInput'
+import { EntryDescriptionInput } from '../../EntryDescriptionInput/EntryDescriptionInput'
 
 export const NewEntryForm = ({
   timelines,
@@ -82,12 +82,10 @@ export const NewEntryForm = ({
           setEntry={setEntry}
           bucketName={bucketName}
         />
-        <EntryTextInput
+        <EntryDescriptionInput
           entry={entry}
-          changeEntry={handleChange}
+          setEntry={setEntry}
           resetField={resetFieldValue}
-          title={'Descrição'}
-          field={'description'}
         />
         {categoriesLoading ? (
           <span>Loading...</span>

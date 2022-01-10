@@ -28,10 +28,6 @@ export const DateDisplay = ({
   const [showDayPicker, setShowDayPicker] = useState(false)
   const [showMonthPicker, setShowMonthPicker] = useState(false)
   const [showYearPicker, setShowYearPicker] = useState(false)
-  const [enableSpeechToText, setEnableSpeechToText] = useState({
-    dateDisplayMic: false,
-    endDateDisplayMic: false,
-  })
 
   const displayDatePicker = (dateInfo) => {
     if (dateInfo === 'day') {
@@ -82,6 +78,14 @@ export const DateDisplay = ({
     newEntry.day = ''
     newEntry.month = ''
     newEntry.year = ''
+    setEntry(newEntry)
+  }
+
+  const onDateChange = (date) => {
+    const newEntry = { ...entry }
+    newEntry.day = date.day ? parseInt(date.day) : ''
+    newEntry.month = date.month ? date.month : ''
+    newEntry.year = date.year
     setEntry(newEntry)
   }
 
@@ -143,11 +147,7 @@ export const DateDisplay = ({
             </EllipsisWrapper>
           )}
         </InnerDateWrapper>
-        <SpeechDateToText
-          onDateChange={(date) => {
-            console.log({ date })
-          }}
-        />
+        <SpeechDateToText onDateChange={onDateChange} />
       </DateWrapper>
       {showYearPicker && (
         <YearField
@@ -176,8 +176,6 @@ export const DateDisplay = ({
         setRadioValue={setRadioValue}
         showMessageTrigger={showEndDateDisplay}
         setShowMessageTrigger={setShowEndDateDisplay}
-        enableSpeechToText={enableSpeechToText}
-        setEnableSpeechToText={setEnableSpeechToText}
       />
     </>
   )

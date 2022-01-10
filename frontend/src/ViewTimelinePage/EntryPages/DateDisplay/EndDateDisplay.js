@@ -13,6 +13,7 @@ import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 import PropTypes from 'prop-types'
 import { monthNameArray } from '../../../_shared/monthNameArray'
+import { SpeechDateToText } from './SpeechDateToText/SpeechDateToText'
 
 const errorMessage = (error) => {
   if (error === 'dayWithoutYearOrMonthPeriod') {
@@ -109,6 +110,14 @@ export const EndDateDisplay = ({
     setEntry(newEntry)
     setShowEndDateDisplay(false)
   }
+
+  const onDateChange = (date) => {
+    const newEntry = { ...entry }
+    newEntry.end_day = date.day ? parseInt(date.day) : ''
+    newEntry.end_month = date.month ? date.month : ''
+    newEntry.end_year = date.year
+    setEntry(newEntry)
+  }
   const checkIfEmptyString = (string) => string.toString().trim() === ''
 
   const showErrorMessage = entryError && entryError.field === 'endDate'
@@ -175,6 +184,7 @@ export const EndDateDisplay = ({
                 )}
               </DateSpan>
             </InnerDateWrapper>
+            <SpeechDateToText onDateChange={onDateChange} />
           </DateWrapper>
           {showYearPicker && (
             <YearField

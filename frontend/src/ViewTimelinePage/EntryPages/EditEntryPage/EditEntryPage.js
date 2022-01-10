@@ -30,7 +30,6 @@ export const EditEntryPage = ({
   entryToEdit,
   books,
   bucketName,
-  hasZoomOut,
 }) => {
   const isFirstRun = useRef(true)
   const [showTimelineSelectorScreen, setShowTimelineSelectorScreen] =
@@ -76,9 +75,7 @@ export const EditEntryPage = ({
       search: `?timelines=${timelinesString}`,
       hash: `#date=${entry.year ? entry.year : 'null'}${
         entry.month ? `/${entry.month}` : ''
-      }${entry.day ? `/${entry.day}` : ''}&entryId=${
-        entryToEdit.id
-      }&zoomOut=${hasZoomOut}`,
+      }${entry.day ? `/${entry.day}` : ''}&entryId=${entryToEdit.id}`,
     })
   }
 
@@ -199,5 +196,4 @@ EditEntryPage.propTypes = {
   entryToEdit: PropTypes.object,
   books: PropTypes.array,
   bucketName: PropTypes.string,
-  hasZoomOut: PropTypes.bool,
 }

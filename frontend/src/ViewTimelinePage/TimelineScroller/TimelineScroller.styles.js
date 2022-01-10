@@ -76,3 +76,13 @@ export const RightDateLine = styled.div`
 export const DateTextWrapper = styled.div`
   margin-left: calc(50% - 75px);
 `
+export const RightNoDateLine = styled.div`
+  border-top: 1px solid ${colors.lightGrey};
+  position: absolute;
+  top: 50%;
+  left: 1;
+  right: 0;
+  bottom: 0;
+  width: calc(50% - 55px);
+  z-index: 1;
+`

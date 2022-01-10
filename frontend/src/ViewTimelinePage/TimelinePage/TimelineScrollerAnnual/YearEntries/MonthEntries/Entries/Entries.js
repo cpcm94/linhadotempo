@@ -38,7 +38,7 @@ export const Entries = ({
     history.push({
       pathname: '/viewTimeline/editEntry/',
       search: window.location.search,
-      hash: `#entry=${entry.id}&zoomOut=${true}`,
+      hash: `#entry=${entry.id}`,
     })
   }
   const { day, month } = entries[0]

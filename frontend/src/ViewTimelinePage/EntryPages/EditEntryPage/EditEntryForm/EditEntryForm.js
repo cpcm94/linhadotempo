@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { DateDisplay } from '../../DateDisplay/DateDisplay'
-import { EntryTextInput } from '../../EntryTextInput/EntryTextInput'
 import { Wrapper } from './EditEntryForm.styles'
 import { EntryTimelinesSelect } from '../../EntryTimelinesSelect/EntryTimelinesSelect'
 import { EntrySource } from '../../EntrySource/EntrySource'
@@ -12,6 +11,7 @@ import { TimelineOriginSelector } from '../../TimelineOriginSelector/TimelineOri
 import { TimeEntryCategoriesContext } from '../../../TimeEntryCategoriesContextProvider'
 import { TimeEntryCategorySelect } from '../../../../_shared/TimeEntryCategorySelect/TimeEntryCategorySelect'
 import { EntryNameInput } from '../../EntryNameInput/EntryNameInput'
+import { EntryDescriptionInput } from '../../EntryDescriptionInput/EntryDescriptionInput'
 
 export const EditEntryForm = ({
   entry,
@@ -85,12 +85,10 @@ export const EditEntryForm = ({
         bucketName={bucketName}
         setShowTimelineSelectorScreen={setShowTimelineSelectorScreen}
       />
-      <EntryTextInput
+      <EntryDescriptionInput
         entry={entry}
-        changeEntry={handleChange}
+        setEntry={setEntry}
         resetField={resetFieldValue}
-        title={'Descrição'}
-        field={'description'}
       />
       {categoriesLoading ? (
         <span>Loading...</span>

@@ -1,10 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  EntriesWrapper,
-  InvisibleIconWrapper,
-  EntryWithoutYearLabelWrapper,
-} from './TimelineScroller.styles'
+import { EntriesWrapper, InvisibleIconWrapper } from './TimelineScroller.styles'
 import { YearEntries } from './YearEntries/YearEntries'
 import { convertObjectToArray } from '../../_shared/convertObjectToArray'
 import { groupBy } from '../../_shared/groupBy'
@@ -96,18 +92,13 @@ export const TimelineScroller = ({
             />
           )}
           {entriesWithoutYear[0] && (
-            <>
-              <EntryWithoutYearLabelWrapper>
-                <span>{'Sem data definida'}</span>
-              </EntryWithoutYearLabelWrapper>
-              <EntriesWithoutYear
-                entriesWithoutYear={entriesWithoutYear}
-                newEntryId={newEntryId}
-                forwardedRef={forwardedRef}
-                visibleTimelines={visibleTimelines}
-                bucketName={bucketName}
-              />
-            </>
+            <EntriesWithoutYear
+              entriesWithoutYear={entriesWithoutYear}
+              newEntryId={newEntryId}
+              forwardedRef={forwardedRef}
+              visibleTimelines={visibleTimelines}
+              bucketName={bucketName}
+            />
           )}
         </EntriesWrapper>
       ) : (

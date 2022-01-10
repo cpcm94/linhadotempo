@@ -36,7 +36,7 @@ export const EntriesWithoutMonths = ({
     history.push({
       pathname: '/viewTimeline/editEntry/',
       search: window.location.search,
-      hash: `#entry=${entry.id}&zoomOut=${true}`,
+      hash: `#entry=${entry.id}`,
     })
   }
 
