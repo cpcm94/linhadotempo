@@ -73,7 +73,6 @@ export const TimelinePage = ({
   entries,
   hasInvalidTimelines,
   bucketName,
-  hasZoomOut,
   dateFromHash,
   newEntryId,
   entryCategories,
@@ -83,7 +82,7 @@ export const TimelinePage = ({
   const runScrollTo = useRef(true)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
-  const [zoomOut, setZoomOut] = useState(hasZoomOut)
+  const [zoomOut, setZoomOut] = useState(false)
   const [chosenCategories, setChosenCategories] = useState([])
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [entrySearchString, setEntrySearchString] = useState('')
@@ -99,10 +98,6 @@ export const TimelinePage = ({
 
   const element = useRef(null)
   const hash = useRef(dateFromHash)
-
-  const entriesWithAnnualImportance = entries.filter(
-    (entry) => entry.annual_importance
-  )
 
   useEffect(() => {
     const container = document.getElementById('scrollerContainer')
@@ -135,21 +130,20 @@ export const TimelinePage = ({
     history.push({
       pathname: '/viewTimeline/newEntry/',
       search: `?timelines=${timelinesString}`,
-      hash: `#zoomOut=${zoomOut}`,
     })
   }
 
-  const firstEntryOfExactDate = zoomOut
-    ? filterFirstEntryOfExactDate(entriesWithAnnualImportance, hash.current)
-    : filterFirstEntryOfExactDate(entries, hash.current)
+  const firstEntryOfExactDate = filterFirstEntryOfExactDate(
+    entries,
+    hash.current
+  )
 
-  const firstEntryOfNullYear = zoomOut
-    ? filterEntryForNullYear(entriesWithAnnualImportance, hash.current)
-    : filterEntryForNullYear(entries, hash.current)
+  const firstEntryOfNullYear = filterEntryForNullYear(entries, hash.current)
 
-  const closestNextEntryToHash = zoomOut
-    ? findClosestNextEntryToHash(entriesWithAnnualImportance, hash.current)
-    : findClosestNextEntryToHash(entries, hash.current)
+  const closestNextEntryToHash = findClosestNextEntryToHash(
+    entries,
+    hash.current
+  )
 
   const entryToScrollTo = firstEntryOfExactDate
     ? firstEntryOfExactDate.id
@@ -350,7 +344,6 @@ TimelinePage.propTypes = {
   previousEntries: PropTypes.array,
   hasInvalidTimelines: PropTypes.bool,
   bucketName: PropTypes.string,
-  hasZoomOut: PropTypes.bool,
   dateFromHash: PropTypes.string,
   newEntryId: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   entryCategories: PropTypes.array,

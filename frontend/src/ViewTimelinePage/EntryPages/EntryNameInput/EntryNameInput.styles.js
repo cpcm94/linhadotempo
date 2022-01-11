@@ -17,3 +17,6 @@ export const Input = styled(TextareaAutosize)`
 export const InputAndMicWrapper = styled.div`
   display: flex;
 `
+export const MicWrapper = styled.div`
+  margin: 0.75rem 0 0 0;
+`

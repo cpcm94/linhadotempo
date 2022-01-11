@@ -25,7 +25,7 @@ export const ViewTimelinesLoader = () => {
     useQuery(TIME_ENTRY_CATEGORIES_QUERY)
 
   const hashObject = qs.parse(location.hash)
-  const hasZoomOut = hashObject.zoomOut === 'true'
+
   const dateFromHash = hashObject.date
   const newEntryId = useRef(hashObject.entryId || null)
 
@@ -49,7 +49,6 @@ export const ViewTimelinesLoader = () => {
       previousEntries={previousEntries && previousEntries.time_entries}
       hasInvalidTimelines={containsInvalidTimelines}
       bucketName={s3BucketName}
-      hasZoomOut={hasZoomOut}
       dateFromHash={dateFromHash}
       newEntryId={newEntryId.current}
       entryCategories={entryCategoriesData.time_entry_categories}

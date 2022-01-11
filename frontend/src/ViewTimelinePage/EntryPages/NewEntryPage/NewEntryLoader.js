@@ -5,14 +5,11 @@ import { urlQueryTimelineIds } from '../../../_shared/urlQueryTimelineIds'
 import { BOOKS_QUERY } from '../../../_shared/BOOKS_QUERY'
 import { useQuery } from '@apollo/client'
 import { CurrentUserContext } from '../../../_shared/CurrentUserContextProvider'
-import qs from 'query-string'
 
 export const NewEntryLoader = () => {
   const { userDataLoading, s3BucketName } = useContext(CurrentUserContext)
   const { loading, getTimelines } = useContext(TimelinesContext)
   const { data: booksData, loading: booksLoading } = useQuery(BOOKS_QUERY)
-
-  const hasZoomOut = qs.parse(location.hash).zoomOut === 'true'
 
   const selectedTimelines = getTimelines(urlQueryTimelineIds())
   const isLoading = loading || booksLoading || userDataLoading
@@ -24,7 +21,6 @@ export const NewEntryLoader = () => {
       timelines={selectedTimelines}
       books={booksData.books}
       bucketName={s3BucketName}
-      hasZoomOut={hasZoomOut}
     />
   )
 }
