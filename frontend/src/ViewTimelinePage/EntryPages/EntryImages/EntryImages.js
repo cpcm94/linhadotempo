@@ -53,7 +53,7 @@ export const EntryImages = ({ entryId, entryImages, bucketName }) => {
     <>
       <SectionTitle title={'Imagens'} />
       <Wrapper>
-        <FormControl row>
+        <FormControl row="true">
           {images[0] &&
             images.map((img) => (
               <EntryImage

@@ -1,40 +1,20 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
-  EntryWrapper,
   MonthWrapper,
   DayWrapper,
   DateSpan,
   DateText,
-  EntryNameBackground,
   RightDateLine,
   LeftDateLine,
   DateWrapper,
 } from './Entries.styles'
-import {
-  CategoriesWrapper,
-  CategoryName,
-  EntryAndIconWrapper,
-  EntryIcon,
-  EntryImage,
-  EntryImageWrapper,
-  IconAndDistanceWrapper,
-  IconsWrapper,
-  Img,
-  OriginDistance,
-} from '../../YearEntries.styles'
 import PropTypes from 'prop-types'
 import { abvMonthNameArray } from '../../../../../_shared/monthNameArray'
-import { useHistory } from 'react-router-dom'
-import { filterEntryTimelinesByVisibleTimelines } from '../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
 import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
-import { getPeriodColorByEntryId } from '../../../../../_shared/getPeriodColorByEntryId'
 import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
 import { removePeriodsThatStartThisDate } from '../../../../../_shared/removePeriodsThatStartThisDate'
-import { filterPeriodsOfSameDateByPosition } from '../../../../../_shared/filterPeriodsOfSameDateByPosition'
-import { TimelinesContext } from '../../../../TimelinesContextProvider'
-import { calculateDayMonthYearDistance } from '../../../../../_shared/calculateDayMonthYearDistance'
-import { getEntryMainImage } from '../../../../../_shared/getEntryMainImage'
-import { checkIfTimelineIsDisplayingOrigin } from '../../../../../checkIfTimelineIsDisplayingOrigin'
+import { HiddenPeriods } from './HiddenPeriods'
+import { Entry } from './Entry'
 
 export const Entries = ({
   entries,
@@ -45,16 +25,13 @@ export const Entries = ({
   bucketName,
   periods,
 }) => {
-  const { timelineIdsDisplayingOrigin } = useContext(TimelinesContext)
+  const hiddenPeriods = entries.filter(
+    (entry) => !entry.show_period && entry.is_period
+  )
+  const entriesWithoutHiddenPeriods = sortPeriodsLastAndEndOfPeriodsFirst(
+    entries.filter((entry) => entry.show_period)
+  )
 
-  let history = useHistory()
-  const navigateToEditEntry = (entry) => {
-    history.push({
-      pathname: '/viewTimeline/editEntry/',
-      search: window.location.search,
-      hash: `#entry=${entry.id}`,
-    })
-  }
   const { day, month, year } = entries[0]
   const monthName = abvMonthNameArray[month]
   const yearAC = year.toString().startsWith('-')
@@ -68,9 +45,9 @@ export const Entries = ({
     displayEntry.year === year
 
   const entryDate = {
-    year: entries[0].year,
-    month: entries[0].month,
-    day: entries[0].day,
+    year: year,
+    month: month,
+    day: day,
   }
 
   const yearLength = year.toString().startsWith('-')
@@ -99,77 +76,28 @@ export const Entries = ({
           </>
         </DateSpan>
       </DateWrapper>
-      {sortPeriodsLastAndEndOfPeriodsFirst(entries).map((entry, index) => (
-        <EntryAndIconWrapper
-          key={index}
-          isNew={newEntryId === entry.id}
-          id={entry.id}
-          ref={forwardedRef[entry.id]}
-          onClick={() => navigateToEditEntry(entry)}
-        >
-          {periods[0] && (
-            <PeriodMarker
-              periods={filterPeriodsOfSameDateByPosition(periods, entry)}
-              entryDate={entryDate}
-            />
-          )}
-          {getEntryMainImage(entry) && (
-            <EntryImageWrapper
-              periodColor={getPeriodColorByEntryId(entry.id, periods)}
-            >
-              <EntryImage
-                src={`${process.env.REACT_APP_IMAGES_ENDPOINT}?name=${
-                  getEntryMainImage(entry).image_url
-                }&width=39&height=39`}
-                alt="Imagem"
-              />
-            </EntryImageWrapper>
-          )}
-          <EntryNameBackground
-            periodColor={getPeriodColorByEntryId(entry.id, periods)}
-            hasMainImage={getEntryMainImage(entry)}
-          >
-            <EntryWrapper key={index}>{entry.name}</EntryWrapper>
-            <CategoriesWrapper>
-              {entry.time_entry_categories[0] &&
-                entry.time_entry_categories.map((category, index) => (
-                  <CategoryName key={index} bgColor={category.color}>
-                    {category.name}
-                  </CategoryName>
-                ))}
-            </CategoriesWrapper>
-          </EntryNameBackground>
-          <IconsWrapper>
-            {filterEntryTimelinesByVisibleTimelines(
-              visibleTimelines,
-              entry
-            ).map((timeline) => (
-              <IconAndDistanceWrapper key={timeline.id}>
-                {timeline.timelineIconImageUrl ? (
-                  <EntryIcon borderColor={timeline.color}>
-                    <Img
-                      src={`https://${bucketName}.s3.sa-east-1.amazonaws.com/${timeline.timelineIconImageUrl}`}
-                      alt="Icone"
-                    />
-                  </EntryIcon>
-                ) : (
-                  <EntryIcon color={timeline.color}>
-                    {timeline.initials}
-                  </EntryIcon>
-                )}
-                {checkIfTimelineIsDisplayingOrigin(
-                  timeline,
-                  timelineIdsDisplayingOrigin
-                ) && (
-                  <OriginDistance>
-                    {calculateDayMonthYearDistance(entry, timeline)}
-                  </OriginDistance>
-                )}
-              </IconAndDistanceWrapper>
-            ))}
-          </IconsWrapper>
-        </EntryAndIconWrapper>
+      {entriesWithoutHiddenPeriods.map((entry, index) => (
+        <Entry
+          entry={entry}
+          index={index}
+          key={entry.id}
+          periods={periods}
+          newEntryId={newEntryId}
+          forwardedRef={forwardedRef}
+          visibleTimelines={visibleTimelines}
+          bucketName={bucketName}
+        />
       ))}
+      {hiddenPeriods[0] && (
+        <HiddenPeriods
+          entries={hiddenPeriods}
+          periods={periods}
+          newEntryId={newEntryId}
+          forwardedRef={forwardedRef}
+          visibleTimelines={visibleTimelines}
+          bucketName={bucketName}
+        />
+      )}
     </>
   )
 }
