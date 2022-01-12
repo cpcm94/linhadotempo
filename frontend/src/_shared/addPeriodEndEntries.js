@@ -1,7 +1,7 @@
 export const addPeriodEndEntries = (array) => {
   const newArray = [...array]
   newArray.map((entry) => {
-    if (entry.is_period) {
+    if (entry.is_period && entry.show_period) {
       const newEntry = { ...entry, period_end: true }
       newEntry.name = `Fim ${entry.name}`
       newEntry.year = entry.end_year

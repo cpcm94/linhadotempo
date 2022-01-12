@@ -5,7 +5,7 @@ import { periodColors } from './periodColors'
 export const getPeriods = (entries) =>
   convertObjectToArray(
     groupBy(
-      entries.filter((entry) => entry.is_period),
+      entries.filter((entry) => entry.is_period && entry.show_period),
       'id'
     )
   )

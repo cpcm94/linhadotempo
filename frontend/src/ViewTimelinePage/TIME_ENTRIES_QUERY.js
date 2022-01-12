@@ -13,6 +13,7 @@ export const TIME_ENTRIES_QUERY = gql`
       end_month
       end_day
       is_period
+      show_period
       images {
         image_url
         is_main_image

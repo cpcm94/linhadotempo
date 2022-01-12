@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {
   EntryIcon,
   EntryNameWrapper,
@@ -41,7 +41,7 @@ export const EntriesWithoutYear = ({
     <>
       {entriesWithoutYear.map((entry, index) => {
         return (
-          <>
+          <Fragment key={index}>
             <EntryWithoutYearLabelWrapper>
               <LeftDateLine />
               <RightNoDateLine />
@@ -50,7 +50,6 @@ export const EntriesWithoutYear = ({
               </DateTextWrapper>
             </EntryWithoutYearLabelWrapper>
             <EntryAndIconWrapper
-              key={index}
               isNew={newEntryId === entry.id}
               id={entry.id}
               ref={forwardedRef[entry.id]}
@@ -97,7 +96,7 @@ export const EntriesWithoutYear = ({
                 ))}
               </IconsWrapper>
             </EntryAndIconWrapper>
-          </>
+          </Fragment>
         )
       })}
     </>

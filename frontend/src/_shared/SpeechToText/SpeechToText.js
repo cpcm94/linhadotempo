@@ -26,12 +26,14 @@ export const SpeechToText = ({ onTextChange }) => {
     }
   }
 
+  const micColor = recording ? 'red' : 'black'
+
   return (
     <>
       {browserSupportsSpeechRecognition && (
         <SpeechToNameWrapper>
           <MicButtonAndTranscriptWrapper>
-            <MicButton color={recording && 'red'} onClick={handleMicClick} />
+            <MicButton color={micColor} onClick={handleMicClick} />
           </MicButtonAndTranscriptWrapper>
         </SpeechToNameWrapper>
       )}

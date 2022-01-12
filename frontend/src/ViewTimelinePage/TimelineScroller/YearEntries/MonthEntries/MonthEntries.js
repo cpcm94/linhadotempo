@@ -19,12 +19,25 @@ export const MonthEntries = ({
 }) => {
   const periodsForEntriesWithoutDay = periods.filter((subArray) => {
     const periodStartYear = subArray[0].year
+    const periodEndYear = subArray[1].year
+    const periodEndMonth = subArray[1].month
+    const periodEndDay = subArray[1].day
     const entryYear = timeEntriesByMonth[0].year
 
     const periodStartMonth = subArray[0].month
     const entryMonth = timeEntriesByMonth[0].month
 
-    if (periodStartYear < entryYear) {
+    if (periodEndYear === entryYear) {
+      if (!periodEndMonth) {
+        return subArray
+      } else if (periodEndMonth > entryMonth) {
+        return subArray
+      } else if (periodEndMonth === entryMonth) {
+        if (!periodEndDay) {
+          return subArray
+        }
+      }
+    } else if (periodStartYear < entryYear) {
       return subArray
     } else if (periodStartYear === entryYear) {
       if (!periodStartMonth) {
@@ -34,6 +47,49 @@ export const MonthEntries = ({
       }
     }
   })
+  // const periodsForEntriesWithoutDay = periods.filter((subArray) => {
+  //   const periodStartYear = subArray[0].year
+  //   const periodEndYear = subArray[1].year
+  //   const periodEndMonth = subArray[1].month
+  //   const entryYear = timeEntriesByMonth[0].year
+  //   const periodEndDay = subArray[1].day
+
+  //   const periodStartMonth = subArray[0].month
+  //   const entryMonth = timeEntriesByMonth[0].month
+
+  //   if (periodStartYear < entryYear && periodEndYear > entryYear) {
+  //     return subArray
+  //   } else if (periodStartYear === entryYear && periodEndYear > entryYear) {
+  //     if (!periodStartMonth) {
+  //       return
+  //     } else if (periodStartMonth <= entryMonth) {
+  //       return subArray
+  //     }
+  //   } else if (periodStartYear === entryYear && periodEndYear === entryYear) {
+  //     if (!periodEndMonth) {
+  //       return subArray
+  //     } else if (!periodStartMonth) {
+  //       return
+  //     } else if (periodStartMonth < entryMonth && periodEndMonth > entryMonth) {
+  //       return subArray
+  //     }
+  //   } else if (periodStartYear < entryYear && periodEndYear === entryYear) {
+  //     if (!periodEndMonth) {
+  //       return subArray
+  //     } else if (!periodStartMonth) {
+  //       return
+  //     } else if (periodStartMonth < entryMonth && periodEndMonth > entryMonth) {
+  //       return subArray
+  //     } else if (
+  //       periodStartMonth < entryMonth &&
+  //       periodEndMonth === entryMonth
+  //     ) {
+  //       if (!periodEndDay) {
+  //         return subArray
+  //       }
+  //     }
+  //   }
+  // })
   const entriesWithoutDay = filterEntriesWithValue(timeEntriesByMonth, 'day')
 
   const entriesWithDay = filterEntriesWithoutValue(timeEntriesByMonth, 'day')

@@ -14,6 +14,7 @@ import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
 import PropTypes from 'prop-types'
 import { monthNameArray } from '../../../_shared/monthNameArray'
 import { SpeechDateToText } from './SpeechDateToText/SpeechDateToText'
+import { ShowPeriodCheckBox } from './ShowPeriodCheckBox'
 
 const errorMessage = (error) => {
   if (error === 'dayWithoutYearOrMonthPeriod') {
@@ -211,6 +212,7 @@ export const EndDateDisplay = ({
           <PeriodMessage onClick={turnIntoNonPeriod}>
             Retornar a um acontecimento regular
           </PeriodMessage>
+          <ShowPeriodCheckBox entry={entry} setEntry={setEntry} />
         </>
       )}
     </>

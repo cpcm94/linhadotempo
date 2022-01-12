@@ -14,6 +14,7 @@ export const CREATE_TIME_ENTRY_MUTATION = gql`
       is_period
       monthly_importance
       annual_importance
+      show_period
       source_url
       book_page
       book_id
