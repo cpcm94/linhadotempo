@@ -23,6 +23,8 @@ export const filterPeriodsOfSameDateByPosition = (periods, entry) => {
             )
           } else if (!entry.is_period) {
             return onlyPeriodsWithStartDateOfEntry
+          } else if (entry.is_period && !entry.show_period) {
+            return onlyPeriodsWithStartDateOfEntry
           }
         })
 

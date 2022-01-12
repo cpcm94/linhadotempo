@@ -13,7 +13,7 @@ import { abvMonthNameArray } from '../../../../../_shared/monthNameArray'
 import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
 import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
 import { removePeriodsThatStartThisDate } from '../../../../../_shared/removePeriodsThatStartThisDate'
-import { HiddenPeriods } from './HiddenPeriods'
+import { HiddenPeriods } from '../../HiddenPeriods/HiddenPeriods'
 import { Entry } from './Entry'
 
 export const Entries = ({
@@ -53,6 +53,7 @@ export const Entries = ({
   const yearLength = year.toString().startsWith('-')
     ? yearAC.length - 2
     : yearAC.length
+
   return (
     <>
       <DateWrapper isDisplayEntryDay={isDisplayEntryDay}>

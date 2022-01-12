@@ -123,7 +123,7 @@ export const getPeriodsPositions = (periods) => {
   )
 
   const arrayWithSubarraysOfIdsAndUpdatedPositions = updatePositions(
-    arrayWithSubarraysOfIdsAndPositions
+    updatePositions(arrayWithSubarraysOfIdsAndPositions)
   )
 
   const periodsWithFinalPositions = substitutePeriodsInitialPositionsWithFinal(

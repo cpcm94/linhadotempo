@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../../../../_shared/colors'
+import { colors } from '../../../../_shared/colors'
 
 export const DateWrapper = styled.div`
   display: flex;
@@ -27,7 +27,8 @@ export const RightDateLine = styled.div`
   left: 1;
   right: 0;
   bottom: 0;
-  width: 3.5rem;
+  width: ${({ dateLength }) =>
+    `calc(100% - (2rem - 10px + ${dateLength * 7}px))`};
   z-index: 1;
 `
 
