@@ -1,6 +1,7 @@
 export const sortEntriesByEndDate = (entries) =>
   entries.sort((a, b) => {
     return (
+      (b.end_year !== null) - (a.end_year !== null) ||
       a.end_year - b.end_year ||
       (b.end_month !== null) - (a.end_month !== null) ||
       a.end_month - b.end_month ||
