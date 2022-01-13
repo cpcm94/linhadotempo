@@ -1,6 +1,5 @@
 import { convertObjectToArray } from './convertObjectToArray'
 import { groupBy } from './groupBy'
-import { periodColors } from './periodColors'
 
 export const getPeriods = (entries) =>
   convertObjectToArray(
@@ -18,7 +17,7 @@ export const getPeriods = (entries) =>
         a[0].day - b[0].day
       )
     })
-    .map((subArray, index) =>
+    .map((subArray) =>
       subArray.map((entry) => {
         return {
           id: entry.id,
@@ -27,7 +26,7 @@ export const getPeriods = (entries) =>
           year: entry.year,
           month: entry.month,
           day: entry.day,
-          period_color: periodColors[index],
+          period_color: entry.period_color,
         }
       })
     )

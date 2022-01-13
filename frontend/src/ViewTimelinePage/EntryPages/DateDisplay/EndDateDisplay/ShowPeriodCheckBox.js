@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { colors } from '../../../_shared/colors'
+import { colors } from '../../../../_shared/colors'
 
 const CheckBoxWrapper = styled.div`
   margin: 0 0.25rem 0.25rem 0.5rem;
