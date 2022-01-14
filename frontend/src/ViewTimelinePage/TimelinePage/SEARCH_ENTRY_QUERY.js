@@ -14,6 +14,7 @@ export const SEARCH_ENTRY_QUERY = gql`
       end_day
       is_period
       show_period
+      period_color
       images {
         image_url
         is_main_image

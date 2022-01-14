@@ -4,17 +4,18 @@ import {
   DateWrapper,
   InnerDateWrapper,
   PeriodMessage,
-} from './DateDisplay.styles'
-import { DaySelector } from './DaySelector/DaySelector'
-import { MonthSelector } from './MonthSelector/MonthSelector'
-import { ResetFieldButton } from './ResetFieldButton'
-import { YearField } from './YearField/YearField'
-import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
-import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
+} from '../DateDisplay.styles'
+import { DaySelector } from '../DaySelector/DaySelector'
+import { MonthSelector } from '../MonthSelector/MonthSelector'
+import { ResetFieldButton } from '../ResetFieldButton'
+import { YearField } from '../YearField/YearField'
+import { SectionTitle } from '../../../../_shared/SectionTitle/SectionTitle'
+import { ErrorMessage } from '../../../../_shared/ErrorMessage.styles'
 import PropTypes from 'prop-types'
-import { monthNameArray } from '../../../_shared/monthNameArray'
-import { SpeechDateToText } from './SpeechDateToText/SpeechDateToText'
+import { monthNameArray } from '../../../../_shared/monthNameArray'
+import { SpeechDateToText } from '../SpeechDateToText/SpeechDateToText'
 import { ShowPeriodCheckBox } from './ShowPeriodCheckBox'
+import { PeriodColorPicker } from './PeriodColorPicker'
 
 const errorMessage = (error) => {
   if (error === 'dayWithoutYearOrMonthPeriod') {
@@ -119,6 +120,12 @@ export const EndDateDisplay = ({
     newEntry.end_year = date.year
     setEntry(newEntry)
   }
+  const onColorChange = (color) => {
+    const newEntry = { ...entry }
+    newEntry.period_color = color.hex
+    setEntry(newEntry)
+  }
+
   const checkIfEmptyString = (string) => string.toString().trim() === ''
 
   const showErrorMessage = entryError && entryError.field === 'endDate'
@@ -212,7 +219,11 @@ export const EndDateDisplay = ({
           <PeriodMessage onClick={turnIntoNonPeriod}>
             Retornar a um acontecimento regular
           </PeriodMessage>
+          <SectionTitle title={'Barra temporal do período'} />
           <ShowPeriodCheckBox entry={entry} setEntry={setEntry} />
+          {entry.show_period && (
+            <PeriodColorPicker entry={entry} onColorChange={onColorChange} />
+          )}
         </>
       )}
     </>

@@ -13,7 +13,7 @@ import { monthNameArray } from '../../../_shared/monthNameArray'
 import { ResetFieldButton } from './ResetFieldButton'
 import { SectionTitle } from '../../../_shared/SectionTitle/SectionTitle'
 import { ErrorMessage } from '../../../_shared/ErrorMessage.styles'
-import { EndDateDisplay } from './EndDateDisplay'
+import { EndDateDisplay } from './EndDateDisplay/EndDateDisplay'
 import { SpeechDateToText } from './SpeechDateToText/SpeechDateToText'
 
 export const DateDisplay = ({

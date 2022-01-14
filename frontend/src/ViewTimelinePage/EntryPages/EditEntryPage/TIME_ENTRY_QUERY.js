@@ -17,6 +17,7 @@ export const TIME_ENTRY_QUERY = gql`
       annual_importance
       source_url
       show_period
+      period_color
       book_page
       book_id
       time_entry_categories {

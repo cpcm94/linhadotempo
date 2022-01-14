@@ -54,6 +54,7 @@ type TimeEntry {
     annual_importance: Boolean!
     monthly_importance: Boolean!
     show_period: Boolean!
+    period_color: String
     source_url: String
     book_page: Int
     book_id: String
@@ -156,6 +157,7 @@ input CreateTimeEntryInput {
     annual_importance: Boolean!
     monthly_importance: Boolean!
     show_period: Boolean
+    period_color: String
     source_url: String
     book_page: Int
     book_id: String
@@ -220,6 +222,7 @@ input UpdateTimeEntryInput {
     annual_importance: Boolean
     monthly_importance: Boolean
     show_period: Boolean
+    period_color: String
     source_url: String
     book_page: Int
     book_id: String

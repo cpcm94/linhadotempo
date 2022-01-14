@@ -49,6 +49,7 @@ export const EditEntryPage = ({
     end_day: entryToEdit.end_day ? entryToEdit.end_day : '',
     is_period: entryToEdit.is_period,
     show_period: entryToEdit.show_period,
+    period_color: entryToEdit.period_color ? entryToEdit.period_color : '',
     annual_importance: entryToEdit.annual_importance,
     monthly_importance: entryToEdit.monthly_importance,
     source_url: entryToEdit.source_url ? entryToEdit.source_url : '',
