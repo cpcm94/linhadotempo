@@ -18,6 +18,12 @@ export const TIMELINE_QUERY = gql`
         year
         month
         day
+        end_year
+        end_month
+        end_day
+        is_period
+        show_period
+        period_color
         timelines {
           id
         }

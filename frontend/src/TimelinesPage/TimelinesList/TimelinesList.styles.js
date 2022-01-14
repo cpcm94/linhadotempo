@@ -12,7 +12,7 @@ export const TimelineNameWrapper = styled.div`
 export const EditButtonWrapper = styled.div`
   align-self: center;
   cursor: pointer;
-  padding: 0 1rem;
+  padding: 0.75rem 1rem;
   background-color: ${colors.white};
   :hover {
     background-color: ${colors.lightBrown};

@@ -86,6 +86,7 @@ export const EditTimelineForm = ({
         />
       </Form>
       <ImportAndExport
+        timeline={timeline}
         toggleExportText={toggleExportText}
         toggleImportTextArea={toggleImportTextArea}
         entriesStringInfo={entriesStringInfo}
