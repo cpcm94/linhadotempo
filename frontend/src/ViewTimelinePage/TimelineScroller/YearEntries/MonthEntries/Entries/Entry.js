@@ -19,16 +19,20 @@ import { filterPeriodsOfSameDateByPosition } from '../../../../../_shared/filter
 import { TimelinesContext } from '../../../../TimelinesContextProvider'
 import { calculateDayMonthYearDistance } from '../../../../../_shared/calculateDayMonthYearDistance'
 import { getEntryMainImage } from '../../../../../_shared/getEntryMainImage'
-import { checkIfTimelineIsDisplayingOrigin } from '../../../../../checkIfTimelineIsDisplayingOrigin'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+
+const checkIfTimelineIsDisplayingOrigin = (
+  timeline,
+  timelineIdsDisplayingOrigin
+) => timelineIdsDisplayingOrigin.includes(timeline.id)
 
 export const Entry = ({
   entry,
   index,
   newEntryId,
-  forwardedRef,
-  periods,
+  forwardedRef = {},
+  periods = [],
   visibleTimelines,
   bucketName,
 }) => {
@@ -41,6 +45,7 @@ export const Entry = ({
       hash: `#entry=${entry.id}`,
     })
   }
+
   const entryDate = { year: entry.year, month: entry.month, day: entry.day }
   return (
     <EntryAndIconWrapper

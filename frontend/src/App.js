@@ -32,8 +32,12 @@ import { TimeEntryCategoriesLoader } from './TimeEntryCategoriesPage/TimeEntryCa
 import { NewTimeEntryCategoryLoader } from './NewTimeEntryCategoryPage/NewTimeEntryCategoryLoader'
 import { EditTimeEntryCategoryPage } from './EditTimeEntryCategoryPage/EditTimeEntryCategoryPage'
 
+const bugsnagApiKey = process.env.REACT_APP_BUGSNAG_API_KEY
+  ? process.env.REACT_APP_BUGSNAG_API_KEY
+  : 'no api key found'
+
 Bugsnag.start({
-  apiKey: '66084cee799f9a3df069be0f453d0f9e',
+  apiKey: bugsnagApiKey,
   plugins: [new BugsnagPluginReact()],
 })
 

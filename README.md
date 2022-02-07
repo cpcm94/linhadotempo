@@ -495,6 +495,14 @@ A new Primary domain has been added, now click on `Check DNS configuration` and 
 
 It could take between a few minutes to a handful of hours for the DNS propagation to occur and your app to be properly displayed in the new custom domain you set up.
 
+### Step 6 - Adding Bugsnag (optional)
+
+We have Bugsnag setup on this app, to make use of it you're going to need a [Bugsnag Account](https://www.bugsnag.com/). After creating your account you'll need to create 2 different projects, one for the backend and one for the frontend of the app. Once you create the projects on your bugsnag you'll need to setup the environment variables using the `Notifier API key`.
+
+For the backend you'll need to add on your `.env` file a `BUGSNAG_API_KEY` with it's value being the `Notifier API key` of the backend project you created on bugsnag.
+
+For the frontend you'll need to add a environment variable to your Netlify `REACT_APP_BUGSNAG_API_KEY` with it's value being the `Notifier API key` of the frontend project you created on bugsnag.
+
 ## Laravel App Key
 
 [Laravel Docs](https://laravel.com/docs).
