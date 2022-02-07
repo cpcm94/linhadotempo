@@ -14,6 +14,7 @@ export const ImportAndExport = ({
   entriesStringInfo,
   showExportText,
   showImportTextArea,
+  timeline,
 }) => {
   const entriesString =
     entriesStringInfo &&
@@ -57,4 +58,5 @@ ImportAndExport.propTypes = {
   entriesStringInfo: PropTypes.array,
   showExportText: PropTypes.bool,
   showImportTextArea: PropTypes.bool,
+  timeline: PropTypes.object,
 }

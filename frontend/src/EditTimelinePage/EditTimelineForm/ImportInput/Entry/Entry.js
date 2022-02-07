@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Wrapper, InnerWrapper, StyledButton } from './Entry.styles'
+import {
+  Wrapper,
+  InnerWrapper,
+  StyledButton,
+  StyledCheckMark,
+} from './Entry.styles'
 import { useMutation } from '@apollo/client'
 import { CREATE_TIME_ENTRY_MUTATION } from '../../../../_shared/CREATE_TIME_ENTRY_MUTATION'
 import { EntryInfoForm } from './EntryInfoForm'
@@ -15,8 +20,22 @@ export const Entry = ({ entry, timeline }) => {
     day: entry.day ? parseInt(entry.day) : '',
     annual_importance: false,
     monthly_importance: false,
-    timeline_id: timeline.id,
+    timelines: { sync: [timeline.id] },
+    time_entry_categories: {
+      sync: [],
+    },
+    end_year: yearWithoutNegativeSign(entry.end_year),
+    end_month: entry.end_month ? parseInt(entry.end_month) : '',
+    end_day: entry.end_day ? parseInt(entry.end_day) : '',
+    is_period: entry.is_period === 'true',
+    show_period: entry.show_period === 'true',
+    period_color: entry.period_color,
+    description: '',
+    source_url: '',
+    book_page: '',
+    book_id: '',
   })
+
   const [radioValue, setRadioValue] = useState(
     entry.year && entry.year.toString().startsWith('-') ? 'AC' : 'DC'
   )
@@ -71,9 +90,7 @@ export const Entry = ({ entry, timeline }) => {
           {'Salvar'}
         </StyledButton>
       ) : (
-        <StyledButton entryCreated={entryCreated} variant="contained">
-          &#10003;
-        </StyledButton>
+        <StyledCheckMark variant="contained">&#10003;</StyledCheckMark>
       )}
     </Wrapper>
   )

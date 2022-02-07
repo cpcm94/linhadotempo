@@ -20,8 +20,8 @@ export const ImportInput = ({ timeline }) => {
 
   const arraySplitIntoStringEntries = splitArrayIntoChunksOfLength(
     splitString,
-    4
-  ).filter((chunk) => chunk.length === 4)
+    10
+  ).filter((chunk) => chunk.length === 10)
 
   const arrayOfEntries = arraySplitIntoStringEntries.map((subArray) =>
     subArray.reduce((accumulator, currentValue, index) => {
@@ -29,11 +29,16 @@ export const ImportInput = ({ timeline }) => {
       if (index === 1) accumulator['year'] = currentValue
       if (index === 2) accumulator['month'] = currentValue
       if (index === 3) accumulator['day'] = currentValue
+      if (index === 4) accumulator['end_year'] = currentValue
+      if (index === 5) accumulator['end_month'] = currentValue
+      if (index === 6) accumulator['end_day'] = currentValue
+      if (index === 7) accumulator['is_period'] = currentValue
+      if (index === 8) accumulator['show_period'] = currentValue
+      if (index === 9) accumulator['period_color'] = currentValue
 
       return accumulator
     }, {})
   )
-
   return (
     <Wrapper>
       <TextareaAutosize
