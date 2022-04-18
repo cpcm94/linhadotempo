@@ -9,10 +9,10 @@ import {
   DateWrapper,
 } from './Entries.styles'
 import PropTypes from 'prop-types'
-import { abvMonthNameArray } from '../../../../../_shared/monthNameArray'
-import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
-import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
-import { removePeriodsThatStartThisDate } from '../../../../../_shared/removePeriodsThatStartThisDate'
+import { abvMonthNameArray } from '../../../../../../_shared/monthNameArray'
+import { PeriodMarker } from '../../../../../../_shared/PeriodMarker/PeriodMarker'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
+import { removePeriodsThatStartThisDate } from '../../../../../../_shared/removePeriodsThatStartThisDate'
 import { HiddenPeriods } from '../../HiddenPeriods/HiddenPeriods'
 import { Entry } from './Entry'
 

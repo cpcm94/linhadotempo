@@ -12,13 +12,13 @@ import {
   Img,
   OriginDistance,
 } from '../../YearEntries.styles'
-import { filterEntryTimelinesByVisibleTimelines } from '../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
-import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
-import { getPeriodColorByEntryId } from '../../../../../_shared/getPeriodColorByEntryId'
-import { filterPeriodsOfSameDateByPosition } from '../../../../../_shared/filterPeriodsOfSameDateByPosition'
-import { TimelinesContext } from '../../../../TimelinesContextProvider'
-import { calculateDayMonthYearDistance } from '../../../../../_shared/calculateDayMonthYearDistance'
-import { getEntryMainImage } from '../../../../../_shared/getEntryMainImage'
+import { filterEntryTimelinesByVisibleTimelines } from '../../../../../../_shared/filterEntryTimelinesByVisibleTimelines'
+import { PeriodMarker } from '../../../../../../_shared/PeriodMarker/PeriodMarker'
+import { getPeriodColorByEntryId } from '../../../../../../_shared/getPeriodColorByEntryId'
+import { filterPeriodsOfSameDateByPosition } from '../../../../../../_shared/filterPeriodsOfSameDateByPosition'
+import { TimelinesContext } from '../../../../../TimelinesContextProvider'
+import { calculateDayMonthYearDistance } from '../../../../../../_shared/calculateDayMonthYearDistance'
+import { getEntryMainImage } from '../../../../../../_shared/getEntryMainImage'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 

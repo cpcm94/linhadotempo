@@ -1,11 +1,11 @@
 import React from 'react'
 import { EntriesWithoutDay } from './EntriesWithoutDay'
-import { convertObjectToArray } from '../../../../_shared/convertObjectToArray'
+import { convertObjectToArray } from '../../../../../_shared/convertObjectToArray'
 import { filterEntriesWithValue } from '../filterEntriesWithValue'
 import { filterEntriesWithoutValue } from '../filterEntriesWithoutValue'
 import PropTypes from 'prop-types'
-import { groupBy } from '../../../../_shared/groupBy'
-import { filterRelevantPeriodsForTheDay } from '../../../../_shared/filterRelevantPeriodsForTheDay'
+import { groupBy } from '../../../../../_shared/groupBy'
+import { filterRelevantPeriodsForTheDay } from '../../../../../_shared/filterRelevantPeriodsForTheDay'
 import { Entries } from './Entries/Entries'
 
 export const MonthEntries = ({

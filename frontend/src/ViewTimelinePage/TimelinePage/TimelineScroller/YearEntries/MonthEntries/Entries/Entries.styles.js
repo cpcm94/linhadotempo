@@ -1,17 +1,14 @@
 import styled from 'styled-components'
-import { colors } from '../../../../_shared/colors'
+import { colors } from '../../../../../../_shared/colors'
 
-export const OuterDateWrapper = styled.div`
+export const DateWrapper = styled.div`
   display: flex;
   position: relative;
   /* visibility: ${({ isDisplayEntryDay }) =>
     isDisplayEntryDay ? 'hidden' : 'visible'}; */
-  color: ${colors.grey};
-  font-size: 0.9em;
   padding: 0.5rem 0;
-  span {
-    padding: 0 0.25rem;
-  }
+  font-size: 0.9em;
+  color: ${colors.grey};
 `
 export const LeftDateLine = styled.div`
   border-top: 1px solid ${colors.lightGrey};
@@ -20,7 +17,7 @@ export const LeftDateLine = styled.div`
   left: 0;
   right: 0%;
   bottom: 0;
-  width: 4.5rem;
+  width: 2rem;
   z-index: 1;
 `
 export const RightDateLine = styled.div`
@@ -31,11 +28,11 @@ export const RightDateLine = styled.div`
   right: 0;
   bottom: 0;
   width: ${({ yearLength }) =>
-    `calc(100% - (4.5rem + 62px + ${yearLength * 8}px))`};
+    `calc(100% - (2rem + 95px + ${10 * yearLength}px))`};
   z-index: 1;
 `
 
-export const EntryNameWrapper = styled.div`
+export const EntryWrapper = styled.div`
   flex: 1;
   z-index: 2;
   position: relative;
@@ -49,15 +46,22 @@ export const EntryNameBackground = styled.div`
   border-radius: 0 5px 5px 0;
 `
 
-export const MonthDateWrapper = styled.div`
-  min-width: 2rem;
+export const MonthWrapper = styled.div`
+  min-width: 3.3rem;
+  padding: 0 0.25rem;
 `
-export const DateWrapper = styled.div`
-  display: flex;
-  margin-left: 4.75rem;
-  background: ${colors.white};
+
+export const DayWrapper = styled.div`
+  min-width: 1.1rem;
 `
-export const DateText = styled.div`
-  background: ${colors.white};
+
+export const DateText = styled.span`
+  padding: 0 0.25rem 0 0;
   color: ${colors.grey};
+`
+export const DateSpan = styled.div`
+  display: flex;
+  z-index: 2;
+  padding: 0 0.5rem;
+  margin: 0 0 0 1.85rem;
 `

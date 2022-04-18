@@ -8,10 +8,10 @@ import {
   OuterDateWrapper,
   RightDateLine,
 } from './MonthEntries.styles'
-import { abvMonthNameArray } from '../../../../_shared/monthNameArray'
-import { PeriodMarker } from '../../../../_shared/PeriodMarker/PeriodMarker'
-import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
-import { removePeriodsThatStartThisDate } from '../../../../_shared/removePeriodsThatStartThisDate'
+import { abvMonthNameArray } from '../../../../../_shared/monthNameArray'
+import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
+import { removePeriodsThatStartThisDate } from '../../../../../_shared/removePeriodsThatStartThisDate'
 import { HiddenPeriods } from '../HiddenPeriods/HiddenPeriods'
 import { Entry } from './Entries/Entry'
 

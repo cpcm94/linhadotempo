@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { EntriesWithoutMonths } from './EntriesWithoutMonths'
 import { MonthEntries } from './MonthEntries/MonthEntries'
 import { Wrapper } from './YearEntries.styles'
-import { convertObjectToArray } from '../../../_shared/convertObjectToArray'
+import { convertObjectToArray } from '../../../../_shared/convertObjectToArray'
 import { filterEntriesWithValue } from './filterEntriesWithValue'
 import { filterEntriesWithoutValue } from './filterEntriesWithoutValue'
-import { groupBy } from '../../../_shared/groupBy'
-import { filterRelevantPeriodsForTheMonth } from '../../../_shared/filterRelevantPeriodsForTheMonth'
+import { groupBy } from '../../../../_shared/groupBy'
+import { filterRelevantPeriodsForTheMonth } from '../../../../_shared/filterRelevantPeriodsForTheMonth'
 
 export const YearEntries = ({
   timeEntriesByYear,

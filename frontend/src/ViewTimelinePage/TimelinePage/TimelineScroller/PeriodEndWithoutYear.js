@@ -7,7 +7,7 @@ import {
   PeriodsEndsWrapper,
   RightDateLine,
 } from './TimelineScroller.styles'
-import { PeriodMarker } from '../../_shared/PeriodMarker/PeriodMarker'
+import { PeriodMarker } from '../../../_shared/PeriodMarker/PeriodMarker'
 import { Entry } from './YearEntries/MonthEntries/Entries/Entry'
 
 export const PeriodEndWithoutYear = ({

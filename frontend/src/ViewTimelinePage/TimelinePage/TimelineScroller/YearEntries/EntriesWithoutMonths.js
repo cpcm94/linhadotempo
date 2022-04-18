@@ -6,9 +6,9 @@ import {
   RightDateLine,
 } from './YearEntries.styles'
 import PropTypes from 'prop-types'
-import { PeriodMarker } from '../../../_shared/PeriodMarker/PeriodMarker'
-import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
-import { removePeriodsThatStartThisDate } from '../../../_shared/removePeriodsThatStartThisDate'
+import { PeriodMarker } from '../../../../_shared/PeriodMarker/PeriodMarker'
+import { sortPeriodsLastAndEndOfPeriodsFirst } from '../../../../_shared/sortPeriodsLastAndEndOfPeriodsFirst'
+import { removePeriodsThatStartThisDate } from '../../../../_shared/removePeriodsThatStartThisDate'
 import { Entry } from './MonthEntries/Entries/Entry'
 import { HiddenPeriods } from './HiddenPeriods/HiddenPeriods'
 

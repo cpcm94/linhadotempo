@@ -1,5 +1,5 @@
 import styled, { keyframes, css } from 'styled-components'
-import { colors } from '../../../_shared/colors'
+import { colors } from '../../../../_shared/colors'
 
 const newBackgroundColor = keyframes`
   from {

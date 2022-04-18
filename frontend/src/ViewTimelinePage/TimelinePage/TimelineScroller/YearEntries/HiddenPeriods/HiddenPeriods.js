@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { PeriodMarker } from '../../../../_shared/PeriodMarker/PeriodMarker'
+import { PeriodMarker } from '../../../../../_shared/PeriodMarker/PeriodMarker'
 import PropTypes from 'prop-types'
 import {
   DateSpan,
@@ -7,10 +7,10 @@ import {
   LeftDateLine,
   RightDateLine,
 } from './HiddenPeriods.styles'
-import { abvMonthNameArray } from '../../../../_shared/monthNameArray'
+import { abvMonthNameArray } from '../../../../../_shared/monthNameArray'
 import { Entry } from '../MonthEntries/Entries/Entry'
-import { removePeriodsThatEndThisDate } from '../../../../_shared/removePeriodsThatEndThisDate'
-import { sortEntriesByEndDate } from '../../../../_shared/sortEntriesByEndDate'
+import { removePeriodsThatEndThisDate } from '../../../../../_shared/removePeriodsThatEndThisDate'
+import { sortEntriesByEndDate } from '../../../../../_shared/sortEntriesByEndDate'
 
 const entryDateString = (entry) =>
   `${entry.day ? entry.day : ''} ${entry.day ? 'de' : ''} ${
