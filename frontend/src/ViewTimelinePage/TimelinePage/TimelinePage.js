@@ -15,7 +15,7 @@ import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { TimelineScrollerContainer } from './TimelineScrollerContainer'
 import { TimelineScroller } from './TimelineScroller/TimelineScroller'
-import Hammer from 'hammerjs'
+// import Hammer from 'hammerjs'
 import { SEARCH_ENTRY_QUERY } from './SEARCH_ENTRY_QUERY'
 import { useLazyQuery } from '@apollo/client'
 
@@ -82,7 +82,7 @@ export const TimelinePage = ({
   const runScrollTo = useRef(true)
   const [displayEntry, setDisplayEntry] = useState({})
   const [visibleTimelines, setVisibleTimelines] = useState(timelines)
-  const [zoomOut, setZoomOut] = useState(false)
+  // const [zoomOut, setZoomOut] = useState(false)
   const [chosenCategories, setChosenCategories] = useState([])
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [entrySearchString, setEntrySearchString] = useState('')
@@ -99,22 +99,22 @@ export const TimelinePage = ({
   const element = useRef(null)
   const hash = useRef(dateFromHash)
 
-  useEffect(() => {
-    const container = document.getElementById('scrollerContainer')
-    const mc = new Hammer.Manager(container, { touchAction: 'pan-x pan-y' })
-    var pinch = new Hammer.Pinch()
-    mc.add(pinch)
-    mc.on('pinchout', () => {
-      if (zoomOut) {
-        setZoomOut(false)
-      }
-    })
-    mc.on('pinchin', () => {
-      if (!zoomOut) {
-        setZoomOut(true)
-      }
-    })
-  })
+  // useEffect(() => {
+  //   const container = document.getElementById('scrollerContainer')
+  //   const mc = new Hammer.Manager(container, { touchAction: 'pan-x pan-y' })
+  //   var pinch = new Hammer.Pinch()
+  //   mc.add(pinch)
+  //   mc.on('pinchout', () => {
+  //     if (zoomOut) {
+  //       setZoomOut(false)
+  //     }
+  //   })
+  //   mc.on('pinchin', () => {
+  //     if (!zoomOut) {
+  //       setZoomOut(true)
+  //     }
+  //   })
+  // })
 
   const entryIds = entries.map((entry) => entry.id)
 
